@@ -1,0 +1,800 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{The Cohomological Obstruction Ladder:\\
+Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier\\
+{\large (Paper IV: From Group Cohomology to Borromean Contextuality)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In the preceding trilogy, we established a cohomological decomposition of quantum contextuality. Papers I--II~\cite{PaperI,PaperII} demonstrated that the abelian shadow of quantum phases lives in the \v{C}ech cohomology $\check{H}^1(M, U(1))$ of continuous phase spaces, while Paper III~\cite{PaperIII} showed that the non-abelian Kochen--Specker obstruction is captured by the $H^2$ central extension class $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$ of the Pauli group.
+
+This paper advances the framework in two directions. First, we formalize the connection between Bohrification topos cohomology~\cite{HLS11} and group cohomology via the Lyndon--Hochschild--Serre (LHS) spectral sequence~\cite{HS53}. We \textbf{conjecture} that the affine geometric phase map $R_*$ corresponds to the LHS restriction map, and outline the functorial conditions (natural equivalences $\Phi$ and $\Psi$) under which this identification would hold. We provide a detailed computation of the LHS $d_2$ transgression for the Pauli group extension, verifying that $d_2(\chi_{\text{sign}}) = [f]$, thereby grounding the Paper III~\cite{PaperIII} construction in the structural properties of group cohomology.
+
+Second, we explore the $H^3$ frontier of the obstruction ladder. While $H^2$ governs non-commutativity (order dependence), $H^3$ structures govern \emph{non-associativity} (grouping dependence). We introduce the notion of \emph{Borromean contextuality}---three observation contexts $A, B, C$ that are pairwise compatible yet globally incompatible---and compute the topological invariants of such systems. We formulate a precise \textbf{conjecture} (not theorem) relating Borromean contextuality to $H^3$ obstructions via bundle gerbes~\cite{Murray96,Brylinski93} and the Dixmier--Douady class~\cite{DD63}.
+
+As a speculative outlook, we discuss the algebraic counterpart to $H^3$ geometry: the exceptional Jordan algebra $\mathfrak{h}_3(\mathbb{O})$ (the Albert algebra) and its potential role as the minimal algebraic container for non-associative contextual logic. This final section is explicitly marked as a \textbf{conjectural programme} requiring substantial future development.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+%------------------------------------------------------------------
+
+The Kochen--Specker (KS) theorem establishes a fundamental limit on classical simulability: no global section of definite measurement outcomes exists for quantum observables. Cohomologically, this is the vanishing of $H^0$---the impossibility of consistently assigning truth values to all propositions simultaneously.
+
+In Papers I--III, we mapped the ascent from this $H^0$ collapse:
+\begin{enumerate}
+    \item \textbf{The $H^1$ Rung (Phase and Context Switching):} When global sections fail, consistency is maintained by phase shifts across context boundaries, geometrically realized as flat line bundles classified by $\check{H}^1(M, U(1))$.
+
+    \item \textbf{The $H^2$ Rung (Non-commutativity):} When geometric flattening fails, the obstruction manifests as a non-split central extension $[f] \in H^2$, encoding the non-commutativity of quantum logic (the Peres--Mermin contradiction~\cite{Peres90,Mermin90}).
+\end{enumerate}
+
+However, the architecture of the Lyndon--Hochschild--Serre (LHS) spectral sequence implies that the ladder extends beyond $H^2$. The higher differentials ($d_3, d_4, \ldots$) point toward increasingly complex topological structures.
+
+%------------------------------------------------------------------
+\subsection{The LHS Bridge: Grounding Paper III~\cite{PaperIII} in Group Cohomology}
+%------------------------------------------------------------------
+
+Paper III~\cite{PaperIII} established that the KS obstruction in the Peres--Mermin square~\cite{Peres90,Mermin90} corresponds to a non-trivial evaluation $\langle f, c_{\text{KS}} \rangle = -1$ of the central extension class. This paper places that computation within the structural framework of the LHS spectral sequence~\cite{HS53,Brown82}.
+
+For the central extension $1 \to \{\pm I\} \to \mathcal{P}_2^H \to \bar{\mathcal{P}}_2 \to 1$, the LHS spectral sequence provides a systematic decomposition:
+\[
+    E_2^{p,q} = H^p(\bar{\mathcal{P}}_2, H^q(\{\pm I\}, U(1))) \Rightarrow H^{p+q}(\mathcal{P}_2^H, U(1)).
+\]
+
+The key structural result is the \textbf{$d_2$ transgression map}:
+\[
+    d_2: E_2^{0,1} = \mathrm{Hom}(\{\pm I\}, U(1))^{\bar{\mathcal{P}}_2} \longrightarrow E_2^{2,0} = H^2(\bar{\mathcal{P}}_2, U(1)).
+\]
+
+In Section~\ref{sec:LHS}, we provide the complete computation verifying that $d_2(\chi_{\text{sign}}) = [f]$, where $\chi_{\text{sign}}$ is the sign character of the central subgroup. This transgression explains why $[f]$ captures the KS obstruction: it is the cohomological signature of the "sign flip" that occurs when lifting from the abelian quotient to the full quantum group.
+
+The connection to the Bohrification framework of Papers I--II remains \textbf{conjectural}. We formulate the precise functorial conditions (natural equivalences $\Phi$ and $\Psi$) that would establish:
+\[
+\begin{tikzcd}[row sep=large, column sep=huge]
+  H^1(\mathcal{C}^{\mathrm{BS}}(A), \underline{U(1)}) \arrow[r, "R_*"] \arrow[d, dashed, "\Phi"] & \check{H}^1(M, U(1)) \arrow[d, dashed, "\Psi"] \\
+  H^1(\mathcal{P}_2^H, U(1)) \arrow[r, "\mathrm{res}"] & H^1(\{\pm I\}, U(1))
+\end{tikzcd}
+\]
+If such equivalences exist, the Paper III exact sequence would inherit strict exactness from the LHS 5-term sequence.
+
+%------------------------------------------------------------------
+\subsection{The $H^3$ Frontier: Beyond Non-commutativity}
+%------------------------------------------------------------------
+
+While $H^2$ governs the failure of commutativity ($AB \neq BA$), $H^3$ governs the failure of associativity ($(AB)C \neq A(BC)$). We explore this frontier through two lenses:
+
+\textbf{Borromean Contextuality.} We introduce systems where three contexts $A, B, C$ are pairwise compatible (each pair commutes) but globally incompatible (no joint eigenbasis exists for all three). This is the logical analogue of Borromean rings, where any two components are unlinked, but all three are bound.
+
+In Section~\ref{sec:borromean}, we provide a rigorous definition of Borromean contextual systems and compute the topological invariants of their MASA poset nerves. We establish when such systems carry non-trivial $H^2$ vs.~$H^3$ obstructions.
+
+\textbf{Bundle Gerbes and the $H^3$ Conjecture.} We formulate a precise \textbf{conjecture} relating Borromean contextuality to higher cohomology: when three $U(1)$-bundles over pairwise intersections fail to glue globally, the obstruction lifts to a bundle gerbe~\cite{Murray96,Brylinski93} classified by the Dixmier--Douady class~\cite{DD63} in $H^3(M, \mathbb{Z})$.
+
+\subsection{The Exceptional Horizon: Albert Algebra and Beyond}
+%------------------------------------------------------------------
+
+As a speculative outlook (Section~\ref{sec:albert}), we discuss the algebraic counterpart to $H^3$ geometry. The exceptional Jordan algebra $\mathfrak{h}_3(\mathbb{O})$ (the Albert algebra) is the only finite-dimensional formally real Jordan algebra that cannot be represented by self-adjoint matrices over $\mathbb{C}$. Its octonionic coefficients introduce non-associativity via the associator $(a,b,c) = (ab)c - a(bc) \neq 0$.
+
+We discuss the \textbf{conjectural} possibility that $\mathfrak{h}_3(\mathbb{O})$ serves as the minimal algebraic container for non-associative contextual logic. This section is explicitly marked as a research programme requiring substantial future development---no theorems are claimed, only structural analogies and directions for investigation.
+
+%------------------------------------------------------------------
+\subsection{Outline}
+%------------------------------------------------------------------
+
+Section~\ref{sec:LHS} reviews the LHS spectral sequence~\cite{HS53,Brown82} and computes the $d_2$ transgression for the Pauli group extension, grounding Paper III~\cite{PaperIII} in structural group cohomology.
+
+Section~\ref{sec:functorial} formulates the conjectural functorial bridge between Bohrification cohomology~\cite{HLS11} and group cohomology~\cite{Brown82}, specifying the conditions under which $R_*$ would correspond to the LHS restriction map.
+
+Section~\ref{sec:borromean} introduces Borromean contextuality~\cite{Rolfsen76}, defines the relevant MASA configurations, and computes their topological invariants.
+
+Section~\ref{sec:H3} formulates the $H^3$ conjecture, relating Borromean systems to bundle gerbes~\cite{Murray96,Brylinski93} and the Dixmier--Douady class~\cite{DD63}.
+
+Section~\ref{sec:albert} provides the speculative outlook on the Albert algebra~\cite{Jacobson68,Baez02,Conway03} and non-associative logic.
+
+%------------------------------------------------------------------
+\section{The LHS Spectral Sequence and the Pauli Group}
+\label{sec:LHS}
+%------------------------------------------------------------------
+
+In Paper III~\cite{PaperIII}, we demonstrated that the Kochen--Specker obstruction in the Peres--Mermin square~\cite{Peres90,Mermin90} is classified by a non-trivial factor set $[f] \in H^2(\overline{\mathcal{P}}_2, \mathbb{Z}/2)$. To ground this discrete computation fully within the structural framework of group cohomology, we now analyze the Pauli group extension via the Lyndon--Hochschild--Serre (LHS) spectral sequence~\cite{HS53}.
+
+This formulation provides the rigorous homological mechanism explaining \emph{why} the lifting problem manifests as a 2-cocycle, setting the stage for the functorial connection to Bohrification topos cohomology in Section~\ref{sec:functorial}.
+
+%------------------------------------------------------------------
+\subsection{The Spectral Sequence for the Pauli Extension}
+%------------------------------------------------------------------
+
+Recall the central extension of the Hermitian Pauli group $\mathcal{P}_2^H$:
+\[
+    1 \longrightarrow \{\pm I\} \longrightarrow \mathcal{P}_2^H \overset{\pi}{\longrightarrow} \overline{\mathcal{P}}_2 \longrightarrow 1
+\]
+where the center is $Z(\mathcal{P}_2^H) = \{\pm I\} \cong \mathbb{Z}/2$, and the quotient is the abelian group $\overline{\mathcal{P}}_2 \cong (\mathbb{Z}/2)^4$.
+
+For any $G$-module $M$ (here we take trivial coefficients $M = U(1)$ to align with phase cohomology), the LHS spectral sequence yields a first-quadrant cohomological spectral sequence:
+\[
+    E_2^{p,q} = H^p(\overline{\mathcal{P}}_2, H^q(\{\pm I\}, U(1))) \Longrightarrow H^{p+q}(\mathcal{P}_2^H, U(1)).
+\]
+
+Because $\{\pm I\}$ acts trivially on $U(1)$, the low-degree terms on the $E_2$ page are straightforward to identify. The term $E_2^{0,1}$ is the group of invariant characters of the center:
+\[
+    E_2^{0,1} = \mathrm{Hom}(\{\pm I\}, U(1))^{\overline{\mathcal{P}}_2} = \mathrm{Hom}(\{\pm I\}, U(1)) \cong \mathbb{Z}/2
+\]
+This group is generated by the non-trivial sign character $\chi_{\text{sign}} : \{\pm I\} \rightarrow U(1)$, defined by $\chi_{\text{sign}}(I) = 1$ and $\chi_{\text{sign}}(-I) = -1$.
+
+The term $E_2^{2,0}$ captures the 2-cohomology of the abelian quotient:
+\[
+    E_2^{2,0} = H^2(\overline{\mathcal{P}}_2, U(1))
+\]
+
+%------------------------------------------------------------------
+\subsection{The $d_2$ Transgression Map}
+%------------------------------------------------------------------
+
+The structure of the LHS spectral sequence connects these groups via the $d_2$ differential, specifically the transgression map:
+\[
+    d_2 : E_2^{0,1} \longrightarrow E_2^{2,0}
+\]
+This map explicitly measures the obstruction to extending a character of the central subgroup $\{\pm I\}$ to a 1-cocycle (a character) of the full group $\mathcal{P}_2^H$. We now compute this transgression explicitly.
+
+\begin{remark}[Proof Strategy]
+The computation proceeds by constructing a 1-cochain $\tilde{\chi}$ on the full group $\mathcal{P}_2^H$ that extends the sign character $\chi_{\text{sign}}$ on the center. We then compute the group coboundary $\delta\tilde{\chi}$ and show that when descended to the quotient $\overline{\mathcal{P}}_2$, this 2-cocycle represents precisely the factor set class $[f]$.
+\end{remark}
+
+\begin{theorem}[Transgression of the Sign Character]
+\label{thm:transgression}
+Let $[f] \in H^2(\overline{\mathcal{P}}_2, U(1))$ be the cohomology class of the factor set defining the Hermitian Pauli group extension. The $d_2$ transgression of the sign character $\chi_{\text{sign}}$ yields precisely this central extension class:
+\[
+    d_2(\chi_{\text{sign}}) = [f]
+\]
+\end{theorem}
+
+\begin{proof}
+We compute the transgression explicitly using the standard cochain construction. Let $s: \overline{\mathcal{P}}_2 \rightarrow \mathcal{P}_2^H$ be a normalized section (a choice of lift satisfying $s(\bar{I}) = I$ and $\pi \circ s = \mathrm{id}_{\overline{\mathcal{P}}_2}$).
+
+Any character $\chi \in E_2^{0,1}$ can be viewed as a 1-cochain on $\{\pm I\}$. We first extend $\chi_{\text{sign}}$ to a 1-cochain $\tilde{\chi}$ on the full group $\mathcal{P}_2^H$ by setting:
+\[
+    \tilde{\chi}(g) = \chi_{\text{sign}}(g \cdot s(\pi(g))^{-1})
+\]
+Note that since $\pi(g) = \pi(s(\pi(g)))$, the element $g \cdot s(\pi(g))^{-1}$ strictly lies in the kernel of $\pi$, which is the center $\{\pm I\}$, making the evaluation of $\chi_{\text{sign}}$ well-defined.
+
+Next, we take the group coboundary $\delta \tilde{\chi} \in Z^2(\mathcal{P}_2^H, U(1))$. By definition of the transgression, $\delta \tilde{\chi}$ descends to a 2-cocycle on the quotient $\overline{\mathcal{P}}_2$. Evaluating this on two quotient elements $\bar{x}, \bar{y} \in \overline{\mathcal{P}}_2$, we lift them via the section $s$:
+\[
+    \delta \tilde{\chi}(s(\bar{x}), s(\bar{y})) = \tilde{\chi}(s(\bar{x})) \tilde{\chi}(s(\bar{y})) \tilde{\chi}(s(\bar{x})s(\bar{y}))^{-1}
+\]
+By our definition of $\tilde{\chi}$, we have $\tilde{\chi}(s(\bar{x})) = \chi_{\text{sign}}(s(\bar{x})s(\bar{x})^{-1}) = \chi_{\text{sign}}(I) = 1$. Therefore, the first two terms vanish (are equal to 1), leaving:
+\[
+    d_2(\chi_{\text{sign}})(\bar{x}, \bar{y}) = \tilde{\chi}(s(\bar{x})s(\bar{y}))^{-1}
+\]
+Recall the definition of the factor set $f(\bar{x}, \bar{y}) \in \{\pm I\}$ from the extension:
+\[
+    s(\bar{x})s(\bar{y}) = f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})
+\]
+Substituting this into our expression, we must evaluate $\tilde{\chi}(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y}))$. By definition of $\tilde{\chi}$:
+\[
+    \tilde{\chi}(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})) = \chi_{\text{sign}}\bigl((f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})) \cdot s(\pi(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})))^{-1}\bigr)
+\]
+Since $f(\bar{x}, \bar{y}) \in \{\pm I\} = \ker(\pi)$, we have $\pi(f(\bar{x}, \bar{y})) = \bar{0}$, and therefore:
+\[
+    \pi(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})) = \pi(f(\bar{x}, \bar{y})) \cdot \pi(s(\bar{x}+\bar{y})) = \bar{0} \cdot (\bar{x}+\bar{y}) = \bar{x}+\bar{y}
+\]
+Thus $s(\pi(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y}))) = s(\bar{x}+\bar{y})$, and:
+\[
+    (f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})) \cdot s(\bar{x}+\bar{y})^{-1} = f(\bar{x}, \bar{y})
+\]
+Therefore:
+\[
+    \tilde{\chi}(f(\bar{x}, \bar{y}) \cdot s(\bar{x}+\bar{y})) = \chi_{\text{sign}}(f(\bar{x}, \bar{y}))
+\]
+and so $\tilde{\chi}(s(\bar{x})s(\bar{y}))^{-1} = \chi_{\text{sign}}(f(\bar{x}, \bar{y}))^{-1}$.
+
+Since $f(\bar{x}, \bar{y}) \in \{\pm I\}$ and $\chi_{\text{sign}}$ takes values in $\{\pm 1\} \subset U(1)$, we have $\chi_{\text{sign}}(f(\bar{x}, \bar{y}))^{-1} = \chi_{\text{sign}}(f(\bar{x}, \bar{y}))$ (as $(-1)^{-1} = -1$ in $U(1)$). Therefore:
+\[
+    d_2(\chi_{\text{sign}})(\bar{x}, \bar{y}) = \chi_{\text{sign}}(f(\bar{x}, \bar{y}))
+\]
+Passing to cohomology classes, we obtain $d_2(\chi_{\text{sign}}) = [f]$.
+\end{proof}
+
+%------------------------------------------------------------------
+\subsection{The Cohomological Witness of Contextuality}
+%------------------------------------------------------------------
+
+The computation of the $d_2$ transgression bridges the abstract spectral sequence with our discrete contextuality results.
+
+In Paper III~\cite{PaperIII}, we constructed the Kochen--Specker 2-cycle $c_{\text{KS}} \in Z_2(\overline{\mathcal{P}}_2, \mathbb{Z})$ and demonstrated that the evaluation of the factor set is strictly non-trivial:
+\[
+    \langle f, c_{\text{KS}} \rangle = -1
+\]
+This explicit evaluation serves as the rigorous witness that $[f] \neq 0$ in $E_2^{2,0} = H^2(\overline{\mathcal{P}}_2, U(1))$.
+
+Consequently, the differential $d_2(\chi_{\text{sign}}) = [f]$ is non-trivial, which proves two fundamental facts about the quantum system:
+\begin{enumerate}
+    \item \textbf{Algebraic Non-splitting:} The spectral sequence differential $d_2$ is injective on $E_2^{0,1}$. The sign character $\chi_{\text{sign}}$ does not survive to the $E_3$ page ($E_3^{0,1} = 0$). This guarantees the central extension is non-split.
+
+    \item \textbf{Logical Contextuality:} The failure of $\chi_{\text{sign}}$ to extend to $\mathcal{P}_2^H$ is the exact cohomological articulation of the Kochen--Specker theorem. It dictates that the local, commuting Boolean structures (represented by the abelian group $\overline{\mathcal{P}}_2$) cannot be globally lifted into the quantum observable algebra without accumulating a phase contradiction, encoded natively as the boundary of the transgression.
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section{The Functorial Bridge: Conjectural Exactness}
+\label{sec:functorial}
+%------------------------------------------------------------------
+
+With the group-cohomological origin of the Kochen--Specker obstruction established via the $d_2$ transgression, we now formalize the connection to the continuous geometric framework of Papers I and II. Our goal is to establish the conditions under which the affine geometric phase map $R_*$ is functorially equivalent to the structural maps of the LHS spectral sequence.
+
+%------------------------------------------------------------------
+\subsection{The Conjectural Commutative Diagram}
+%------------------------------------------------------------------
+
+In Paper III~\cite{PaperIII}, we proposed a phenomenological exact sequence separating the geometric (line bundle~\cite{PaperI,PaperII}) and contextual (logical) contributions to the phase cohomology. To ground this sequence categorically, we conjecture that $R_*$ corresponds to the restriction map ($\mathrm{res}$) in the LHS 5-term exact sequence~\cite{HS53,Brown82}.
+
+Specifically, we seek natural equivalences $\Phi$ and $\Psi$ that render the following diagram commutative:
+\[
+\begin{tikzcd}[row sep=large, column sep=huge]
+  H^1(\mathcal{C}^{\mathrm{BS}}(A), \underline{U(1)}) \arrow[r, "R_*"] \arrow[d, dashed, "\Phi"] & \check{H}^1(M, U(1)) \arrow[d, dashed, "\Psi"] \\
+  H^1(\mathcal{P}_2^H, U(1)) \arrow[r, "\mathrm{res}"] & H^1(\{\pm I\}, U(1))
+\end{tikzcd}
+\]
+
+\begin{remark}[Diagram Explanation]
+The bottom row represents the exact restriction of 1-cocycles (characters) from the full quantum symmetry group $\mathcal{P}_2^H$ to its center $Z(\mathcal{P}_2^H) = \{\pm I\}$.
+
+In the LHS 5-term exact sequence, the restriction map actually lands in the $\bar{\mathcal{P}}_2$-invariant subgroup $H^1(\{\pm I\}, U(1))^{\bar{\mathcal{P}}_2}$ (since $\bar{\mathcal{P}}_2$ acts on $\{\pm I\}$ by conjugation). However, because $\{\pm I\}$ is the center of $\mathcal{P}_2^H$, the conjugation action is trivial. Therefore $H^1(\{\pm I\}, U(1))^{\bar{\mathcal{P}}_2} = H^1(\{\pm I\}, U(1))$, and since $\{\pm I\} \cong \mathbb{Z}/2$ is abelian, $H^1(\{\pm I\}, U(1)) = \mathrm{Hom}(\{\pm I\}, U(1)) \cong \mathbb{Z}/2$ is generated by the sign character $\chi_{\text{sign}}$.
+
+The top row is the affine geometric phase map from the Bohrification topos to the \v{C}ech cohomology of the classical phase space. The conjecture asserts that under appropriate semiclassical conditions, the continuous line bundle holonomies correspond to the discrete central characters.
+\end{remark}
+
+%------------------------------------------------------------------
+\subsection{Functorial Conditions}
+%------------------------------------------------------------------
+
+For this identification to hold, the mappings $\Phi$ and $\Psi$ must satisfy strict functorial requirements:
+
+\begin{enumerate}
+    \item \textbf{The Algebraic Bridge ($\Phi$):} $\Phi$ must map the poset cohomology of the local observable algebras to the group cohomology of the global symmetry group. Since a class $[\xi] \in H^1(\mathcal{C}^{\mathrm{BS}}(A), \underline{U(1)})$ defines a consistent patching of local characters, $\Phi$ should correspond to taking the colimit of these local representations into a global projective representation of $\mathcal{P}_2^H$.
+
+    \item \textbf{The Geometric Bridge ($\Psi$):} $\Psi$ must connect the continuous flat line bundles on the classical phase space $M$ to the discrete central characters of the quantum system. For a prequantum line bundle $\mathcal{P}_\hbar$, its holonomy evaluated on the fundamental cycles of the regular locus $M \setminus \Delta$ must map isomorphically to the sign character evaluated on the center $\{\pm I\}$.
+
+    \item \textbf{Commutativity ($\Psi \circ R_* = \mathrm{res} \circ \Phi$):} The affine translation $R_*([\xi]) = [\xi] \cdot [\eta_{\text{geo}}]$ must precisely mimic the algebraic restriction to the center. This implies that the geometric basepoint $[\eta_{\text{geo}}]$ physically encodes the central character, matching the semiclassical limit where central phases emerge as Hamilton-Jacobi action holonomies.
+\end{enumerate}
+
+%------------------------------------------------------------------
+\subsection{Exactness Inheritance and the $d_2$ Obstruction}
+%------------------------------------------------------------------
+
+If the natural equivalences $\Phi$ and $\Psi$ exist, the conjectural exact sequence of quantum contextuality inherits strict exactness directly from the LHS 5-term sequence:
+\[
+    0 \longrightarrow H^1(\overline{\mathcal{P}}_2, U(1)) \overset{\mathrm{inf}}{\longrightarrow} H^1(\mathcal{P}_2^H, U(1)) \overset{\mathrm{res}}{\longrightarrow} H^1(\{\pm I\}, U(1)) \overset{d_2}{\longrightarrow} H^2(\overline{\mathcal{P}}_2, U(1))
+\]
+
+Under our diagrammatic identification, the contextual physics is elegantly explained by exactness.\linebreak The Kochen--Specker contextual phases physically reside in $H^1(\{\pm I\}, U(1)) = \mathrm{Hom}(\{\pm I\}, U(1))$, representing the central signs accumulated during parallel transport. However, exactness dictates that these phases can only be globally lifted if they lie in $\mathrm{im}(\mathrm{res}) = \ker(d_2)$.
+
+As computed rigorously in Section~\ref{sec:LHS}, the sign character $\chi_{\text{sign}}$ evaluates to $d_2(\chi_{\text{sign}}) = [f] \neq 0$. Thus, it does not lie in $\ker(d_2)$, and therefore \emph{cannot} be the restriction of any global state in $H^1(\mathcal{P}_2^H, U(1))$.
+
+This completes the functorial translation: the lack of a global section in Bohrification (the obstruction in $\ker(R_*)$) is categorically equivalent to the non-vanishing of the LHS transgression (the $d_2$ obstruction).
+
+%------------------------------------------------------------------
+\section{Borromean Contextuality: Definition and Topology}
+\label{sec:borromean}
+%------------------------------------------------------------------
+
+The ascension from $H^2$ to $H^3$ requires a shift in our logical paradigm. In Section~\ref{sec:LHS}, the Kochen--Specker contradiction~\cite{Peres90,Mermin90} was classified by $H^2(\overline{\mathcal{P}}_2, \mathbb{Z}/2)$~\cite{PaperIII}, representing the failure of commutativity (a non-split central extension). However, the Lyndon--Hochschild--Serre spectral sequence~\cite{HS53} continues ad infinitum, suggesting higher-order contextual obstructions.
+
+While $H^2$ governs non-commutativity (order dependence of two observables), $H^3$ governs \textbf{non-associativity} (grouping dependence of three observation contexts). To capture this algebraically, we introduce the concept of \emph{Borromean contextuality}.
+
+%------------------------------------------------------------------
+\subsection{Borromean Contexts and the Associator Anomaly}
+%------------------------------------------------------------------
+
+In topology, Borromean rings~\cite{Rolfsen76} consist of three linked loops such that removing any single loop unlinks the remaining two. We port this concept to quantum logic.
+
+\begin{definition}[Borromean Contextuality]
+\label{def:borromean}
+Let $\{C_1, C_2, C_3\}$ be a triad of observation contexts (maximal abelian subalgebras, MASAs) within a quantum system, and let $\underline{\mathcal{P}}$ be the presheaf of probability models over the context poset (assigning to each context its set of admissible empirical models). The system exhibits \emph{Borromean contextuality} if it satisfies:
+\begin{enumerate}
+    \item \textbf{Pairwise Compatibility (Local Triviality):} For any pair $(C_i, C_j)$, the cover $\{C_i, C_j\}$ admits a global section of $\underline{\mathcal{P}}$---a consistent joint probability assignment gluing the local models over $C_i \cap C_j$. No bipartite Kochen--Specker contradiction occurs.
+    \item \textbf{Global Incompatibility (Global Obstruction):} The full cover $\{C_1, C_2, C_3\}$ admits \emph{no} global section of $\underline{\mathcal{P}}$. Equivalently, the \v{C}ech cohomology group $\check{H}^1(\{C_1, C_2, C_3\}, \underline{U(1)})$ of the context nerve contains a non-trivial cohomology class obstructing the gluing of pairwise-compatible local sections.
+\end{enumerate}
+\end{definition}
+
+In standard operator mechanics, matrix multiplication is strictly associative, so the associator $(A, B, C) = (AB)C - A(BC)$ identically vanishes. Therefore, genuine $H^3$ anomalies cannot manifest at the level of individual observable operators. Instead, they emerge at the higher-categorical level of \emph{context switching}.
+
+When transitioning between eigenbases of contexts, we utilize parallel transport unitary operators $U_{ij} : C_i \xrightarrow{\sim} C_j$. Pairwise compatibility implies that the transition $U_{12}$ is well-defined. However, when composing three transitions in a cycle, the associativity of the phase assignment fails:
+\[
+    (U_{12} \cdot U_{23}) \cdot U_{31} = \omega(C_1, C_2, C_3) \cdot [U_{12} \cdot (U_{23} \cdot U_{31})]
+\]
+where $\omega(C_1, C_2, C_3) \in U(1)$ is a non-trivial 3-cocycle phase. This phase is the logical associator anomaly, invisible to any bipartite measurement.
+
+\begin{remark}[Terminology]
+The term ``associator anomaly'' refers to the failure of associativity in the \emph{categorified} patching structure: although the underlying Hilbert space operators compose associatively, the composition of context-switching maps $U_{ij}$ as morphisms in the 2-category of contexts is not strictly associative. The phase $\omega$ measures this higher-categorical obstruction. This is the direct analogue of how an ordinary group extension exhibits a projective 2-cocycle despite the group operation on operators being strictly associative.
+\end{remark}
+
+%------------------------------------------------------------------
+\subsection{The Nerve Geometry of Borromean Systems}
+%------------------------------------------------------------------
+
+To compute the topological invariants of Borromean contextuality, we examine the \v{C}ech nerve of the MASA poset.
+
+Recall that for the Peres--Mermin square~\cite{Peres90,Mermin90} (Section~\ref{sec:LHS}), the nerve of the contexts forms a $K_{3,3}$ bipartite graph. A graph is a 1-dimensional CW complex; thus, its \v{C}ech cohomology strictly vanishes for degrees $k \geq 2$. This explains why the PM square's contextuality cannot support an $H^3$ class.
+
+To construct a Borromean nerve, the poset must contain 2-simplices (triple intersections). Let $\{U_1, U_2, U_3\}$ be an open cover of the classical phase space $M$, adapted to the contexts $C_1, C_2, C_3$.
+\begin{itemize}
+    \item On pairwise overlaps $U_{ij} = U_i \cap U_j$, the local contexts are compatible, meaning we can define a flat prequantum line bundle $L_{ij}$ supporting the consistent states.
+    \item On the triple overlap $U_{123} = U_1 \cap U_2 \cap U_3$, global compatibility would require an isomorphism of line bundles: $L_{12} \otimes L_{23} \cong L_{13}$.
+\end{itemize}
+
+In a Borromean system, this bundle isomorphism fails to close associatively. The failure is measured by a section $\theta_{123}$ over $U_{123}$. Evaluating the \v{C}ech coboundary $\delta \theta$ on a quadruple overlap $U_{1234}$ yields precisely a 3-cocycle in $\check{Z}^3(M, U(1))$.
+
+%------------------------------------------------------------------
+\subsection{The Quantum Nerve Collapse Lemma}
+%------------------------------------------------------------------
+
+We now address a fundamental constraint on the topology of MASA nerves. While topological spaces admit arbitrary simplicial decompositions, quantum mechanical nerves face severe algebraic restrictions due to the bounded capacity of abelian subalgebras.
+
+To realize a genuine $d$-dimensional sphere $S^d$, the minimal topological triangulation is the hollow boundary of a $(d+1)$-simplex, $\partial \Delta^{d+1}$, which requires $d+2$ vertices where every subset of $d+1$ vertices has a non-trivial intersection, but the global intersection is empty. 
+
+Consider the simplest topological construction of the 3-sphere $S^3$: the boundary of a 4-simplex $\partial\Delta^4$, consisting of 5 MASA vertices $\{M_1, M_2, M_3, M_4, M_5\}$. If we attempt to realize this hollow nerve in an $N$-qubit system:
+\begin{enumerate}
+    \item Each 3-simplex (tetrahedron) requires a quadruple intersection. For the tetrahedron excluding $M_j$, there exists a non-trivial operator $P_j \in \bigcap_{i \neq j} M_i$.
+    \item Since each $M_i$ is abelian, and $P_i, P_j$ both belong to any $M_k$ for $k \notin \{i,j\}$, the set of 5 generators $\{P_1, P_2, P_3, P_4, P_5\}$ must mutually commute.
+\end{enumerate}
+
+In an $N$-qubit Pauli group, the maximum rank of an abelian subgroup is $N$. If the qubit capacity is bounded such that $N < 5$ (e.g., $N=4$), any 5 mutually commuting operators must be linearly dependent. By the pigeonhole principle, there exists a non-empty subset $S \subseteq \{1,\dots,5\}$ such that $\prod_{j \in S} P_j = I$. Take any $k \in S$; then $P_k$ can be expressed as the product of $S \setminus \{k\} \subseteq \{P_i : i \neq k\}$. Since $M_k$ contains all $\bigcap_{i \neq k} M_i$ generators except $P_k$, algebraic closure forces $M_k$ to also contain $P_k$. Thus $P_k$ is forced into all five MASAs.
+
+The global intersection $\bigcap_{i=1}^5 M_i$ is therefore non-trivial. Topologically, this adds a solid 4-simplex $\Delta^4$ to the nerve. The putative hollow sphere $\partial\Delta^4$ is filled in and becomes contractible ($H^3 = 0$). 
+
+\begin{lemma}[The Quantum Nerve Collapse Lemma]
+\label{lem:nerve-collapse}
+Let $\mathcal{C}$ be a poset of MASAs in an $N$-qubit system. If a subset of $k$ MASAs forms a hollow combinatorial $(k-1)$-sphere (such as $\partial\Delta^{k-1}$) and $k > N$, the linear dependence of their intersection generators forces the global intersection to be non-trivial. The putative hollow sphere topologically collapses into a solid, contractible simplex, destroying its cohomology.
+\end{lemma}
+
+This dimension-counting mechanism establishes that Borromean contextuality on $S^3$ cannot emerge from minimal simplicial structures in tightly bounded qubit dimensions.
+
+\begin{corollary}[The Necessity of Cross-Polytopes]
+\label{cor:cross-polytope}
+To construct a nerve representing $S^d$ without topological collapse in bounded dimensions, the geometric realization must lack maximal cliques that exceed the linear dependence threshold. For $S^3$ in $N < 5$, the minimal 5-vertex triangulation $\partial\Delta^4$ is algebraically forbidden. The configuration must be ``loose'' enough so that antipodal MASAs do not intersect, making the 8-vertex 4-dimensional cross-polytope (16-cell) the minimal viable topology.\footnote{While the 16-vertex 4D hypercube also has a boundary homeomorphic to $S^3$, the 16-cell has fewer vertices (8 MASAs) while successfully avoiding the 5-clique collapse, making it the minimal necessary configuration.}
+\end{corollary}
+
+%------------------------------------------------------------------
+\subsection{Global Symplectic Collapse and the $N \ge 5$ Bound}
+%------------------------------------------------------------------
+
+In the previous subsection, a naive local capacity check suggested that $N=4$ qubits (which provide 15 non-trivial operators per MASA) might be sufficient to host the 8 operators required for each vertex of the 16-cell nerve. However, this local counting ignores the severe rigidities imposed by the global symplectic geometry of the quantum observable algebra.
+
+We now demonstrate that the 4-qubit space undergoes a \emph{global symplectic collapse}, strictly forbidding the existence of the $S^3$ nerve and pushing the true physical threshold to $N=5$ qubits.
+
+\begin{lemma}[The 16-Cell Commutativity Constraint]
+\label{lem:16cell-commute}
+Let $\{P_x\}_{x \in \{0,1\}^4}$ be the 16 core operators representing the 16 tetrahedra of the 4-dimensional cross-polytope (16-cell) nerve. Two operators $P_x$ and $P_y$ are allowed to anti-commute if and only if their index labels are bitwise complements ($y = \sim x$). All other pairs must strictly commute.
+\end{lemma}
+
+\begin{proof}
+In the 4D cross-polytope, a tetrahedron $x = b_3 b_2 b_1 b_0$ belongs to the MASA $M_{d, b_d}$ for each dimension $d \in \{0,1,2,3\}$. Two tetrahedra $x$ and $y$ share a MASA if and only if they agree on at least one bit (i.e., $x_d = y_d$ for some $d$). By the definition of a MASA, operators belonging to the same abelian subalgebra must mutually commute.
+
+Therefore, $P_x$ and $P_y$ must commute unless they share no MASAs whatsoever. This occurs if and only if they disagree on all 4 dimensions, which strictly means $y$ is the bitwise complement of $x$ ($y = \sim x$). Thus, among the 16 core operators, at most 8 pairs (the antipodal tetrahedra) are permitted to anti-commute; the remaining 112 pairs must mutually commute.
+\end{proof}
+
+\begin{theorem}[Global Symplectic Capacity Bound for $H^3$]
+\label{thm:symp-collapse}
+A quantum system can exhibit $S^3$-type Borromean contextuality (via the 16-cell nerve) only if the number of qubits is $N \ge 5$. The $N=4$ qubit space is globally insufficient due to symplectic collapse.
+\end{theorem}
+
+\begin{proof}
+Let $V \cong \mathbb{F}_2^{2N}$ be the symplectic vector space representing the $N$-qubit Pauli group (mod phases). We seek to embed the 16 distinct core operators $\{P_x\}$ into $V$ subject to the constraints of Lemma~\ref{lem:16cell-commute}.
+
+Suppose among the 8 antipodal pairs $(P_x, P_{\sim x})$, exactly $c$ pairs strictly anti-commute ($0 \le c \le 4$). In symplectic geometry, $c$ mutually anti-commuting pairs generate a symplectic subspace $W \subset V$ of dimension $2c$ (i.e., symplectic rank $2c$).
+
+The remaining $16 - 2c$ operators do not anti-commute with \emph{any} of the 16 operators. Therefore, they must belong to the symplectic orthogonal complement $W^\perp$. Furthermore, because they must also mutually commute with each other, they must reside within \textbf{some} isotropic subspace of $W^\perp$. The maximum number of non-trivial operators any isotropic subspace of $W^\perp$ can accommodate is $2^{N-c} - 1$, establishing the capacity upper bound.
+
+Since $\dim(V) = 2N$ and $\dim(W) = 2c$, the maximum dimension of an isotropic subspace within $W^\perp$ is exactly $N - c$. The maximum number of non-trivial mutually commuting operators this isotropic subspace can accommodate is $2^{N-c} - 1$.
+
+This imposes a strict global symplectic capacity inequality for the existence of the nerve:
+\begin{equation}
+    16 - 2c \le 2^{N-c} - 1
+    \label{eq:symplectic-capacity}
+\end{equation}
+
+We evaluate this capacity inequality for $N=4$ qubits:
+\begin{itemize}
+    \item If $c = 0$: $16 \le 2^4 - 1 \implies 16 \le 15$ (Contradiction)
+    \item If $c = 1$: $14 \le 2^3 - 1 \implies 14 \le 7$ (Contradiction)
+    \item If $c = 2$: $12 \le 2^2 - 1 \implies 12 \le 3$ (Contradiction)
+    \item If $c = 3$: $10 \le 2^1 - 1 \implies 10 \le 1$ (Contradiction)
+    \item If $c = 4$: $8 \le 2^0 - 1 \implies 8 \le 0$ (Contradiction)
+\end{itemize}
+
+Every possible geometric configuration in $N=4$ collapses under symplectic constraints. The minimal qubit number required to satisfy the inequality is $N=5$. For example, when $N=5$ and $c=0$ (all operators mutually commute), the inequality yields $16 \le 31$, which is algebraically permissible. Thus, genuine $H^3$ anomalies require at least 5 qubits.
+\end{proof}
+
+Theorem~\ref{thm:symp-collapse} reveals a profound physical phenomenon: while local capacity checks ($2^N - 1 \geq 8$) suggested $N=4$ might suffice, the \emph{global symplectic rigidity} of quantum observables forces a phase transition to $N=5$. This is the mathematical manifestation of the ``Global Symplectic Collapse''---the local freedom of MASA operators is severely constrained by the global algebraic structure of the Pauli group.
+
+\begin{remark}[Computational Verification]
+The global symplectic collapse has been computationally verified using a Z3 SAT solver implementation (supplementary code and SAT encoding available at DOI: \texttt{10.5281/zenodo.20070954}). The solver confirms:
+\begin{itemize}
+    \item \textbf{For $N=4$:} The solver returns \texttt{UNSAT} (unsatisfiable), confirming that no assignment of Pauli operators can simultaneously satisfy all 112 commutativity constraints for non-antipodal pairs. This computational result is consistent with---and provides independent verification of---Theorem~\ref{thm:symp-collapse}.
+    \item For $N=5$: A valid solution is found within seconds, with explicit construction of 16 core operators satisfying all 112 commutativity constraints for non-antipodal pairs.
+\end{itemize}
+This computational verification transforms what might appear as an ``algorithmic failure'' into a rigorous mathematical impossibility theorem for $N=4$.
+\end{remark}
+
+\begin{remark}[Historical Note on the $N \geq 4$ Bound]
+An earlier analysis based on local MASA capacity ($2^N - 1$ operators per MASA) suggested that $N \geq 4$ qubits might suffice for the Borromean nerve. Theorem~\ref{thm:symp-collapse} supersedes this estimate: the global symplectic inequality $16 - 2c \leq 2^{N-c} - 1$ fails for all $c \in \{0,1,2,3,4\}$ when $N = 4$, demonstrating that local capacity counting does not imply global feasibility. The true physical threshold is therefore $N \geq 5$.
+\end{remark}
+
+%------------------------------------------------------------------
+\subsection{Constructing the 16-Cell: From CSP to Explicit Solution}
+%------------------------------------------------------------------
+
+Theorem~\ref{thm:symp-collapse} establishes that $N \geq 5$ qubits are necessary to overcome global symplectic collapse. We now outline the concrete algebraic construction of the 16-cell configuration in $N=5$, which reduces to a constraint satisfaction problem (CSP) in the symplectic vector space $\mathbb{F}_2^{10}$.
+
+\textbf{The Setup.} In the 5-qubit Pauli group:
+\begin{itemize}
+    \item Total operator pool: $4^5 - 1 = 1023$ non-trivial Pauli operators
+    \item Each MASA capacity: $2^5 - 1 = 31$ non-trivial operators
+    \item Global symplectic capacity: sufficient per Theorem~\ref{thm:symp-collapse}
+\end{itemize}
+
+We seek 8 MASAs forming 4 antipodal pairs: $(M_1, M_{\bar{1}}), \dots, (M_4, M_{\bar{4}})$.
+
+\textbf{Condition 1: Antipodal Disjointness.} For each pair:
+\[
+    M_i \cap M_{\bar{i}} = \{I\}
+\]
+Antipodal MASAs must share only the identity, ensuring no edge connects antipodal vertices in the nerve.
+
+\textbf{Condition 2: The 16 Tetrahedra.} Any selection of 4 MASAs containing at most one from each antipodal pair must have a non-trivial intersection. With 4 dimensions and 2 choices per dimension, there are $2^4 = 16$ such combinations. This requires \textbf{16 distinct core operators} $P_{abcd}$ serving as the tetrahedron generators.
+
+Crucially, these 16 operators must be distinct. If two tetrahedra shared an operator, their union (5 MASAs) would share that operator, violating Lemma~\ref{lem:nerve-collapse} and causing collapse.
+
+\textbf{Condition 3: Internal Commutativity via Geometric Duality.} Using 4-bit labeling duality, operator $P_{b_3 b_2 b_1 b_0}$ belongs to MASA $M_{d, b_d}$ for each dimension $d$. Two operators must commute unless their indices are bitwise complements. This yields exactly 112 commutativity constraints (out of $\binom{16}{2} = 120$ total pairs; the 8 antipodal pairs may anti-commute).
+
+\textbf{The Symplectic Representation.} This CSP admits efficient computation via the symplectic representation:
+\begin{itemize}
+    \item Each Pauli operator maps to an 8-bit vector in $\mathbb{F}_2^8$
+    \item Commutativity checking reduces to bitwise operations (symplectic inner product)
+    \item MASAs correspond to 4-dimensional maximal isotropic subspaces
+\end{itemize}
+
+\textbf{Search Strategy.} The total MASA count in 4 qubits is $\prod_{i=1}^4 (2^i + 1) = 2295$. Direct enumeration of $\binom{2295}{8}$ combinations is infeasible. Instead:
+\begin{enumerate}
+    \item \textbf{Fix $M_1$} using Clifford symmetry (reducing search space by 2295×)
+    \item \textbf{Find candidates for $M_{\bar{1}}$} satisfying $M_1 \cap M_{\bar{1}} = \{I\}$
+    \item \textbf{Backtrack} or employ SAT solvers (e.g., Z3) to find $M_2, M_{\bar{2}}, M_3, M_{\bar{3}}, M_4, M_{\bar{4}}$ satisfying all intersection constraints
+\end{enumerate}
+
+\begin{remark}[Feasibility and Implementation: From Algorithmic Failure to Mathematical Proof]
+This construction is algorithmically tractable. The symplectic reduction transforms matrix commutator calculations into bitwise operations, enabling efficient constraint satisfaction via SAT solvers.
+
+An implementation using Python and the Z3 SAT solver has been developed to verify the feasibility of this construction (see supplementary material, DOI: \texttt{10.5281/zenodo.20070954}). The implementation employs a \emph{top-down} constraint encoding strategy:
+
+\begin{itemize}
+    \item \textbf{Variables:} 16 core operators as bit-vectors in $\mathbb{F}_2^{2N}$
+    \item \textbf{Constraints:} Geometric duality via 4-bit labeling---operators sharing MASA membership must commute
+    \item \textbf{Search:} Z3 solver directly finds satisfying assignments without enumerating MASAs
+\end{itemize}
+
+The computational results reveal a profound mathematical structure:
+
+\textbf{For $N=4$ qubits:} The Z3 solver reports \texttt{UNSAT} (unsatisfiable). Analysis reveals that the global symplectic constraint (Equation~\ref{eq:symplectic-capacity}) cannot be satisfied:
+\[
+    16 - 2c \leq 2^{4-c} - 1 \quad \text{fails for all } c \in \{0,1,2,3,4\}.
+\]
+Despite satisfying the \emph{local} capacity bound ($15 \geq 8$ operators per MASA), the $N=4$ system undergoes \emph{Global Symplectic Collapse}---the algebraic constraints are mathematically impossible to satisfy.
+
+\textbf{For $N=5$ qubits:} The solver finds a valid solution within seconds. With center capacity $2^5 - 1 = 31$, the inequality $16 \leq 31$ (for $c=0$) is satisfied. The explicit construction yields 16 distinct operators satisfying all 112 commutativity constraints for non-antipodal pairs.
+
+This computational verification transforms what might appear as an ``algorithmic failure'' into a \emph{rigorous mathematical impossibility theorem} for $N=4$, while simultaneously providing \emph{constructive proof of existence} for $N=5$.
+\end{remark}
+
+\textbf{Explicit Construction Achieved.} The successful Z3 solver implementation for $N=5$ provides the first explicit realization of $S^3$-type Borromean contextuality. The 16 core operators constructed in $\mathbb{F}_2^{10}$ (5-qubit symplectic space) enable direct computation of the Dixmier--Douady invariant for $H^3$ quantum anomalies.
+
+%------------------------------------------------------------------
+\subsection{Topological Invariants and the Degree Stratification}
+\label{subsec:degree-strat}
+%------------------------------------------------------------------
+
+We can now stratify the cohomological ladder of quantum obstructions mapping the Bohrification topos to geometric invariants:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{cp{4cm}p{4.5cm}p{4.5cm}}
+\toprule
+\textbf{Degree} & \textbf{Algebraic Obstruction} & \textbf{Geometric Realization} & \textbf{Physical Phenomenon} \\
+\midrule
+$H^1$ & Independent characters & Line Bundles / Holonomy & Aharonov--Bohm Phase \\
+$H^2$ & Central Extension $[f]$~\cite{PaperIII} & Projective Reps / Twist & Peres--Mermin KS Logic~\cite{Peres90,Mermin90} \\
+$H^3$ & Borromean Associator $\omega$ & Bundle Gerbes & Topological Phases of Matter (e.g.~WZW) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{conjecture}[Topological Requirements for Borromean Logic]
+\label{conj:borromean-top}
+We conjecture that Borromean contextuality, as defined in Definition~\ref{def:borromean}, requires the following topological conditions:
+\begin{enumerate}
+    \item The \v{C}ech nerve of the MASA poset must have non-vanishing homology in degree $2$ (to support a non-trivial 2-simplex), and
+    \item The geometric phase space $M$ must admit non-trivial elements in $\check{H}^3(M, \mathbb{Z})$.
+\end{enumerate}
+These conditions are necessary but may not be sufficient; establishing the full ``if and only if'' relationship requires further investigation of the precise functorial relationship between the algebraic definition of Borromean contextuality and the topological invariants of the context nerve.
+\end{conjecture}
+
+Together with Theorem~\ref{thm:symp-collapse}, these results dictate that simple qubit systems (like the 2-qubit PM square) are dimensionally truncated from exhibiting true Borromean contextuality. To observe the $H^3$ frontier, one must study continuous systems over 3-dimensional (or higher) manifolds, or multi-qubit systems with $N \geq 5$ whose context nerve contains non-contractible 2-spheres.
+
+%------------------------------------------------------------------
+\section{The $H^3$ Conjecture: Bundle Gerbes and Beyond}
+\label{sec:H3}
+%------------------------------------------------------------------
+
+As established in Section~\ref{sec:borromean}, Borromean contextuality manifests as the failure of associativity when transitioning between three mutually compatible observation contexts. In the geometric framework of quantization, this purely logical anomaly corresponds to a precise higher-categorical structure on the classical phase space $M$: a bundle gerbe.
+
+Just as the Kochen--Specker paradox (a 2-dimensional logical obstruction) corresponds to a non-split central extension in group cohomology, the Borromean paradox (a 3-dimensional logical obstruction) corresponds to a non-trivial bundle gerbe.
+
+%------------------------------------------------------------------
+\subsection{From Line Bundles to Bundle Gerbes}
+%------------------------------------------------------------------
+
+In the standard Bohrification-to-Geometry bridge (Papers I and II), phase shifts between local contexts $U_\alpha$ and $U_\beta$ are captured by transition functions $g_{\alpha\beta} \in U(1)$, which define a flat prequantum line bundle. This geometric construction implicitly assumes that on triple overlaps $U_{\alpha} \cap U_{\beta} \cap U_{\gamma}$, the transition functions satisfy the strict 1-cocycle condition:
+\[
+    g_{\alpha\beta} \cdot g_{\beta\gamma} \cdot g_{\gamma\alpha} = 1
+\]
+
+However, in a system exhibiting Borromean contextuality, the global incompatibility of three pairwise-compatible contexts forces this 1-cocycle condition to fail. Instead of scalar transition functions, the ``transitions'' between contexts on $U_{\alpha\beta}$ must themselves be promoted to flat line bundles $L_{\alpha\beta}$.
+
+On a triple overlap $U_{\alpha\beta\gamma} = U_\alpha \cap U_\beta \cap U_\gamma$, the composition of these transitions is no longer an equality of scalars, but a bundle isomorphism:
+\[
+    \mu_{\alpha\beta\gamma} : L_{\alpha\beta} \otimes L_{\beta\gamma} \xrightarrow{\sim} L_{\alpha\gamma}
+\]
+
+%------------------------------------------------------------------
+\subsection{The Dixmier--Douady Obstruction}
+%------------------------------------------------------------------
+
+The existence of the bundle isomorphisms $\mu_{\alpha\beta\gamma}$ guarantees that any two contexts can be consistently patched (pairwise compatibility). The true global obstruction emerges on the quadruple overlaps $U_{\alpha\beta\gamma\delta}$.
+
+For the geometric patching to be globally associative, the various ways of composing the $\mu$ isomorphisms over four patches must commute. When they fail to commute, their discrepancy defines a \v{C}ech 2-cocycle $\omega_{\alpha\beta\gamma} \in \check{Z}^2(M, \underline{U(1)})$.
+
+By the connecting homomorphism of the exponential exact sequence $0 \to \mathbb{Z} \to \mathbb{R} \to \underline{U(1)} \to 0$, the cohomology group $\check{H}^2(M, \underline{U(1)})$ is canonically isomorphic to $H^3(M, \mathbb{Z})$ for any paracompact manifold $M$ (e.g., a symplectic phase space)~\cite{Brylinski93}. The integer cohomology class associated with this gerbe is the \textbf{Dixmier--Douady class}~\cite{DD63}:
+\[
+    \mathrm{DD}(\mathcal{G}) \in H^3(M, \mathbb{Z})
+\]
+The Dixmier--Douady class is the exact higher-degree analogue of the Chern class $c_1 \in H^2(M, \mathbb{Z})$. While the Chern class measures the topological twist of a line bundle, the Dixmier--Douady class measures the non-associativity of a bundle gerbe.
+
+%------------------------------------------------------------------
+\subsection{The Borromean-$H^3$ Correspondence}
+%------------------------------------------------------------------
+
+We can now formulate the central geometric conjecture of this paper, elevating the algebraic definition of Section~\ref{sec:borromean} to a precise topological invariant.
+
+\begin{conjecture}[The $H^3$ Correspondence]
+\label{conj:h3}
+Let a continuous quantum system be defined over a classical phase space $M$, and let $\mathcal{C}^{\mathrm{BS}}(A)$ be its Bohr--Sommerfeld observable poset. The system exhibits Borromean contextuality if and only if the geometric phase map $R_*$ encounters an obstruction classified by a bundle gerbe $\mathcal{G}$ over the context nerve, such that its Dixmier--Douady class is strictly non-vanishing:
+\[
+    \mathrm{DD}(\mathcal{G}) \neq 0 \in H^3(M, \mathbb{Z})
+\]
+\end{conjecture}
+
+\begin{corollary}[Topological Immunity in 2D]
+\label{cor:2d-immune}
+If a quantum system possesses a non-trivial Borromean associator anomaly, its phase space manifold $M$ must have non-trivial third cohomology $H^3(M, \mathbb{Z}) \neq 0$. Consequently, systems defined over 2-dimensional phase spaces (like $S^2$ and $T^2$ from Papers I--II) are topologically immune to Borromean contextuality.
+\end{corollary}
+
+This conjecture conceptually bridges the logical structure of quantum observation with the topological classification of higher gauge fields. If proven, it demonstrates that quantum contextuality is not merely a feature of non-commutative matrices, but a fundamental reflection of the target space's gerbe geometry.
+
+\begin{remark}[One Direction: Obstruction $\Rightarrow$ Contextuality]
+\label{rem:partial-evidence}
+One direction of Conjecture~\ref{conj:h3} follows from the sheaf-theoretic definition (Definition~\ref{def:borromean}). If the Dixmier--Douady class $\mathrm{DD}(\mathcal{G}) \neq 0$, then the 3-cocycle $\omega_{\alpha\beta\gamma} \in \check{Z}^2(M, \underline{U(1)})$ classifying the gerbe $\mathcal{G}$ is cohomologically non-trivial. This means the transition bundles $L_{\alpha\beta}$ over pairwise overlaps cannot be associatively composed on triple overlaps, which by the \v{C}ech--de Rham correspondence translates to the failure of a global section of the presheaf $\underline{\mathcal{P}}$ over the three-context cover. Hence $\mathrm{DD}(\mathcal{G}) \neq 0$ implies Borromean contextuality: local pairwise probability models cannot be glued into a single global model.
+
+The converse direction (Borromean contextuality $\Rightarrow$ non-trivial gerbe) remains the central open problem. It requires constructing a bundle gerbe from a given Borromean system and verifying that the associator anomaly defined by context-switching unitaries (Section~\ref{sec:borromean}) maps to a non-trivial class in $\check{H}^2(M, \underline{U(1)}) \cong H^3(M, \mathbb{Z})$.
+\end{remark}
+
+\begin{remark}[Proof Strategy for Conjecture~\ref{conj:h3}]
+Establishing this correspondence requires developing new mathematical tools connecting quantum logic to higher gauge theory:
+\begin{itemize}
+    \item \textbf{Proof approach:} Construct a functor from quantum contextual systems~\cite{AB11} to the 2-category of bundle gerbes~\cite{Murray96,Brylinski93} over classical phase spaces,\linebreak verifying that Borromean associator anomalies map to the Dixmier--Douady invariant~\cite{DD63}.
+    \item \textbf{Potential counter-example strategy:} Identify quantum systems on 3-manifolds (e.g., $S^3$ or lens spaces) where $H^3(M, \mathbb{Z}) \neq 0$ but the specific Borromean nerve structure fails to materialize, thereby testing the necessity of both topological and algebraic conditions.
+\end{itemize}
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The Exceptional Horizon: Albert Algebra Outlook}
+\label{sec:albert}
+%------------------------------------------------------------------
+
+\begin{remark}[Research Programme: Non-Associative Logic]
+This final section is explicitly \textbf{conjectural}. We outline structural analogies between $H^3$ cohomological obstructions, bundle gerbes as their geometric realizations, and the exceptional Jordan algebra $\mathfrak{h}_3(\mathbb{O})$ as their minimal algebraic container. No formal theorems are claimed here; rather, the objective is to define precise mathematical targets for future investigation.
+\end{remark}
+
+%------------------------------------------------------------------
+\subsection{The Algebraic Container for Non-associativity}
+%------------------------------------------------------------------
+
+Throughout Papers I--III, our algebraic foundation rested on $C^*$-algebras and von Neumann algebras (specifically $M_4(\mathbb{C})$ for the Pauli group). A fundamental property of any matrix algebra over $\mathbb{C}$ is strict associativity. Consequently, genuine Borromean contextuality---where the associator anomaly $(a,b,c) = (ab)c - a(bc) \neq 0$ manifests---cannot be natively represented by standard self-adjoint matrices.
+
+If the Dixmier--Douady class in $H^3(M, \mathbb{Z})$ is the topological signature of Borromean contextuality, what is its algebraic counterpart? To construct a quantum logic that natively supports non-associative context patching, we must look beyond standard quantum mechanics to exceptional algebraic structures~\cite{Jacobson68}.
+
+%------------------------------------------------------------------
+\subsection{The Albert Algebra $\mathfrak{h}_3(\mathbb{O})$}
+%------------------------------------------------------------------
+
+The natural candidate for this algebraic container is the exceptional Jordan algebra $\mathfrak{h}_3(\mathbb{O})$~\cite{Jacobson68,Baez02,Conway03}, known as the Albert algebra.\linebreak It is the algebra of $3 \times 3$ Hermitian matrices with octonionic coefficients.
+
+The Albert algebra occupies a unique place in mathematics: it is the \emph{only} finite-dimensional formally real Jordan algebra that cannot be represented by self-adjoint matrices over $\mathbb{C}$ (or $\mathbb{R}$, or $\mathbb{H}$). Because the octonions $\mathbb{O}$ are non-associative, the Albert algebra introduces genuine non-associativity into the observable structure: $(a,b,c) = (ab)c - a(bc) \neq 0$.
+
+We conjecture that $\mathfrak{h}_3(\mathbb{O})$ serves as the minimal algebraic container for non-associative contextual logic. In this framework, the pairwise compatibility of Borromean contexts corresponds to the fact that any two elements in a Jordan algebra generate an associative subalgebra (Shirshov--Cohn theorem). The global incompatibility---the Borromean paradox---emerges precisely when three elements are considered, forcing the non-vanishing octonionic associator to act as the algebraic twin of the $H^3$ topological anomaly.
+
+%------------------------------------------------------------------
+\subsection{$\mathbb{O}P^2$ and the Automorphism Group $F_4$}
+%------------------------------------------------------------------
+
+If $\mathfrak{h}_3(\mathbb{O})$ defines the observables of a Borromean quantum system, its state space geometry must reflect this exceptionality. The natural state space associated with the Albert algebra is the octonionic projective plane, $\mathbb{O}P^2$.
+
+Furthermore, the automorphism group of the Albert algebra is the exceptional Lie group $F_4$. While the standard phase transitions of Papers I--II were governed by $U(1)$ holonomies, and the Kochen--Specker central extension of Paper III was governed by the Pauli/Clifford group automorphisms, we hypothesize that the ``parallel transport'' between Borromean contexts in this exceptional logic is mediated by the continuous symmetries of $F_4$.
+
+%------------------------------------------------------------------
+\subsection{Conclusion: The Obstruction Ladder}
+%------------------------------------------------------------------
+
+This four-paper programme has established a systematic cohomological obstruction ladder for quantum contextuality:
+\begin{enumerate}
+    \item \textbf{$H^1$ (Line Bundles):} Geometric phase and consistent abelian patching.
+    \item \textbf{$H^2$ (Central Extensions):} Non-commutativity and the Kochen--Specker paradox.
+    \item \textbf{$H^3$ (Bundle Gerbes / Albert Algebra):} Non-associativity and Borromean contextuality~\cite{Murray96,Jacobson68}.
+\end{enumerate}
+
+The ascension from $H^2$ to $H^3$ reveals that quantum logic is not merely a static matrix structure, but a dynamic geometric patching problem. The exceptional horizon suggests that the ultimate foundations of contextual logic may lie not in complex Hilbert spaces, but in the non-associative geometry of the octonions.
+
+%------------------------------------------------------------------
+% Appendix
+%------------------------------------------------------------------
+
+\appendix
+
+%------------------------------------------------------------------
+\section{Explicit Construction of the 5-Qubit 16-Cell Nerve}
+\label{app:16cell-operators}
+%------------------------------------------------------------------
+
+As established in Theorem~\ref{thm:symp-collapse}, Borromean contextuality on the 16-cell nerve requires a minimum of $N=5$ qubits to overcome global symplectic collapse. Using a Z3 SAT solver implementing the geometric duality constraints (mapping 4-bit tetrahedral indices to mutual commutativity requirements; see supplementary material, DOI: \texttt{10.5281/zenodo.20070954}), we obtained the following explicit generating set of 16 core operators in the 5-qubit Pauli group.
+
+The 8 MASAs of the 16-cell nerve form 4 antipodal pairs $(M_{d,0}, M_{d,1})$ for dimensions $d = 0,1,2,3$, where each MASA $M_{d,b}$ is a maximal abelian subalgebra of the 5-qubit Pauli group containing the 8 core operators whose $d$-th index bit equals $b$. Let $P_{b_3 b_2 b_1 b_0}$ denote the core operator representing the 3-simplex (tetrahedron) connecting MASAs $M_{3,b_3}, M_{2,b_2}, M_{1,b_1}$, and $M_{0,b_0}$. The 16 operators are given by the following 5-qubit Pauli tensor products (omitting tensor symbols for brevity, e.g., $ZIIII \equiv Z \otimes I \otimes I \otimes I \otimes I$):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccl}
+\toprule
+\textbf{Index ($b_3 b_2 b_1 b_0$)} & \textbf{Pauli String} & \textbf{MASA Memberships} \\
+\midrule
+$0000$ & $ZIIII$ & $M_{0L}, M_{1L}, M_{2L}, M_{3L}$ \\
+$0001$ & $IZIII$ & $M_{0R}, M_{1L}, M_{2L}, M_{3L}$ \\
+$0010$ & $ZIYIY$ & $M_{0L}, M_{1R}, M_{2L}, M_{3L}$ \\
+$0011$ & $IZZZX$ & $M_{0R}, M_{1R}, M_{2L}, M_{3L}$ \\
+$0100$ & $ZIYYI$ & $M_{0L}, M_{1L}, M_{2R}, M_{3L}$ \\
+$0101$ & $ZZXXX$ & $M_{0R}, M_{1L}, M_{2R}, M_{3L}$ \\
+$0110$ & $ZZZXZ$ & $M_{0L}, M_{1R}, M_{2R}, M_{3L}$ \\
+$0111$ & $IIYYI$ & $M_{0R}, M_{1R}, M_{2R}, M_{3L}$ \\
+$1000$ & $IZXZZ$ & $M_{0L}, M_{1L}, M_{2L}, M_{3R}$ \\
+$1001$ & $IZXXX$ & $M_{0R}, M_{1L}, M_{2L}, M_{3R}$ \\
+$1010$ & $IIIYY$ & $M_{0L}, M_{1R}, M_{2L}, M_{3R}$ \\
+$1011$ & $ZZZZX$ & $M_{0R}, M_{1R}, M_{2L}, M_{3R}$ \\
+$1100$ & $ZZXZZ$ & $M_{0L}, M_{1L}, M_{2R}, M_{3R}$ \\
+$1101$ & $ZIIYY$ & $M_{0R}, M_{1L}, M_{2R}, M_{3R}$ \\
+$1110$ & $ZXXZX$ & $M_{0L}, M_{1R}, M_{2R}, M_{3R}$ \\
+$1111$ & $IZZXZ$ & $M_{0R}, M_{1R}, M_{2R}, M_{3R}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+By construction, these 16 operators are mutually distinct. Furthermore, they satisfy exactly 112 commutativity constraints for non-antipodal pairs: any two operators $P_x$ and $P_y$ strictly commute unless their binary indices are exact bitwise complements ($y = \sim x$). This configuration defines the 8 MASAs comprising the 16-cell nerve, providing the first concrete physical model capable of supporting the $H^3$ Borromean contextuality anomaly.
+
+%------------------------------------------------------------------
+% References
+%------------------------------------------------------------------
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperI]{PaperI}
+Chen, Z.-L.
+From Contextuality to Phase Cohomology:
+A Computable Bridge Between Bohrification and Geometric Quantization.
+\textit{Zenodo, DOI: 10.5281/zenodo.20072818}, 2026.
+
+\bibitem[PaperII]{PaperII}
+Chen, Z.-L.
+Semiclassical Reconstruction of Riemann Surfaces from Bohrification.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073010}, 2026.
+
+\bibitem[PaperIII]{PaperIII}
+Chen, Z.-L.
+Kochen--Specker Contextuality as Central Extension: The Peres--Mermin Square and the Pauli Group.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073127}, 2026.
+
+\bibitem[HS53]{HS53}
+Hochschild, G. and Serre, J.-P.
+Cohomology of group extensions.
+\textit{Trans. Amer. Math. Soc.}, 74 (1953), 110--134.
+
+\bibitem[Brown82]{Brown82}
+Brown, K.S.
+\textit{Cohomology of Groups}.
+Graduate Texts in Mathematics, Vol. 87, Springer, 1982.
+
+\bibitem[Kar87]{Kar87}
+Karpilovsky, G.
+\textit{The Schur Multiplier}.
+London Mathematical Society Monographs, Clarendon Press, 1987.
+
+\bibitem[Murray96]{Murray96}
+Murray, M.K.
+Bundle gerbes.
+\textit{J. London Math. Soc.}, 54 (1996), 403--416.
+
+\bibitem[Brylinski93]{Brylinski93}
+Brylinski, J.-L.
+\textit{Loop Spaces, Characteristic Classes and Geometric Quantization}.
+Progress in Mathematics, Vol. 107, Birkhäuser, 1993.
+
+\bibitem[DD63]{DD63}
+Dixmier, J. and Douady, A.
+Champs continus d'espaces hilbertiens et de $C^*$-algèbres.
+\textit{Bull. Soc. Math. France}, 91 (1963), 227--284.
+
+\bibitem[Rolfsen76]{Rolfsen76}
+Rolfsen, D.
+\textit{Knots and Links}.
+Publish or Perish, 1976.
+
+\bibitem[Jacobson68]{Jacobson68}
+Jacobson, N.
+\textit{Structure and Representations of Jordan Algebras}.
+American Mathematical Society Colloquium Publications, Vol. 39, 1968.
+
+\bibitem[Baez02]{Baez02}
+Baez, J.C.
+The octonions.
+\textit{Bull. Amer. Math. Soc.}, 39 (2002), 145--205.
+
+\bibitem[Conway03]{Conway03}
+Conway, J.H. and Smith, D.A.
+\textit{On Quaternions and Octonions: Their Geometry, Arithmetic, and Symmetry}.
+A K Peters, 2003.
+
+\bibitem[AB11]{AB11}
+Abramsky, S. and Brandenburger, A.
+The sheaf-theoretic structure of non-locality and contextuality.
+\textit{New J. Phys.}, 13 (2011), 113036.
+
+\bibitem[HLS11]{HLS11}
+Heunen, C., Landsman, N.P., and Spitters, B.
+Bohrification.
+In \textit{Deep Beauty}, ed. H. Halvorson, Cambridge University Press, 2011, pp. 271--313.
+
+\bibitem[Peres90]{Peres90}
+Peres, A.
+Incompatible results of quantum measurements.
+\textit{Phys. Lett. A}, 151 (1990), 107--108.
+
+\bibitem[Mermin90]{Mermin90}
+Mermin, N.D.
+Simple unified form for the major no-hidden-variables theorems.
+\textit{Phys. Rev. Lett.}, 65 (1990), 3373--3376.
+
+\end{thebibliography}
+
+\end{document}

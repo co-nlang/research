@@ -50,9 +50,9 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 | I | *From Contextuality to Phase Cohomology: A Computable Bridge Between Bohrification and Geometric Quantization* | Bohrification ↔ geometric quantization | $\check{H}^1(M, U(1))$ classifies geometric phases |
 | II | *Semiclassical Reconstruction of Riemann Surfaces from Bohrification* | Riemann surface state spaces | Bohr-Sommerfeld orbits as divisors on spectral curves |
 | III | *Kochen–Specker Contextuality as Central Extension: The Peres-Mermin Square and the Pauli Group* | Peres–Mermin square & Pauli group | KS obstruction = non-split central extension $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$ |
-| IV | *The Cohomological Obstruction Ladder: LHS Transgression and the $H^3$ Frontier* | Borromean contextuality & bundle gerbes | $N \geq 5$ qubit threshold; $d_2$ transgression = KS obstruction |
+| IV | *The Cohomological Obstruction Ladder: Lyndon–Hochschild–Serre Transgression and the $H^3$ Frontier* | Borromean contextuality & bundle gerbes | $N \geq 5$ qubit threshold; $d_2$ transgression = KS obstruction |
 | Epilogue | *The Algebraic Logic of Geometry* | EML system & Solèr's theorem | $\mathcal{Q} \dashv \mathcal{B}$ adjunction and the obstruction ladder |
-| V | *Observation as Functor: The Homological Bridge* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
+| V | *Observation as Functor: The Adjunction of Quantum and Classical* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
 | VI | *The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of Observation* | Solèr-Cohomology Theorem | $\mathbb{C}$ is the unique division ring permitting non-trivial continuous observation |
 
 ---
@@ -83,14 +83,14 @@ DOIs will be assigned via Zenodo. The table below will be populated as each comp
 
 | Component | DOI |
 |-----------|-----|
-| Paper I | *pending* |
-| Paper II | *pending* |
-| Paper III | *pending* |
-| Paper IV | *pending* |
-| Epilogue | *pending* |
-| Paper V | *pending* |
-| Paper VI | *pending* |
-| `construct_16cell.py` | *pending* |
+| Paper I | [10.5281/zenodo.20072818](https://doi.org/10.5281/zenodo.20072818) |
+| Paper II | [10.5281/zenodo.20073010](https://doi.org/10.5281/zenodo.20073010) |
+| Paper III | [10.5281/zenodo.20073127](https://doi.org/10.5281/zenodo.20073127) |
+| Paper IV | [10.5281/zenodo.20073184](https://doi.org/10.5281/zenodo.20073184) |
+| Epilogue | [10.5281/zenodo.20073253](https://doi.org/10.5281/zenodo.20073253) |
+| Paper V | [10.5281/zenodo.20073318](https://doi.org/10.5281/zenodo.20073318) |
+| Paper VI | [10.5281/zenodo.20073424](https://doi.org/10.5281/zenodo.20073424) |
+| `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
 
 ---
 
@@ -99,6 +99,8 @@ DOIs will be assigned via Zenodo. The table below will be populated as each comp
 Each paper is a standalone LaTeX document. Compile with:
 
 ```bash
+pdflatex Paper1_contextuality_phase.tex
+pdflatex Paper1_contextuality_phase.tex
 pdflatex Paper1_contextuality_phase.tex
 ```
 

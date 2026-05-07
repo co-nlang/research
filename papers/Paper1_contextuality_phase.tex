@@ -1,0 +1,1110 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+
+\geometry{margin=1in}
+
+\title{From Contextuality to Phase Cohomology:\\
+A Computable Bridge Between Bohrification and Geometric Quantization\\
+{\large (Paper I: The Affine Geometric Phase Map)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We define an affine geometric phase map $R_*$ from contextual obstructions
+in the Bohrification topos to flat phase cohomology classes arising in
+geometric quantization. The map is defined via evaluation of Hamilton--Jacobi
+action phase differences on local observable algebras over the regular locus
+$M \setminus \Delta$.
+
+Our central contribution is the \emph{explicit computation} of the geometric
+basepoint $[\eta_{\mathrm{geo}}]$ --- the phase cohomology class determined
+by the classical Hamilton--Jacobi action --- for two compact integrable
+models ($T^2$ and $S^2$). We prove that $[\eta_{\mathrm{geo}}]$ coincides
+with the holonomy of the prequantum line bundle restricted to the regular
+locus (trivial for $T^2$, non-trivial with Maslov phase $-1$ for $S^2$).
+The affine decomposition $[\Psi] = [\xi_{\mathrm{logic}}] \cdot [\eta_{\mathrm{geo}}]$
+provides a conceptual framework relating quantum contextuality to
+classical phase geometry.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+%------------------------------------------------------------------
+
+Bohrification \cite{HLS11, Lan16} reformulates quantum mechanics as a
+sheaf over the poset $\mathcal{C}(A)$ of commutative subalgebras of the
+observable algebra $A$, where quantum contextuality appears as the
+absence of global sections of the spectral presheaf $\underline{\mathbb{A}}$.
+On the other hand, geometric quantization \cite{BW97} encodes quantum
+structure via line bundles $\mathcal{P}_\hbar$ over the classical phase
+space, with curvature determined by the symplectic form~$\omega$.
+
+This paper constructs a concrete bridge between these two perspectives.
+Given a compact completely integrable Hamiltonian system, the multi-valued
+solutions of the Hamilton--Jacobi equation define a Bohr--Sommerfeld
+Lagrangian foliation. We define an \emph{affine geometric phase map} $R_*$
+from contextual obstructions in the Bohrification topos to the flat phase
+cohomology class of the prequantum line bundle on the regular locus
+$M \setminus \Delta$, via evaluation of Hamilton--Jacobi action phase differences.
+
+The construction is motivated by the recent work of Lohmiller--Slotine
+\cite{LS26}, who show that the Schr\"odinger equation can be solved exactly
+from multi-valued classical action. We interpret the branch structure of
+that construction in terms of Bohrification's commutative subalgebras.
+
+Our central result (Definition~\ref{def:affine-decomposition}) establishes an
+\emph{affine decomposition framework} that separates the observed geometric
+phase into two contributions:
+\begin{enumerate}
+\item A \emph{geometric basepoint} $[\eta_{\mathrm{geo}}]$ determined by
+the classical action (the ``objective'' phase from symplectic geometry);
+\item A \emph{logical deviation} $[\xi_{\mathrm{logic}}]$ from the Bohrification
+topos (the ``subjective'' contextuality from the algebra of observables).
+\end{enumerate}
+The affine map $R_*$ is an isomorphism (Remark~\ref{rem:affine-structure}):
+$R_*([\xi]) = [\xi] \cdot [\eta_{\mathrm{geo}}]$.
+
+The \textbf{non-trivial mathematical contribution} of this paper is the
+\emph{explicit computation} of the geometric basepoint $[\eta_{\mathrm{geo}}]$
+for specific manifolds ($T^2$ and $S^2$) and its identification with the
+holonomy of the prequantum line bundle (Proposition~\ref{prop:main}).
+The affine decomposition provides a conceptual framework for understanding
+the relationship between quantum contextuality and classical phase geometry.
+
+%------------------------------------------------------------------
+\section{Mathematical Preliminaries}
+%------------------------------------------------------------------
+
+\subsection{The Two-Tier Quantization Framework}
+
+For a compact completely integrable system $(M, \omega)$ with Bohr--Sommerfeld
+foliation $\{\mathcal{L}_j\}$, geometric quantization involves two distinct
+Hilbert space layers:
+
+\begin{enumerate}
+\item \textbf{Prequantum layer (continuous):} For each BS leaf $\mathcal{L}_j \cong \mathbb{T}^d$,
+let $\mathcal{H}_j := L^2(\mathcal{L}_j, \mathcal{P}_\hbar|_{\mathcal{L}_j})$
+be the space of square-integrable sections of the prequantum line bundle
+restricted to $\mathcal{L}_j$. This is an \emph{infinite-dimensional}
+Hilbert space (isomorphic to $\ell^2(\mathbb{Z}^d)$ via Fourier transform).
+
+On $\mathcal{H}_j$, the \emph{clock operators} $\hat{V}_k^{(j)}$ act as
+multiplication by $e^{i\theta_k}$:
+\[
+  (\hat{V}_k^{(j)} \psi)(\theta) = e^{i\theta_k} \psi(\theta), \qquad \psi \in \mathcal{H}_j.
+\]
+These generate a commutative $C^*$-algebra with continuous Gelfand spectrum
+$\mathbb{T}^d$. This layer supports the geometric phase constructions
+of Section~\ref{sec:R-star}.
+
+\item \textbf{Polarized layer (discrete):} The \emph{real polarization}
+selects covariantly constant sections, reducing each $\mathcal{H}_j$ to a
+one-dimensional subspace spanned by a distributional section $|j\rangle$
+supported on $\mathcal{L}_j$. The full BS Hilbert space is the direct sum:
+\[
+  \mathcal{H}_{\mathrm{BS}} = \bigoplus_{j} \mathbb{C}|j\rangle,
+\]
+which is \emph{finite-dimensional} for compact $M$ (by the Bohr--Sommerfeld
+quantization condition).
+\end{enumerate}
+
+The observable algebra $A_{\mathrm{pre}} = \bigoplus_j B(\mathcal{H}_j)$
+acts on the prequantum layer. The poset $\mathcal{C}(A_{\mathrm{pre}})$
+of unital commutative $C^*$-subalgebras, ordered by inclusion, carries
+the Alexandrov topology. The topos $[\mathcal{C}(A_{\mathrm{pre}}), \mathbf{Set}]$
+is the \emph{Bohrification topos} for this framework.
+
+\begin{remark}[Fourier truncation]
+When operators from the prequantum layer are projected to the polarized
+layer $\mathcal{H}_{\mathrm{BS}}$, the continuous spectrum $\mathbb{T}^d$
+becomes discrete (Fourier truncation). This connects the infinite-dimensional
+geometric structure to finite-dimensional quantum mechanics; see Section~\ref{sec:semiclassical}.
+\end{remark}
+
+\begin{remark}[Local contexts and topological obstruction]
+\label{rem:local-contexts}
+To capture geometric phase via the Bohrification topos, the poset of
+commutative subalgebras must reflect the \emph{continuous family} of
+Bohr--Sommerfeld leaves, not just individual leaves.
+
+Let $\Delta \subset M$ denote the set of singular points (caustics,
+poles, or branch loci where the Lagrangian foliation degenerates).
+The \emph{regular locus} $M \setminus \Delta$ is foliated by a
+continuous family of BS leaves. For $S^2$ with the rigid rotor,
+$\Delta$ consists of the two poles and $M \setminus \Delta \cong S^1 \times \mathbb{R}$
+is a cylinder foliated by latitude circles.
+
+Fix an open cover $\{U_\alpha\}$ of $M \setminus \Delta$ adapted to
+the BS foliation. For each $\alpha$, define the \emph{local observable algebra}:
+\[
+  \mathcal{A}_\alpha := C(U_\alpha),
+\]
+the algebra of continuous functions on $U_\alpha$ (viewed as multiplication
+operators). These algebras have non-trivial intersections:
+\[
+  \mathcal{A}_\alpha \cap \mathcal{A}_\beta = C(U_\alpha \cap U_\beta),
+\]
+which captures the topology of the cover.
+
+The nerve of this poset structure corresponds precisely to the \v{C}ech nerve
+of $\{U_\alpha\}$ on $M \setminus \Delta$. This enables poset cohomology
+to capture the \emph{flat line bundle} topology:
+\[
+  H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+  \cong \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}}),
+\]
+where $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$ denotes the poset
+of local algebras $\{\mathcal{A}_\alpha\}_\alpha$.
+\end{remark}
+
+\begin{lemma}[Poset cohomology equals \v{C}ech cohomology]
+\label{lem:poset-cech}
+Let $\{U_\alpha\}$ be a good cover of $M \setminus \Delta$ and let
+$\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta) = \{\mathcal{A}_J = C(U_J)\}_J$
+(where $J$ ranges over all non-empty finite intersections)
+be the corresponding BS subposet. Then:
+\[
+H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+\cong \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}}).
+\]
+\end{lemma}
+
+\begin{proof}
+By Definition~\ref{def:BS-MASA}, the poset $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$
+consists of algebras $\mathcal{A}_J = C(U_J)$ for non-empty finite intersections $U_J$,
+ordered by inclusion via restriction maps. The nerve of this poset is the
+\textbf{barycentric subdivision} of the \v{C}ech nerve of the cover $\{U_\alpha\}$.
+It is a standard result in algebraic topology that the cohomology of the
+barycentric subdivision is canonically isomorphic to the cohomology of the
+original \v{C}ech nerve. Specifically for $k=1$, a poset 1-cochain assigns a value
+in $U(1)$ to each inclusion $\mathcal{A}_J \subset \mathcal{A}_{J'}$ (i.e., $U_{J'} \subseteq U_J$).
+Taking $J = \{\alpha, \beta\}$ and $J' = \{\alpha\}$ or $J' = \{\beta\}$ yields precisely
+the \v{C}ech 1-cochains on $U_\alpha \cap U_\beta$. The coboundary maps coincide,
+yielding the exact $H^1$ isomorphism.
+
+By Assumption~\ref{ass:cover}, all finite intersections $U_J$
+are contractible and hence \textbf{connected}. On a connected space, any locally
+constant function is globally constant. Therefore, the sheaf of locally constant
+$U(1)$-valued functions used in \v{C}ech cohomology coincides with the constant
+presheaf $\underline{U(1)}$ evaluated on each intersection.
+
+The presheaf $\underline{U(1)}$ assigns
+$\mathrm{Hom}(\mathrm{spec}(C(U_J)), U(1)) \cong C(U_J, U(1))$ to each element
+$\mathcal{A}_J$, which is exactly the group of \v{C}ech cochains on $U_J$.
+Hence the poset cochain complex is isomorphic to the \v{C}ech cochain complex,
+giving the claimed isomorphism on cohomology.
+\end{proof}
+
+The \emph{spectral presheaf} $\underline{\mathbb{A}} \in
+[\mathcal{C}(A_{\mathrm{pre}}), \mathbf{Set}]$ assigns to each $C \in \mathcal{C}(A_{\mathrm{pre}})$
+its Gelfand spectrum $\mathrm{spec}(C)$ (a compact Hausdorff space), with
+restriction maps given by the canonical spectral restriction
+$\mathrm{spec}(C') \to \mathrm{spec}(C)$ for $C \subseteq C'$.
+
+\begin{remark}[Topos cohomology definition]
+\label{rem:cohomology}
+Cohomology in a topos $\mathcal{E}$ is defined via abelian group objects.
+For the presheaf topos $[\mathcal{C}(A_{\mathrm{pre}}), \mathbf{Set}]$, we use the
+\emph{Čech cohomology of the Alexandrov topology}: for an abelian group
+$G$, define
+\[
+  \check{H}^n(\mathcal{C}(A_{\mathrm{pre}}),\, G)
+  := H^n_{\mathrm{sing}}(|N\mathcal{C}(A_{\mathrm{pre}})|,\, G),
+\]
+where $|N\mathcal{C}(A_{\mathrm{pre}})|$ is the geometric realization of the nerve of
+$\mathcal{C}(A_{\mathrm{pre}})$ (viewed as a category).
+\end{remark}
+
+\begin{remark}[Convention: presheaf of continuous functions]
+\label{rem:convention}
+In this paper, we work with the presheaf assigning $C(U_J, U(1))$ to each
+element $\mathcal{A}_J = C(U_J)$ of the poset. By Assumption~\ref{ass:cover},
+all intersections $U_J$ are contractible (hence connected), so every continuous
+function $U_J \to U(1)$ is constant. Thus this presheaf coincides with the
+constant presheaf $\underline{U(1)}$ on the poset.
+
+The cohomology $H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})$
+is computed via the nerve of the poset (viewed as a topological space),
+not via sheaf cohomology of the topos $[\mathcal{C}(A_{\mathrm{pre}}), \mathbf{Set}]$.
+
+This differs from the spectral presheaf $\underline{\mathbb{A}}$ (a presheaf of
+\emph{sets}), whose topos sheaf cohomology would require injective resolutions
+and yields pointed sets rather than abelian groups. Our construction uses
+$U(1)$-valued characters via this presheaf of continuous functions (which
+coincides with the constant presheaf), not the spectral presheaf.
+\end{remark}
+
+\begin{remark}[Sheaf vs.\ poset cohomology]
+\label{rem:sheaf-poset}
+The definition above computes the cohomology of the poset $\mathcal{C}(A_{\mathrm{pre}})$
+as a topological space via its nerve. For the presheaf topos
+$[\mathcal{C}(A_{\mathrm{pre}}), \mathbf{Set}]$, sheaf cohomology would be computed
+differently (via injective resolutions).
+
+Our construction uses the poset cohomology of the BS subposet
+$\mathcal{C}^{\mathrm{BS}}(A_{\mathrm{pre}})$, which suffices for the examples considered
+here. For general Bohrification applications, the distinction between
+poset cohomology and topos sheaf cohomology may be important; see
+Landsman \cite{Lan16} for the full framework.
+\end{remark}
+
+The Bohrification topos is constructed from the observable algebra
+$A_{\mathrm{pre}}$ on the prequantum layer, as detailed in the following
+sections.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Framework} & \textbf{Layer} & \textbf{Hilbert Space} & \textbf{Commutativity / Spectrum} \\
+\hline
+BS Quantization & Prequantum & $\mathcal{H}_j = L^2(\mathcal{L}_j, \mathcal{P}_\hbar|_{\mathcal{L}_j})$ & \textbf{Exact:} $\mathrm{spec}(\mathcal{A}_j) \cong \mathbb{T}^d$ (continuous) \\
+& & (inf-dim per leaf) & \\
+\hline
+BS Quantization & Polarized & $\mathcal{H}_{\mathrm{BS}} = \bigoplus_j \mathbb{C}|j\rangle$ & \textbf{Exact:} Discrete Fourier truncation \\
+& & (finite-dim) & of $\mathbb{T}^d$ \\
+\hline
+\end{tabular}
+\caption{Comparison of BS quantization layers. The framework operates on two tiers:
+the prequantum layer (infinite-dimensional per leaf, continuous spectrum) for geometric phase,
+and the polarized layer (finite-dimensional, discrete) for quantum contextuality.}
+\label{tab:comparison}
+\end{table}
+
+\subsection{Geometric Quantization}
+
+Let $(M, \omega)$ be a symplectic manifold with $[\omega]/2\pi\hbar \in H^2(M, \mathbb{Z})$.
+A \emph{prequantum line bundle} $\mathcal{P}_\hbar$ is a complex line bundle
+over $M$ with connection $\nabla$ satisfying $F_\nabla = \omega/\hbar$.
+Such a bundle exists iff $[\omega]/2\pi\hbar \in H^2(M, \mathbb{Z})$.
+
+The Čech cohomology class $[\mathcal{P}_\hbar] \in \check{H}^1(M, U(1))$
+is represented by the transition functions $\{g_{\alpha\beta}\}$ of a
+trivialization $\mathcal{P}_\hbar|_{U_\alpha} \cong U_\alpha \times \mathbb{C}$.
+
+\subsection{Maslov Index and Bohr--Sommerfeld Condition}
+
+For a Lagrangian submanifold $\mathcal{L} \subset M$ and a loop
+$\gamma \subset \mathcal{L}$, the \emph{Maslov index} $\mu(\gamma)$ is
+the winding number of the tangent plane $T\mathcal{L}$ along $\gamma$ in
+the Lagrangian Grassmannian $\Lambda(T^*M)$. For generic projections to
+configuration space, this equals the signed intersection number with the
+caustic, but the Grassmannian winding definition is more general and
+avoids the misleading intuition that the loop must physically pass
+through caustic points.
+
+The standard Bohr--Sommerfeld condition \cite[Eq.~(7.20)]{BW97} is:
+\[
+  \oint_\gamma p\,dq = 2\pi\hbar\!\left(n + \tfrac{\mu(\gamma)}{4}\right),
+  \quad n \in \mathbb{Z}.
+\]
+\textbf{Convention.} \emph{Throughout this paper, we adopt the standard
+$\mu/4$ convention for the Bohr--Sommerfeld condition.}\linebreak Some texts use
+$\mu/2$, corresponding to a different parametrization of the Maslov index
+(cf.\ de Gosson \cite{Gos11}). All Maslov index calculations in this
+paper are consistent with the $\mu/4$ convention.
+
+%------------------------------------------------------------------
+\section{From Lagrangian Leaves to Commutative Algebras}
+%------------------------------------------------------------------
+
+Let $(M, \omega)$ be a compact symplectic manifold with completely
+integrable Hamiltonian $H$. Let $\{\phi_j\}$ be the multi-valued
+solutions to the Hamilton--Jacobi equation $H(x, \nabla\phi) = E$,
+defined on open sets $\{U_j\}$ covering $M$. The associated Lagrangian
+leaves are
+\[
+\mathcal{L}_j := \{(x,\, \nabla\phi_j(x)) : x \in U_j\} \subset T^*M.
+\]
+The Bohr--Sommerfeld leaves are those satisfying
+\[
+\oint_{\gamma} p\,dq
+  = 2\pi\hbar\!\left(n + \tfrac{\mu(\gamma)}{4}\right), \quad n \in \mathbb{Z},
+\]
+where $\mu(\gamma)$ is the Maslov index of the loop $\gamma$ on
+$\mathcal{L}_j$~\cite{Mas72, BW97}. Denote by $\mathrm{Lag}^{BS}(M)$
+the collection of Bohr--Sommerfeld leaves.
+
+\begin{lemma}\label{lem:HJ-constant}
+On overlaps $U_\alpha \cap U_\beta$, the difference
+$\phi_\alpha - \phi_\beta$ is locally constant modulo $2\pi\hbar$.
+Hence
+\[
+g_{\alpha\beta} :=
+  \exp\!\left(\tfrac{i}{\hbar}(\phi_\alpha - \phi_\beta)\right)
+\]
+is a well-defined locally constant $U(1)$-valued function on
+$U_\alpha \cap U_\beta$.
+\end{lemma}
+
+\begin{proof}
+On the overlap, $\nabla\phi_\alpha - \nabla\phi_\beta = p_\alpha - p_\beta$
+is a discrete jump between Lagrangian branches. By the Bohr--Sommerfeld
+condition this integrates to $2\pi\hbar\cdot\mathbb{Z}$ around any closed
+loop, so the difference is locally constant modulo $2\pi\hbar$.
+\end{proof}
+
+\subsection{The BS--Commutative-Subalgebra Correspondence}
+
+For a completely integrable system, let $\Delta \subset M$ denote the
+\emph{singular locus} where the Lagrangian foliation degenerates (caustics,
+poles, or branch points). The \emph{regular locus} $M \setminus \Delta$
+is foliated by a continuous family of Bohr--Sommerfeld leaves.
+
+\begin{assumption}[Adapted cover]
+\label{ass:cover}
+Let $\{U_\alpha\}$ be an open cover of $M \setminus \Delta$ such that:
+\begin{enumerate}
+\item Each $U_\alpha$ is contractible and adapted to the BS foliation;
+\item For each BS leaf $\mathcal{L}_j$ and each pair $\alpha, \beta$,
+the intersection $\mathcal{L}_j \cap (U_\alpha \cap U_\beta)$ is
+path-connected (or empty).
+\end{enumerate}
+\end{assumption}
+
+\begin{definition}[BS--commutative-subalgebra poset]
+\label{def:BS-MASA}
+Let $\{U_\alpha\}_{\alpha \in \Lambda}$ be an open cover of $M \setminus \Delta$ adapted to the BS foliation (Assumption~\ref{ass:cover}). For every non-empty finite intersection $U_J = U_{\alpha_1} \cap \dots \cap U_{\alpha_k}$, define the local observable algebra:
+\[
+  \mathcal{A}_J := C(U_J).
+\]
+Since $U_J \subseteq U_K$ implies a canonical embedding $C(U_K) \hookrightarrow C(U_J)$ by restriction, the collection $\{\mathcal{A}_J\}$ forms a poset ordered by inclusion. We define the \emph{BS subposet} $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$ to be this intersection poset.
+
+The \emph{BS--commutative-subalgebra correspondence}
+$\sigma^{\mathrm{BS}}: M \setminus \Delta \to \mathcal{C}(A_{\mathrm{pre}})$
+maps each point to the local algebra containing it.
+\end{definition}
+
+\begin{remark}[Notation: $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$ vs $\mathcal{C}^{\mathrm{BS}}(A_{\mathrm{pre}})$]
+\label{rem:notation}
+We hereafter identify the BS subposet $\mathcal{C}^{\mathrm{BS}}(A_{\mathrm{pre}}) \subset \mathcal{C}(A_{\mathrm{pre}})$
+with $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$ via the correspondence $\sigma^{\mathrm{BS}}$.
+When emphasizing the geometric origin (good cover of $M \setminus \Delta$), we write
+$\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$;\linebreak when emphasizing the algebraic structure, we write $\mathcal{C}^{\mathrm{BS}}(A_{\mathrm{pre}})$.
+They denote the same object under Gelfand duality.
+\end{remark}
+
+\begin{proposition}[Gelfand spectrum of local observable algebra]
+\label{prop:gelfand}
+For $\mathcal{A}_\alpha = C(U_\alpha)$, the Gelfand
+spectrum is homeomorphic to $U_\alpha$:
+\[
+  \mathrm{spec}(\mathcal{A}_\alpha) \cong U_\alpha.
+\]
+Explicitly, each character $\chi \in \mathrm{spec}(\mathcal{A}_\alpha)$
+is evaluation at a point $x \in U_\alpha$:
+\[
+  \chi_x(f) = f(x) \quad \text{for } f \in C(U_\alpha).
+\]
+\end{proposition}
+
+\begin{proof}
+By the Gelfand--Naimark theorem, $C(X)$ has spectrum homeomorphic to $X$
+for locally compact Hausdorff $X$. Since $U_\alpha$ is contractible
+(hence locally compact Hausdorff), the result follows.
+\end{proof}
+
+\begin{remark}[Relation to shift operators and Real Polarization]
+\label{rem:shift-dual}
+The clock operator algebra $\mathcal{A}_j = C^*(\hat{V}_1^{(j)}, \dots, \hat{V}_d^{(j)})$
+is isomorphic to $C(\mathbb{T}^d)$ by the Gelfand--Naimark theorem.
+The spectrum $\mathrm{spec}(\mathcal{A}_j) \cong \mathbb{T}^d$ corresponds
+to the BS leaf $\mathcal{L}_j$ with its angle coordinates.
+
+In the Real Polarization approach to geometric quantization,
+the quantum Hilbert space consists of distributional sections
+supported on BS leaves. The \emph{shift operators} $\hat{U}_k$ act
+by incrementing quantum numbers in the BS lattice (mapping between
+different leaves). Fourier analysis identifies $C(\mathbb{T}^d)$
+(clock operators on a fixed leaf) with the Fourier-dual picture of
+shift operators on $\ell^2(\mathbb{Z}^d)$ (transitions between leaves).
+Thus $\mathcal{A}_j$ is the operator-theoretic realization of the
+Real Polarization framework, adapted to the prequantum layer $\mathcal{H}_j$
+per leaf (with shift operators acting on the polarized layer $\mathcal{H}_{\mathrm{BS}}$).
+\end{remark}
+
+\begin{remark}[Comparison with Berezin--Toeplitz quantization]
+\label{rem:BT-comparison}
+The multiplication operator construction on the prequantum layer
+$\mathcal{H}_j = L^2(\mathcal{L}_j)$ uses the Real Polarization approach
+in geometric quantization, where commutative observables are multiplication
+operators on sections over BS leaves. This differs from the
+Berezin--Toeplitz quantization used in early drafts of this paper,
+which produces approximately commutative algebras with $O(\hbar^2)$ corrections.
+
+The multiplication operator algebra $\mathcal{A}_j = \{M_f : f \in C(\mathbb{T}^d)\}$
+provides \emph{exact} commutativity on the prequantum layer $\mathcal{H}_j = L^2(\mathcal{L}_j)$
+(infinite-dimensional per leaf), making the BS--commutative-subalgebra correspondence
+a well-defined morphism into $\mathcal{C}(A_{\mathrm{pre}})$ with rigorous Gelfand duality.
+The key distinction is that Berezin--Toeplitz operates on the full prequantum space
+$L^2(M, \mathcal{P}_\hbar)$ with approximate commutativity, while the BS framework
+restricts to leaf-wise prequantum spaces $\mathcal{H}_j$ where exact commutativity holds.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Construction of the Map $R_*$}
+\label{sec:R-star}
+%------------------------------------------------------------------
+
+Let $A_{\mathrm{pre}} = \bigoplus_j B(\mathcal{H}_j)$ be the prequantum
+observable algebra acting on $\bigoplus_j L^2(\mathcal{L}_j, \mathcal{P}_\hbar|_{\mathcal{L}_j})$,
+let $\mathcal{C}(A_{\mathrm{pre}})$ be the poset of commutative
+unital $C^*$-subalgebras ordered by inclusion, and let
+$\underline{\mathbb{A}}$ be the spectral presheaf assigning to each
+$C \in \mathcal{C}(A_{\mathrm{pre}})$ its Gelfand spectrum $\mathrm{spec}(C)$.
+
+We restrict to the \emph{BS subposet}
+$\mathcal{C}^{\mathrm{BS}}(A_{\mathrm{pre}}) \subset \mathcal{C}(A_{\mathrm{pre}})$ consisting of
+subalgebras $\mathcal{A}_j$ that arise as BS multiplication operator algebras via the
+correspondence $\sigma^{\mathrm{BS}}$ of Definition~\ref{def:BS-MASA}.
+
+The construction of $R_*$ proceeds in two steps. First, we define the
+\emph{geometric basepoint} $[\eta_{\mathrm{geo}}]$ as the flat cocycle
+of action phase differences. Second, we define $R_*$ as the affine translation
+by this basepoint and verify it is well-defined on cohomology classes
+(Lemma~\ref{lem:R-star-well-defined}).
+
+\begin{definition}[Geometric basepoint]
+\label{def:geometric-basepoint}
+Let $\nabla$ be the prequantum connection on $\mathcal{P}_\hbar$ with
+curvature $F_\nabla = \omega/\hbar$. Let $\Delta \subset M$ be the
+singular locus and let $\{U_\alpha\}$ be an open cover of
+$M \setminus \Delta$ with local action functions $\phi_\alpha: U_\alpha \to \mathbb{R}$
+satisfying $\mathrm{d}\phi_\alpha = \lambda$ on $U_\alpha$ (restricted to the BS leaf through each point), where $\lambda = p\,\mathrm{d}q$
+is the Liouville $1$-form.
+
+The \emph{geometric basepoint} is the flat cohomology class
+$[\eta_{\mathrm{geo}}] \in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$
+represented by the cocycle:
+\[
+\eta_{\mathrm{geo},\alpha\beta} := \exp\!\Bigl(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta)\Bigr).
+\]
+By Lemma~\ref{lem:HJ-constant}, $\phi_\alpha - \phi_\beta$ is locally
+constant modulo $2\pi\hbar$, so $\eta_{\mathrm{geo}}$ is a well-defined
+flat cocycle representing the ``pure geometric phase'' determined by
+the classical action.
+\end{definition}
+
+\begin{definition}[Affine geometric phase map $R_*$]
+\label{def:R-star}
+The BS subposet $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$ consists of
+local observable algebras $\mathcal{A}_\alpha = C(U_\alpha)$ with
+intersections $\mathcal{A}_\alpha \cap \mathcal{A}_\beta = C(U_\alpha \cap U_\beta)$.
+
+Define the \emph{affine geometric phase map}
+\[
+R_*: H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+\longrightarrow \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})
+\]
+as follows. A class $[\xi] \in H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})$
+is represented by a \v{C}ech $1$-cocycle $\xi = \{\xi_{\alpha\beta}\}$
+where each $\xi_{\alpha\beta}: \mathrm{spec}(\mathcal{A}_\alpha \cap \mathcal{A}_\beta) \to U(1)$.
+By Proposition~\ref{prop:gelfand}, $\xi_{\alpha\beta}$ is a $U(1)$-valued function
+on $U_\alpha \cap U_\beta$.
+
+Define
+\[
+R_*([\xi]) := [\xi] \cdot [\eta_{\mathrm{geo}}]
+\in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}}),
+\]
+where the product is the group multiplication in flat cohomology:
+$R_*([\xi])$ is represented by the cocycle
+$\eta_{\alpha\beta} = \xi_{\alpha\beta} \cdot \eta_{\mathrm{geo},\alpha\beta}$.
+
+Equivalently, $R_*$ is the \emph{translation} (right action) of the
+geometric basepoint on the domain:
+\[
+R_*([\xi]) = [\xi] +_{\mathrm{affine}} [\eta_{\mathrm{geo}}],
+\]
+where $+_{\mathrm{affine}}$ denotes the affine group action of
+$\check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$ on itself.
+\end{definition}
+
+\begin{remark}[Affine structure of $R_*$]
+\label{rem:affine-structure}
+By Lemma~\ref{lem:poset-cech}, the domain and target of $R_*$ are isomorphic as groups.
+By Definition~\ref{def:R-star}, $R_*$ acts by translation by the fixed element
+$[\eta_{\mathrm{geo}}]$. Since translation by any fixed element in a group is a bijection,
+$R_*$ is an affine isomorphism. This is a structural property of the definition,
+not an independent theorem.
+\end{remark}
+
+\begin{lemma}[Cocycle property]
+\label{lem:cocycle}
+The collection $\{\eta_{\alpha\beta}\}$ defined in Definition~\ref{def:R-star}
+is a \v{C}ech $1$-cocycle in $\check{Z}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$.
+\end{lemma}
+
+\begin{proof}
+We verify $\eta_{\alpha\beta} \cdot \eta_{\beta\gamma} \cdot \eta_{\gamma\alpha} = 1$
+on triple overlaps $U_\alpha \cap U_\beta \cap U_\gamma$:
+\[
+\eta_{\alpha\beta} \eta_{\beta\gamma} \eta_{\gamma\alpha}
+= \xi_{\alpha\beta}\xi_{\beta\gamma}\xi_{\gamma\alpha} \cdot
+\exp\!\Bigl(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta + \phi_\beta - \phi_\gamma + \phi_\gamma - \phi_\alpha)\Bigr)
+= 1 \cdot e^0 = 1,
+\]
+since $\{\xi_{\alpha\beta}\}$ is a cocycle by hypothesis and the action
+phases telescope to zero.
+
+Each factor is locally constant: $\xi_{\alpha\beta}$ by the presheaf
+property, and $\exp(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta))$ by
+Lemma~\ref{lem:HJ-constant}. Hence $\eta_{\alpha\beta}$ is locally constant,
+i.e., defines a flat line bundle.
+\end{proof}
+
+\begin{lemma}[Well-definedness of $R_*$]
+\label{lem:R-star-well-defined}
+The map $R_*$ is well-defined: if $\xi$ and $\xi'$ are cohomologous cocycles
+on $\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta)$, then $R_*([\xi]) = R_*([\xi'])$
+in $\check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$.
+\end{lemma}
+
+\begin{proof}
+Let $\xi' = \xi \cdot \delta\zeta$ for some $0$-cochain
+$\zeta = \{\zeta_\alpha\}$ with $\zeta_\alpha: \mathrm{spec}(\mathcal{A}_\alpha) \to U(1)$.
+By Proposition~\ref{prop:gelfand}, this is $\zeta_\alpha: U_\alpha \to U(1)$.
+Then $\xi'_{\alpha\beta} = \xi_{\alpha\beta} \cdot \zeta_\beta / \zeta_\alpha$.
+
+The corresponding flat cocycles are:
+\[
+\eta'_{\alpha\beta}
+= \xi'_{\alpha\beta} \cdot \exp\!\Bigl(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta)\Bigr)
+= \xi_{\alpha\beta} \cdot \frac{\zeta_\beta}{\zeta_\alpha} \cdot
+\exp\!\Bigl(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta)\Bigr)
+= \eta_{\alpha\beta} \cdot \frac{\zeta_\beta}{\zeta_\alpha}.
+\]
+Thus $\eta' = \eta \cdot \delta\zeta$ is cohomologous to $\eta$,
+so $[\eta'] = [\eta]$ in $\check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$.
+\end{proof}
+
+The construction is summarized by the following diagram:
+\[
+\begin{tikzcd}[column sep=large, row sep=large]
+  H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+    \arrow[dr, "R_*" description] \\
+  \check{Z}^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+    \arrow[u, "{[\cdot]}" description]
+    \arrow[r, "{\eta = \xi \cdot e^{i(\phi_\alpha - \phi_\beta)/\hbar}}"]
+  & \check{Z}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})
+    \arrow[d, "{[\cdot]}"] \\
+  & \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})
+\end{tikzcd}
+\]
+where:
+\begin{itemize}
+  \item $H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})$ is the
+        poset cohomology group (domain of $R_*$).
+  \item Cocycles $\xi \in \check{Z}^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})$
+        represent cohomology classes $[\xi]$ in the domain.
+  \item The map $R_*$ sends $[\xi]$ to $[\eta]$ where
+        $\eta_{\alpha\beta} = \xi_{\alpha\beta} \cdot \exp(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta))$.
+  \item The result is a flat line bundle on $M \setminus \Delta$,
+        capturing the geometric phase (e.g., Maslov phase $-1$ for $S^2$).
+\end{itemize}
+
+\begin{proposition}[Properties of the geometric basepoint and $R_*$]
+\label{prop:main}
+Let $M \in \{T^2, S^2\}$ with singular locus $\Delta$ and regular locus
+$M \setminus \Delta$. Let
+$[\eta_{\mathrm{geo}}] \in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$
+denote the geometric basepoint (Definition~\ref{def:geometric-basepoint}).
+
+\begin{enumerate}
+\item[(a)] \textbf{Algebraic mapping:} By Definition~\ref{def:R-star} and Lemma~\ref{lem:poset-cech},
+$R_*$ is an affine isomorphism between the Bohrification cohomology and the flat \v{C}ech cohomology.
+
+\item[(b)] \textbf{Geometric identification (non-trivial):} The specifically constructed basepoint
+$[\eta_{\mathrm{geo}}]$ --- defined via the classical Hamilton--Jacobi action phases ---
+strictly coincides with the holonomy class of the prequantum line bundle restricted to the regular locus:
+\[
+[\eta_{\mathrm{geo}}] = \mathrm{hol}\left([\mathcal{P}_\hbar|_{M \setminus \Delta}]\right)
+\in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}}).
+\]
+Here, $\mathrm{hol}: \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{smooth}}) \to \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}}) \cong \mathrm{Hom}(\pi_1(M \setminus \Delta), U(1))$ is the forgetful map extracting the holonomy representation of a line bundle.
+This identification is highly non-trivial and is verified explicitly for $T^2$ and $S^2$
+in Appendix~\ref{app:examples}.
+\end{enumerate}
+\end{proposition}
+
+%------------------------------------------------------------------
+\section{Affine Decomposition of Contextual Phases}
+%------------------------------------------------------------------
+
+\begin{definition}[Affine decomposition framework]
+\label{def:affine-decomposition}
+Let $M$ be a compact completely integrable system with singular locus
+$\Delta$ and regular locus $M \setminus \Delta$. Let
+$[\eta_{\mathrm{geo}}] \in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$
+be the geometric basepoint (Definition~\ref{def:geometric-basepoint}).
+
+By Lemma~\ref{lem:poset-cech}, $H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})
+\cong \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$ as groups.
+By Remark~\ref{rem:affine-structure}, $R_*$ is an affine isomorphism.
+
+The \emph{affine decomposition} of any observed flat line bundle $[\Psi] \in \check{H}^1(M \setminus \Delta, U(1)_{\mathrm{flat}})$
+is the unique factorization:
+\[
+[\Psi] = [\xi_{\mathrm{logic}}] \cdot [\eta_{\mathrm{geo}}],
+\]
+where $[\xi_{\mathrm{logic}}] \in H^1(\mathcal{C}^{\mathrm{BS}}(M \setminus \Delta), \underline{U(1)})$
+is the \emph{logical contextuality deviation} — the purely algebraic (Bohrification)
+contribution to the geometric phase.
+Equivalently, $[\Psi] = R_*([\xi_{\mathrm{logic}}])$.
+\end{definition}
+
+\begin{remark}[Physical interpretation of the affine framework]
+\label{rem:framework-vs-theorem}
+The affine decomposition (Definition~\ref{def:affine-decomposition}) is a \emph{conceptual framework} that separates the observed geometric phase into two fundamentally distinct contributions:
+\begin{enumerate}
+\item \textbf{Geometric basepoint $[\eta_{\mathrm{geo}}]$:} Determined by the classical action via Lemma~\ref{lem:HJ-constant}. This is the ``objective'' geometric phase arising from the symplectic structure and Hamilton--Jacobi theory. It exists independently of any quantum or algebraic structure.
+
+\item \textbf{Logical deviation $[\xi_{\mathrm{logic}}]$:} Captures the Bohrification contextuality --- the failure of local classical data to glue consistently into a global section. This is the ``subjective'' contribution from the algebraic structure of observables.
+\end{enumerate}
+
+The map $R_*$ is an \emph{affine bijection, not a group homomorphism} (it does not preserve the identity). This reflects the physical fact that the geometric phase is a \emph{baseline} (basepoint) against which quantum contextuality is measured.
+
+The mathematical existence of this decomposition follows immediately from the definition of $R_*$ (Remark~\ref{rem:affine-structure}): translation by a fixed group element is trivially invertible. The \emph{non-trivial mathematical contribution} of this paper is the explicit computation of the geometric basepoint $[\eta_{\mathrm{geo}}]$ for specific manifolds (Appendix~\ref{app:examples}) and its identification with the holonomy of the prequantum line bundle (Proposition~\ref{prop:main}(b)).
+\end{remark}
+
+\begin{remark}[The two examples]
+\label{rem:two-examples}
+\textbf{Case $T^2$:} The geometric basepoint is trivial
+($[\eta_{\mathrm{geo}}] = 1$) because the action phases integrate to integer
+multiples of $2\pi\hbar$. Thus $R_*([\xi]) = [\xi]$, and the logical
+deviation equals the observed phase. There is no ``purely geometric''
+contribution; all phase is contextuality.
+
+\textbf{Case $S^2$:} The geometric basepoint is non-trivial
+($[\eta_{\mathrm{geo}}] = [-1]$) due to the Maslov phase. For the
+``minimal'' observable phase (no additional contextuality),
+$[\xi_{\mathrm{logic}}] = 1$ gives $[\Psi] = [-1]$. The logical deviation
+$[\xi_{\mathrm{logic}}]$ measures the deviation from this geometric baseline.
+\end{remark}
+
+\begin{remark}[Connection to discrete contextuality and Paper III]
+\label{rem:connection-paper3}
+While this paper focuses on continuous phase cohomology ($H^1$ of flat $U(1)$-bundles), the affine framework is designed to interface with discrete contextuality in finite-dimensional quantum systems. The key mechanism is \textbf{Fourier truncation} (Remark~\ref{rem:shift-dual}): when the BS quantization condition discretizes the foliation, the continuous clock operators $\hat{V}_k^{(j)}$ restrict to finite cyclic groups.
+
+Specifically, for the BS Hilbert space $\mathcal{H}_{\mathrm{BS}}$, the $U(1)$-valued phase assignments become $\mathbb{Z}/n$-valued. The continuous $H^1$ obstruction $[\xi_{\mathrm{logic}}]$ then descends to a discrete cohomology class measuring the failure of local phase assignments to glue globally. In Paper III, we calculate that for the Peres--Mermin square, the resulting discrete obstruction is precisely the central extension class $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$. The exact mechanism connecting $H^1_{\mathrm{cont}}$ to $H^2_{\mathrm{disc}}$ (e.g., via a Bockstein homomorphism or Fourier truncation on the coefficient group) remains conjectural and will be explored in future work.
+\end{remark}
+
+
+%------------------------------------------------------------------
+\section{Semiclassical Limit and the BS Framework}
+\label{sec:semiclassical}
+%------------------------------------------------------------------
+
+\subsection{The BS Hilbert Space as a Subspace}
+
+In geometric quantization, the prequantum Hilbert space $L^2(M, \mathcal{P}_\hbar)$
+(the space of square-integrable sections of the prequantum line bundle) is too large
+for physical interpretation. The \emph{real polarization} reduces this to the
+Bohr--Sommerfeld Hilbert space $\mathcal{H}_{\mathrm{BS}}$, which for compact
+integrable systems is a \emph{finite-dimensional subspace}:
+\[
+  \mathcal{H}_{\mathrm{BS}} \subset L^2(M, \mathcal{P}_\hbar).
+\]
+Specifically, $\mathcal{H}_{\mathrm{BS}}$ is spanned by distributional sections
+supported on BS leaves (covariantly constant along the Lagrangian foliation).
+For the $d$-torus $T^d$ with Chern number $n$, $\dim \mathcal{H}_{\mathrm{BS}} = n$;
+for $S^2$, $\dim \mathcal{H}_{\mathrm{BS}} = 2l+1$ where $c_1 = 2l+1$.
+
+The key advantage of the BS framework is the \emph{two-tier structure}:
+exact commutativity holds on the prequantum layer with continuous $\mathbb{T}^d$
+spectrum, while the polarized layer provides finite-dimensional quantum mechanics
+via Fourier truncation. This unifies geometric quantization with Bohrification.
+
+\subsection{Semiclassical Interpretation of $\hbar \to 0$}
+
+In the limit $\hbar \to 0$ with $I_k = \hbar n_k$ held fixed:
+\begin{enumerate}
+\item The BS leaves become denser in phase space (spacing $\Delta I = 2\pi\hbar$
+between adjacent quantized actions).
+\item The dimension $\dim \mathcal{H}_{\mathrm{BS}} \propto \hbar^{-d}$
+grows (by Weyl asymptotics \cite{GU89}), with the discrete BS leaf grid
+``filling'' classical phase space.
+\item The union of Gelfand spectra $\bigcup_j \mathrm{spec}(\mathcal{A}_j) \cong
+\bigcup_j \mathbb{T}^d_j$ approximates the continuous Lagrangian foliation.
+\end{enumerate}
+
+This is a \emph{resolution enhancement} rather than a Hilbert space limit.
+The clock operators $\hat{V}_k^{(j)}$ on individual leaves retain their
+$U(1)$ spectrum (the angle coordinates), while the number of leaves increases.
+The semiclassical limit manifests as the emergence of classical angle
+dynamics from the quantum clock operator eigenvalues, not as a convergence
+of operator algebras. The localization of quantum states near BS leaves
+in the $\hbar \to 0$ limit is consistent with the phase oscillation
+picture of~\cite{LS26}.
+
+%------------------------------------------------------------------
+\section{Limitations and Future Work}
+%------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Extension to non-compact systems and the Kochen--Specker connection.}
+
+For $M = \mathbb{R}^3$ (harmonic oscillator), the geometric basepoint is trivial
+($[\eta_{\mathrm{geo}}] = 1$) and the KS obstruction would manifest as purely
+logical deviation $[\xi_{\mathrm{logic}}]$. This requires computing
+$H^1(\mathcal{C}^{\mathrm{BS}})$ for the harmonic oscillator BS subposet,
+which remains an open problem for future work.
+
+\item \textbf{Restriction to compact integrable systems.}
+The construction assumes:
+  \begin{itemize}
+    \item Complete integrability (existence of action-angle coordinates).
+    \item Compactness (for the Bohr--Sommerfeld foliation to be well-defined).
+  \end{itemize}
+Non-integrable systems lack the BS foliation structure; extending to
+deformation quantization or general Poisson manifolds is an open problem.
+
+\item \textbf{The functoriality of $\sigma^{\mathrm{BS}}$.}
+While Definition~\ref{def:BS-MASA} establishes a concrete map from points
+in the regular locus to local observable algebras, the construction
+currently lacks full functoriality. A rigorous categorical treatment
+would require defining $\sigma^{\mathrm{BS}}$ as a functor between a category
+of Bohr--Sommerfeld Lagrangian leaves and a category of commutative
+$C^*$-subalgebras. This would necessitate specifying the mapping of morphisms
+(e.g., symplectic embeddings or Hamiltonian flows) to corresponding
+algebraic homomorphisms, which remains an open problem for extending
+this bridge to more general dynamical settings.
+
+\item \textbf{Relationship to deformation quantization.}
+The clock operator algebra $\mathcal{A}_j$ provides exact commutativity
+without $\hbar$-corrections on the prequantum layer $\mathcal{H}_j = L^2(\mathcal{L}_j)$.
+This differs from Berezin--Toeplitz quantization where commutativity is
+approximate. A direct link to formal deformation quantization
+(power series in $\hbar$) would require relating the BS framework
+to the non-commutative quantum observable algebra via a strict
+deformation quantization framework.
+
+\item \textbf{Generalization beyond good covers.}
+Our proof that $R_*$ is an affine isomorphism relies on the existence
+of a good cover (contractible intersections). For manifolds where no
+good cover exists, or where the BS foliation does not admit adapted
+contractible charts, the poset-\v{C}ech correspondence may fail.
+
+\item \textbf{From flat to smooth bundles.}
+The construction produces flat line bundles on $M \setminus \Delta$.
+The relationship between these flat bundles and the smooth prequantum
+bundle on $M$ (with curvature $\omega/\hbar$) requires further study:
+when does a flat bundle on the regular locus extend to a smooth bundle
+on the singular locus?
+\end{enumerate}
+
+%------------------------------------------------------------------
+\appendix
+\section{Verification of Proposition~\ref{prop:main}}
+\label{app:examples}
+%------------------------------------------------------------------
+
+\subsection{$T^2$: Trivial Flat Bundle}
+
+\textbf{Setup.}
+$M = T^2$, coordinates $(\theta^1, \theta^2) \in [0,2\pi)^2$,
+Hamiltonian $H = \tfrac{1}{2}(I_1^2 + I_2^2)$,
+symplectic form $\omega = dI_1 \wedge d\theta^1 + dI_2 \wedge d\theta^2$.
+
+\textbf{Singular locus.}
+The flat torus has no caustics or poles, so $\Delta = \emptyset$
+and $M \setminus \Delta = T^2$.
+
+\textbf{Good cover and local observable algebras.}
+Let $\{U_\alpha\}$ be a good cover of $T^2$ (e.g., by contractible charts
+adapted to the action-angle coordinates). By Definition~\ref{def:BS-MASA},
+the local algebras are $\mathcal{A}_\alpha = C(U_\alpha)$.
+
+\textbf{Verification of Assumption~\ref{ass:cover}(2).}
+The BS leaves for $T^2$ are the invariant tori themselves ($\mathcal{L} \cong T^2$).
+For contractible charts $U_\alpha$ adapted to action-angle coordinates,
+each BS leaf $\mathcal{L}$ either is disjoint from $U_\alpha \cap U_\beta$
+or intersects it in a single contractible (hence path-connected) region.
+Thus Assumption~\ref{ass:cover}(2) is satisfied.
+
+\textbf{Action phases.}
+By Lemma~\ref{lem:HJ-constant}, on each overlap $U_\alpha \cap U_\beta$,
+the difference $\phi_\alpha - \phi_\beta$ is locally constant.
+The flat torus $T^2$ has a trivial Lagrangian Grassmannian bundle
+(the tangent bundle is parallelizable), so the Maslov index vanishes
+for all loops ($\mu = 0$). For $T^2$ with Maslov index $\mu = 0$,
+the Bohr--Sommerfeld condition
+$\oint p\,dq = 2\pi\hbar n$ (for $n \in \mathbb{Z}$) implies:
+\[
+\phi_\alpha - \phi_\beta = 2\pi\hbar n_{\alpha\beta}
+\quad \text{on } U_\alpha \cap U_\beta,
+\]
+for some integers $n_{\alpha\beta}$. Therefore:
+\[
+\eta_{\mathrm{geo},\alpha\beta}
+= \exp\!\Bigl(\frac{i}{\hbar}(\phi_\alpha - \phi_\beta)\Bigr)
+= \exp(2\pi i n_{\alpha\beta}) = 1.
+\]
+The geometric basepoint cocycle is identically $1$.
+
+\textbf{Affine map $R_*$.}
+A class $[\xi] \in H^1(\mathcal{C}^{\mathrm{BS}}(T^2), \underline{U(1)})$
+is represented by cocycles $\xi_{\alpha\beta}: U_\alpha \cap U_\beta \to U(1)$.
+By Definition~\ref{def:R-star}:
+\[
+\eta_{\alpha\beta} = \xi_{\alpha\beta} \cdot \eta_{\mathrm{geo},\alpha\beta}
+= \xi_{\alpha\beta} \cdot 1 = \xi_{\alpha\beta}.
+\]
+Since the action phase is trivial, $R_*$ acts as the identity:
+$R_*([\xi]) = [\xi]$. In particular, $R_*(1) = 1$, giving the trivial
+flat bundle class $[\eta] = 1 \in \check{H}^1(T^2, U(1)_{\mathrm{flat}})$.$\square$
+
+%---
+
+\subsection{$S^2$: Non-Trivial Flat Bundle on the Cylinder (Good Cover)}
+
+\textbf{Setup.}\linebreak
+$M = S^2$, with rigid-rotor Hamiltonian $H = L^2/(2I)$.
+The singular locus $\Delta = \{\text{north pole}, \text{south pole}\}$
+consists of the two poles where the latitude foliation degenerates.
+
+\textbf{Regular locus.}
+$M \setminus \Delta \cong S^1 \times \mathbb{R}$ is a cylinder,
+foliated by latitude circles (parameterized by height $z \in (-1, 1)$).
+
+\textbf{Good cover of the cylinder.}
+To obtain non-trivial poset cohomology, we use a proper good cover of the
+cylinder. Let $\theta \in [0, 2\pi)$ be the azimuthal angle around the
+equator. For small $\epsilon > 0$, define three overlapping arcs on $S^1$:
+\begin{itemize}
+\item $V_1 = (-\epsilon, \frac{2\pi}{3} + \epsilon)$: arc covering $[0, 2\pi/3]$
+\item $V_2 = (\frac{2\pi}{3} - \epsilon, \frac{4\pi}{3} + \epsilon)$: arc covering $[2\pi/3, 4\pi/3]$
+\item $V_3 = (\frac{4\pi}{3} - \epsilon, 2\pi + \epsilon)$: arc covering $[4\pi/3, 2\pi]$
+\end{itemize}
+Lift to the cylinder $S^1 \times \mathbb{R}$ by taking
+$U_\alpha = V_\alpha \times (-1, 1)$. This is a good cover:
+\begin{itemize}
+\item Each $U_\alpha$ is contractible (homeomorphic to a disk)
+\item Pairwise intersections $U_{\alpha\beta} = U_\alpha \cap U_\beta$ are
+single connected strips (contractible)
+\item The \textbf{triple intersection is empty}: $U_1 \cap U_2 \cap U_3 = \emptyset$
+\end{itemize}
+
+\textbf{Verification of Assumption~\ref{ass:cover}(2).}
+The BS leaves are latitude circles $\mathcal{L}_z \cong S^1$ at fixed height $z$.
+For each leaf $\mathcal{L}_z$ and each pairwise intersection
+$U_{\alpha\beta} = (V_\alpha \cap V_\beta) \times (-1, 1)$,
+the intersection $\mathcal{L}_z \cap U_{\alpha\beta}$ is a single arc
+(where the latitude circle passes through the angular overlap).
+Since arcs are path-connected, Assumption~\ref{ass:cover}(2) is satisfied.
+
+\textbf{Key consequence.}
+Since the triple intersection is empty, the Čech 1-cocycle condition
+imposes \textbf{no constraint} on the product
+$\eta_{12} \cdot \eta_{23} \cdot \eta_{31}$. This product is precisely
+the holonomy around the equator, which can be any element of $U(1)$.
+
+\textbf{Local observable algebras.}
+$\mathcal{A}_\alpha = C(U_\alpha)$ are the $C^*$-algebras of continuous
+functions on each chart. The poset structure has inclusions
+$\mathcal{A}_\alpha \cap \mathcal{A}_\beta = C(U_\alpha \cap U_\beta)$
+for each pair, with trivial triple intersections.
+
+\textbf{Action phases and the Maslov phase.}
+By Lemma~\ref{lem:HJ-constant}, the difference $\phi_\alpha - \phi_\beta$
+is locally constant on each overlap $U_\alpha \cap U_\beta$.
+
+For the rigid rotor on $S^2$, the Hamilton--Jacobi action separates into
+azimuthal ($\phi$) and polar ($\theta$) components: $S(\theta, \phi) = S_\theta(\theta) + m\phi$.
+The polar component $S_\theta$ involves $\sqrt{1-z^2}$ (where $z = \cos\theta$),
+which is multi-valued due to branch points at the caustics (the poles).
+This multi-valuedness creates a \textbf{branch cut} in the action function.
+
+\textbf{Maslov index from polar libration.}
+The non-trivial Maslov index arises from libration in the $\theta$-direction
+between the two classical turning points (the caustics at the poles).
+Each turning point contributes a phase shift of $\mu/4 = 1/2$ to the
+semi-orbit, giving a total Maslov index $\mu = 2$ for the complete polar cycle.
+The Bohr--Sommerfeld condition in the $\theta$-direction yields the quantized
+action jump across the branch cut:
+\[
+\oint p_\theta\,d\theta = 2\pi\hbar\!\left(l + \tfrac{\mu}{4}\right)
+= 2\pi\hbar\!\left(l + \tfrac{1}{2}\right) = \hbar\pi(2l+1), \quad l \in \mathbb{Z}.
+\]
+
+\textbf{Transverse intersection via homology pairing.}
+The action $S_\theta$ is multi-valued on the cylinder $S^1 \times \mathbb{R}$ due to
+the polar branch points. To ensure single-valuedness, we introduce a longitudinal
+\textbf{branch cut} connecting the two poles. In the homology of the cylinder,
+this cut represents a generator of the relative homology $H_1(M \setminus \Delta, \partial(M \setminus \Delta))$,
+while the equator represents the fundamental class of $H_1(M \setminus \Delta)$.
+By the non-degenerate intersection pairing
+$H_1(S^1 \times \mathbb{R}) \otimes H_1(S^1 \times \mathbb{R}, \partial) \to \mathbb{Z}$,
+these two cycles possess a transverse intersection number of $1 \pmod{2}$.
+This ensures that the azimuthal equator necessarily crosses the polar branch cut
+exactly once, accumulating the full Maslov phase jump.
+
+\textbf{Phase distribution via branch cut crossing.}
+The phase jump across this branch cut corresponds to the transition between
+the two sheets of the Riemann surface. This transition reflects the action
+difference of half the full polar cycle (one semi-orbit from pole to pole),
+combined with the Maslov phase shift at the turning points. As computed in
+standard geometric quantization (see, e.g., Bates--Weinstein \cite[\S~7.4]{BW97}
+or de Gosson \cite[Ch.~8]{Gos11}), the total action phase difference across
+this longitudinal cut yields a consistent holonomy factor of
+$e^{i\pi(2l+1)} = -1$.
+
+The branch cut can be placed anywhere on the cylinder. Suppose we place it such
+that it intersects exactly one overlap, say $U_1 \cap U_2$. Then the action differences are:
+\begin{itemize}
+\item On $U_1 \cap U_2$ (where the branch cut is crossed):
+  $\phi_1 - \phi_2 = \hbar\pi(2l+1)$ (full Maslov jump)
+\item On $U_2 \cap U_3$: $\phi_2 - \phi_3 = 0$ (no branch crossing)
+\item On $U_3 \cap U_1$: $\phi_3 - \phi_1 = 0$ (no branch crossing)
+\end{itemize}
+The geometric basepoint cocycle is:
+\[
+\eta_{\mathrm{geo},12} = e^{i\pi(2l+1)} = -1, \quad
+\eta_{\mathrm{geo},23} = 1, \quad
+\eta_{\mathrm{geo},31} = 1.
+\]
+
+\textbf{Independence of branch cut placement (Coboundary equivalence).}
+What if we chose a different branch cut placement, say passing through $U_2 \cap U_3$?
+The resulting cocycle would be $\eta'_{\mathrm{geo}} = (1, -1, 1)$.
+These are cohomologous in $\check{H}^1(S^1 \times \mathbb{R}, U(1)_{\mathrm{flat}})$.
+Two cocycles are cohomologous if there exists a 0-cochain $\zeta = (\zeta_1, \zeta_2, \zeta_3)$
+such that $\eta'_{\alpha\beta} = \eta_{\alpha\beta} \cdot \zeta_\beta/\zeta_\alpha$.
+Choosing $\zeta = (1, -1, 1)$ transforms $(-1, 1, 1)$ exactly into $(1, -1, 1)$.
+Thus, any placement of the branch cut yields a cohomologous cocycle.
+The cohomology class is determined solely by the holonomy product
+$\eta_{12}\eta_{23}\eta_{31} = -1$, which is strictly invariant under branch cut movement.
+
+This defines a non-trivial flat bundle (holonomy $-1$), arising from the single
+branch cut crossing where the polar Maslov phase $\hbar\pi(2l+1)$ is concentrated.
+
+\textbf{Poset cohomology $H^1$ computation.}
+A class $[\xi] \in H^1$ is represented by a 1-cocycle. Since the triple intersection is empty, there are no 2-simplices, so the cocycle condition is vacuous. The group of 1-cocycles is simply the space of arbitrary assignments on the three overlaps:
+\[ Z^1 \cong U(1)^3, \]
+parameterized by the triple $(\xi_{12}, \xi_{23}, \xi_{31})$.
+The group of 1-coboundaries $B^1$ arises from 0-cochains $\zeta = (\zeta_1, \zeta_2, \zeta_3) \in U(1)^3$, acting via the differential $\delta\zeta_{ij} = \zeta_j/\zeta_i$. The kernel of $\delta$ is the diagonal $U(1) \hookrightarrow U(1)^3$ (where $\zeta_1=\zeta_2=\zeta_3$), so:
+\[ B^1 \cong U(1)^3 / U(1) \cong U(1)^2. \]
+Therefore, the cohomology group is the quotient:
+\[
+H^1(\mathcal{C}^{\mathrm{BS}}(S^2 \setminus \Delta), \underline{U(1)}) = Z^1 / B^1 \cong U(1)^3 / U(1)^2 \cong U(1).
+\]
+The isomorphism to $U(1)$ is given precisely by the holonomy product $\xi_{12} \cdot \xi_{23} \cdot \xi_{31}$, which is invariant under coboundary transformations.
+
+\textbf{Affine map $R_*$.}
+By Definition~\ref{def:R-star}:
+\[
+R_*([\xi]) = [\xi] \cdot [\eta_{\mathrm{geo}}]
+\in \check{H}^1(S^1 \times \mathbb{R}, U(1)_{\mathrm{flat}}).
+\]
+
+The target flat cohomology classifies flat line bundles by their holonomy
+around the equator. For $[\xi]$ with product $h \in U(1)$ and
+$[\eta_{\mathrm{geo}}]$ with product $-1$, the image $R_*([\xi])$ has
+holonomy $h \cdot (-1)$.
+
+\textbf{Verification.}
+When $[\xi] = 1$ (trivial poset cocycle, product $= 1$), $R_*(1) = [\eta_{\mathrm{geo}}]$
+is the non-trivial flat bundle with holonomy $-1$.
+
+Conversely, for any observed flat bundle $[\Psi]$ with holonomy $h \in U(1)$,
+there exists unique $[\xi]$ (with product $= -h$) such that
+$[\xi] \cdot [\eta_{\mathrm{geo}}] = [\Psi]$:
+\[
+[\xi_{\mathrm{logic}}] = [\Psi] \cdot [\eta_{\mathrm{geo}}]^{-1}
+\in H^1(\mathcal{C}^{\mathrm{BS}}(S^2 \setminus \Delta), \underline{U(1)}).
+\]
+
+This verifies the affine decomposition (Definition~\ref{def:affine-decomposition}):
+$[\Psi] = [\xi_{\mathrm{logic}}] \cdot [\eta_{\mathrm{geo}}]$.$\square$
+
+\begin{remark}[Flat structure and extension to $S^2$]
+The geometric basepoint $[\eta_{\mathrm{geo}}]$ is a flat $U(1)$-bundle
+on the regular locus $S^2 \setminus \Delta \cong S^1 \times \mathbb{R}$.
+This flat structure has holonomy $-1$ around the equator and cannot be
+extended to a flat connection on all of $S^2$ (since $\pi_1(S^2) = 0$,
+every flat bundle on $S^2$ is trivial).
+
+However, the underlying \emph{smooth} bundle extends: the non-trivial
+flat bundle on the cylinder is the restriction of the prequantum
+line bundle $\mathcal{O}(2l+1) \to S^2$ (with Chern number $c_1 = 2l+1$)
+to the regular locus. The flat connection is the Chern connection
+restricted to $S^2 \setminus \Delta$. The holonomy around the equator is
+$e^{i\pi c_1} = e^{i\pi(2l+1)} = -1$. This Maslov phase $-1$ is the ``shadow''
+of the prequantum bundle visible on the regular locus --- it captures the
+non-trivial topology of the prequantum bundle without requiring the full
+curvature data on $S^2$.
+\end{remark}
+
+%------------------------------------------------------------------
+\begin{thebibliography}{9}
+
+\bibitem[BG81]{BG81}
+Boutet de Monvel, L. and Guillemin, V.
+\textit{The Spectral Theory of Toeplitz Operators}.
+Ann.\ of Math.\ Studies~99, Princeton University Press, 1981.
+
+\bibitem[BMS94]{BMS94}
+Bordemann, M., Meinrenken, E., and Schlichenmaier, M.
+Toeplitz quantization of K\"ahler manifolds and $gl(N), N\to\infty$ limits.
+\textit{Comm.\ Math.\ Phys.}, 165 (1994), 281--296.
+
+\bibitem[GU89]{GU89}
+Guillemin, V. and Uribe, A.
+Circular symmetry and the trace formula.
+\textit{Invent.\ Math.}, 96 (1989), 385--423.
+
+\bibitem[Mas72]{Mas72}
+Maslov, V.~P.
+\textit{Th\'eorie des perturbations et m\'ethodes asymptotiques}.
+Dunod, Paris, 1972.
+
+\bibitem[BW97]{BW97}
+Bates, S. and Weinstein, A.
+\textit{Lectures on the Geometry of Quantization}.
+Berkeley Mathematics Lecture Notes, AMS, 1997.
+
+\bibitem[Sni80]{Sni80}
+Sniatycki, J.
+\textit{Geometric Quantization and Quantum Mechanics}.
+Springer, New York, 1980.
+
+\bibitem[Gos11]{Gos11}
+de Gosson, M.~A.
+\textit{Symplectic Methods in Harmonic Analysis and in Mathematical Physics}.
+Birkh{\"a}user, Basel, 2011.
+
+\bibitem[HLS11]{HLS11}
+Heunen, C., Landsman, N.~P., and Spitters, B.
+Bohrification.
+In \textit{Deep Beauty}, ed.\ H.~Halvorson,
+Cambridge University Press, 2011, pp.~271--313.
+
+\bibitem[Lan16]{Lan16}
+Landsman, N.~P.
+Bohrification: from classical concepts to commutative algebras.
+\textit{arXiv:1601.02794}, 2016.
+
+\bibitem[LS26]{LS26}
+Lohmiller, W. and Slotine, J.-J.
+On computing quantum waves exactly from classical action.
+\textit{Proc.\ R.\ Soc.\ A}, 482.2336 (2026), 20250413.
+
+\end{thebibliography}
+
+\end{document}
