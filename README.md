@@ -30,6 +30,30 @@ This research project integrated various Large Language Models (LLMs) across mul
 
 ---
 
+## Repository Structure
+
+```
+research/
+├── README.md
+├── LICENSE                             # CC BY 4.0
+├── RESEARCH_FRONTIER.md                # Toolbox & open problems
+├── papers/
+│   ├── Paper1_contextuality_phase.tex
+│   ├── Paper2_riemann_bohrification.tex
+│   ├── Paper3_ks_central_extension.tex
+│   ├── Paper4_lhs_borromean.tex
+│   ├── Paper5_homological_bridge.tex
+│   ├── Paper6_necessity_complex.tex
+│   └── Epilogue_algebraic_logic.tex
+└── supplementary/
+    └── construct_16cell/
+        ├── LICENSE                     # MIT
+        ├── README.md
+        └── construct_16cell.py
+```
+
+---
+
 ## Reading Guide
 
 ### Recommended Order
@@ -69,6 +93,15 @@ The distinction is crucial: **geometric phases are stable features** that surviv
 
 ---
 
+## [`RESEARCH_FRONTIER.md`](RESEARCH_FRONTIER.md)
+
+A candid inventory of the mathematical machinery powering this series and the open problems that remain. Includes:
+
+- **Part I: The Mathematical Toolbox** — 11 core tools (Topos Theory, LHS Spectral Sequence, Group Cohomology, Solèr's Theorem, EML, Sheaf/Čech Cohomology, Bundle Gerbes, 16-Cell Geometry, MASA Logic, Albert Algebra, Z3 SAT)
+- **Part II: The "Regrets" & Open Questions** — 10 unsolved problems, including the $H^3$ numerical invariant for the 5-qubit 16-cell, the $\mathcal{Q} \dashv \mathcal{B}$ adjunction proof, non-abelian EML impossibility, the octonionic frontier, and experimental realization.
+
+---
+
 ## Supplementary Materials
 
 | Directory | Description |
@@ -79,7 +112,7 @@ The distinction is crucial: **geometric phases are stable features** that surviv
 
 ## DOIs
 
-DOIs will be assigned via Zenodo. The table below will be populated as each component is published.
+All components are archived on Zenodo:
 
 | Component | DOI |
 |-----------|-----|
