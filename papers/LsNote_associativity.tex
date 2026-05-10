@@ -1,0 +1,415 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{color}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\begin{document}
+
+\title{L-S Contraction and the Boundary of Applicability:\\
+$H^3$, the 16-Cell, and Non-Associative Algebra\\
+{\large (A Dynamical Note toward $H^3$ (Borromean Contextuality / Bundle Gerbes))}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\maketitle
+
+\begin{abstract}
+This note ascends the obstruction ladder to $H^3$, examining both the
+16-cell nerve construction of Borromean contextuality and the fundamental
+limit posed by non-associative algebras. In the associative setting
+(Pauli group on 5 qubits), the 3-simplex overlaps of the 16-cell produce
+an associator anomaly classified by the $d_3$ differential in the LHS
+spectral sequence---the dynamical analogue of a bundle gerbe
+Dixmier--Douady class. Beyond this, when the underlying algebra is
+non-associative (octonions $\mathbb{O}$), the L-S contraction framework
+itself ceases to be well-defined: the chain rule fails, the Jacobian
+is not unique, and the concept of ``continuous deterministic dynamics''
+loses meaning. This provides a purely dynamical proof that
+$\mathbb{O}$-valued quantum mechanics cannot support stable classical
+observation.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{From 4-Cycles to 3-Simplices}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+The obstruction ladder ascends through increasing dimension of the
+MASA nerve:
+
+\[
+\begin{array}{cccc}
+\text{Level} & \text{Nerve structure} & \text{L-S obstruction} & \text{Cohomology} \\
+\hline
+H^1 & \text{1-cycle (loop)} & \det\Phi_\gamma < 1 \text{ vs } \det\Phi_\gamma = 1 & \check{H}^1(M, U(1)) \\
+H^2 & \text{4-cycle ($K_{3,3}$)} & \text{Central holonomy } \omega = -1 & H^2(G/N, \{\pm 1\}) \\
+H^3 & \text{3-simplex (tetrahedron)} & \text{Associator anomaly } \Delta \neq 0 & H^3(M, \mathbb{Z}) \text{ (DD class)} \\
+\end{array}
+\]
+
+At $H^1$, a single loop of MASAs fails to close (Liouville vs.\ contraction).
+At $H^2$, a 4-cycle of pairwise-compatible transitions accumulates a central
+sign. At $H^3$, four mutually overlapping MASAs on a $2$-sphere nerve produce
+an associator anomaly: the composition of three L-S transition matrices
+depends on the order in which they are grouped.
+
+\begin{remark}
+In the associative setting (Pauli group), matrix multiplication is strictly
+associative. The $H^3$ obstruction does NOT arise from non-associativity of
+the operators themselves, but from the \textbf{higher categorical} structure
+of context-switching. Two different ways of patching three transitions
+around a 3-simplex differ by a $U(1)$ phase---a 3-cocycle in the
+\v{C}ech nerve. This is the dynamical analogue of the Dixmier--Douady
+class of a bundle gerbe~\cite{Murray96,Brylinski93}.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The 16-Cell Nerve and Its 3-Simplices}
+\label{sec:16cell}
+%------------------------------------------------------------------
+
+Paper IV~\cite{PaperIV} established that the minimal configuration for
+Borromean contextuality is the 16-cell (4-dimensional cross-polytope):
+8 MASA vertices forming 4 antipodal pairs, with the homotopy type of
+$S^3$. The 16-cell contains $2^4 = 16$ tetrahedra (3-simplices),
+each corresponding to a quadruple MASA overlap.
+
+For $N=5$ qubits (the minimal capacity to avoid symplectic collapse),
+the 16 core operators $\{P_{b_3b_2b_1b_0}\}$ satisfy:
+
+\[
+[P_x, P_y] = 0 \quad \text{unless } y = \sim x \text{ (bitwise complement)}.
+\]
+
+Each MASA $M_{d,b}$ ($d \in \{0,1,2,3\}$, $b \in \{L,R\}$) contains the
+8 core operators whose $d$-th index bit equals $b$.
+
+\subsection{Transition matrices on tetrahedra}
+\label{sec:transitions}
+
+For a 3-simplex (tetrahedron) formed by four MASAs
+$M_1, M_2, M_3, M_4$ that are pairwise compatible (each pair shares a
+core operator), define the L-S transition matrix
+$\mathbf{T}_{ij}: \mathbb{C}^{32} \to \mathbb{C}^{32}$ as the unitary
+change-of-basis between the eigenbases of $M_i$ and $M_j$. The
+$32$-dimensional Hilbert space reflects $N=5$ qubits.
+
+\begin{lemma}[3-simplex transition composition]
+\label{lem:3simplex-comp}
+Let $\mathbf{T}_{12}, \mathbf{T}_{23}, \mathbf{T}_{34}$ be L-S transition
+matrices around three edges of a tetrahedron. The two ways of composing
+them differ by a $U(1)$ phase:
+\[
+(\mathbf{T}_{12}\mathbf{T}_{23})\mathbf{T}_{34}
+= e^{i\theta} \; \mathbf{T}_{12}(\mathbf{T}_{23}\mathbf{T}_{34}).
+\]
+In the 5-qubit Pauli group, $e^{i\theta} = \pm 1$.
+\end{lemma}
+
+\begin{proof}[Sketch]
+Each $\mathbf{T}_{ij}$ is an element of the 5-qubit Clifford group (up to
+phase). Its action on the Hilbert space factors as a product of $N=5$
+single-qubit Cliffords. The associator
+$\Delta = (\mathbf{T}_{12}\mathbf{T}_{23})\mathbf{T}_{34} -
+\mathbf{T}_{12}(\mathbf{T}_{23}\mathbf{T}_{34})$ measures the failure of
+the three transitions to form a consistent 2-cocycle on the tetrahedron.
+By the LHS spectral sequence, this 3-cochain represents the generator
+of $H^3(\bar{\mathcal{P}}_5, U(1)) \cong \mathbb{Z}/2$.
+\end{proof}
+
+%------------------------------------------------------------------
+\section{The $d_3$ Transgression}
+\label{sec:d3}
+%------------------------------------------------------------------
+
+In the LHS spectral sequence for the 5-qubit central extension, the
+$d_3$ differential maps:
+
+\[
+d_3: E_3^{0,2} \longrightarrow E_3^{3,0}.
+\]
+
+The domain $E_3^{0,2}$ consists of classes that survive the $d_2$
+transgression---those 2-cohomology obstructions that are not eliminated
+by the central extension. Their image under $d_3$ lies in
+$H^3(\bar{\mathcal{P}}_5, U(1))$, which for the 5-qubit Pauli group is
+non-trivial~\cite{PaperIV}.
+
+\begin{remark}[Geometric interpretation]
+The $d_3$ differential measures the associativity of the L-S transition
+composition on 3-simplex overlaps. Just as $d_2$ captured the central
+sign flip around a 4-cycle (non-commutativity), $d_3$ captures the
+``phase of a phase'' around a 3-simplex (non-associativity of
+context-patching).
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The $H^3$ Correspondence: Global Conjecture}
+\label{sec:conjecture}
+%------------------------------------------------------------------
+
+The 16-cell nerve $|N\mathcal{C}_{16}|$ is homotopy equivalent to $S^3$,
+with $\check{H}^3(|N\mathcal{C}_{16}|, \mathbb{Z}) \cong \mathbb{Z} \neq 0$.
+Unlike the $H^2$ case---where a single 4-cycle computation sufficed---the
+$H^3$ obstruction is intrinsically \textbf{global}: it is the \v{C}ech
+3-cocycle on the entire $S^3$ nerve, not on any single 3-simplex.
+
+\begin{conjecture}[Global $S^3$ Dynamical Obstruction]
+\label{conj:ls-h3}
+
+\noindent\textbf{(1) Geometric premise.}
+The 16-cell nerve $|N\mathcal{C}_{16}|$ of the 5-qubit Borromean system
+satisfies $|N\mathcal{C}_{16}| \simeq S^3$, hence
+$\check{H}^3(|N\mathcal{C}_{16}|, \mathbb{Z}) \cong \mathbb{Z} \neq 0$.
+
+\noindent\textbf{(2) Global coboundary of face 2-cochains.}
+The L-S transition matrices $\{\mathbf{T}_{ij}\}$ on the edges of the
+16-cell define, for each of the 24 triangular faces, a \v{C}ech
+2-cochain $c_{ijk} \in \mathbb{Z}/2$ (the face holonomy, analogous to
+the $H^2$ obstruction). The total \v{C}ech 3-cocycle
+$[c_3] \in \check{H}^3(|N\mathcal{C}_{16}|, \underline{U(1)})$ is the
+coboundary of $\{c_{ijk}\}$ over the 16 tetrahedra. This 3-cocycle
+measures the obstruction to a global L-S contraction metric on the
+$S^3$ nerve.
+
+\noindent\textbf{(3) The dynamical pairing hypothesis.}
+By analogy with the $H^2$ case (where the central $-\mathbf{I}$ arises
+from a 4-cycle holonomy), we conjecture that the pairing of $[c_3]$
+with the fundamental class $[S^3]$ is non-trivial:
+\[
+\langle [c_3], [S^3] \rangle = -1
+\quad\in\quad H_3(S^3, \mathbb{Z}) \otimes \check{H}^3(S^3, \underline{U(1)}).
+\]
+This $-1$ represents the \textbf{global sign flip} that a continuous
+classical contraction metric incurs when forced to wrap the entire
+observation universe ($S^3$).
+
+Consequently, Borromean contextuality corresponds to a non-trivial
+$d_3$ transgression in the LHS spectral sequence, and the
+Dixmier--Douady class $\mathrm{DD}(\mathcal{G}) \in H^3(M, \mathbb{Z})$
+is the topological charge of the L-S contraction obstruction on the
+global $S^3$ nerve.
+\end{conjecture}
+
+\begin{remark}[Computational horizon]
+\label{rem:computational}
+The 16-cell contains 8 vertices, 32 edges, 24 triangular faces, and
+16 tetrahedra. Verifying that the coboundary of the 24 face 2-cochains
+yields a non-trivial 3-cocycle with $\langle [c_3], [S^3] \rangle = -1$
+requires a SAT solver or automated theorem prover (see Paper IV's
+supplementary material~\cite{PaperIV}). This is identified as an open
+computational problem for future work.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Problem B: The Octonionic Boundary of L-S Theory}
+\label{sec:octonionic-boundary}
+%------------------------------------------------------------------
+
+The obstruction ladder ($H^1 \to H^2 \to H^3$) is built entirely within
+associative algebras ($\mathbb{C}$-valued or $\mathbb{H}$-valued
+representation theory). However, the algebraic counterpart of $H^3$
+is the exceptional Jordan algebra $\mathfrak{h}_3(\mathbb{O})$---the
+Albert algebra, which is inherently non-associative.
+
+Here L-S theory encounters a \textbf{foundational limitation}, not
+merely a cohomological obstruction.
+
+\subsection{The chain rule is the issue, not associativity per se}
+\label{sec:chain-rule}
+
+The L-S contraction analysis requires three structures:
+\begin{enumerate}
+  \item A smooth flow $\dot{\mathbf{z}} = \mathbf{f}(\mathbf{z})$ on a manifold.
+  \item The variational equation $\delta\dot{\mathbf{z}} = \mathbf{J}\,\delta\mathbf{z}$,
+    where $\mathbf{J}_{ij} = \partial f_i / \partial z_j$.
+  \item A symmetric positive-definite metric $\mathbf{M}$ that makes
+    $\mathbf{M}\mathbf{J} + \mathbf{J}^T\mathbf{M} + \dot{\mathbf{M}}$ negative-definite.
+\end{enumerate}
+
+Step 2 is the critical point. The Jacobian $\mathbf{J}$ is well-defined
+because the derivative $\partial/\partial z_j$ is a linear operator
+satisfying the chain rule:
+\[
+\frac{\partial}{\partial z_j}(g \circ h) = \sum_k 
+\frac{\partial g}{\partial h_k}\,\frac{\partial h_k}{\partial z_j}.
+\]
+If the state space $\mathcal{M}$ is an algebra over $\mathbb{O}$, and if
+the dynamics $\mathbf{f}$ involves octonionic multiplication (e.g.,
+$\dot{x} = ax$ for $a, x \in \mathbb{O}$), then repeated differentiation
+produces expressions where the chain rule is ambiguous:
+\[
+\frac{\partial}{\partial t}(x \cdot y) = \dot{x} \cdot y + x \cdot \dot{y}
+\quad\text{(holds for $\mathbb{O}$)},
+\]
+but
+\[
+\frac{\partial}{\partial t}((x \cdot y) \cdot z) \neq
+\frac{\partial}{\partial t}(x \cdot (y \cdot z))
+\quad\text{(because $(xy)z \neq x(yz)$)}.
+\]
+Consequently, the Jacobian matrix $\mathbf{J}$ is \textbf{not uniquely
+defined}: its components depend on the order in which parentheses are
+placed in the expression $\partial f_i / \partial z_j$.
+
+\begin{theorem}[L-S theory fails for $\mathbb{O}$-dynamics]
+\label{thm:o-failure}
+Let $\dot{\mathbf{z}} = \mathbf{f}(\mathbf{z})$ be a dynamical system on
+$\mathbb{O}^n$ whose flow involves non-associative multiplication.
+Then the variational equation $\delta\dot{\mathbf{z}} = \mathbf{J}\,\delta\mathbf{z}$
+is not uniquely defined: the Jacobian $\mathbf{J}$ depends on a choice
+of parenthesization and is therefore not a well-defined linear operator.
+Consequently, L-S contraction analysis, and with it the concept of
+``stable classical observability,'' cannot be formulated.
+\end{theorem}
+
+\begin{proof}
+The dynamics $\dot{z}_i = f_i(z_1, \dots, z_n)$ contains at least one
+term involving a product of two or more state variables. Since
+$(ab)c \neq a(bc)$ in $\mathbb{O}$, the partial derivative
+$\partial f_i / \partial z_j$ depends on whether the term $f_i$ is
+computed as $(z_j z_k)z_l$ or $z_j(z_k z_l)$. These two evaluations
+give different results for $\delta\dot{z}_i$ when $\delta z_j \neq 0$,
+so $\mathbf{J}$ is not a single-valued linear map.
+\end{proof}
+
+\subsection{Physical interpretation}
+\label{sec:physical}
+
+The failure of the Jacobian to be well-defined has a direct physical
+meaning:
+\begin{itemize}
+  \item \textbf{$\dot{\mathbf{z}} = \mathbf{f}(\mathbf{z})$} describes the
+    system's deterministic evolution (kinematics). This survives in
+    $\mathbb{O}$: one can solve $\ddot{x} = -x$ on $\mathbb{O}$.
+  \item \textbf{$\delta\dot{\mathbf{z}} = \mathbf{J}\,\delta\mathbf{z}$}
+    describes the propagation of infinitesimal perturbations---the
+    basis of prediction, stability analysis, and measurement theory.
+    This \emph{fails} in $\mathbb{O}$ because the chain rule is
+    ambiguous.
+\end{itemize}
+The conclusion: in an $\mathbb{O}$-valued quantum mechanics,
+\textbf{macroscopic classical observability (L-S contraction) cannot
+emerge}, because the fundamental tool that guarantees the uniqueness
+of perturbation propagation---the chain rule---is absent. This provides
+a purely \textbf{dynamical proof} that the underlying division ring
+of physics must be associative.
+
+\begin{corollary}[Dynamical necessity of associativity]
+\label{cor:ls-H3-dynamical}
+In any universe supporting stable classical observation (i.e., permitting
+well-defined L-S contraction analysis), the division algebra of quantum
+amplitudes must be associative. Together with the $d_2$ argument of
+Paper VI~\cite{PaperVI} (which selects $\mathbb{C}$ from the associative
+division algebras), the unique possibility is $\mathbb{C}$.
+\end{corollary}
+
+%------------------------------------------------------------------
+\section{Conclusion: The Dynamical Origin of the Obstruction Ladder}
+\label{sec:conclusion}
+%------------------------------------------------------------------
+
+This note completes the trilogy of L-S dynamical appendices to the
+cohomological obstruction ladder. The central result is a purely
+dynamical reinterpretation of quantum contextuality:
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Level & L-S obstruction & Cohomology & Status \\
+\midrule
+$H^1$ & Liouville $\det\Phi = 1$ vs.\ contraction $\det\Phi < 1$ &
+$\check{H}^1(M, \underline{U(1)})$ & \textbf{Theorem} \\
+$H^2$ & 4-cycle central holonomy $\omega = -1$ &
+$H^2(G/N, \{\pm 1\})$ & \textbf{Theorem} \\
+$H^3$ & Global 3-cocycle $\langle [c_3], [S^3] \rangle \stackrel{?}{=} -1$ &
+$\check{H}^3(M, \underline{U(1)})$ & \textbf{Conjecture} \\
+$\mathbb{O}$ & Chain rule fails; L-S Jacobian not well-defined &
+--- & \textbf{Theorem} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The four levels are not merely a taxonomic ladder. They trace the
+progressive failure of increasingly foundational structures in classical
+deterministic dynamics when forced onto the non-classical geometry of a
+quantum state space:
+
+\begin{enumerate}
+  \item \textbf{Topological} ($H^1$): A loop of classical measurement
+    contexts fails to close because Liouville forbids global contraction.
+    $\to$ Geometric phase.
+    \hfill\textit{[Proven in companion appendix.]}
+
+  \item \textbf{Group-theoretic} ($H^2$): Non-commuting transition matrices
+    around a 4-cycle of the $K_{3,3}$ nerve accumulate a central sign
+    $-\mathbf{I}$. $\to$ Kochen--Specker contextuality.
+    \hfill\textit{[Proven in companion note.]}
+
+  \item \textbf{Categorical} ($H^3$): The 16-cell nerve $S^3$ carries a
+    global Čech 3-cocycle. Its pairing with the fundamental class is
+    conjectured to be $-1$, representing the obstruction to a globally
+    contracting classical metric on the full observation space.
+    $\to$ Borromean contextuality.
+    \hfill\textit{[Conjecture; SAT verification open.]}
+
+  \item \textbf{Dynamical} ($\mathbb{O}$): In a non-associative algebra,
+    the chain rule fails and the Jacobian is not uniquely defined.
+    L-S contraction theory is inapplicable at the axiomatic level.
+    $\to$ No stable classical observation possible.
+    \hfill\textit{[Theorem~\ref{thm:o-failure}]}
+\end{enumerate}
+
+The common thread across all four levels is a single insight:
+\textbf{quantum contextuality is the dynamical memory of classical
+systems that refuse to contract.} The L-S framework translates the
+abstract cohomology of MASA posets into concrete statements about
+Liouville volume preservation, symplectic geometry, unitary transition
+holonomy, and the limits of the chain rule. The obstruction ladder is
+not built from pure algebra---it is carved from the impossibility of
+stable, forgetting dynamics in a quantum universe.
+
+\begin{thebibliography}{9}
+
+\bibitem[Murray96]{Murray96}
+M.~K.~Murray,
+``Bundle gerbes,''
+\textit{J. London Math. Soc.} \textbf{54} (1996), 403--416.
+
+\bibitem[Brylinski93]{Brylinski93}
+J.-L.~Brylinski,
+\textit{Loop Spaces, Characteristic Classes and Geometric Quantization}.
+Progress in Mathematics, Vol.~107, Birkh\"auser, 1993.
+
+\bibitem[PaperIV]{PaperIV}
+Chen, Z.-L.
+The Cohomological Obstruction Ladder.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184}, 2026.
+
+\bibitem[PaperVI]{PaperVI}
+Chen, Z.-L.
+The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of
+Observation.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073190}, 2026.
+
+\end{thebibliography}
+
+\end{document}

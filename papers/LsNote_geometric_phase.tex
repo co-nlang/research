@@ -1,0 +1,561 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{calc}
+\usepackage{color}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\begin{document}
+
+\title{L-S Contraction and the Cohomological Origin of Geometric Phases\\
+{\large (A Dynamical Appendix to Paper I)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\maketitle
+
+\begin{abstract}
+This note establishes a rigorous correspondence between Lohmiller--Slotine contraction theory and the \v{C}ech cohomology of geometric phases. Using the Aharonov--Bohm effect as a test case, we prove that the failure of a global L-S contraction metric is precisely the obstruction captured by $\check{H}^1(M, \underline{U(1)})$. The correspondence is realized through local gauge trivializations of the vector potential: the gauge mismatches on overlapping patches form a \v{C}ech 1-cocycle whose cohomology class is the A-B holonomy. Liouville's theorem provides the contradiction that no global contraction metric can exist on disks enclosing the flux tube, proving $\ker R_* \neq 0$ from purely classical dynamics.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:introduction}
+%------------------------------------------------------------------
+
+Paper I~\cite{PaperI} established the affine geometric phase map
+\[
+R_* : H^1(\mathcal{C}^{\mathrm{BS}}(A), \underline{U(1)}) \to \check{H}^1(M, \underline{U(1)})
+\]
+and showed that its kernel $\ker R_* \neq 0$ captures quantum contextual obstructions that cannot be reduced to classical geometric phases. However, Paper I left open the dynamical origin of $\ker R_*$---why does the patching of local classical perspectives (MASAs) fail?
+
+Lohmiller--Slotine (L-S) contraction theory~\cite{LohmillerSlotine1998} provides the missing dynamical language. A system that contracts globally is topologically trivial: it cannot remember path history, and therefore cannot support geometric phases ($H^1 = 0$). A system that \emph{fails} to contract preserves memory of the trajectory, and this preserved memory manifests as a cohomological obstruction.
+
+We prove the correspondence
+\[
+\text{L-S contraction failure} \;\longleftrightarrow\; \ker R_* \neq 0
+\]
+on the canonical test case: the Aharonov--Bohm (A-B) effect.
+
+%------------------------------------------------------------------
+\section{L-S Contraction Theory: Minimal Recap}
+\label{sec:ls-recap}
+%------------------------------------------------------------------
+
+Consider a dynamical system $\dot{\mathbf{z}} = \mathbf{f}(\mathbf{z})$ on a manifold $\mathcal{M}$. A virtual displacement $\delta\mathbf{z}$ evolves according to the variational equation
+\[
+\delta\dot{\mathbf{z}} = \mathbf{J}(\mathbf{z}) \,\delta\mathbf{z}, \qquad
+\mathbf{J} = \frac{\partial \mathbf{f}}{\partial \mathbf{z}}.
+\]
+
+L-S theory asks: does there exist a Riemannian metric $\mathbf{M}(\mathbf{z})$
+(smooth, symmetric positive-definite) such that the \textbf{generalized Jacobian}
+\[
+\mathbf{F} = \mathbf{M}\mathbf{J} + \mathbf{J}^T\mathbf{M} + \dot{\mathbf{M}}
+\]
+is uniformly negative-definite? If yes, the system is \textbf{contracting} with
+respect to $\mathbf{M}$~ \cite{LohmillerSlotine1998}: all trajectories forget
+initial conditions exponentially fast, and the phase space is topologically
+trivial (contractible, $H^1 = 0$).
+
+If no such global $\mathbf{M}$ exists, the system \textbf{remembers} path history.
+The locus where $\mathbf{M}$ fails to exist is the support of the geometric phase.
+
+%------------------------------------------------------------------
+\section{A-B Effect: Dynamical Setup}
+\label{sec:ab-setup}
+%------------------------------------------------------------------
+
+A charged particle (charge $q$, mass $m$) moves in $\mathbb{R}^2$ with a flux
+tube at the origin~\cite{AharonovBohm1959}. The magnetic field vanishes on
+$\mathbb{R}^2 \setminus \{0\}$, but the vector potential is non-zero:
+\[
+\mathbf{A}(\mathbf{x}) =
+\frac{\Phi}{2\pi}
+\begin{bmatrix} -y/(x^2+y^2) \\ x/(x^2+y^2) \end{bmatrix}
+\sim \frac{1}{r}.
+\]
+
+The Hamiltonian is $H = \frac{1}{2m}(\mathbf{p} - q\mathbf{A})^2$. The state vector
+is $\mathbf{z} = [x, y, p_x, p_y]^T \in \mathbb{R}^4$, and Hamilton's equations give
+$\dot{\mathbf{z}} = \mathbf{f}(\mathbf{z})$:
+\[
+\dot{\mathbf{x}} = \frac{1}{m}(\mathbf{p} - q\mathbf{A}), \qquad
+\dot{\mathbf{p}} = \frac{q}{m} (\nabla\mathbf{A})^T (\mathbf{p} - q\mathbf{A}).
+\]
+
+%------------------------------------------------------------------
+\section{Jacobian Analysis: The $1/r^3$ Singularity}
+\label{sec:jacobian}
+%------------------------------------------------------------------
+
+\subsection{First-order derivatives ($\nabla\mathbf{A}$, $\sim 1/r^2$)}
+\label{sec:gradA}
+
+Let $k = \Phi/(2\pi)$. The vector potential is $\mathbf{A} = \frac{k}{r^2}[-y,\; x]^T$
+with $r^2 = x^2 + y^2$. Its Jacobian (symmetric since $\nabla\times\mathbf{A}=0$
+on $\mathbb{R}^2\setminus\{0\}$) is:
+\[
+\nabla\mathbf{A} = \frac{k}{r^4}
+\begin{bmatrix}
+2xy & y^2 - x^2 \\
+y^2 - x^2 & -2xy
+\end{bmatrix}
+\sim \frac{1}{r^2}.
+\]
+
+\subsection{The $\mathbf{J}_{px}$ block}
+\label{sec:Jpx}
+
+The velocity is $\mathbf{v} = (\mathbf{p} - q\mathbf{A})/m$, and
+$\dot{\mathbf{p}} = q(\nabla\mathbf{A})^T\mathbf{v}$.
+The critical block of the L-S Jacobian is $(\mathbf{J}_{px})_{ik} = \partial\dot{p}_i / \partial x_k$:
+\[
+(\mathbf{J}_{px})_{ik}
+= q\sum_j \left( \frac{\partial v_j}{\partial x_k} \frac{\partial A_j}{\partial x_i}
++ v_j \frac{\partial^2 A_j}{\partial x_k \partial x_i} \right).
+\]
+
+Using $\partial v_j / \partial x_k = -\frac{q}{m} \partial A_j / \partial x_k$, we obtain two terms:
+\begin{equation}\label{eq:Jpx}
+\boxed{\mathbf{J}_{px} = \underbrace{-\frac{q^2}{m}(\nabla\mathbf{A})^2}_{\text{Term I, } \sim 1/r^4}
+\;+\; \underbrace{q\bigl[v_x \mathbf{H}(A_x) + v_y \mathbf{H}(A_y)\bigr]}_{\text{Term II, } \sim 1/r^3}}.
+\end{equation}
+
+\subsection{Term I: Isotropic contraction ($\sim 1/r^4$)}
+\label{sec:termI}
+
+\begin{align}
+(\nabla\mathbf{A})^2 &= \frac{k^2}{r^8}
+\begin{bmatrix} 2xy & y^2-x^2 \\ y^2-x^2 & -2xy \end{bmatrix}^2
+= \frac{k^2}{r^8} (x^2+y^2)^2 \mathbf{I}
+= \frac{k^2}{r^4}\mathbf{I}, \label{eq:gradA2}\\
+\Longrightarrow\quad \text{Term I} &= -\frac{q^2 k^2}{m r^4}\,\mathbf{I}_{2\times 2}. \label{eq:termI}
+\end{align}
+
+This is negative-definite and isotropic---it assists contraction uniformly in all
+directions.
+
+\subsection{Term II: Quadrupolar shear ($\sim 1/r^3$)}
+\label{sec:termII}
+
+The Hessians of $A_x$ and $A_y$ are
+\[
+\mathbf{H}(A_x) = \frac{2k}{r^6}
+\begin{bmatrix}
+y(y^2-3x^2) & x(x^2-3y^2) \\
+x(x^2-3y^2) & y(3x^2-y^2)
+\end{bmatrix},\qquad
+\mathbf{H}(A_y) = \frac{2k}{r^6}
+\begin{bmatrix}
+x(x^2-3y^2) & y(3x^2-y^2) \\
+y(3x^2-y^2) & x(3y^2-x^2)
+\end{bmatrix}.
+\]
+
+Both scale as $1/r^3$. The velocity-coupled combination
+$\mathbf{S}(\mathbf{x}, \mathbf{v}) = v_x \mathbf{H}(A_x) + v_y \mathbf{H}(A_y)$
+is a \textbf{quadrupolar shear tensor}: it changes sign under $90^\circ$ rotations
+and couples the spatial geometry directly to the instantaneous velocity.
+
+\subsection{Assembled $\mathbf{J}_{px}$}
+\label{sec:assembled}
+
+\[
+\boxed{\mathbf{J}_{px}(\mathbf{x}, \mathbf{v})
+= -\frac{q^2 k^2}{m r^4}\,\mathbf{I}
++ \frac{2kq}{r^6}\,
+\begin{bmatrix}
+v_x y(y^2-3x^2) + v_y x(x^2-3y^2) & v_x x(x^2-3y^2) + v_y y(3x^2-y^2) \\[4pt]
+v_x x(x^2-3y^2) + v_y y(3x^2-y^2) & v_x y(3x^2-y^2) + v_y x(3y^2-x^2)
+\end{bmatrix}.}
+\]
+
+The first term ($\sim 1/r^4$) is an isotropic contraction driver. The second term
+($\sim 1/r^3$) is a velocity-coupled quadrupolar shear that prevents the existence
+of a global contraction metric near the origin.
+
+%------------------------------------------------------------------
+\section{Formal Proof: No Global Contraction Metric Exists}
+\label{sec:proof}
+%------------------------------------------------------------------
+
+\subsection{L-S contraction implies trivial holonomy}
+\label{sec:ls-holonomy}
+
+Let $\gamma: [0,T] \to \mathbb{R}^2 \setminus \{0\}$ be a smooth closed loop, and
+let $\Phi_\gamma: T_{\mathbf{z}(0)}\mathcal{M} \to T_{\mathbf{z}(T)}\mathcal{M}$ be
+the \textbf{linearized flow} (state transition matrix) along $\gamma$, satisfying
+\[
+\dot{\Phi}_\gamma(t) = \mathbf{J}(\mathbf{z}(t)) \,\Phi_\gamma(t), \qquad
+\Phi_\gamma(0) = \mathbf{I}.
+\]
+
+A fundamental consequence of L-S theory is:
+
+\begin{lemma}[Contraction $\Rightarrow$ $\det\Phi < 1$]
+\label{lem:contraction-det}
+If the system is strictly contracting with respect to some metric $\mathbf{M}$,
+then for any closed trajectory, all eigenvalues of $\Phi_\gamma(T)$ satisfy
+$|\lambda_i| < e^{-\lambda T}$ for some $\lambda > 0$, and consequently
+$\det\Phi_\gamma(T) < 1$.
+\end{lemma}
+
+\begin{proof}
+Strict contraction means
+$\frac{d}{dt}\|\delta\mathbf{z}\|_{\mathbf{M}} \leq -\lambda\|\delta\mathbf{z}\|_{\mathbf{M}}$
+for some $\lambda > 0$ and all virtual displacements. Integrating over $[0,T]$
+yields $\|\Phi_\gamma(T)\delta\mathbf{z}_0\|_{\mathbf{M}} \leq e^{-\lambda T}\|\delta\mathbf{z}_0\|_{\mathbf{M}}$.
+Every eigenvalue of $\Phi_\gamma(T)$ therefore has modulus $\leq e^{-\lambda T} < 1$,
+so $\det\Phi_\gamma(T) = \prod_i \lambda_i \leq e^{-n\lambda T} < 1$ where $n = \dim\mathcal{M} = 4$.
+\end{proof}
+
+\subsection{Liouville's theorem gives $\det\Phi = 1$}
+\label{sec:liouville}
+
+For Hamiltonian systems, Liouville's theorem states that the flow preserves
+phase-space volume:
+
+\begin{lemma}[Liouville]
+\label{lem:liouville}
+For the A-B Hamiltonian system, $\det\Phi_\gamma(T) = 1$ for every loop $\gamma$.
+\end{lemma}
+
+\begin{proof}
+The Jacobian $\mathbf{J}$ is infinitesimally symplectic
+($\mathbf{J}^T\Omega + \Omega\mathbf{J} = 0$ where $\Omega$ is the symplectic form),
+so $\mathrm{tr}(\mathbf{J}) = 0$. By Jacobi's formula,
+$\frac{d}{dt}\det\Phi = \mathrm{tr}(\mathbf{J})\det\Phi = 0$, hence $\det\Phi$ is
+constant and equals $\det\mathbf{I} = 1$.
+\end{proof}
+
+\subsection{Contradiction}
+\label{sec:contradiction}
+
+\begin{theorem}[No global contraction metric]
+\label{thm:no-global-M}
+The A-B system on $\mathbb{R}^2 \setminus \{0\}$ admits no global L-S contraction
+metric on any disk whose boundary encloses the flux tube.
+\end{theorem}
+
+\begin{proof}
+Assume, for contradiction, that a global L-S contraction metric $\mathbf{M}$ exists
+on the disk bounded by a loop $\gamma$ enclosing the origin. By Lemma~\ref{lem:contraction-det},
+$\det\Phi_\gamma(T) < 1$. But by Lemma~\ref{lem:liouville}, $\det\Phi_\gamma(T) = 1$.
+This is a contradiction. Therefore no such $\mathbf{M}$ exists.
+\end{proof}
+
+The obstruction is \textbf{localized at the origin}. On any simply-connected region
+not containing the origin, a local contraction metric does exist (the system is
+locally contractible; see~\cite{LohmillerSlotine1998}, \S3.7 for the construction
+of local contraction metrics). The failure is specifically tied to loops that enclose the
+flux tube, and is the dynamical signature of
+$H^1(\mathbb{R}^2 \setminus \{0\}, \mathbb{Z}) \neq 0$.
+
+%------------------------------------------------------------------
+\section{The L-S / \v{C}ech Correspondence Theorem}
+\label{sec:correspondence}
+%------------------------------------------------------------------
+
+\subsection{Setup}
+\label{sec:setup}
+
+Let $\mathcal{U} = \{U_1, \dots, U_n\}$ be a good open cover of an annular
+neighbourhood of the loop $\gamma$, with each $U_i$ simply connected and
+$U_i \cap U_{i+1} \neq \varnothing$ (indices mod $n$).
+
+\subsection{L-S side: Local contraction metrics via gauge trivialization}
+\label{sec:ls-side}
+
+On each $U_i$, since $\mathbf{B} = 0$ and $U_i$ is simply connected,
+$\mathbf{A}$ is pure gauge: there exists a smooth $\Lambda_i: U_i \to \mathbb{R}$
+such that
+\[
+\mathbf{A}(\mathbf{x}) = \nabla\Lambda_i(\mathbf{x}) \qquad \forall \mathbf{x} \in U_i.
+\]
+
+Perform the gauge transformation $\mathbf{p} \mapsto \mathbf{p} - q\nabla\Lambda_i$.
+In the new variables, the effective vector potential vanishes on $U_i$, and the
+Hamiltonian reduces to that of a free particle. Choose the trivial contraction
+metric $\mathbf{M}_i = \mathbf{I}_{4\times 4}$ as the local L-S metric on $U_i$.
+
+\subsection{Transition functions as \v{C}ech 1-cochains}
+\label{sec:transitions}
+
+On $U_i \cap U_j$, both $\Lambda_i$ and $\Lambda_j$ are valid gauge functions.
+Their difference is constant:
+\[
+\nabla(\Lambda_i - \Lambda_j) = 0 \;\Longrightarrow\; \Lambda_i - \Lambda_j = c_{ij} \in \mathbb{R}.
+\]
+
+Exponentiating gives a $U(1)$ phase:
+\[
+g_{ij} = \exp\!\big(iq\,c_{ij}/\hbar\big) \in U(1).
+\]
+
+The $\{g_{ij}\}$ form a \v{C}ech 1-cochain
+$g \in \check{C}^1(\mathcal{U}, \underline{U(1)})$.
+
+\subsection{\v{C}ech 1-cocycle condition}
+\label{sec:cocycle}
+
+On $U_i \cap U_j \cap U_k$, we have
+\[
+c_{ij} + c_{jk} + c_{ki} = (\Lambda_i - \Lambda_j) + (\Lambda_j - \Lambda_k)
++ (\Lambda_k - \Lambda_i) = 0,
+\]
+hence $g_{ij} \cdot g_{jk} \cdot g_{ki} = 1$. So
+$g \in \check{Z}^1(\mathcal{U}, \underline{U(1)})$ is a \v{C}ech 1-cocycle.
+
+\subsection{The cohomology class is the flux}
+\label{sec:flux}
+
+The alternating sum of gauge mismatches around the loop is the discretization of
+the line integral of $\mathbf{A}$:
+\[
+\sum_{i=1}^n c_{i,i+1}
+= \sum_{i=1}^n \int_{U_i \cap U_{i+1}} \nabla\Lambda_i \cdot d\mathbf{x}
+= \oint_\gamma \mathbf{A} \cdot d\mathbf{x}.
+\]
+
+If a global $\Lambda$ existed on the full annulus, we would have
+$\oint_\gamma \mathbf{A} \cdot d\mathbf{x} = \nabla\Lambda \cdot d\mathbf{x} = 0$
+by the fundamental theorem of calculus, contradicting $\Phi \neq 0$.
+The non-existence of a global $\Lambda$ is precisely the statement that
+$\mathbf{A}$ defines a non-trivial flat connection on
+$\mathbb{R}^2 \setminus \{0\}$.
+
+The sum measures the obstruction to extending the local gauge functions globally,
+which is precisely the magnetic flux
+\[
+\sum_{i=1}^n c_{i,i+1} = \oint_\gamma \mathbf{A} \cdot d\mathbf{x} = \Phi.
+\]
+
+The cohomology class $[g] \in \check{H}^1(\mathcal{U}, \underline{U(1)}) \cong U(1)$
+is therefore the A-B holonomy $\exp(iq\Phi/\hbar)$.
+
+\subsection{The $R_*$ map and $\ker R_*$}
+\label{sec:r-star}
+
+In Paper I~\cite{PaperI}, the geometric phase map
+$R_*([\xi]) = [\xi] \cdot [\eta_{\text{geo}}]$ sends a \v{C}ech class to a line
+bundle holonomy. The \v{C}ech cocycle $g$ constructed from L-S gauge mismatches
+lives in the same cohomology group $\check{H}^1(\mathcal{U}, \underline{U(1)})$
+as the MASA patching cochains. The dynamical (L-S) and logical (MASA) obstructions
+coincide.
+
+\begin{theorem}[L-S / \v{C}ech Correspondence for the A-B Effect]
+\label{thm:main}
+Let $\mathcal{U}$ be a good cover of an annular neighbourhood of a loop $\gamma$
+enclosing the flux tube. Define:
+\begin{enumerate}
+  \item \textbf{L-S cochains:}
+    $g_{ij}^{\mathrm{LS}} = \exp(iq(\Lambda_i - \Lambda_j)/\hbar)$, where $\Lambda_i$
+    locally trivializes $\mathbf{A}$ on $U_i$.
+  \item \textbf{Bohrification cochains:}
+    $g_{ij}^{\mathrm{Bohr}} \in \check{Z}^1(\mathcal{U}, \underline{U(1)})$,
+    the transition phases between local MASA sections on $\mathcal{U}$
+    (Paper I~\cite{PaperI}, \S4).
+  \item \textbf{Comparison:}
+    The isomorphism $\check{H}^1(\mathcal{U}, \underline{U(1)}) \cong U(1)$
+    and the inclusion of $\check{H}^1(\mathcal{U}, \underline{U(1)})$
+    in the LHS spectral sequence are established in
+    Papers III~\cite{PaperIII} and IV~\cite{PaperIV}.
+\end{enumerate}
+Then $[g^{\mathrm{LS}}] = [g^{\mathrm{Bohr}}]$ in $\check{H}^1(\mathcal{U}, \underline{U(1)})$.
+Both evaluate to the A-B holonomy: $\langle [g], \gamma \rangle = \exp(iq\Phi/\hbar)$.
+\end{theorem}
+
+\begin{proof}
+Both constructions give \v{C}ech 1-cocycles on $\mathcal{U}$. Since
+$\mathcal{U}$ covers an annular region homotopy equivalent to $S^1$,
+$\check{H}^1(\mathcal{U}, \underline{U(1)}) \cong U(1)$ is 1-dimensional;
+any two non-trivial classes are powers of the generator. It suffices to show
+both cocycles pair to the same element of $U(1)$ with the fundamental cycle $\gamma$.
+
+For the L-S cocycle: summing gauge mismatches around $\gamma$ gives
+$\sum c_{i,i+1} = \Phi$, so $\langle [g^{\mathrm{LS}}], \gamma \rangle = \exp(iq\Phi/\hbar)$.
+
+For the Bohrification cocycle: the transition phase on $U_i \cap U_{i+1}$ is the
+holonomy of the prequantum connection along a path crossing the overlap---the
+integral of the symplectic potential $\mathbf{p} \cdot d\mathbf{x}$. Under the
+A-B minimal coupling, the connection 1-form reduces on the regular locus to
+$q\mathbf{A} \cdot d\mathbf{x}$ (up to an exact form that does not affect the
+cohomology class). Hence $\langle [g^{\mathrm{Bohr}}], \gamma \rangle = \exp(iq\Phi/\hbar)$.
+
+Both cocycles evaluate to $\exp(iq\Phi/\hbar)$. Since $\check{H}^1(\mathcal{U}, \underline{U(1)})$
+is generated by the class whose pairing with $\gamma$ is the A-B holonomy, the two
+classes coincide.
+\end{proof}
+
+\begin{corollary}[Topological Charge Identity]
+\label{cor:charge}
+In the A-B system, the following three objects carry the same characteristic class
+in $\check{H}^1(\mathcal{U}, \underline{U(1)}) \cong U(1)$:
+\begin{enumerate}
+  \item The L-S contraction obstruction: failure of local metrics $\mathbf{M}_i$ to glue globally.
+  \item The Bohrification obstruction: failure of local MASA sections to form a global section.
+  \item The geometric phase: the A-B holonomy $\exp(iq\Phi/\hbar)$.
+\end{enumerate}
+Consequently, the topological charge of quantum contextuality equals the contraction
+obstruction of the underlying non-linear classical dynamics.
+\end{corollary}
+
+%------------------------------------------------------------------
+\section{The $\hbar \to 0$ Limit and Topological Invariance}
+\label{sec:hbar}
+%------------------------------------------------------------------
+
+A crucial feature of this correspondence is its behaviour in the classical limit.
+As $\hbar \to 0$, the $U(1)$-valued cocycle $\exp(iq\Phi/\hbar)$ oscillates
+infinitely fast. However, the integer cohomology class
+$[\Phi] \in H^1(\mathbb{R}^2\setminus\{0\}, \mathbb{Z})$ is entirely independent
+of $\hbar$:
+\[
+\frac{iq}{\hbar} \oint_\gamma \mathbf{A} \cdot d\mathbf{x} \in 2\pi i \,\mathbb{Z}
+\quad\Longrightarrow\quad \text{winding number} \in \mathbb{Z}.
+\]
+
+The topological charge survives the classical limit. Similarly, Liouville's theorem
+($\det\Phi_\gamma(T) = 1$) is a purely classical statement---the symplectic form
+$\Omega$ does not involve $\hbar$. The contradiction between Liouville and
+contraction that proves $\ker R_* \neq 0$ is \textbf{classical}, requiring no
+quantum mechanics.
+
+This means the L-S / \v{C}ech Correspondence Theorem is semi-classically exact:
+the correspondence holds as an identity of integer cohomology classes, independent
+of $\hbar$. The parameter $\hbar$ controls only the \emph{representation} of the
+cohomology class in $U(1)$, not the topological obstruction itself.
+
+In physical terms: the mechanism that forbids a global classical description is
+not quantum---it is topological. Quantum mechanics merely makes this obstruction
+experimentally visible as an interference phase.
+
+%------------------------------------------------------------------
+\section{The Full Picture}
+\label{sec:full-picture}
+%------------------------------------------------------------------
+
+The L-S / \v{C}ech correspondence reveals a structural identity:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Concept & L-S dynamics & Bohrification (Paper I) \\
+\midrule
+Local patch & Gauge-trivialized free particle ($\mathbf{M}_i = \mathbf{I}$) & Single MASA \\
+Transition & Gauge mismatch $\Lambda_i - \Lambda_j$ & MASA overlap phase \\
+Global obstruction & $\mathbf{M}_i$ cannot glue globally (Liouville, \S\ref{sec:proof}) & $\ker R_* \neq 0$ \\
+Invariant & $\check{H}^1(\mathcal{U}, \underline{U(1)}) \ni \exp(iq\Phi/\hbar)$ & Same class \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The deeper implication: \textbf{quantum contextuality is dynamical memory.} When
+a classical non-linear system refuses to contract (in the L-S sense), it preserves
+information about its trajectory history. This preserved information is invisible
+to any single local measurement context, but manifests as a cohomological
+obstruction when multiple contexts are compared.
+
+The obstruction ladder, viewed dynamically:
+\begin{itemize}
+  \item \textbf{$H^1$ (geometric phase):} L-S contraction fails at isolated
+    singular points. Liouville's theorem prevents global contraction. The mismatch
+    accumulates as a $U(1)$ holonomy. \textbf{[Established in this note.]}
+  \item \textbf{$H^2$ (Kochen--Specker):} Non-commuting transitions around 4-cycles
+    in the MASA compatibility graph force a central sign ambiguity.
+    \textbf{[Framework established; see companion note.]}
+  \item \textbf{$H^3$ (Borromean):} Non-associative algebras break the chain rule,
+    rendering L-S theory inapplicable. \textbf{[Open.]}
+\end{itemize}
+
+%------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%------------------------------------------------------------------
+
+We have established a rigorous correspondence between L-S contraction theory
+and the \v{C}ech cohomology of geometric phases.
+
+\begin{itemize}
+  \item \textbf{Theorem~\ref{thm:no-global-M} (No global contraction metric):}
+    The A-B system admits no L-S contraction metric on any disk enclosing the
+    flux tube. The proof follows from the contradiction between Liouville's
+    theorem ($\det\Phi_\gamma = 1$) and the contraction requirement
+    ($\det\Phi_\gamma < 1$).
+
+  \item \textbf{Theorem~\ref{thm:main} (L-S / \v{C}ech Correspondence):}
+    On a good cover of the punctured plane, local gauge trivializations of
+    $\mathbf{A}$ yield a \v{C}ech 1-cocycle whose cohomology class is the
+    A-B holonomy. This class coincides with the Bohrification cocycle from
+    Paper I, establishing $[g^{\mathrm{LS}}] = [g^{\mathrm{Bohr}}]$ in
+    $\check{H}^1(\mathcal{U}, \underline{U(1)})$.
+
+  \item \textbf{Corollary~\ref{cor:charge} (Topological charge identity):}
+    The L-S contraction obstruction, the Bohrification obstruction, and the
+    geometric phase carry the same characteristic class.
+\end{itemize}
+
+The common thread is that \textbf{quantum contextuality is dynamical memory}:
+when a classical system refuses to contract in the L-S sense, it preserves
+trajectory history, which manifests as a cohomological obstruction in the
+logical structure of measurement contexts. The $\hbar \to 0$ limit confirms
+that this obstruction is topological rather than quantum---$\hbar$ controls
+only the $U(1)$ representation, not the integer cohomology class.
+
+The generalization to $H^2$ (non-abelian gauge, 4-cycle holonomies producing
+Kochen--Specker contextuality) and $H^3$ (non-associative systems where the
+chain rule breaks L-S theory) are addressed in a companion note. The present
+appendix provides the foundational abelian case and the template for these
+extensions.
+
+\begin{thebibliography}{9}
+
+\bibitem[Lohmiller1998]{LohmillerSlotine1998}
+W.~Lohmiller and J.-J.~E.~Slotine,
+``On contraction analysis for non-linear systems,''
+\textit{Automatica} \textbf{34} (1998), 683--696.
+
+\bibitem[Aharonov1959]{AharonovBohm1959}
+Y.~Aharonov and D.~Bohm,
+``Significance of electromagnetic potentials in the quantum theory,''
+\textit{Phys. Rev.} \textbf{115} (1959), 485--491.
+
+\bibitem[PaperI]{PaperI}
+Chen, Z.-L.
+From Contextuality to Phase Cohomology:
+A Computable Bridge Between Bohrification and Geometric Quantization.
+\textit{Zenodo, DOI: 10.5281/zenodo.20072818}, 2026.
+
+\bibitem[PaperIII]{PaperIII}
+Chen, Z.-L.
+Kochen--Specker Contextuality as Central Extension: 
+The Peres--Mermin Square and the Pauli Group.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073127}, 2026.
+
+\bibitem[PaperIV]{PaperIV}
+Chen, Z.-L.
+The Cohomological Obstruction Ladder: 
+Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184}, 2026.
+
+\end{thebibliography}
+
+\end{document}

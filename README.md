@@ -44,7 +44,10 @@ research/
 │   ├── Paper4_lhs_borromean.tex
 │   ├── Paper5_homological_bridge.tex
 │   ├── Paper6_necessity_complex.tex
-│   └── Epilogue_algebraic_logic.tex
+│   ├── Epilogue_algebraic_logic.tex
+│   ├── LsNote_geometric_phase.tex          # L-S contraction & H¹ (Appendix to Paper I)
+│   ├── LsNote_noncommutativity.tex         # L-S contraction & H² (Appendix to Paper III)
+│   └── LsNote_associativity.tex            # L-S contraction & H³ + octonionic boundary
 └── supplementary/
     └── construct_16cell/
         ├── LICENSE                     # MIT
@@ -67,6 +70,14 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **The Epilogue** provides the unifying vision (EML system, Solèr's theorem, obstruction ladder).
 - **Papers V–VI** ascend to the categorical abstraction and prove the necessity of $\mathbb{C}$.
 
+### Supplementary L-S Appendices
+
+Three companion notes connect Lohmiller–Slotine contraction theory to the obstruction ladder. Each provides a dynamical reinterpretation of a cohomological level, framed as a companion appendix to the relevant paper:
+
+- **LsNote\_geometric\_phase** (companion to Paper I): Liouville's theorem proves no global contraction metric exists for the Aharonov–Bohm system; the gauge mismatch Čech 1-cocycle equals the geometric phase.
+- **LsNote\_noncommutativity** (companion to Paper III): The Peres–Mermin $K_{3,3}$ nerve carries a flat $SU(2)$ connection whose 4-cycle holonomy is $-\mathbf{I}$, proving the Kochen–Specker obstruction equals the central extension class.
+- **LsNote\_associativity** (companion to Paper IV): The 16-cell $S^3$ nerve carries a global Čech 3-cocycle (conjectured pairing $-1$); octonionic dynamics break the chain rule, proving L-S theory inapplicable for $\mathbb{O}$.
+
 ### Quick Reference
 
 | # | Title | Focus | Key Result |
@@ -78,6 +89,9 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 | Epilogue | *The Algebraic Logic of Geometry* | EML system & Solèr's theorem | $\mathcal{Q} \dashv \mathcal{B}$ adjunction and the obstruction ladder |
 | V | *Observation as Functor: The Adjunction of Quantum and Classical* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
 | VI | *The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of Observation* | Solèr-Cohomology Theorem | $\mathbb{C}$ is the unique division ring permitting non-trivial continuous observation |
+| L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
+| L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
+| L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
 
 ---
 
@@ -124,6 +138,9 @@ All components are archived on Zenodo:
 | Paper V | [10.5281/zenodo.20073318](https://doi.org/10.5281/zenodo.20073318) |
 | Paper VI | [10.5281/zenodo.20073424](https://doi.org/10.5281/zenodo.20073424) |
 | `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
+| L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
+| L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
+| L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
 
 ---
 
