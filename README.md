@@ -37,7 +37,7 @@ research/
 ├── README.md
 ├── LICENSE                             # CC BY 4.0
 ├── RESEARCH_FRONTIER.md                # Toolbox & open problems
-├── insight/                            # Speculative thought experiment
+├── insight/                            # Insight Notes | Speculative thought experiment
 ├── papers/
 │   ├── Paper1_contextuality_phase.tex
 │   ├── Paper2_riemann_bohrification.tex
