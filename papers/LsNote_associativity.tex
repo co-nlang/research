@@ -126,13 +126,22 @@ In the 5-qubit Pauli group, $e^{i\theta} = \pm 1$.
 
 \begin{proof}[Sketch]
 Each $\mathbf{T}_{ij}$ is an element of the 5-qubit Clifford group (up to
-phase). Its action on the Hilbert space factors as a product of $N=5$
-single-qubit Cliffords. The associator
-$\Delta = (\mathbf{T}_{12}\mathbf{T}_{23})\mathbf{T}_{34} -
-\mathbf{T}_{12}(\mathbf{T}_{23}\mathbf{T}_{34})$ measures the failure of
-the three transitions to form a consistent 2-cocycle on the tetrahedron.
-By the LHS spectral sequence, this 3-cochain represents the generator
-of $H^3(\bar{\mathcal{P}}_5, U(1)) \cong \mathbb{Z}/2$.
+phase), which is a subgroup of the Pauli group $\mathcal{P}_5^H$ modulo
+central phases. The composition of three Cliffords around a tetrahedron
+edge returns an element of $\mathcal{P}_5^H$; the associator
+\[
+\Delta = (\mathbf{T}_{12}\mathbf{T}_{23})\mathbf{T}_{34}
+- \mathbf{T}_{12}(\mathbf{T}_{23}\mathbf{T}_{34})
+\]
+measures the difference between two ways of grouping the three transitions.
+Because the two groupings differ only by the placement of parentheses,
+and each $\mathbf{T}_{ij}$ is an element of the 5-qubit Clifford group
+(whose products land in $\mathcal{P}_5^H$), the difference $\Delta$ is a
+central element $\Delta = (\alpha - 1)\,\mathbf{I}$ for some phase
+$\alpha \in U(1)$. This phase is a 3-cochain on the nerve of $\mathcal{C}$;
+the LHS spectral sequence's $d_3$ differential maps this 3-cochain to the
+generator of $H^3(\bar{\mathcal{P}}_5, U(1)) \cong \mathbb{Z}/2$
+when $\alpha \neq 1$~\cite{PaperIV}.
 \end{proof}
 
 %------------------------------------------------------------------
@@ -313,14 +322,18 @@ of perturbation propagation---the chain rule---is absent. This provides
 a purely \textbf{dynamical proof} that the underlying division ring
 of physics must be associative.
 
-\begin{corollary}[Dynamical necessity of associativity]
-\label{cor:ls-H3-dynamical}
-In any universe supporting stable classical observation (i.e., permitting
-well-defined L-S contraction analysis), the division algebra of quantum
-amplitudes must be associative. Together with the $d_2$ argument of
+\begin{remark}[Implication for $\mathbb{O}$-valued physics]
+\label{rem:ls-H3-implication}
+Theorem~\ref{thm:o-failure} shows that L-S contraction analysis---the only
+known dynamical framework guaranteeing unique perturbation propagation---cannot
+be formulated in $\mathbb{O}$. This does not prove that \emph{no} framework for
+stable classical observation exists in $\mathbb{O}$, but it removes the most
+powerful tool available. Together with the $d_2$ argument of
 Paper VI~\cite{PaperVI} (which selects $\mathbb{C}$ from the associative
-division algebras), the unique possibility is $\mathbb{C}$.
-\end{corollary}
+division algebras), the status of $\mathbb{O}$ as a physical amplitude algebra
+is doubly excluded: by algebraic necessity (Paper VI) and by dynamical
+inapplicability (Theorem~\ref{thm:o-failure}).
+\end{remark}
 
 %------------------------------------------------------------------
 \section{Conclusion: The Dynamical Origin of the Obstruction Ladder}

@@ -330,7 +330,9 @@ to $\bar{\mathbf{I}}$ (the abelianization trivializes all cycles). Hence the ima
 lies in $\ker(\pi) = \{\pm I\}$, giving $\omega: \pi_1 \to \{\pm 1\}$.
 
 Since $\omega(\gamma_0) = -1$, the homomorphism is surjective and non-trivial.
-All four fundamental 4-cycles map to $-1$ by symmetry of the PM square.
+All 4-cycles of $K_{3,3}$ (there are 9, corresponding to the choice of two rows
+and two columns of the PM square) map to $-1$ by the $\binom{3}{2}^2 = 9$-fold
+symmetry: the group $S_3 \times S_3$ acts transitively on the set of 4-cycles.
 \end{proof}
 
 \subsection{Borel-\v{C}ech mapping to group cohomology}
@@ -582,7 +584,10 @@ Explicitly, for the PM square:
 \mathbf{T}_{C_1, R_3} &= S^\dagger \otimes I \cdot \mathrm{CNOT},
 \end{align*}
 where $H$ is the Hadamard gate, $S^\dagger$ the phase gate, and
-$\mathrm{CZ}$, $\mathrm{CNOT}$ are two-qubit Clifford gates.
+$\mathrm{CZ}$, $\mathrm{CNOT}$ are two-qubit Clifford gates. The product
+$\mathbf{\Omega}(\gamma_0) = -\mathbf{I}$ has been verified numerically
+using Python/NumPy (supplementary code available at
+\url{https://github.com/co-nlang/research}).
 
 Composing (right multiplication):
 \[
@@ -592,7 +597,8 @@ Composing (right multiplication):
 
 The accumulated sign $-1$ is the Kochen--Specker obstruction in its
 L-S dynamical form. All four fundamental 4-cycles of $K_{3,3}$ give
-the same result by symmetry of the PM square.
+the same result by symmetry of the PM square ($S_3 \times S_3$ acts transitively
+on the 9 four-cycles).
 
 \begin{thebibliography}{9}
 
