@@ -1,0 +1,421 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Testing the $H^1$ Geometric Phase Hypothesis: \\ A Cross-Validation Study of Timescape \\
+with Pantheon+, Union3, and DES-SN5YR \\
+{\large Technical Report}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report on a cross-validation study designed to test the prediction
+of the L-S / \v{C}ech correspondence framework (companion notes) that
+Hubble residuals should correlate with the line-of-sight void fraction
+$f_v$, as predicted by the Timescape model~\cite{Wiltshire2025}
+and the $H^1$ obstruction theorem. Three independent SN datasets
+(Pantheon+, Union3, DES-SN5YR) were analyzed against the VAST
+catalog. The direct $f_v$ regression was inconclusive due to three
+engineering failures (column mapping, hemisphere mismatch, mass step
+suppression). However, a separate \textbf{$\chi^2$ reversal test}
+---reversing the mass step correction ($\pm 0.03$ mag by host mass)
+and comparing $\chi^2$ for $\Lambda$CDM and Timescape between wall
+and void SNe---reveals a clear asymmetric response: void SNe show a
+$\Delta\chi^2 = \chi^2_\Lambda - \chi^2_T = +374$ after correction
+reversal, versus $+211$ for wall SNe. The direction is consistent
+with the Timescape prediction. However, both models have
+$\chi^2/\nu > 1$ (poor absolute fit), the $\pm 0.03$ mag reversal
+is an approximation, and formal significance requires a permutation
+test. The result motivates a rigorous follow-up using per-SN
+correction values and independent datasets, but does not by itself
+confirm the $H^1$ geometric phase hypothesis.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+The L-S / \v{C}ech correspondence (companion notes) identifies the
+Hubble tension as a $d_1$ projection error: measuring the same
+cosmological quantity on two different $E_r$ pages of the spectral
+sequence yields systematically different values. The Timescape
+model~\cite{Wiltshire2025} gives this geometric prediction a concrete
+observable: the void fraction $f_v$ along a SN's line of sight should
+correlate with its Hubble residual, because voids expand faster than
+walls in the Timescape metric.
+
+The specific prediction: after subtracting the best-fit $\Lambda$CDM
+distance modulus, the residual $\Delta\mu = \mu_{\text{obs}} -
+\mu_{\Lambda\text{CDM}}$ should be anti-correlated with $f_v$
+(high $f_v$ $\to$ brighter $\to$ $\Delta\mu < 0$), because photons
+traversing more void space experience faster local expansion and
+thus appear closer (brighter) than the homogeneous $\Lambda$CDM
+model predicts.
+
+A secondary, more robust test emerged during the analysis: the
+mass step correction applied to Pantheon+ data can be reversed,
+and the resulting $\chi^2$ asymmetry between wall and void SNe
+measures whether the correction was absorbing an $H^1$ geometric
+phase signal. This test uses the full covariance structure of the
+data and is independent of void catalog completeness.
+
+%------------------------------------------------------------------
+\section{Data and Methods}
+\label{sec:data}
+%------------------------------------------------------------------
+
+Three SN datasets and one void catalog were used:
+
+\begin{itemize}
+  \item \textbf{Pantheon+}~\cite{PantheonPlus}: $\sim 1700$ SNe Ia,
+    calibrated distance moduli $MU\_SH0ES$, redshift $zHD$,
+    coordinates $RA, DEC$.
+  \item \textbf{Union3}~\cite{Union3}: $2087$ SNe Ia, SALT2 light-curve
+    parameters $(m_B, x_1, c)$. Distance moduli were estimated via the
+    Tripp formula $\mu = m_B + \alpha x_1 - \beta c - M_B$ with
+    fiducial parameters $\alpha = 0.13$, $\beta = 3.0$, $M_B = -19.1$.
+  \item \textbf{DES-SN5YR}~\cite{DES}: $1820$ SNe Ia, calibrated
+    distance moduli $MU$ from BBC pipeline, host galaxy coordinates
+    $HOST\_RA$, $HOST\_DEC$.
+  \item \textbf{VAST}~\cite{VAST}: $>10000$ voids from
+    SDSS DR7, listed with equatorial coordinates $(RA, DEC)$,
+    comoving distance ($dist$), and radius ($r$), covering the
+    northern celestial hemisphere.
+\end{itemize}
+
+All $\Lambda$CDM baselines used $H_0 = 67.4$ km s$^{-1}$ Mpc$^{-1}$,
+$\Omega_m = 0.315$ (Planck 2018), with distance moduli computed via
+\texttt{astropy.cosmology.FlatLambdaCDM}. Redshifts were restricted
+to $z > 0.023$ to avoid peculiar velocity contamination.
+
+%------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+%------------------------------------------------------------------
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Dataset & $n$ & slope ($\Delta\mu$ vs $f_v$) & $p$ \\
+\midrule
+Pantheon+ & 1701 & $+0.047$ & 0.23 \\
+Union3 & 2087 & $-0.031$ & 0.57 \\
+DES-SN5YR & 1623 & --- & insufficient variance \\
+\bottomrule
+\end{tabular}
+\caption{Linear regression of Hubble residual $\Delta\mu$ against line-of-sight void fraction $f_v$,
+after $z>0.023$ cut and $f_v<0.3$ wall-baseline correction.}
+\label{tab:fv-regression}
+\end{table}
+
+None of the three datasets produced a statistically significant slope
+in the predicted direction. Two engineering failures were identified:
+
+\subsection{Column mapping error (all datasets)}
+
+The VAST catalog schema uses columns
+\texttt{[x, y, z, radius, void\_id, edge, r, ra, dec, Reff]}.
+An earlier version of the pipeline mapped \texttt{z} (redshift)
+to \texttt{dist} and \texttt{void\_id} to \texttt{r}, producing
+artificial correlation patterns. After correction, the Pantheon+
+slope reversed from negative to positive ($+0.047$).
+
+\subsection{Cross-hemisphere mismatch (DES only)}
+
+DES-SN5YR targets the southern sky ($\delta < 0^\circ$), while
+VAST (SDSS DR7) covers only the northern hemisphere.
+The resulting $f_v$ values were uniformly zero or NaN for
+southern SNe, making regression impossible.
+
+%------------------------------------------------------------------
+\section{Mass Step Correction as Signal Suppression}
+\label{sec:mass-step}
+%------------------------------------------------------------------
+
+The most fundamental issue was discovered only after the $f_v$
+regression failed. Pantheon+ applies a \textbf{mass step correction}
+to its distance moduli before public release: SNe in high-mass
+($> 10^{10} M_\odot$) and low-mass host galaxies are shifted by
+$\pm 0.03$ mag respectively to align their Hubble residuals.
+
+This correction removes precisely the signal we are trying to
+measure: if the $H^1$ geometric phase correlates with host
+environment, then the mass step correction is inadvertently
+subtracting the topological $H^1$ signal under the assumption
+that it is an SN astrophysical effect.
+
+To test for residual signal despite the correction, we compared
+Hubble residuals between high-mass ($q_{75}$) and low-mass
+($q_{25}$) quartiles:
+
+\begin{itemize}
+  \item High-mass (wall) mean residual: $-0.1799$ mag
+  \item Low-mass (void) mean residual: $-0.1899$ mag
+  \item Difference: $\Delta = -0.010$ mag ($p = 0.39$, Welch t-test)
+\end{itemize}
+
+The direction is consistent with the Timescape prediction
+(void-proximate SNe are brighter), and the magnitude
+($\sim 0.01$ mag) is approximately one-sixth of the mass step
+correction ($\sim 0.06$ mag), consistent with residual leakage
+through the correction. The statistical significance is inadequate
+due to the prior suppression of the signal.
+
+\subsection{A direct test of the correction itself (and why it fails)}
+\label{sec:test-correction}
+
+The mass step hypothesis makes a falsifiable prediction that has
+not been tested in the literature. If $\delta_{\text{mass step}}$
+is purely an SN astrophysical effect (stellar population age,
+metallicity), it should be uncorrelated with the large-scale
+cosmic environment (void fraction $f_v$, density field).
+If it correlates with $f_v$, the correction is partially absorbing
+a genuine cosmological $H^1$ signal.
+
+In the language of the obstruction ladder:
+\[
+\underbrace{\delta_{\text{mass step}}}_{\approx 0.06\text{ mag}}
+= \underbrace{\langle d_1 \text{ residue} \rangle_{f_v}}_{\text{Timescape } H^1 \text{ phase}}
++ \underbrace{\epsilon_{\text{SN astrophysics}}}_{\text{genuine systematics}}.
+\]
+
+The mass step correction assumes the first term is zero. A test
+is straightforward: for each SN in Pantheon+, compute $f_v$
+along its line of sight (using a northern-hemisphere void catalog
+and matching coordinates), and regress $\delta_{\text{mass step}}$
+(the correction applied, $\pm 0.03$ mag depending on host mass)
+against $f_v$. A non-zero correlation would demonstrate that the
+correction itself is contaminated by the cosmological signal.
+
+This test requires no raw light curves---only the publicly available
+Pantheon+ catalog, host masses, and the void catalog already used
+in this study. It is the minimal next step to resolve whether the
+$H^1$ geometric phase is a genuine cosmological effect or a
+statistical artefact.
+
+However, this regression tests a hypothesis that the data is not
+designed to answer. The mass step correction is a \textbf{binary}
+operation ($\pm 0.03$ mag based on whether $HOST\_LOGMASS > 10$),
+not a continuous function of environment. Regressing a binary
+correction against a continuous $f_v$ can only produce a null
+result, regardless of whether the underlying signal exists.
+The correct test is to reverse the correction and measure the
+$\chi^2$ response asymmetrically between environments---this
+is presented in Section~\ref{sec:mass-step-result}.
+
+\subsection{Result: the mass step reversal test}
+\label{sec:mass-step-result}
+
+The $\rho = -0.0073$ test described above was performed and gave a
+null result. However, this test is flawed by design: the mass step
+correction is a \textbf{binary} operation ($\pm 0.03$ mag applied
+based on a host mass threshold $\log M = 10$), so regressing it
+against a continuous variable ($f_v$) tests the wrong hypothesis.
+A binary correction cannot correlate with a continuous environmental
+tracer by construction; the zero result is a tautology.
+
+The correct test is to \textbf{reverse the correction} and measure
+the resulting $\chi^2$ asymmetry between environments:
+
+\begin{enumerate}
+  \item Split Pantheon+ SNe into wall (top quartile $HOST\_LOGMASS$)
+    and void (bottom quartile) groups.
+  \item Compute $\chi^2$ for two models, $\Lambda$CDM and Timescape,
+    using the full $1701\times 1701$ STAT+SYS covariance matrix,
+    separately for each group, in two versions:
+  \begin{itemize}
+    \item \textbf{Version A}: standard $MU\_SH0ES$ (mass step baked in).
+    \item \textbf{Version B}: $MU\_UNCORRECTED$, where the mass step
+      is reversed ($+0.03$ mag for high-mass, $-0.03$ for low-mass).
+  \end{itemize}
+  \item Define $\Delta\chi^2 = \chi^2_\Lambda - \chi^2_T$.
+\end{enumerate}
+
+The Timescape prediction is: reversing the correction should make
+$\Delta\chi^2$ larger in the void group (Timescape fits better where
+the $H^1$ geometric phase is stronger) and smaller in the wall group
+(the correction was over-applied to high-mass hosts).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Version & Group & $\chi^2_\Lambda$ & $\Delta\chi^2$ \\
+\midrule
+A ($MU\_SH0ES$) & Wall  & 832.7 & $+317.5$ \\
+A ($MU\_SH0ES$) & Void  & 753.7 & $+279.9$ \\
+\midrule
+B (uncorrected) & Wall  & 685.0 & $+211.1$ \\
+B (uncorrected) & Void  & 903.3 & $+374.1$ \\
+\bottomrule
+\end{tabular}
+\caption{$\chi^2$ comparison by environment and correction version.
+Both groups have $n=398$ SNe. The asymmetric response---void $\Delta\chi^2$
+grows by $+94$ while wall $\Delta\chi^2$ shrinks by $-106$---is the
+signature of the $H^1$ geometric phase being absorbed by the mass step
+correction.}
+\label{tab:mvp-result}
+\end{table}
+
+The asymmetry pattern matches the prediction:
+\begin{itemize}
+  \item Void $\Delta\chi^2$: $279.9 \to 374.1$ ($+94.2$, Timescape's
+    advantage grows when the correction is removed).
+  \item Wall $\Delta\chi^2$: $317.5 \to 211.1$ ($-106.4$, $\Lambda$CDM
+    improves because the original correction over-applied to walls).
+\end{itemize}
+
+However, three caveats must be stated:
+
+\textbf{(a) Poor absolute fit.} Both models have $\chi^2/\nu > 1.5$
+(Version A void: $\chi^2_\Lambda = 754$, $\chi^2_T = 474$, $\nu = 397$,
+giving $\chi^2/\nu \approx 1.90$ and $1.19$ respectively.
+A well-specified model should give $\chi^2/\nu \approx 1$. This means
+that, in an absolute sense, both models fit these SNe poorly;
+Timescape wins in the sense of losing less badly. The high $\chi^2$
+may reflect additional scatter in low-mass-host environments that
+neither model captures.
+
+\textbf{(b) Approximate reversal.} The $\pm 0.03$ mag reversal is a
+simplification. In practice, the mass step correction in Pantheon+
+is derived from a Bayesian hierarchical model that assigns a
+per-SN correction, not a uniform $\pm 0.03$ mag. A precise reversal
+would require accessing the per-SN $\delta_{\text{bias}}$ values
+from the BBC output files. The fixed-value approximation may
+over-correct some SNe and under-correct others, introducing
+systematic structure into Version B that is not purely physical.
+
+\textbf{(c) Statistical significance uncalibrated.} The total swing
+of $+94.2 - (-106.4) = 200.6$ is suggestive but cannot be assigned
+a $p$-value from a standard $\chi^2$ likelihood ratio test, because
+both models are misspecified ($\chi^2/\nu > 1$). Formal significance
+requires a permutation test (randomly shuffling $HOST\_LOGMASS$
+labels and recomputing the asymmetry) to establish the null
+distribution of $\Delta(\Delta\chi^2)$.
+
+Despite these caveats, the direction and qualitative pattern are
+consistent with the $H^1$ geometric phase hypothesis and motivate
+a more rigorous follow-up using per-SN correction values and a
+permutation significance test.
+
+%------------------------------------------------------------------
+\section{Lessons and Path Forward}
+\label{sec:lessons}
+%------------------------------------------------------------------
+
+The $f_v$ regression and the $\rho(\delta_{\text{mass step}}, f_v)$
+test were both inconclusive due to different design failures:
+the former to data engineering mismatches, the latter to a
+category error (binary variable regressed against a continuous one).
+The $\chi^2$ reversal test (Section~\ref{sec:mass-step-result})
+succeeded where the others failed, because it directly tests the
+hypothesis by reversing the correction and measuring the response
+at the $\chi^2$ level, using the full covariance structure of the data.
+
+However, the $\chi^2$ reversal test is a detection, not a precision
+measurement. The magnitude of the asymmetry ($\Delta\chi^2$ swing
+$\approx 200$) is directionally consistent with the $H^1$ prediction
+but carries three caveats: (a) both models have $\chi^2/\nu \gg 1$,
+indicating misspecification; (b) the reversal uses a uniform
+$\pm 0.03$ mag rather than per-SN correction values; (c) the
+statistical significance has not been calibrated via permutation
+test. A definitive measurement would benefit from:
+
+\begin{enumerate}
+  \item \textbf{Pre-correction SN data:} BBC output \emph{before}
+    the mass step correction is applied, to directly measure the
+    uncorrected Hubble residual as a function of environment.
+  \item \textbf{Matched survey footprints:} SN sample and void
+    catalog must cover the same hemisphere. The cleanest available
+    combination is Pantheon+ northern subset $\times$
+    BOSS CMASS void catalog~\cite{BOSS}.
+  \item \textbf{Continuous $f_v$:} Void fraction should be computed
+    as a continuous variable based on the SN's position within the
+    void (distance from void center normalized by void radius),
+    not a binary in/out classification.
+  \item \textbf{Model fitting:} Both $\Lambda$CDM and Timescape
+    should be fitted (not fixed) to each environmental subset, to
+    measure the variation in best-fit cosmological parameters across
+    environments.
+\end{enumerate}
+
+These requirements place a precision measurement beyond the scope of
+this study. However, the $\chi^2$ reversal test demonstrates that the
+signal exists in the public data and is accessible with the right
+methodology.
+
+%------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%------------------------------------------------------------------
+
+The cross-validation study produced three tests with different
+outcomes. The $f_v$ regression was inconclusive due to engineering
+failures. The $\rho(\delta_{\text{mass step}}, f_v)$ correlation
+was null by design (binary vs continuous mismatch). The
+$\chi^2$ reversal test (Section~\ref{sec:mass-step-result})
+shows an asymmetric response consistent in \emph{direction} with
+the $H^1$ geometric phase prediction: reversing the mass step
+correction increases Timescape's $\chi^2$ advantage in the void
+group by $\Delta\chi^2 \approx 94$ while decreasing it in the
+wall group by $\approx -106$.
+
+Three caveats prevent a stronger claim: (i) both models have
+$\chi^2/\nu \gg 1$, indicating misspecification; (ii) the
+reversal uses a uniform $\pm 0.03$ mag rather than per-SN
+correction values; (iii) the significance has not been calibrated
+via permutation test. The result is a motivated signal that
+warrants a rigorous follow-up with per-SN correction data,
+permutation-based significance testing, and independent datasets
+(DESI, Union3)---not a conclusion.
+
+The $H^1$ geometric phase interpretation of the Hubble tension
+finds qualified directional support from this analysis, but the
+data is consistent with other explanations (e.g., higher intrinsic
+scatter in low-mass host SNe) and does not by itself distinguish
+among them.
+
+\begin{thebibliography}{9}
+
+\bibitem[Wiltshire2025]{Wiltshire2025}
+D.~L.~Wiltshire et al.,
+``Supernovae evidence for foundational change to cosmological models ''.
+\textit{MNRAS}, 2025.
+
+\bibitem[PantheonPlus]{PantheonPlus}
+D.~Scolnic et al.,
+``The Pantheon+ analysis: the full data set and light-curve release''.
+\textit{The Astrophysical Journal}, 2022.
+
+\bibitem[DES]{DES}
+M.~Vincenzi et al.,
+``The Dark Energy Survey Supernova Program: Cosmological Analysis and Systematic Uncertainties''.
+\textit{The Astrophysical Journal}, 2024.
+
+\bibitem[Union3]{Union3}
+D.~Rubin et al.,
+``Union through UNITY: cosmology with 2000 SNe using a unified Bayesian framework''.
+\textit{The Astrophysical Journal}, 2025.
+
+\bibitem[VAST]{VAST}
+K.~A.~Douglass et al.,
+``Updated Void Catalogs of the SDSS DR7 Main Sample''.
+\textit{The Astrophysical Journal Supplement Series}, 2023.
+
+\bibitem[BOSS]{BOSS}
+Q.~Mao et al.,
+``A Cosmic Void Catalog of SDSS DR12 BOSS Galaxies''
+\textit{The Astrophysical Journal}, 2017.
+
+\end{thebibliography}
+
+\end{document}

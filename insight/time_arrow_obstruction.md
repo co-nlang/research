@@ -46,27 +46,33 @@ motion (oscillators, orbits) is the physical trace of $H^1$ memory.
 Reversibility holds locally: the system returns to its initial state
 after one full period. No information is lost, no direction is encoded.
 
-### Level 2: The Flip ($H^2$)
+### Level 2: The Flip ($H^2$) — with a caution
 
 A 4-cycle of pairwise-compatible MASAs accumulates a central sign $-\mathbf{I}$
 (the $H^2$ theorem). The system remembers not just a continuous phase but a
 discrete **direction**: the sign tells you which way you went around.
 
-This is the dynamical origin of **irreversibility**:
+This is the algebraic footprint of **orientation**:
 - $H^1$ memory is a phase ($U(1)$) — it distinguishes "how many cycles" but
   not "which way" (because $e^{i\theta} = e^{-i\theta}$ is the same).
 - $H^2$ memory is a sign ($\mathbb{Z}/2$) — it distinguishes orientation.
   Going clockwise vs counter-clockwise produces different sign accumulations.
 
-The $\mathbb{Z}/2$ symmetry breaking is the algebraic footprint of the
-arrow of time. In the Peres--Mermin system, the sign $-\mathbf{I}$ is the
-Kochen--Specker contradiction — a logical obstruction that would be
-inconsistent without a direction. In macroscopic language: **you cannot
-reverse time because that would flip the sign, which the algebra forbids.**
+**Caution**: Identifying the $H^2$ $\mathbb{Z}/2$ memory with the
+thermodynamic arrow of time is a leap. The KS contradiction says
+"not all observables can be simultaneously assigned values,"
+not "time evolution is irreversible." Unitary quantum evolution
+($e^{-iHt/\hbar}$) is fully reversible (its inverse is $e^{+iHt/\hbar}$).
+The $H^2$ time interpretation should be limited to: **the irreversibility
+of measurement (projection postulate) may correspond to $d_2$'s
+$\mathbb{Z}/2$ memory,
+because measurement forces the system to choose a path, and that choice is
+irreversible. Unitary evolution itself remains at $H^1$, fully reversible
+and periodic.
 
-This is much weaker than the Second Law — it doesn't say *why* entropy
-increases — but it says something deeper: **even in principle, reversing
-the arrow is algebraically obstructed at the $H^2$ level.**
+> A more cautious formulation: "The $H^2$ $\mathbb{Z}/2$ flip is the
+> algebraic fingerprint of quantum measurement. Connecting it to the
+> thermodynamic arrow requires additional entropy arguments."
 
 ### Level 3: The Braid ($H^3$)
 
@@ -103,27 +109,60 @@ theory:
   $H^3(M, \mathbb{Z})$. L-S contraction *fails completely* here:
   the singularity prevents any contraction metric from existing.
 
-- **The Page time** is the phase transition where the system crosses
-  from "contraction partially effective" to "contraction entirely
-  failed." In L-S language, this is a bifurcation of the generalized
-  Jacobian: on one side the metric $\mathbf{M}$ can be chosen to make
-  $\mathbf{F}$ negative-definite (information forgotten); on the other side
-  it cannot (information remembered).
+- **The Page time** as L-S bifurcation. This is the most promising
+  direction but also the vaguest. To make it concrete, one would need
+  to perform an L-S analysis on the Schwarzschild Jacobian, locate
+  the bifurcation point where the generalized Jacobian changes sign,
+  and verify that it matches the Page time (where entanglement entropy
+  equals Bekenstein--Hawking entropy). This has not been done. The
+  claim is speculative.
 
 - **The information recovery problem** asks whether the $H^1$ obstruction
   (Hawking radiation's geometric phase spectrum) encodes the $H^3$
   obstruction (entanglement gerbe) through a paired transgression:
   $$d_2: H^1 \to H^2, \quad \text{and the pairing } \langle H^2, H^3 \rangle \to U(1).$$
 
-This does not solve the paradox. But it translates a 50-year-old
-physics problem into a **well-defined cohomological computation**:
-compute the transgression between the $H^1$ and $H^3$ classes across
-the horizon. Non-zero transgression = information preserved.
-Zero transgression = information lost.
+  The question reduces to: is the transgression map injective across
+  the horizon? Non-zero transgression = information preserved.
+  Zero transgression = information lost.
 
 ---
 
-## 4. What This Means
+## 4. Entanglement as Spatial $H^1$ (A Note)
+
+The same obstruction ladder that classifies temporal phenomena also
+classifies spatial non-locality. For a bipartite system $A \otimes B$:
+
+- **Separable state:** The MASA poset is a product
+  $\mathcal{C}(A \otimes B) \cong \mathcal{C}(A) \times \mathcal{C}(B)$.
+  Čech nerve has $H^1 = 0$: local sections extend globally. Measurement
+  order $A$ then $B$ vs $B$ then $A$ gives the same result.
+
+- **Entangled state:** $H^1 \neq 0$. Measuring $A$ before $B$ or
+  $B$ before $A$ produces different *cocycle* representatives
+  in $\check{H}^1(\mathcal{U}, \underline{U(1)})$ for the cover
+  $\mathcal{U} = \{U_A, U_B\}$. The difference is a non-trivial
+  Bell correlation.
+
+- **Monogamy of entanglement** follows from the same constraint as
+  the Borromean rings: three systems $A, B, C$ cannot all be maximally
+  entangled pairwise, because that would produce a non-zero $H^2$ class
+  on the triple overlap.
+
+| | Separable | Entangled |
+|---|---|---|
+| Nerve | $H^1 = 0$ | $H^1 \neq 0$ |
+| Measurement order | Commutes | Non-commuting (Bell type) |
+| Local section | Global | Blocked |
+
+This is the spatial analogue of the $H^1/H^2$ distinction for time.
+Monogamy of entanglement is the spatial form of $H^2$ obstruction —
+just as the KS paradox is the logical form and FLP impossibility
+is the distributed-computing form.
+
+---
+
+## 5. What This Means
 
 This perspective does not *derive* the arrow of time from first
 principles. What it does is:
