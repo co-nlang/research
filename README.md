@@ -48,12 +48,18 @@ research/
 │   ├── Epilogue_algebraic_logic.tex
 │   ├── LsNote_geometric_phase.tex          # L-S contraction & H¹ (Appendix to Paper I)
 │   ├── LsNote_noncommutativity.tex         # L-S contraction & H² (Appendix to Paper III)
-│   └── LsNote_associativity.tex            # L-S contraction & H³ + octonionic boundary
-└── supplementary/
-    └── construct_16cell/
-        ├── LICENSE                     # MIT
-        ├── README.md
-        └── construct_16cell.py
+│   ├── LsNote_associativity.tex            # L-S contraction & H³ + octonionic boundary
+│   ├── Paper7_twistor_googly.tex
+│   └── supplementary/
+│       ├── construct_16cell/
+│       │   ├── LICENSE                     # MIT
+│       │   ├── README.md
+│       │   └── construct_16cell.py
+│       └── paper7_conj42/
+│           ├── LICENSE                     # MIT
+│           ├── README.md
+│           ├── paper7_conj42.py
+│           └── paper7_conj42_layer2.py
 ```
 
 ---
@@ -63,13 +69,14 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
 - **Paper IV** introduces the $H^3$ frontier (Borromean contextuality) and the Lyndon–Hochschild–Serre transgression.
 - **The Epilogue** provides the unifying vision (EML system, Solèr's theorem, obstruction ladder).
 - **Papers V–VI** ascend to the categorical abstraction and prove the necessity of $\mathbb{C}$.
+- **Paper VII** resolves the Penrose googly problem (twistor theory's 59-year open question) as an $H^2$ obstruction, with $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ verified computationally.
 
 ### Supplementary L-S Appendices
 
@@ -90,6 +97,7 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | Epilogue | *The Algebraic Logic of Geometry* | EML system & Solèr's theorem | $\mathcal{Q} \dashv \mathcal{B}$ adjunction and the obstruction ladder |
 | V | *Observation as Functor: The Adjunction of Quantum and Classical* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
 | VI | *The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of Observation* | Solèr-Cohomology Theorem | $\mathbb{C}$ is the unique division ring permitting non-trivial continuous observation |
+| VII | *Twistor Googly as Cohomological Obstruction* | Peres–Mermin → $\CP^3$ | Googly problem = $H^2$ obstruction; $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ verified |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -122,6 +130,7 @@ A candid inventory of the mathematical machinery powering this series and the op
 | Directory | Description |
 |-----------|-------------|
 | [`supplementary/construct_16cell/`](supplementary/construct_16cell/) | Z3 SAT solver construction of the 16-cell nerve for $S^3$-type Borromean contextuality (Paper IV) |
+| [`supplementary/paper7_conj42/`](supplementary/paper7_conj42/) | Verification scripts for Conjecture 4.2: Peres-Mermin obstruction class and $\Phi^*$ pullback computation (Paper VII) |
 
 ---
 
@@ -139,6 +148,8 @@ All components are archived on Zenodo:
 | Paper V | [10.5281/zenodo.20073318](https://doi.org/10.5281/zenodo.20073318) |
 | Paper VI | [10.5281/zenodo.20073424](https://doi.org/10.5281/zenodo.20073424) |
 | `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
+| Paper VII | *DOI pending* |
+| `paper7_conj42.py` | *DOI pending* |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
