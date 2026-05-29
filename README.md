@@ -1,6 +1,6 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A six-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers.
+A seven-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers.
 
 **Author:** Zhou-Li Chen (co-nlang Research)
 
@@ -26,7 +26,7 @@ This research project integrated various Large Language Models (LLMs) across mul
 - **Language & Refinement:** Sentences were polished for academic flow and grammatical precision.
 - **Simulated Peer Review:** AI agents were tasked to act as independent reviewers to provide critical feedback and identify logical gaps prior to publication.
 
-*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro.*
+*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6/Opus 4.6, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro/Flash.*
 
 ---
 
@@ -148,8 +148,8 @@ All components are archived on Zenodo:
 | Paper V | [10.5281/zenodo.20073318](https://doi.org/10.5281/zenodo.20073318) |
 | Paper VI | [10.5281/zenodo.20073424](https://doi.org/10.5281/zenodo.20073424) |
 | `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
-| Paper VII | *DOI pending* |
-| `paper7_conj42.py` | *DOI pending* |
+| Paper VII | [10.5281/zenodo.20438042](https://doi.org/10.5281/zenodo.20438042) |
+| `paper7_conj42.py`/`paper7_conj42_layer2.py` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
@@ -179,7 +179,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Six-paper series with epilogue},
+  note   = {Seven-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```

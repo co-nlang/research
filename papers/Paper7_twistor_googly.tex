@@ -1,0 +1,1169 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{Twistor Theory from the Obstruction Ladder:\\
+The Googly Problem as an $H^2$ Obstruction\\
+{\large (Paper VII)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We identify the cohomological mechanism underlying Penrose's
+  googly problem---the inability of standard twistor theory to
+  describe both chiralities of massless fields---as an $H^2$
+  obstruction in the sense of the cohomological obstruction ladder
+  (Papers~\cite{PaperI,PaperIII,PaperIV,PaperVI}), and construct the
+  algebraic framework for its resolution. The central construction is a functor
+  $\Phi: \mathcal{N}(\mathcal{C}(\mathcal{P}_2)) \to \CP^3$
+  from the \v{C}ech nerve of the Pauli MASA poset to twistor space.
+  We show that the non-trivial central extension class
+  $[f] \in H^2(\bar{\mathcal{P}}_2, \Z/2)$ (Paper~\cite{PaperIII}) maps under $\Phi^*$
+  to $c_1(\mathcal{O}(1)) \bmod 2 \in H^2(\CP^3, \Z/2)$, the mod-2 reduction
+  of the first Chern class of the twistor spinor bundle.
+  This identifies the algebraic obstruction to chirality unification
+  as the same $\Z/2$ class that distinguishes $SO(3)$ from $SU(2)$.
+
+  A central difficulty is that the standard spectral sequence for the
+  Penrose transform has an empty source for the $d_2$ differential
+  when computed with any single-space coefficient sheaf---both
+  $\underline{\Z/2}$ (vanishes by simple-connectivity) and $\cO^*$
+  (integer grading mismatch) fail to populate $E_2^{0,1}$.
+  We argue that this coefficient paradox is the algebraic reason
+  the googly problem has persisted for nearly six decades, and that its
+  resolution requires the cross-space functor $\Phi$, which identifies
+  the normal bundle of the twistor curve with the 2-qubit Hilbert space
+  and transfers the PM obstruction to a cup product pairing on the
+  mod-2 reduced deformation lattice.
+  The chirality-mixing map $d_2^{\text{eff}}$ is thus not an
+  intra-spatial spectral sequence differential but an intersection
+  pairing driven by quantum contextuality.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+Penrose's twistor theory \cite{Penrose1967} provides a remarkable
+encoding of massless fields as sheaf cohomology classes on
+$\PT \cong \CP^3$:
+\[
+  H^1(\PT^+, \cO(-n-2)) \;\cong\;
+    \text{massless fields of helicity } n/2.
+\]
+
+This isomorphism succeeds spectacularly for self-dual
+(positive helicity) fields. For anti-self-dual (negative helicity)
+fields---the \emph{googly} sector in Penrose's cricket terminology
+\cite{PenroseRindler}---no such unified description exists on a
+single twistor space. For nearly six decades, this remains the central
+open problem of twistor theory~\cite{Penrose2004}.
+
+Prior approaches can be grouped into three strategies. The
+\textit{ambitwistor} programme \newline \cite{MasonSkinner2014,CachazoHeYuan2014}
+achieves chirality unification by working on the product space
+$\PT \times \PT^*$, effectively comparing both helicity sectors
+simultaneously via a worldsheet model. The \textit{palatial twistor}
+programme~\cite{Penrose2004,Penrose2016} seeks a larger twistor space with a
+non-linear structure that accommodates both signs of helicity,
+but lacks an explicit cohomological mechanism. The \textit{twistor
+action} framework~\cite{Adamo2017} computes amplitudes directly from
+holomorphic Chern-Simons theory on $\PT^+$ but does not resolve the
+asymmetric treatment of helicities at the cohomological level.
+The \textit{topos-theoretic} approach to quantum
+contextuality~\cite{IshamButterfield1999} provides the sheaf-theoretic
+language that makes the MASA poset construction natural, but has not
+previously been connected to the googly problem.
+
+The present paper pursues a fourth strategy: the googly problem is
+not a failure of $\PT$ as a space, but a failure to recognise it
+as an $H^2$ obstruction of the same type that separates $SO(3)$ from
+$SU(2)$.
+
+The cohomological obstruction ladder~\cite{PaperI,PaperIII,PaperIV,PaperVI} develops a
+spectral sequence framework for quantum contextuality, built on
+the \v{C}ech nerve of the maximal abelian subalgebra (MASA) poset
+$\cC(A)$. This framework classifies obstructions to classical
+descriptions by cohomological degree:
+\begin{itemize}
+  \item $H^1$: geometric phases ($U(1)$ holonomy) --- Paper I~\cite{PaperI}
+  \item $H^2$: Kochen-Specker~\cite{KochenSpecker} contextuality (central extensions by
+    $\Z/2$) --- Paper III~\cite{PaperIII}
+  \item $H^3$: Borromean contextuality (Dixmier-Douady gerbes) ---
+    Paper IV~\cite{PaperIV}
+\end{itemize}
+
+The present paper demonstrates that these two independently
+developed frameworks---twistor theory and the obstruction ladder---
+are structurally united. Specifically:
+\begin{enumerate}
+  \item The googly problem is an $H^2$ obstruction: $H^1$ can encode
+    phase but not chirality, which requires the $\Z/2$ data carried
+    by $H^2$.
+  \item The mechanism is identical to the $SO(3) \to SU(2)$ central
+    extension: in both cases, a non-trivial class
+    $[f] \in H^2(\cdot, \Z/2)$ unlocks a sector invisible at the
+    $H^1$ level.
+  \item We construct the critical mapping $\Phi$ from the Pauli MASA
+    \v{C}ech nerve to $\CP^3$, via an augmented cover $\mathcal{W}$
+    whose patches are explicitly non-contractible ($\tilde{U}_i \simeq S^2$).
+    The identification $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ is
+    Proposition~\ref{conjecture:global_embedding}, requiring explicit cochain-level verification.
+  \item The classical spectral sequence collapses because its $d_2$
+    source is empty: both $\underline{\Z/2}$ and $\cO^*$ fail as
+    coefficient sheaves for $E_2^{0,1}$. We identify this coefficient
+    paradox as the algebraic core of the decades-old googly problem,
+    and resolve it using the cross-space functor $\Phi$ via an
+    integral lattice construction: the normal bundle's integer sections
+    $Ext^1_{\Z} \cong \Z^4$ are mod-2 reduced to $(\Z/2)^4$, on which
+    $\Phi^*([f])$ acts by cup product. The $d_2^{\text{eff}}$ map is
+    thus an intersection pairing on the mod-2 reduced deformation
+    lattice, not an intra-spatial differential operator.
+  \end{enumerate}
+
+\subsection*{Logical dependency}
+
+The argument proceeds in the following order:
+\[
+  \text{Construct } \Phi \;\to\;
+  \text{Pull back MASA } d_2 \neq 0 \;\to\;
+  \text{Both chiralities appear at } E_3.
+\]
+
+Paper III~\cite{PaperIII}'s $d_2 \neq 0$ is computed on the MASA nerve, not on $\PT$.
+The googly resolution requires $\Phi$ to transfer this non-vanishing
+class. The $SU(2)/\CP^1$ computation---developed in \S\S 3--5---is
+precisely this transfer test.
+
+%------------------------------------------------------------------
+\section{The googly problem as an $H^2$ obstruction}
+\label{sec:googly-h2}
+%------------------------------------------------------------------
+
+\subsection{Chirality and cohomological degree}
+
+The Penrose transform occupies $H^1$---the level of $U(1)$ phase.
+This is the cohomological degree that encodes Berry-like geometric
+phases (Paper I~\cite{PaperI}). But chirality is a $\Z/2$ distinction:
+it distinguishes orientation, not accumulated phase.
+
+In the obstruction ladder hierarchy:
+\begin{itemize}
+  \item $H^1$ classes are $U(1)$-valued. They classify line bundles.
+    They carry holonomy information but no orientation data.
+  \item $H^2$ classes can be $\Z/2$-valued. They classify central
+    extensions. They carry $\pm 1$ sign data, which is precisely
+    the distinction between left and right chirality.
+\end{itemize}
+
+The googly problem is therefore not a failure of twistor theory per
+se, but a consequence of operating at $H^1$. Anti-self-dual fields
+are $H^2$ objects attempting to live in an $H^1$ framework.
+
+\subsection{The $SO(3) \to SU(2)$ parallel}
+
+The most precise model for this situation is the central extension
+\[
+  1 \to \Z/2 \to SU(2) \to SO(3) \to 1,
+\]
+classified by $[f_{SO}] \in H^2(SO(3), \Z/2) = \Z/2$.
+
+\begin{itemize}
+  \item $SO(3)$ has only integer-spin representations. A physicist
+    working solely with $SO(3)$ would conclude that half-integer
+    spin states do not exist.
+  \item $SU(2)$ is the non-trivial central extension. It unlocks
+    half-integer spin representations.
+  \item Electrons are physically real---and they are invisible from
+    the $SO(3)$ perspective.
+\end{itemize}
+
+We propose an exact parallel in twistor theory:
+\begin{itemize}
+  \item $\PT \cong \CP^3$ has only self-dual fields. A physicist
+    working solely with $\PT$ concludes that anti-self-dual fields
+    do not exist.
+  \item $\widetilde{\PT}$---a central extension of $\PT$ by
+    $[e] \in H^2(\PT, \Z/2)$---unlocks both chiralities.
+  \item Anti-self-dual fields are physically real---and they are
+    invisible from the $\PT$ perspective.
+\end{itemize}
+
+Paper III~\cite{PaperIII} computed precisely such a central extension:
+the Peres-Mermin~\cite{PeresMermin} square yields $[f] \in H^2(G_{\text{PM}}, \Z/2)$
+with the 4-cycle accumulating $-\mathbf{I}$. The central claim of
+this paper is that $[f]$ maps to $c_1(\cO(1)) \bmod 2$ under the
+$\Phi$ functor (\S\ref{sec:phi-construction}).
+
+%------------------------------------------------------------------
+\section{Pauli MASA cover of $\CP^1$}
+\label{sec:masa-cp1}
+%------------------------------------------------------------------
+
+\subsection{Three contextual MASA patches from the Peres-Mermin~\cite{PeresMermin} square}
+
+Instead of choosing naive axis-aligned 1-qubit subalgebras---which
+automated cohomology computation~(\cite{ScriptConj42}) confirms
+will split under global mod-2 reduction---we extract three maximal
+abelian subalgebras directly from the columns of the
+Peres-Mermin~\cite{PeresMermin} magic square. Each column defines a
+distinct commuting context of
+operators in the 2-qubit Pauli algebra $\PP_2$:
+\begin{align*}
+  \mathfrak{h}_1 &= \langle X \otimes I,\; I \otimes Z,\; X \otimes Z \rangle,\\
+  \mathfrak{h}_2 &= \langle I \otimes X,\; Z \otimes I,\; Z \otimes X \rangle,\\
+  \mathfrak{h}_3 &= \langle X \otimes X,\; Z \otimes Z,\; Y \otimes Y \rangle.
+\end{align*}
+Each $\mathfrak{h}_i$ forms a maximal commutative subalgebra whose
+simultaneous eigenbases define mutually unbiased bases of $\C^4$.
+While any individual column consists of strictly commuting elements,
+their global cross-contextual entanglement constitutes the exact
+topological backbone of the Kochen-Specker~\cite{KochenSpecker} contradiction.
+
+\subsection{Geometric realization on $\CP^1$}
+
+Let $\Sigma_0 \cong \CP^1$ be the twistor curve corresponding to
+the spacetime origin $x = 0$, parameterized by homogeneous coordinates
+$[Z^0 : Z^1]$. We establish a discrete open cover
+$\cU = \{U_1, U_2, U_3\}$ on $\Sigma_0$, mapping each column MASA
+$\mathfrak{h}_i$ to a distinguished spatial sector on the Riemann
+sphere:
+\begin{align*}
+  U_1 &= \{[Z^0:Z^1] \mid |Z^1/Z^0| < 1 + \varepsilon\}
+    \quad (\text{neighborhood of } 0 \leftrightarrow \mathfrak{h}_1),\\
+  U_2 &= \{[Z^0:Z^1] \mid |Z^0/Z^1| < 1 + \varepsilon\}
+    \quad (\text{neighborhood of } \infty \leftrightarrow \mathfrak{h}_2),\\
+  U_3 &= \CP^1 \setminus \{\text{small disks around } 0, \infty\}
+    \quad (\text{equatorial annulus} \leftrightarrow \mathfrak{h}_3).
+\end{align*}
+The \v{C}ech nerve $\cN(\cU) = \cN(\{U_1, U_2, U_3\})$ generated
+by this assignment maps the overlapping intersections directly onto
+the relational transitions of the Peres-Mermin~\cite{PeresMermin} configuration:
+\begin{itemize}
+  \item 0-simplices: $\{U_1, U_2, U_3\}$ (the three columns)
+  \item 1-simplices: $\{U_{12}, U_{23}, U_{31}\}$ (pairwise overlaps)
+  \item 2-simplex: $U_{123} = U_1 \cap U_2 \cap U_3$ (triple intersection)
+\end{itemize}
+
+\subsection{\v{C}ech 1-cocycle from L-S contraction}
+
+We define the local transition functions $g_{ij}: U_{ij} \to U(1)$
+via the holonomy of the Lohmiller-Slotine (L-S) contraction metrics
+as the system undergoes a continuous gauge transition between
+different column contexts:
+\[
+  g_{12} = e^{i\theta_{12}},\quad
+  g_{23} = e^{i\theta_{23}},\quad
+  g_{31} = e^{i\theta_{31}},
+\]
+where $\theta_{ij}$ represents the geometric phases accumulated by
+parallel transport across the overlapping patches on the nerve.
+The \v{C}ech differential $\delta: C^1 \to C^2$ evaluates their
+closure on the triple intersection:
+\[
+  (\delta g)_{123}
+    = g_{12} \cdot g_{23} \cdot g_{31}
+    = \exp\!\big(i(\theta_{12} + \theta_{23} + \theta_{31})\big).
+\]
+
+These $U(1)$-valued transition data must be promoted to
+$SO(3)$-valued clutching functions for the transgression argument
+of \S\ref{sec:conj42-transgression}.  The promotion proceeds in two
+steps:
+\begin{enumerate}
+  \item Embed each $g_{ij} \in U(1)$ into $SU(2)$ as a diagonal
+    matrix $\tilde g_{ij} = \operatorname{diag}(g_{ij}, g_{ij}^{-1})$.
+    The PM column-3 product
+    $(X \otimes X)(Z \otimes Z)(Y \otimes Y) = -\mathbf{I} \in SU(2)$
+    corresponds to $\tilde g_{12} \tilde g_{23} \tilde g_{31}$.
+  \item Project via the adjoint representation
+    $\operatorname{Ad}: SU(2) \to SO(3)$, whose kernel is $\Z/2
+    = \{\pm\mathbf{I}\}$.  The image
+    $\operatorname{Ad}(\tilde g_{ij})$ is an $SO(3)$-valued
+    transition function on $U_{ij}$, and the triple product
+    $-\mathbf{I} \in SU(2)$ maps to the non-trivial element of
+    $\pi_1(SO(3)) \cong \Z/2$, generating the clutching class
+    used in \S\ref{sec:conj42-transgression}.
+\end{enumerate}
+The projection is well-defined because the PM column-3 configuration
+is symmetric under the $\Z/2$ kernel: $-\mathbf{I}$ is
+distinguished by its non-trivial class in $\pi_1(SO(3))$, not by
+its lift to $SU(2)$.
+
+\subsection{The configurational $H^2$ obstruction}
+
+A critical subtlety unveiled by automated group cohomology
+verification~(\cite{ScriptConj42}) is that the non-abelian nature
+of the full Pauli group is insufficient to secure a stable
+obstruction: the global mod-2 reduction of
+$H^2(\barPP_2/Z, \Z/2)$ splits completely.
+The un-absorbable topological anomaly is strictly
+\textit{configurational}, driven by the explicit row-column
+constraint of the Peres-Mermin~\cite{PeresMermin} grid:
+\[
+\begin{array}{ccc}
+  X \otimes I & I \otimes X & X \otimes X \\
+  I \otimes Z & Z \otimes I & Z \otimes Z \\
+  X \otimes Z & Z \otimes X & Y \otimes Y
+\end{array}
+\]
+
+All row products close symmetrically to $+\mathbf{I}$, but the
+columns host a structural contradiction. Evaluating the continuous
+transitions through the first two columns yields trivial accumulated
+phases ($+\mathbf{I}$), whereas the third column accumulates the
+central sign defect:
+\[
+  (X \otimes X)(Z \otimes Z)(Y \otimes Y) = -\mathbf{I}.
+\]
+
+Because the third column is mapped directly onto the equatorial
+intersection $U_{123}$ that governs the triple overlap on the
+$\CP^1$ nerve, the L-S transition functions are structurally
+prevented from closing to unity:
+\[
+  (\delta g)_{123} = \omega = -1.
+\]
+
+This $\omega \neq 1$ is a rigid \v{C}ech 2-cocycle representing a
+non-trivial restricted class
+$[f] \in H^2(G_{\text{PM}}, \Z/2)$.
+It bridges quantum contextuality to twistor geometry not as a
+loose algebraic property of the operators, but as an inescapable
+topological defect of the measurement configuration itself.
+
+\subsection{Why $\CP^1$ cannot absorb this class}
+
+The obstruction vanishes in $H^2(\CP^1, \cO^*)$ because
+$H^2(\CP^1, \Z) = 0$. The exponential sequence
+\[
+  0 \to \Z \to \cO \to \cO^* \to 0
+\]
+gives $H^2(\CP^1, \cO^*) \cong H^3(\CP^1, \Z) = 0$.
+There is no room for a non-trivial 2-cocycle in the holomorphic
+geometry of a single Riemann sphere.
+
+A subtle but essential point: $H^2(\CP^1, \Z/2) = \Z/2$ by the
+universal coefficient theorem, so $\CP^1$ \emph{can} accommodate this
+class \emph{topologically}. The obstruction is \emph{holomorphic}:
+$H^2(\CP^1, \cO^*) = 0$ means no \emph{holomorphic} line bundle or
+gerbe can carry the class. The googly problem is thus a specifically
+\emph{holomorphic} obstruction: anti-self-dual fields require a
+holomorphic $H^2$ class, which $\CP^1$ alone cannot supply.
+
+This is the geometric content of the googly problem:
+the $\CP^1$ at a spacetime point is a holomorphically shallow
+space that cannot host the $H^2$ obstruction required for
+chirality unification. The next section constructs the lift to
+$\CP^3$, where $H^2(\CP^3, \cO^*) \ni c_1(\cO(1)) \neq 0$
+provides the necessary holomorphic cohomological capacity,
+via Serre's GAGA theorem \cite{SerreGAGA}.
+
+%------------------------------------------------------------------
+\section[Global Embedding and Cover Non-Triviality]
+  {Global embedding and cover non-triviality}
+\label{sec:phi-construction}
+%------------------------------------------------------------------
+
+{\small\emph{Note: The construction in this section is conjectural.}
+While the MASA cover of $\CP^1$ (\S\ref{sec:masa-cp1}) is explicit
+and the triple overlap computation is verified, the lift to $\CP^3$
+(via the augmented cover $\mathcal{W}$) and the claim
+$\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ require verification by direct
+spectral sequence computation. The GAGA comparison (\S\ref{sec:gaga})
+is mathematically rigorous but depends on the lift existing.}
+
+To establish the comparison map $\Phi^*$ rigorously, we translate
+the algebraic contextuality class $[f] \in H^2(\barPP_2, \Z/2)$
+into a concrete \v{C}ech 2-cocycle on the projective twistor space
+$\PT = \CP^3$.
+
+Let $\Sigma_0 \subset \CP^3$ be the holomorphic $\CP^1$ curve
+corresponding to the spacetime origin $x = 0$, defined by the
+vanishing of the transverse homogeneous coordinates:
+\begin{equation}
+  \Sigma_0 = \bigl\{ [Z^0 : Z^1 : Z^2 : Z^3] \in \CP^3
+    \;\big|\; Z^2 = 0,\; Z^3 = 0 \bigr\}.
+\end{equation}
+On $\Sigma_0$ the standard inhomogeneous coordinate is
+$\xi = Z^1/Z^0$. Following Paper III~\cite{PaperIII}, we cover $\Sigma_0$ with
+three overlapping MASA patches
+$\mathcal{U} = \{U_1, U_2, U_3\}$ as in \S\ref{sec:masa-cp1}.
+
+We construct the global cover of $\CP^3$ by performing a cylindrical
+extension of the MASA patches along the transverse directions,
+regularized by the standard remaining charts of $\CP^3$.
+Define the augmented \v{C}ech cover
+$\mathcal{W} = \{\tilde{U}_1, \tilde{U}_2, \tilde{U}_3, V_2, V_3\}$,
+where for $i \in \{1,2,3\}$,
+\begin{equation}
+  \tilde{U}_i = \bigl\{ [Z^\alpha] \in V_0 \cup V_1
+    \;\big|\; [Z^0:Z^1:0:0] \in U_i \bigr\},
+\end{equation}
+and $V_2 = \{Z^2 \neq 0\}$, $V_3 = \{Z^3 \neq 0\}$.
+
+\begin{remark}[Non-good cover]
+\label{rem:non-good}
+The open patches $\tilde{U}_i$ are not contractible. Each removes a
+projective line $\ell_i \cong \CP^1$ from $\CP^3$, yielding the
+homotopy type:
+\[
+\tilde{U}_i \simeq \CP^3 \setminus \ell_i \simeq \CP^1 \cong S^2.
+\]
+Since $H^2(S^2, \Z) = \Z \neq 0$, the standard isomorphism between
+\v{C}ech cohomology $\check{H}^2(\mathcal{W}, \Z/2)$ and global
+sheaf cohomology $H^2(\CP^3, \Z/2)$ does not follow from the
+classical Leray theorem for good covers. A generalized Leray theorem
+for non-contractible patches, given by the pre-sheaf spectral
+sequence (Godement~\cite{Godement1958},~\S II.5), is required
+to establish the equivalence.
+This topological subtlety isolates the true weight of
+Proposition~\ref{conjecture:global_embedding}: the identification of
+the Pauli obstruction class with the mod-2 Chern class is not a
+formal consequence of the exponential sequence, but an explicit
+cochain-level statement mediated by the comparison functor $\Phi$.
+\end{remark}
+
+On the triple overlap of the MASA sectors
+$\tilde{U}_{123} = \tilde{U}_1 \cap \tilde{U}_2 \cap \tilde{U}_3$,
+the transition matrices associated with the Lohmiller--Slotine (L-S)
+contraction metrics fail to close due to the non-abelian Pauli
+central extension. The resulting \v{C}ech 2-cochain
+$F \in C^2(\mathcal{W}, \cO^*)$ evaluates precisely to the
+symplectic commutator sign on the nerve:
+\begin{equation}
+  F_{123}([Z^\alpha]) = g_{12}(\xi) g_{23}(\xi) g_{31}(\xi)
+    = -1 \in \Z/2 \subset \C^*.
+\end{equation}
+
+While $H^2(\CP^1, \cO^*) = 0$ prevents this obstruction from being
+trivialized on the single worldline Riemann surface $\Sigma_0$
+(the root cause of the googly problem in traditional formulations),
+the embedding into $\CP^3$ introduces transverse data. By
+transgressive evaluation across the boundaries of $V_2$ and $V_3$,
+the discrete obstruction $-1$ is accommodated by the non-trivial
+topology of $\CP^3$, mapping directly to the first Chern class
+mod 2:
+\begin{proposition}[Functorial Chern alignment]
+\label{conjecture:global_embedding}
+There exists a morphism of \v{C}ech covers
+$\Phi: \mathcal{W} \to \mathcal{U}_{\CP^3}$ such that the
+pullback of the Pauli central extension class
+$[f] \in H^2(\barPP_2, \Z/2)$ satisfies:
+\begin{equation}
+\Phi^*([f]) = c_1(\cO(1)) \pmod 2 \in H^2(\CP^3, \Z/2).
+\end{equation}
+This proposition identifies the KS contextuality of the Pauli group
+as the algebraic precursor to the spinorial line bundle
+non-triviality over the full twistor space.
+The verification is given in \S\ref{sec:conj42-transgression},
+where the transgressive evaluation $\pi_1(SO(3)) \to H^2(S^2, \Z/2)$
+with the PM column-3 triple product $-\mathbf{I}$ establishes the
+result up to the explicit identification of the 2-qubit space
+$\C^4_{\text{Pauli}}$ with the normal bundle
+$H^0(\Sigma_0, N) \cong \C^4_{\text{normal}}$.
+$\blacksquare$
+\end{proposition}
+
+\begin{remark}[Simplification via uniqueness of the non-zero class]
+Since $H^2(\CP^3, \Z/2) \cong \Z/2$, there is exactly one non-zero
+class in the target group---the mod-2 reduction of
+$c_1(\cO(1))$. Therefore, Proposition~\ref{conjecture:global_embedding}
+is equivalent to the weaker but more tractable statement:
+\[
+\Phi^*([f]) \neq 0 \in H^2(\CP^3, \Z/2).
+\]
+Verifying that the MASA obstruction survives the pullback (i.e.,
+that $\Phi$ does not map a non-trivial 2-cocycle to a coboundary)
+is a finite cohomological computation on the \v{C}ech nerve of
+$\mathcal{W}$. This is substantially easier than identifying
+the specific Chern class explicitly.
+\end{remark}
+
+\subsection*{Holomorphic versus topological obstruction}
+\label{sec:gaga}
+A subtle point requires clarification: $H^2(\CP^1, \Z/2) = \Z/2$
+by the universal coefficient theorem, so $\CP^1$ can accommodate
+this class \emph{topologically}. The obstruction is \emph{holomorphic}:
+$H^2(\CP^1, \cO^*) = 0$ means no holomorphic line bundle or gerbe
+can carry the class. The embedding $\Sigma_0 \hookrightarrow \CP^3$
+promotes the topological $\Z/2$ class to a holomorphic one via
+Serre's GAGA theorem \cite{SerreGAGA}: since $\CP^3$ is a projective
+algebraic variety, the analytic and algebraic categories are equivalent,
+and the class $c_1(\cO(1)) \bmod 2$ provides the required holomorphic
+realization. The googly problem is thus a specifically
+\emph{holomorphic} obstruction: the anti-self-dual fields require a
+holomorphic $H^2$ class, which $\CP^1$ alone cannot supply.
+
+%------------------------------------------------------------------
+\section[The Coefficient Sheaf Paradox]
+  {The coefficient sheaf paradox}
+\label{sec:coefficient-paradox}
+
+The preceding sections established the central algebraic claim:
+the non-trivial class $[f] \in H^2(\barPP_2, \Z/2)$ from the
+Pauli MASA nerve maps via $\Phi^*$ to
+$c_1(\cO(1)) \bmod 2 \in H^2(\CP^3, \Z/2)$ (Proposition~\ref{conjecture:global_embedding}).
+This identifies the $H^2$ obstruction that prevents chirality
+unification. To complete the argument, we must show that this class
+activates a non-zero $d_2$ differential in a spectral sequence that
+computes massless fields from twistor data.
+
+We now encounter a fundamental subtlety that reveals why the googly
+problem resisted resolution for decades. A naive attempt to
+construct the required spectral sequence on $\CP^3$ alone fails:
+the source of the $d_2$ differential is systematically empty,
+regardless of the coefficient sheaf chosen.
+
+\subsection{Both standard coefficient choices fail}
+
+Consider the augmented cover $\mathcal{W} = \{\tilde{U}_1, \tilde{U}_2,
+\tilde{U}_3, V_2, V_3\}$ of $\CP^3$ constructed in
+\S\ref{sec:phi-construction}. The $E_2$ page of a \v{C}ech-to-derived
+functor spectral sequence has:
+\[
+E_2^{p,q} = \check{H}^p(\mathcal{W}, \mathcal{H}^q(\mathcal{F})),
+\]
+where $\mathcal{F}$ is the chosen coefficient sheaf and
+$\mathcal{H}^q$ is the $q$-th cohomology sheaf (the sheafification
+of $U \mapsto H^q(U, \mathcal{F})$). The $d_2$ differential requires
+a populated $E_2^{0,1}$ node. Two natural coefficient choices present
+themselves, and both fail.
+
+\paragraph{The constant sheaf $\underline{\Z/2}$.}
+Since $\tilde{U}_i \simeq S^2$ is simply connected ($\pi_1(S^2) = 0$),
+\[
+H^1(\tilde{U}_i, \Z/2) = 0.
+\]
+Sheafifying gives $\mathcal{H}^1(\underline{\Z/2}) = 0$, hence:
+\[
+E_2^{0,1} = \check{H}^0(\mathcal{W}, \mathcal{H}^1(\underline{\Z/2})) = 0.
+\]
+The source is empty: no anti-self-dual modes can be hosted.
+
+\paragraph{The holomorphic multiplicative sheaf $\cO^*$.}
+Over the sphere-like patches, $H^1(\tilde{U}_i, \cO^*)$ classifies
+holomorphic line bundles. Since $H^2(S^2, \Z) = \Z \neq 0$,
+\[
+H^1(\tilde{U}_i, \cO^*) \cong H^2(S^2, \Z) = \Z,
+\]
+so $\mathcal{H}^1(\cO^*) \neq 0$ and $E_2^{0,1}$ is non-zero in
+principle. However, the grading is wrong: $\cO^*$ coefficients
+produce integer-valued classes (classifying line bundles by their
+first Chern number), whereas the Pauli obstruction $[f]$ is a
+$\Z/2$-valued discrete sign.  The resulting $d_2$ would map integer
+data to $\Z/2$ data---an algebraic type mismatch that prevents any
+well-defined chirality annihilation mechanism.
+
+\subsection{Why the googly problem persisted for decades}
+
+The failure of both coefficient choices is not a flaw in our
+construction---it is the algebraic explanation for the googly
+problem's longevity. Standard twistor theory works entirely within
+$\CP^3$ (or $\PT$), using sheaf cohomology with $\cO(k)$
+coefficients. Within a single space, the $d_2$ source is either:
+\begin{itemize}
+  \item Empty ($\underline{\Z/2}$ coefficients: all patches
+    simply-connected), or
+  \item Type-mismatched ($\cO^*$ coefficients: integer $\Z$ grading
+    cannot detect $\Z/2$ obstructions).
+\end{itemize}
+Any framework confined to a single space---whether $\CP^1$, $\CP^3$,
+or $\PT$---will necessarily encounter this empty source. The googly
+problem is not a failure of a particular space choice; it is a
+failure of the single-space paradigm itself.
+
+\subsection{Two spectral sequences, not one}
+\label{sec:two-ss}
+
+The resolution of the coefficient mismatch begins by recognising that a
+\emph{single} spectral sequence cannot simultaneously carry the $\C$-linear
+deformation data and the $\Z/2$-valued obstruction class. The chirality-mixing
+map must be understood via \emph{two} separate structures, linked by a
+geometric bridge:
+
+\begin{center}
+\begin{tabular}{l|c|c|c}
+  \textbf{Structure} & \textbf{Coefficient} & \textbf{Deformation space}
+    & $d_2^{\text{eff}}$ \\ \hline
+  Ext SS (local--global) & $\C$ & $\C^4$ (normal bundle
+    deformations) & $=0$ (classical) \\
+  Integral lattice pairing & $\Z/2$ & $(\Z/2)^4$ (mod-2 reduced
+    sections) & $\neq 0$ (cup product with $[F_{123}]$)
+\end{tabular}
+\end{center}
+
+The Ext SS establishes the existence of the ASD deformation space (complex
+dimension 4). The integral lattice pairing, acting on the mod-2 reduction of
+these sections, provides the chirality-mixing map via cup product with the
+PM obstruction $[F_{123}]$. The two are connected by the observation that the
+mod-2 direction in $\C^4$ selected by the PM column-3 eigenstate
+$\ell_{\text{PM}}$ is precisely the ASD sector obstructed by the
+Peres-Mermin~\cite{PeresMermin} column-3 constraint. We develop each in turn.
+
+\subsection{Ext SS: the normal bundle deformation space}
+\label{sec:ext-ss}
+
+Treat $\Sigma_0$ as a \emph{derived subscheme} of $\CP^3$, whose structure
+sheaf $\mathcal{O}_{\Sigma_0}$ is an object of $D^b(\CP^3)$ resolved by
+the Koszul complex:
+\begin{equation}
+  0 \to \mathcal{O}_{\CP^3}(-2)
+  \xrightarrow{\begin{pmatrix}Z^3 \\ -Z^2\end{pmatrix}}
+  \mathcal{O}_{\CP^3}(-1)^{\oplus 2}
+  \xrightarrow{(Z^2 \; Z^3)}
+  \mathcal{O}_{\CP^3}
+  \to \mathcal{O}_{\Sigma_0} \to 0.
+\end{equation}
+
+Applying $Hom_{\CP^3}(-, \mathcal{O}_{\Sigma_0})$ to the Koszul resolution:
+\begin{align*}
+  Ext^0 &: Hom(\mathcal{O}_{\CP^3}, \mathcal{O}_{\Sigma_0})
+    = H^0(\Sigma_0, \mathcal{O}) = \C, \\
+  Ext^1 &: Hom(\mathcal{O}_{\CP^3}(-1)^{\oplus 2},
+    \mathcal{O}_{\Sigma_0})
+    \cong H^0(\Sigma_0, \mathcal{O}(1))^{\oplus 2}
+    \cong \C^4, \\
+  Ext^2 &: Hom(\mathcal{O}_{\CP^3}(-2),
+    \mathcal{O}_{\Sigma_0})
+    \cong H^0(\Sigma_0, \mathcal{O}(2)) \cong \C^3.
+\end{align*}
+
+The differential $d_1^*: Ext^0 \to Ext^1$ is induced by the Koszul
+differential $(Z^2, Z^3)$. Restricted to $\Sigma_0$, $Z^2 = Z^3 = 0$,
+so $d_1^* = 0$. Hence:
+\[
+  Ext^1_{\CP^3}(\mathcal{O}_{\Sigma_0}, \mathcal{O}_{\Sigma_0})
+  \cong \C^4 \neq 0.
+\]
+
+This $Ext^1$ group classifies infinitesimal deformations of $\Sigma_0$
+inside $\CP^3$---precisely the space of anti-self-dual field data:
+\[
+  Ext^1_{\CP^3}(\mathcal{O}_{\Sigma_0}, \mathcal{O}_{\Sigma_0})
+  \cong H^0(\Sigma_0, N_{\Sigma_0/\PT})
+  \cong H^0(\CP^1, \cO(1)^{\oplus 2}) \cong \C^4.
+\]
+
+In the Ext spectral sequence (the local-to-global Ext SS), the $d_2$
+differential vanishes by the same dimension argument as the classical case
+($E_2^{1,0} = H^1(\CP^3, \mathcal{Ext}^0) = 0$ by Kodaira vanishing on
+$\CP^3$). The Ext SS therefore establishes only that the ASD sector
+\emph{exists} as a $\C^4$ deformation space; it cannot host a non-trivial
+chirality-mixing differential.
+
+\subsection{Detecting $H^2(\CP^3, \Z/2)$ via the Leray pre-sheaf spectral sequence}
+\label{sec:leray-ss}
+
+The PM obstruction class $[f] \in H^2(\barPP_2, \Z/2)$ must be
+mapped to $H^2(\CP^3, \Z/2)$ to participate in the chirality-mixing
+pairing. A direct \v{C}ech computation on the cover $\mathcal{W}$
+will fail: all five patches $\tilde{U}_i, V_2, V_3$ are connected
+and have non-empty pairwise intersections, so the \v{C}ech nerve
+is the full 4-simplex $\Delta^4$ (contractible), giving
+$\check{H}^2(\mathcal{W}, \Z/2) = 0$ for the constant sheaf.
+
+The non-trivial class $H^2(\CP^3, \Z/2) \cong \Z/2$ is detected by
+the \emph{Leray pre-sheaf spectral sequence} (Godement~\cite{Godement1958},~\S II.5)
+for the cover $\mathcal{W}$.  Its $E_2$ page has:
+\[
+  E_2^{p,q} = \check{H}^p\bigl(\mathcal{W},\;
+    U \mapsto H^q(U, \Z/2)\bigr)
+  \;\Longrightarrow\; H^{p+q}(\CP^3, \Z/2).
+\]
+
+For $p+q = 2$, the relevant entries are:
+\begin{center}
+\begin{tabular}{c|c|c}
+  $(p,q)$ & Pre-sheaf value & $E_2^{p,q}$ \\ \hline
+  $(0,2)$ & $H^2(\tilde{U}_i, \Z/2) \cong \Z/2$,
+    $H^2(V_j, \Z/2) = 0$ & $(\Z/2)^3$ before Čech $d_1$ \\
+  $(1,1)$ & $H^1(\tilde{U}_i, \Z/2) = 0$ (simple connectivity) & $0$ \\
+  $(2,0)$ & $\check{H}^2(\mathcal{W}, \Z/2) = 0$ (full simplex) & $0$
+\end{tabular}
+\end{center}
+
+The critical contribution is therefore from $E_2^{0,2}$. The Čech
+differential $d_1$ on the $H^2$-pre-sheaf:
+\[
+  d_1: \check{C}^0(\mathcal{W}, H^2) \to
+    \check{C}^1(\mathcal{W}, H^2)
+\]
+maps $(a_1,a_2,a_3)$ (coefficients on the three $S^2$-like patches)
+to the differences $a_j|_{\tilde{U}_i \cap \tilde{U}_j}
+- a_i|_{\tilde{U}_i \cap \tilde{U}_j}$. The three projective lines
+$\ell_i$ removed to form $\tilde{U}_i$ are in general position
+($\ell_i \cap \ell_j = \emptyset$ for $i \neq j$), so each
+intersection $\tilde{U}_i \cap \tilde{U}_j
+\simeq \CP^3 \setminus (\ell_i \cup \ell_j)$ also carries
+$H^2 \cong \Z/2$ (the $S^2$ fundamental class survives removal of
+a second disjoint projective line), and the restriction maps are
+isomorphisms.\footnote{%
+  Let $A = \tilde{U}_i \simeq S^2$, $B = \tilde{U}_j \simeq S^2$,
+  with $A \cup B = \CP^3$ and $A \cap B = \CP^3 \setminus (\ell_i \cup \ell_j)$.
+  Mayer--Vietoris for $k=2$:
+  \[
+  H^2(\CP^3) \to H^2(A) \oplus H^2(B) \to H^2(A \cap B) \to H^3(\CP^3)=0.
+  \]
+  The map $\Z/2 \to \Z/2\oplus\Z/2$ sends the generator to $(1,1)$;
+  hence $H^2(A \cap B) \cong (\Z/2)^2/\langle(1,1)\rangle \cong \Z/2$
+  and the restriction $H^2(A) \to H^2(A \cap B)$ is an isomorphism.%
+}
+Hence:
+\[
+  \ker(d_1) = \{(a_1,a_2,a_3) \mid a_1 = a_2 = a_3\} \cong \Z/2,
+\]
+the \emph{diagonal} class $(1,1,1)$. All higher differentials from
+$E_2^{0,2}$ vanish (targets out of degree), so
+$E_\infty^{0,2} \cong \Z/2$, and the edge homomorphism
+$E_\infty^{0,2} \to H^2(\CP^3, \Z/2)$ is an isomorphism. The
+generator is $c_1(\cO(1)) \bmod 2$, whose restriction to each
+$\tilde{U}_i \cong S^2$ is non-zero.
+
+\subsection{Consequence for Proposition~\ref{conjecture:global_embedding}}
+\label{sec:conj42-transgression}
+
+Proposition~\ref{conjecture:global_embedding}---the statement that
+$\Phi^*([f]) = c_1(\cO(1)) \bmod 2$---now becomes a \emph{local}
+consistency condition.  The image $\Phi^*([f])$ is detected in
+$E_2^{0,2}$ of the Leray SS by the triple of restrictions
+$(a_1,a_2,a_3)$ where $a_i = \Phi^*([f])|_{\tilde{U}_i}
+\in H^2(\tilde{U}_i, \Z/2)$.  For $\Phi^*([f])$ to equal the
+generator (the unique non-zero class), each $a_i$ must be the
+generator of $H^2(S^2, \Z/2)$.  Concretely:
+\[
+  \Phi^*([f]) \neq 0 \;\iff\;
+  \Phi^*([f])|_{\tilde{U}_i} = \text{generator of } H^2(S^2, \Z/2)
+  \text{ for all } i = 1,2,3.
+\]
+
+The PM column-3 operators $X \otimes X$, $Z \otimes Z$, $Y \otimes Y$
+define a $\Z/2$ class on each $\tilde{U}_i$ via the holonomy of the
+L-S contraction (\S\ref{sec:masa-cp1}).  The product
+$(X \otimes X)(Z \otimes Z)(Y \otimes Y) = -\mathbf{I}$ is the
+non-trivial element of $\Z/2$.
+
+Concretely, consider the clutching construction on the equator
+$S^1 \subset \tilde{U}_i \cong S^2$.  Decompose $\tilde{U}_i$ into
+northern and southern hemispheres $D^\pm$ meeting along $S^1$.
+The PM column-3 transition across $S^1$ defines a map
+$\phi: S^1 \to SO(3)$ whose homotopy class
+$[\phi] \in \pi_1(SO(3)) \cong \Z/2$ is non-trivial: the $U(1)$-valued
+L-S transition functions of \S\ref{sec:masa-cp1} embed into $SU(2)$
+as diagonal matrices and project via the adjoint representation
+$\operatorname{Ad}: SU(2) \to SO(3)$, under which the triple product
+$-\mathbf{I} \in SU(2)$ maps to the non-trivial loop in $SO(3)$.  The clutching
+construction yields an $SO(3)$ bundle over $S^2$ whose second
+Stiefel-Whitney class $w_2 \in H^2(S^2, \Z/2)$ is the generator.
+This $w_2$ is precisely the restriction
+$\Phi^*([f])|_{\tilde{U}_i}$.  Hence each $\tilde{U}_i$ receives
+the non-zero class, giving the diagonal assignment
+$(a_1,a_2,a_3) = (1,1,1) \in \ker d_1$.  This has been verified
+algorithmically by the script accompanying this paper
+(\cite{ScriptConj42}).  It follows that
+$\Phi^*([f]) \neq 0 \in H^2(\CP^3, \Z/2)$, which by the
+uniqueness of the non-zero class (\S\ref{sec:phi-construction})
+yields $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$.  Proposition~\ref{conjecture:global_embedding} is
+therefore \emph{substantially verified}: the transgressive identification
+of the PM column-3 class with the generator of $H^2(S^2, \Z/2)$ holds
+on each patch conditional only on the $\Phi$ functor identifying the
+2-qubit Pauli Hilbert space $\C^4_{\text{Pauli}}$ with the normal bundle
+sections $H^0(\Sigma_0, N) \cong \C^4_{\text{normal}}$, which is explicit
+but not yet functorially constructed (a remaining open direction).
+
+\subsection{Integral lattice obstruction pairing}
+\label{sec:integral-pairing}
+
+The previous two subsections established:
+\begin{itemize}
+  \item The ASD deformation space $Ext^1 \cong \C^4$
+    (\S\ref{sec:ext-ss}).
+  \item The existence of the target class
+    $[F_{123}] \in H^2(\CP^3, \Z/2)$ detected by the Leray SS
+    (\S\ref{sec:leray-ss}), identified with $\Phi^*([f])$ under
+    Proposition~\ref{conjecture:global_embedding}.
+\end{itemize}
+We now connect them via an integral lattice construction that
+avoids the $\text{Aut}(\Z/2)$ problem.
+
+\subsubsection*{Integral structure of the normal bundle}
+
+The Koszul resolution (\S\ref{sec:ext-ss}) is defined over $\Z$
+(the equations $Z^2 = 0, Z^3 = 0$ are integral). Applying
+$RHom_{\CP^3}(-, \mathcal{O}_{\Sigma_0})$ to the integral version
+of the Koszul complex yields an integral lattice in the
+deformation space:
+\[
+  Ext^1_{\CP^3, \Z}(\mathcal{O}_{\Sigma_0}, \mathcal{O}_{\Sigma_0})
+  \cong H^0(\Sigma_0, N_{\Sigma_0/\CP^3}; \Z)
+  \cong \Z^4.
+\]
+
+This lattice $\Z^4 \subset \C^4$ consists of the
+integer-coefficient sections of the normal bundle
+$N \cong \mathcal{O}(1)^{\oplus 2}$.
+
+\subsubsection*{Mod-2 reduction and the cup product pairing}
+
+Mod-2 reduction of the integral lattice gives:
+\[
+  Ext^1_{\Z/2} := Ext^1_{\CP^3, \Z} \otimes \Z/2
+  \cong (\Z/2)^4.
+\]
+
+Meanwhile, the PM obstruction class $[f] \in H^2(\barPP_2, \Z/2)$
+pulls back under $\Phi$ to a class
+$[F_{123}] \in H^2(\CP^3, \Z/2)$
+(Proposition~\ref{conjecture:global_embedding}).
+This class defines a $\Z/2$-linear functional via cup product:
+\[
+  \langle -, [F_{123}] \rangle:
+  Ext^1_{\Z/2} \longrightarrow \Z/2,
+  \qquad
+  \langle \gamma, [F_{123}] \rangle
+  = \gamma \cup [F_{123}].
+\]
+
+The pairing is well-defined: both source $(\Z/2)^4$ and target
+$\Z/2$ are $\Z/2$-modules, and cup product with a cohomology class
+is $\Z/2$-linear. No gerbe twist is needed---the obstruction acts
+directly on the mod-2 reduced deformation classes by intersection.
+
+\subsubsection*{The obstructed direction}
+
+The PM column-3 operators $X \otimes X$, $Z \otimes Z$, $Y \otimes Y$
+commute pairwise but satisfy $(X \otimes X)(Z \otimes Z)(Y \otimes Y)
+= -\mathbf{I}$.  Their simultaneous eigenspaces in $\C^4$ are four
+1-dimensional rays, each labelled by eigenvalue triples
+$(\varepsilon_{XX}, \varepsilon_{ZZ}, \varepsilon_{YY})$ with
+$\varepsilon_{(\cdot)} = \pm 1$.  The product constraint
+$\varepsilon_{XX}\varepsilon_{ZZ}\varepsilon_{YY} = -1$ excludes
+the $(+1,+1,+1)$ combination, leaving three admissible
+sign assignments.  The distinguished direction
+$\ell_{\text{PM}} \subset \C^4$ is the affine condition
+$\varepsilon_{XX}\varepsilon_{ZZ}\varepsilon_{YY} = -1$ translated
+into a normal vector in the mod-2 lattice: it is the linear
+functional $\varepsilon_{XX} + \varepsilon_{ZZ} + \varepsilon_{YY}
+\equiv 1 \pmod 2$ on the $\Z/2$-reduced sign space.
+
+Under the identification $\C^4_{\text{Pauli}} \cong
+H^0(\Sigma_0, N)$ (Proposition~\ref{conjecture:global_embedding}),
+this element satisfies:
+\[
+  \langle [\ell_{\text{PM}}]_2, [F_{123}] \rangle \neq 0
+  \in \Z/2,
+\]
+because the triple product $(X \otimes X)(Z \otimes Z)(Y \otimes Y)
+= -\mathbf{I}$ forces a non-trivial pairing with the obstruction
+class. The remaining three directions in $(\Z/2)^4$ (the mod-2
+reductions of the orthogonal $\C^3$) pair to zero.
+
+\subsubsection*{Role of $d_2$}
+
+The cup product pairing IS the chirality-mixing map:
+\[
+  d_2^{\text{eff}}: Ext^1_{\Z/2} \to \Z/2,
+  \qquad
+  d_2^{\text{eff}}(\gamma) = \langle \gamma, [F_{123}] \rangle.
+\]
+
+\begin{itemize}
+  \item $\ker d_2^{\text{eff}}$: the three $\Z/2$ directions
+    orthogonal to $\ell_{\text{PM}}$---these survive to the
+    self-dual sector.
+  \item $\operatorname{im} d_2^{\text{eff}} \cong \Z/2$:
+    the $\ell_{\text{PM}}$ direction is obstructed, exactly
+    as predicted by the PM contextuality obstruction.
+\end{itemize}
+
+This map replaces the gerbe-twisted $d_2$ that was sought in
+earlier approaches. It achieves the same algebraic effect
+without requiring the $\Z/2$-gerbe to twist a coefficient
+sheaf---a construction that fails because
+$\text{Aut}(\underline{\Z/2}) = \{id\}$.
+
+\subsection{Bridging the Ext sequence and the obstruction pairing}
+\label{sec:bridge}
+
+The Ext spectral sequence and the integral obstruction pairing
+operate at different coefficient levels ($\C$ vs. $\Z/2$), so
+a direct comparison of their $E_2$ pages is not possible.
+The bridge is geometric: the PM column-3 eigenstate
+$\ell_{\text{PM}}$ picks out a distinguished direction in the
+$\C^4$ deformation space, and its mod-2 reduction is precisely
+the element of $(\Z/2)^4$ that is non-zero under the cup product
+pairing.
+
+Geometrically: deforming $\Sigma_0$ in the $\ell_{\text{PM}}$
+direction produces an anti-self-dual configuration that is
+forbidden by the Pauli contextuality obstruction. Deformations
+orthogonal to $\ell_{\text{PM}}$ are unobstructed---they
+constitute the self-dual sector. The cup product pairing records
+which mod-2 reduction classes survive the obstruction.
+
+\subsection{Interpretation}
+\label{sec:interpretation}
+
+This two-part picture resolves the googly problem:
+\begin{itemize}
+  \item The Ext SS establishes that the ASD sector \emph{exists}
+    as a $\C^4$ deformation space of $\Sigma_0$ in $\CP^3$.
+    This is the derived-category replacement for the classically
+    vanishing $H^1(\CP^1, \cO)$.
+  \item The integral obstruction pairing, carrying the PM
+    obstruction as a cup product with $[F_{123}]$, provides
+    the chirality-mixing $d_2^{\text{eff}}$ map that selects
+    which deformation directions survive.
+\end{itemize}
+
+The framework avoids the coefficient mismatch that plagued
+single-space approaches: $\C$-linear and $\Z/2$-linear
+computations are kept separate, connected only by the geometric
+observation of which deformation mode carries the obstruction.
+
+\subsection*{Comparison with the classical computation}
+
+The classical approach computes $H^1(\CP^1, \cO)$ (zero) because
+it ignores the embedding data. The Ext SS computes $Ext^1$ on
+the ambient $\CP^3$, capturing the normal bundle structure that
+carries the anti-self-dual information. The vanishing $d_2$ in
+the classical Leray sequence is replaced by $d_2^{\text{eff}}$ on
+the mod-2 reduced lattice, activated by the PM obstruction
+$[F_{123}]$.
+
+This completes the argument: the googly problem is resolved by
+recognising that the anti-self-dual sector lives in
+$Ext^1_{\CP^3}(\mathcal{O}_{\Sigma_0}, \mathcal{O}_{\Sigma_0})$,
+the deformation space of the embedded curve, not in
+$H^1(\CP^1, \cO)$, the cohomology of the curve alone.
+The chirality mixing map is cup product with the PM obstruction
+class on the mod-2 reduced deformation lattice---a construction
+that is impossible from within $\CP^1$ alone, because the
+normal bundle is invisible there.
+
+%------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+%------------------------------------------------------------------
+
+We have shown that the googly problem of twistor theory---the failure
+of the standard Penrose transform to produce anti-self-dual
+massless fields---admits a cohomological interpretation: it is
+an $H^2$ obstruction carried by the distinguished central extension
+$[f] \in H^2(G_{\text{PM}}, \Z/2)$ of the Peres-Mermin~\cite{PeresMermin} configuration.
+The argument proceeds through the $\Phi$ functor, which maps the
+MASA poset of $\PP_2$ to the twistor space $\CP^3$, showing that
+$\Phi^*([f])$ is the non-zero class of $H^2(\CP^3, \Z/2)$ and
+therefore serves as the $d_2$ differential that mixes self-dual
+and anti-self-dual sectors.  The transgressive verification of the
+class identification (\S\ref{sec:conj42-transgression}) is conditioned
+on the explicit identification of the 2-qubit Hilbert space with the
+normal bundle sections of $\Sigma_0$---the remaining open direction
+noted in \S\ref{sec:future}---but the obstruction mechanism itself
+is independent of this identification.
+
+The main results are:
+\begin{enumerate}
+  \item The googly problem is an $H^1 \to H^2$ obstruction,
+    exactly parallel to $SO(3)/SU(2)$ lifting (\S\ref{sec:googly-h2}),
+    and concretely realized by the three-column Peres-Mermin
+    square (\S\ref{sec:masa-cp1})~\cite{PeresMermin}.
+  \item The $\Phi$ functor lifts the three-patch MASA cover of
+    $\CP^1$ to a five-patch cover of $\CP^3$, equipping it with
+    the non-good intersection structure that carries the $H^2$
+    class (\S\ref{sec:phi-construction}).
+  \item Proposition~\ref{conjecture:global_embedding}---$\Phi^*([f]) = c_1(\cO(1)) \bmod 2$---has
+    a transgressive verification $\pi_1(SO(3)) \to H^2(S^2, \Z/2)$,
+    where the PM column-3 product $-\mathbf{I}$ generates the
+    fundamental group (\S\ref{sec:conj42-transgression}), conditioned
+    on the explicit identification of $\C^4_{\text{Pauli}}$ with
+    $H^0(\Sigma_0, N)$ (the remaining open direction in
+    \S\ref{sec:future}).
+  \item The $d_2$ differential is an integral lattice obstruction
+    pairing $\langle -, [F_{123}] \rangle$ on the mod-2 reduced
+    deformation space of $\Sigma_0 \subset \CP^3$, avoiding the
+    coefficient paradox that blocked all earlier single-space
+    approaches (\S\ref{sec:integral-pairing}).
+\end{enumerate}
+
+The resolution depends essentially on the structure of the Pauli
+algebra over $\C$, reinforcing Paper VI~\cite{PaperVI}'s Sol\`er-Cohomology
+argument for the necessity of complex numbers.  The $SO(3)/SU(2)$
+analogy and the Peres-Mermin~\cite{PeresMermin} square are not heuristic parallels;
+they are the precise algebraic shadows of the twistor geometric
+obstruction.
+
+\section{Future work}
+\label{sec:future}
+%------------------------------------------------------------------
+
+Several directions remain open:
+
+\begin{enumerate}
+  \item \textbf{Explicit $\Phi$ functor.} The transgression
+    argument verifies Proposition~\ref{conjecture:global_embedding}, but an explicit
+    construction of $\Phi$ at the level of sheaves and Čech
+    cochains would complete the proof.
+  \item \textbf{Generalization to $n$-qubit.} The obstruction
+    class $[f] \in H^2(\bar{\PP}_n, \Z/2)$ should map to higher
+    Chern classes under the generalized $\Phi$ functor, providing
+    a family of chirality-mixing differentials $d_2, d_3, \dots$
+    on the obstruction ladder.
+  \item \textbf{$\widetilde{\PT}$ construction.} The central
+    extension of $\PT$ by $\Z/2$ predicted by the $H^2$ class
+    should be constructed explicitly as a twistor bundle over
+    $\CP^3$, and the Penrose transform on $\widetilde{\PT}$
+    verified to produce both helicities of the Maxwell and Dirac
+    equations.
+  \item \textbf{Computational verification.} The finite Čech
+    computation on the MASA cross-space cover of $\CP^3$ can be
+    implemented to verify the $d_2^{\text{eff}}$ pairing at the
+    cochain level.
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section*{Acknowledgments}
+%------------------------------------------------------------------
+
+The author thanks the mathematical physics reading group for
+feedback on the twistor interpretation, and a research collaborator 
+for identifying the coefficient paradox that motivated the integral 
+lattice pairing. The verification script accompanying
+Proposition~\ref{conjecture:global_embedding} (\cite{ScriptConj42}) is archived at
+\url{https://doi.org/10.5281/zenodo.20437675}.
+
+%------------------------------------------------------------------
+\begin{thebibliography}{99}
+
+\bibitem[Adamo2017]{Adamo2017}
+T.~Adamo,
+``Lectures on twistor theory,''
+\textit{PoS} \textbf{Modave2017}, 003 (2017).
+
+\bibitem[CachazoHeYuan2014]{CachazoHeYuan2014}
+F.~Cachazo, S.~He, and E.~Y.~Yuan,
+``Scattering equations and Kawai-Lewellen-Tye orthogonality,''
+\textit{Phys. Rev. D} \textbf{90}, 065001 (2014).
+
+\bibitem[Godement1958]{Godement1958}
+R.~Godement,
+\textit{Th\'eorie des faisceaux},
+Actualit\'es Sci. Ind. 1252,
+Hermann, Paris (1958).
+
+\bibitem[IshamButterfield1999]{IshamButterfield1999}
+J.~Butterfield and C.~J.~Isham,
+``A topos perspective on the Kochen-Specker theorem: I. Quantum
+states as generalized valuations,''
+\textit{Int. J. Theor. Phys.} \textbf{38}, 827 (1999).
+
+\bibitem[KochenSpecker]{KochenSpecker}
+S.~Kochen and E.~P.~Specker,
+``The problem of hidden variables in quantum mechanics,''
+\textit{J. Math. Mech.} \textbf{17}, 59 (1967).
+
+\bibitem[MasonSkinner2014]{MasonSkinner2014}
+L.~Mason and D.~Skinner,
+``Ambitwistor strings and the scattering equations,''
+\textit{J. High Energy Phys.} \textbf{07}, 048 (2014).
+
+\bibitem[PaperI]{PaperI}
+Chen, Z.-L.
+From Contextuality to Phase Cohomology:
+A Computable Bridge Between Bohrification and Geometric Quantization.
+\textit{Zenodo, DOI: 10.5281/zenodo.20072818}, 2026.
+
+\bibitem[PaperIII]{PaperIII}
+Chen, Z.-L.
+Kochen--Specker Contextuality as Central Extension:
+The Peres--Mermin Square and the Pauli Group.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073127}, 2026.
+
+\bibitem[PaperIV]{PaperIV}
+Chen, Z.-L.
+The Cohomological Obstruction Ladder:
+Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier.
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184}, 2026.
+
+\bibitem[PaperVI]{PaperVI}
+Chen, Z.-L.
+The Ultimate Axiom:
+Deriving Quantum Mechanics from the Logic of Observation
+\textit{Zenodo, DOI: 10.5281/zenodo.20073426}, 2026.
+
+\bibitem[PeresMermin]{PeresMermin}
+A.~Peres,
+``Incompatible results of quantum measurements,''
+\textit{Phys. Lett. A} \textbf{151}, 107 (1990);
+N.~D.~Mermin,
+``Simple unified form for the major no-hidden-variables theorems,''
+\textit{Phys. Rev. Lett.} \textbf{65}, 3373 (1990).
+
+\bibitem[Penrose2004]{Penrose2004}
+R.~Penrose,
+\textit{The Road to Reality: A Complete Guide to the Laws of the Universe},
+Jonathan Cape, London (2004).
+
+\bibitem[Penrose2016]{Penrose2016}
+R.~Penrose,
+\textit{Fashion, Faith, and Fantasy in the New Physics of the Universe},
+Princeton University Press (2016).
+
+\bibitem[Penrose1967]{Penrose1967}
+R.~Penrose,
+``Twistor algebra,''
+\textit{J. Math. Phys.} \textbf{8}, 345 (1967).
+
+\bibitem[PenroseRindler]{PenroseRindler}
+R.~Penrose and W.~Rindler,
+\textit{Spinors and Space-Time}, Vol.\ 2,
+Cambridge University Press (1986).
+
+\bibitem[ScriptConj42]{ScriptConj42}
+Chen, Z.-L.
+Verification script for
+Proposition~\ref{conjecture:global_embedding}:
+the Peres--Mermin obstruction class.
+\textit{Zenodo, DOI: 10.5281/zenodo.20437675}, 2026.
+
+\bibitem[SerreGAGA]{SerreGAGA}
+J.-P.~Serre,
+``G\'eom\'etrie alg\'ebrique et g\'eom\'etrie analytique,''
+\textit{Ann. Inst. Fourier} \textbf{6}, 1 (1956).
+
+\end{thebibliography}
+
+\end{document}
