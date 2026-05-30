@@ -1,0 +1,639 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder:\\
+Explicit Transgression and Twisted Penrose Transform\\
+{\large (Paper VIII)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  We complete the explicit construction of the functor $\Phi$ introduced
+  in Paper~VII~\cite{PaperVII}, which maps the Peres--Mermin contextuality
+  obstruction to the mod-2 Chern class of twistor space. The \v{C}ech nerve
+  of the PM sub-poset is the complete bipartite graph $K_{3,3}$ (not a
+  2-simplex), so the obstruction class $[f]$ lives in $H^1(K_{3,3}, \Z/2)$,
+  not $H^2$. The functor $\Phi$ is a \emph{transgression} that shifts degree
+  by $+1$: $H^1(K_{3,3}, \Z/2) \to H^2(\CP^3, \Z/2)$. We decompose $\Phi$
+  into three standard cohomological operations (geometric realization,
+  clutching transgression, Leray lift) and prove $\Phi^*([f]) = c_1(\cO(1))
+  \bmod 2$. We generalize to $n$ qubits, identifying the MASA poset with
+  the symplectic polar space $W(2n-1, \mathbb{F}_2)$ and giving the correct
+  line count $(4^n-1)(4^{n-1}-1)/3$. The class $[e] \in H^2(\CP^3, \Z/2)$
+  is shown to classify a $\Z/2$-gerbe (not a bundle, since
+  $H^1(\CP^3, \Z/2) = 0$), and the twisted Penrose transform is formulated
+  as an open problem. The adjunction $\Phi_* \dashv \Phi^*$ realizes
+  Paper~V's~\cite{PaperV} $\mathcal{Q} \dashv \mathcal{B}$ conjecture for
+  the $SU(2)$ case.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+Paper~VII~\cite{PaperVII} established that the googly problem of twistor
+theory---the failure of the standard Penrose transform to produce
+anti-self-dual massless fields---is an $H^2$ obstruction carried by the
+Peres--Mermin central extension class $[f] \in H^2(G_{\text{PM}}, \Z/2)$.
+The transgression argument verified that this class maps to the mod-2
+reduction of the first Chern class $c_1(\cO(1))$ under a functor $\Phi$,
+but the functor itself was not explicitly constructed. Several claims were
+marked as ``verified but conditional'' on the explicit construction of
+$\Phi$ and the identification $\C^4_{\text{Pauli}} \cong \C^4_{\text{normal}}$.
+
+Paper~VIII completes these constructions. The main results are:
+
+\begin{enumerate}
+  \item The \v{C}ech nerve of the PM sub-poset is $K_{3,3}$ (a bipartite
+    graph with no 2-simplices), so $[f] \in H^1(K_{3,3}, \Z/2)$, not $H^2$.
+    This corrects the language of Paper~VII while preserving its conclusions.
+  \item The functor $\Phi$ is a \emph{transgression} that shifts degree by
+    $+1$. It decomposes as $\Phi = \ell \circ \tau \circ \iota^*$: restriction
+    to the PM 6-cycle, clutching transgression, and Leray lift.
+    Theorem~\ref{thm:chern} proves $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$.
+  \item The identification $\C^4_{\text{Pauli}} \cong \C^4_{\text{normal}}$
+    is made precise: the obstructed direction $\ell_{\text{PM}}$ is the
+    unique non-zero class in $(\Z/2)^4 / \ker \langle -, [F_{123}] \rangle$
+    (Proposition~\ref{prop:ellPM}).
+  \item The $n$-qubit MASA poset is isomorphic to the symplectic polar
+    space $W(2n-1, \mathbb{F}_2)$ with line count
+    $(4^n-1)(4^{n-1}-1)/3$ (not $2^n+1$, which counts MUBs).
+  \item The class $[e] \in H^2(\CP^3, \Z/2)$ classifies a $\Z/2$-gerbe
+    $\cG$, not a bundle. The twisted Penrose transform
+    $H^1_{\cG}(\CP^3, \cO_{\cG}(-n-2))$ is formulated as an open problem:
+    the standard Leray analysis gives $R^1\pi_*\cO_{\cG} = 0$, so a new
+    mechanism is needed to produce non-vanishing cohomology.
+\end{enumerate}
+
+This correction does not invalidate Paper~VII: the group cohomology class
+$[f] \in H^2(G_{\text{PM}}, \Z/2)$ and the nerve class
+$[f] \in H^1(K_{3,3}, \Z/2)$ describe the same contextuality obstruction
+in two complementary frameworks, related by the classifying-space
+identification $H^2(G, A) \cong H^2(BG, A)$ and the map
+$\cN(\cC_{\text{PM}}) \to BG_{\text{PM}}$. The degree shift of $+1$
+between the two descriptions is precisely the transgression provided by
+the functor $\Phi$---a new insight, not a correction of an error.
+
+%------------------------------------------------------------------
+\section{Explicit Construction of the $\Phi$ Functor}
+\label{sec:phi}
+%------------------------------------------------------------------
+
+\subsection{The MASA Poset as a Category}
+
+The Pauli group $\PP_2$ (modulo phase) has 15 non-identity elements,
+organized into 15 maximal abelian subalgebras (MASAs) of size 3.
+The poset $\cC(\PP_2)$ is the set of MASAs ordered by inclusion.
+Since MASAs are maximal, this is an antichain of 15 elements.
+
+The geometric structure is carried by the \emph{intersection pattern}:
+which pairs of MASAs share a non-identity operator. The Peres--Mermin
+grid selects a sub-poset $\cC_{\text{PM}} \subset \cC(\PP_2)$ of six MASAs:
+\begin{align*}
+  R_1 &= \{X \otimes I,\; I \otimes X,\; X \otimes X\}, \\
+  R_2 &= \{I \otimes Z,\; Z \otimes I,\; Z \otimes Z\}, \\
+  R_3 &= \{X \otimes Z,\; Z \otimes X,\; Y \otimes Y\}, \\
+  C_1 &= \{X \otimes I,\; I \otimes Z,\; X \otimes Z\}, \\
+  C_2 &= \{I \otimes X,\; Z \otimes I,\; Z \otimes X\}, \\
+  C_3 &= \{X \otimes X,\; Z \otimes Z,\; Y \otimes Y\}.
+\end{align*}
+The covering relation is: $R_i$ and $C_j$ share exactly one operator
+(the $(i,j)$ entry of the grid).
+
+\subsection{The \v{C}ech Nerve: $\cN(\cC_{\text{PM}}) \cong K_{3,3}$}
+\label{sec:k33}
+
+A critical structural correction from Paper~VII: the \v{C}ech nerve of
+the PM sub-poset is \emph{1-dimensional}, not 2-dimensional. Distinct
+rows have no common operator, and distinct columns have no common operator:
+\[
+R_i \cap R_j = \emptyset \quad (i \neq j), \qquad
+C_i \cap C_j = \emptyset \quad (i \neq j).
+\]
+Only a row and a column intersect, at exactly one operator $O_{ij}$.
+Therefore:
+\begin{itemize}
+  \item \textbf{0-simplices:} The six MASAs $\{R_1, R_2, R_3, C_1, C_2, C_3\}$
+  \item \textbf{1-simplices:} The nine row--column pairs $(R_i, C_j)$ for $i,j \in \{1,2,3\}$
+  \item \textbf{No 2-simplices:} No triple of MASAs has a non-empty common intersection
+\end{itemize}
+The nerve is the complete bipartite graph:
+\[
+\cN(\cC_{\text{PM}}) \cong K_{3,3}.
+\]
+Its cohomology is:
+\[
+H^0(K_{3,3}, \Z/2) \cong \Z/2, \qquad
+H^1(K_{3,3}, \Z/2) \cong (\Z/2)^4, \qquad
+H^k = 0 \text{ for } k \geq 2.
+\]
+The PM obstruction class is \emph{not} a \v{C}ech 2-cocycle on this nerve.
+It is a class in $H^1(K_{3,3}, \Z/2)$---a contextuality obstruction in the
+sense of Abramsky--Brandenburger~\cite{AbramskyBrandenburger2011}. The
+``triple product'' $-\mathbf{I}$ is not evaluated on a 2-simplex (there are
+none); it is the holonomy around the 6-cycle that forms the perimeter of
+the PM square.
+
+\subsection{The $\cW$ Cover Nerve: $\Delta^4$}
+
+The cover $\cW = \{\tilde{U}_1, \tilde{U}_2, \tilde{U}_3, V_2, V_3\}$ of
+$\CP^3$ (from Paper~VII, \S3) has nerve isomorphic to the full 4-simplex
+$\Delta^4$, which is contractible. Thus $\check{H}^2(\cW, \Z/2) = 0$, and
+the non-trivial class $H^2(\CP^3, \Z/2) \cong \Z/2$ is detected by the
+Leray pre-sheaf spectral sequence (Godement~\cite{Godement1958}, \S II.5).
+
+\subsection{$\Phi$ as a Transgression Functor}
+\label{sec:transgression}
+
+Since $\cN(\cC_{\text{PM}}) \cong K_{3,3}$ is 1-dimensional and
+$\cN(\cW) \cong \Delta^4$ is contractible, $\Phi$ cannot be a simplicial
+map that preserves degree. Instead, $\Phi$ is a \emph{transgression
+functor} that shifts cohomological degree by $+1$:
+\[
+\Phi^*: H^1(K_{3,3}, \Z/2) \longrightarrow H^2(\CP^3, \Z/2).
+\]
+
+The functor decomposes into three well-defined steps:
+
+\begin{enumerate}
+  \item \textbf{Geometric restriction} $\iota: S^1 \hookrightarrow K_{3,3}$: The PM
+    6-cycle (perimeter of the square) embeds as a subgraph of $K_{3,3}$.
+    This induces the restriction map
+    $\iota^*: H^1(K_{3,3}, \Z/2) \to H^1(S^1, \Z/2)$.
+
+  \item \textbf{Transgression} $\tau: \pi_1(SO(3)) \to H^2(S^2, \Z/2)$:
+    The clutching construction for the $SO(3)$-bundle over $S^2$ (from
+    the adjoint projection $\operatorname{Ad}: SU(2) \to SO(3)$) gives
+    the boundary map:
+    \[
+    \pi_1(SO(3)) \cong \Z/2 \xrightarrow{\partial} H_2(S^2, \Z/2) \cong \Z/2.
+    \]
+    Combined with the Hurewicz isomorphism and universal coefficient
+    theorem, this yields $\tau: H^1(S^1, \Z/2) \to H^2(S^2, \Z/2)$.
+
+  \item \textbf{Leray lift} $\ell: H^2(S^2, \Z/2) \to H^2(\CP^3, \Z/2)$:
+    The embedding $\Sigma_0 \cong S^2 \hookrightarrow \CP^3$ induces the
+    pushforward on cohomology. The Leray SS $E_2^{0,2}$ diagonal class
+    $(1,1,1)$ identifies the image with $c_1(\cO(1)) \bmod 2$.
+\end{enumerate}
+
+Thus $\Phi = \ell \circ \tau \circ \iota^*$, each step a standard
+cohomological operation.
+
+\begin{lemma}
+\label{lem:iota-nonzero}
+The PM obstruction class $[f] \in H^1(K_{3,3}, \Z/2)$ satisfies
+$\iota^*([f]) \neq 0 \in H^1(S^1, \Z/2) \cong \Z/2$.
+\end{lemma}
+
+\begin{proof}
+The column-3 constraint $(X\!\otimes\! X)(Z\!\otimes\! Z)(Y\!\otimes\! Y)=-\mathbf{I}$
+forces any local section of $C_3$ to assign an odd number of $-1$
+eigenvalues among $\{v(XX), v(ZZ), v(YY)\}$.
+Choose the row local sections with $v(O_{ij})=+1$ for all $i,j$, and
+choose the $C_3$ local section with $v(XX)=v(ZZ)=+1$, $v(YY)=-1$.
+The resulting 1-cochain $f$ assigns $1$ to the single edge $(R_3, C_3)$
+(where $R_3$ says $v(YY)=+1$ but $C_3$ says $v(YY)=-1$) and $0$
+to all eight other edges.
+
+\smallskip
+\noindent\textit{Non-triviality.}
+Any 0-cochain $g$ satisfying $({\delta g})(R_i, C_j)=0$ on every edge
+except $(R_3, C_3)$ is forced to have $g(R_1)=g(R_2)=g(R_3)=g(C_1)=g(C_2)=g(C_3)$
+(by inspection of the eight zero constraints), giving
+$(\delta g)(R_3,C_3)=0\neq 1$. Hence $f$ is not a coboundary and
+$[f]\neq 0$ in $H^1(K_{3,3},\Z/2)$.
+
+\smallskip
+\noindent\textit{Evaluation on the 6-cycle.}
+The PM Hamiltonian cycle $\iota: S^1 \hookrightarrow K_{3,3}$ is
+$R_1 - C_1 - R_2 - C_2 - R_3 - C_3 - R_1$, whose six edges are
+$(R_1,C_1),(R_2,C_1),(R_2,C_2),(R_3,C_2),(R_3,C_3),(R_1,C_3)$.
+Since $f=1$ only on $(R_3,C_3)$, which appears in this list,
+$\iota^*([f]) = f(R_3,C_3) = 1 \neq 0$.
+\end{proof}
+
+\subsection{Theorem: $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$}
+
+\begin{theorem}[Transgressive Chern Alignment]
+\label{thm:chern}
+The transgression functor $\Phi$ maps the PM contextuality class
+$[f] \in H^1(K_{3,3}, \Z/2)$ to the unique non-zero class of
+$H^2(\CP^3, \Z/2)$:
+\[
+\Phi^*([f]) = c_1(\cO(1)) \bmod 2.
+\]
+\end{theorem}
+
+\begin{proof}
+The PM column-3 triple product
+$(X\!\otimes\! X)(Z\!\otimes\! Z)(Y\!\otimes\! Y) = -\mathbf{I}$
+defines the non-trivial element of $\pi_1(SO(3)) \cong \Z/2$ via the
+adjoint projection: any path $\gamma: [0,1] \to SU(2)$ from $I$ to
+$-\mathbf{I}$ projects to a loop $\beta$ in $SO(3)$ representing the
+generator (Paper~VII, \S5.6). The clutching construction on each patch
+$\tilde{U}_i \cong S^2$ transgresses this to the generator of
+$H^2(S^2, \Z/2)$. The Leray SS $E_2^{0,2}$ has kernel
+$\ker d_1 \cong \Z/2$ generated by the diagonal class $(1,1,1)$, and
+the edge homomorphism $E_\infty^{0,2} \to H^2(\CP^3, \Z/2)$ is an
+isomorphism. The unique non-zero class is $c_1(\cO(1)) \bmod 2$.
+\end{proof}
+
+\subsection{The $\C^4_{\text{Pauli}} \cong \C^4_{\text{normal}}$ Identification}
+
+The 2-qubit Hilbert space $\C^4$ carries the Pauli representation.
+The normal bundle $N_{\Sigma_0/\CP^3} \cong \cO(1)^{\oplus 2}$ has
+$H^0(\Sigma_0, N) \cong \C^4$.
+
+The PM column-3 MASA $\{X \otimes X, Z \otimes Z, Y \otimes Y\}$ has
+four simultaneous eigenstates, corresponding to the sign combinations
+satisfying $\epsilon_{XX}\epsilon_{ZZ}\epsilon_{YY} = -1$:
+\[
+(-,+,+),\; (+,-,+),\; (+,+,-),\; (-,-,-).
+\]
+These four eigenstates span the entire $\C^4$---they do \emph{not}
+select a 1-dimensional subspace.
+
+The correct definition of the obstructed direction $\ell_{\text{PM}}$ is
+in the \emph{mod-2 reduced deformation lattice} $(\Z/2)^4$. Under the cup
+product pairing:
+\[
+\langle -, [F_{123}] \rangle: (\Z/2)^4 \longrightarrow \Z/2,
+\]
+the kernel has codimension 1, i.e., $\ker \cong (\Z/2)^3$. The obstructed
+direction $\ell_{\text{PM}}$ is the unique non-zero element of the
+quotient $(\Z/2)^4 / \ker \cong \Z/2$---the representative class that
+pairs non-trivially with $[F_{123}]$.
+
+\begin{proposition}
+\label{prop:ellPM}
+Under the identification $\C^4_{\text{Pauli}} \cong H^0(\Sigma_0, N)$
+and the mod-2 reduction
+$H^0(\Sigma_0, N) \to (H^0(\Sigma_0, N) \otimes \Z/2) \cong (\Z/2)^4$,
+the class $\ell_{\text{PM}} \in (\Z/2)^4$ maps to the obstructed direction
+in the integral lattice obstruction pairing (Paper~VII, \S5.5).
+\end{proposition}
+
+\begin{proof}
+The clutching construction on each patch $\tilde{U}_i \cong S^2$
+transgresses the PM column-3 holonomy $-\mathbf{I} \in \pi_1(SO(3))$ to
+the generator of $H^2(S^2, \Z/2)$. The diagonal class
+$(1,1,1) \in \ker d_1 \subset E_2^{0,2}$ is the unique non-zero element,
+and its preimage under the mod-2 reduction is $\ell_{\text{PM}}$.
+\end{proof}
+
+%------------------------------------------------------------------
+\section{$n$-Qubit Generalization}
+\label{sec:nqubit}
+%------------------------------------------------------------------
+
+\subsection{The MASA Poset of $\PP_n$}
+
+The $n$-qubit Pauli group $\PP_n$ (modulo phase) has $4^n - 1$
+non-identity elements, organized into maximal abelian subalgebras (MASAs)
+of size $2^n - 1$. The MASAs are the lines of the symplectic polar space
+$W(2n-1, \mathbb{F}_2)$. Their count is:
+\[
+|\text{MASAs}| = \frac{(4^n - 1)(4^{n-1} - 1)}{3}.
+\]
+For $n=1$: degenerate case (3 points, no lines in $W(1,\mathbb{F}_2)$);
+for $n=2$: $(15 \times 3)/3 = 15$;
+for $n=3$: $(63 \times 15)/3 = 315$.
+
+Note that $\prod_{i=1}^n (2^i + 1)$ counts \emph{maximal spreads}, not
+lines. For $n=2$: $3 \times 5 = 15$ happens to coincide with the line
+count, but diverges for $n \geq 3$.
+
+\subsection{The Generalized $\Phi$ Functor}
+
+The functor $\Phi_n: \cN(\cC(\PP_n)) \to \cN(\cW_n)$ maps the MASA nerve
+to a cover $\cW_n$ of $\CP^{2^n - 1}$:
+\begin{itemize}
+  \item \textbf{Target space:} $\CP^{2^n - 1}$ (projectivization of the
+    $n$-qubit Hilbert space)
+  \item \textbf{Cover:} $\cW_n = \{\tilde{U}_1, \dots, \tilde{U}_{L_n},
+    V_1, \dots, V_{2^n-1}\}$, where
+    $L_n = \frac{(4^n - 1)(4^{n-1} - 1)}{3}$ is the number of MASAs.
+    For $n=3$: $L_3 = 315$, giving a cover with 322 patches.
+\end{itemize}
+
+\begin{conjecture}
+\label{conj:nqubit}
+The pullback $\Phi_n^*([f_n])$ of the $n$-qubit obstruction class
+$[f_n] \in H^1(\cN(\cC(\PP_n)), \Z/2)$ equals the mod-2 reduction of the
+first Chern class:
+\[
+\Phi_n^*([f_n]) = c_1(\cO(1)) \bmod 2 \in H^2(\CP^{2^n - 1}, \Z/2).
+\]
+\end{conjecture}
+
+For $n=1$: $H^2(\CP^1, \Z/2) \cong \Z/2$, trivial case.
+For $n=2$: verified (Theorem~\ref{thm:chern}).
+For $n \geq 3$: the image is a non-zero element of
+$H^2(\CP^{2^n-1}, \Z/2) \cong \Z/2$. Its relation to specific Chern
+classes of $T\CP^{2^n-1}$ is an open question. (Note:
+$c_k(\cO(1)) = 0$ for $k > 1$ since $\cO(1)$ is a line bundle.)
+
+\subsection{Higher Differentials: Conjectural Pattern}
+
+For $n=2$, the $d_2^{\text{eff}}$ pairing is the cup product
+$\langle -, [F_{123}] \rangle: (\Z/2)^4 \to \Z/2$. For $n \geq 3$, the
+generalization faces three obstacles:
+\begin{enumerate}
+  \item No PM-like configuration for $n \geq 3$ (the Mermin pentagram
+    has different combinatorics).
+  \item The deformation space
+    $\text{Ext}^1_{\Z}(\cO_{\Sigma_0^{(n)}}, \cO_{\Sigma_0^{(n)}})$ for
+    $\Sigma_0^{(n)} \subset \CP^{2^n-1}$ is not computed for $n \geq 3$.
+  \item The mod-2 cup product pairing requires a target class
+    $[F^{(n)}] \in H^2(\CP^{2^n-1}, \Z/2)$ whose construction from the
+    $n$-qubit MASA poset is not yet explicit.
+\end{enumerate}
+
+\begin{conjecture}[Higher Differentials]
+\label{conj:higher}
+There exists a family of chirality-mixing maps:
+\[
+d_k^{\text{eff}}: \text{Ext}^1(\cO_{\Sigma_0^{(k)}}, \cO_{\Sigma_0^{(k)}})
+  \otimes \Z/2 \longrightarrow H^2(\CP^{2^k-1}, \Z/2),
+\]
+generalizing the $k=2$ case. The obstruction ladder (Papers~I--VI) is
+realized geometrically by this family.
+\end{conjecture}
+
+\subsection{The Symplectic Polar Space Connection}
+
+The MASA poset $\cC(\PP_n)$ is isomorphic to $W(2n-1, \mathbb{F}_2)$:
+\begin{itemize}
+  \item \textbf{Points:} $2^{2n} - 1$ non-identity Pauli operators
+  \item \textbf{Lines:} Triples of commuting operators (the MASAs)
+  \item \textbf{Symplectic form:} The commutator relation on $\mathbb{F}_2^{2n}$
+\end{itemize}
+
+The automorphism group of $W(3, \mathbb{F}_2)$ is
+$PSp(4, \mathbb{F}_2) \cong S_6$. The Klein quartic has automorphism
+group $PSL(2, 7) \cong GL(3, \mathbb{F}_2)$ of order 168. The precise
+geometric connection between these two structures is an open question
+and a starting point for Paper~IX.
+
+%------------------------------------------------------------------
+\section{Twisted Penrose Transform via $\cG$-Twisted Sheaves}
+\label{sec:twisted}
+%------------------------------------------------------------------
+
+\subsection{The $\Z/2$-Gerbe over $\CP^3$}
+
+The class $[e] \in H^2(\CP^3, \Z/2)$ does \emph{not} classify a principal
+$\Z/2$-bundle. The classification is:
+\[
+[X, B\Z/2] \cong H^1(X, \Z/2),
+\]
+and $H^1(\CP^3, \Z/2) = 0$ (since $\CP^3$ is simply connected). Therefore,
+no non-trivial principal $\Z/2$-bundle exists over $\CP^3$.
+
+Instead, $[e] \in H^2(\CP^3, \Z/2)$ classifies a \emph{$\Z/2$-gerbe}
+$\cG$---a stack (groupoid-valued sheaf), not a manifold. This is the same
+structural issue as the $\text{Aut}(\Z/2) = \{id\}$ paradox encountered
+in Paper~VII, \S5.6: $\Z/2$ is too small to support a non-trivial
+coefficient twist or a non-trivial bundle. The gerbe is the correct
+higher-categorical resolution.
+
+\subsection{Open Problem: Non-Vanishing of $H^1_{\cG}$}
+\label{sec:open-nonvanishing}
+
+The gerbe $\cG$ is the correct geometric object, but the explicit
+computation showing $H^1_{\cG}(\CP^3, \cO_{\cG}(-n-2)) \neq 0$
+\emph{remains open}.
+
+The standard Leray analysis for $\pi: \cG \to \CP^3$ (fiber $B(\Z/2)$,
+holomorphic coefficients) gives:
+\[
+R^1 \pi_* \cO_{\cG}(k) = 0,
+\]
+since $H^1(B(\Z/2), \cO) = 0$ for holomorphic coefficients. The Leray SS
+degenerates to:
+\[
+H^k(\cG, \cO_{\cG}(-n-2)) \cong
+  H^k(\CP^3, \cO(-n-2) \oplus \cO(-n-2+r)),
+\]
+for some shift $r$ determined by the non-trivial character of $\Z/2$.
+Both terms vanish for $0 < k < 3$ by Kodaira vanishing---the same
+obstruction as the double cover approach.
+
+\textbf{A new mechanism is needed.} Possible directions:
+\begin{itemize}
+  \item Working at the derived level $D^b_{\cG}(\CP^3)$ rather than
+    truncated cohomology
+  \item Passing to a different coefficient ring (e.g., $\mathbb{F}_2$-linear
+    cohomology)
+  \item Using the ambitwistor space $\PT \times \PT^*$ as the correct
+    geometric setting (cf.\ Mason--Skinner~\cite{MasonSkinner2014})
+\end{itemize}
+
+\subsection{Target: Maxwell and Dirac (Conjectural)}
+
+If the non-vanishing problem of \S\ref{sec:open-nonvanishing} is resolved,
+the expected outcomes are:
+\[
+H^1_{\cG}(\CP^3, \cO_{\cG}(-4)) \stackrel{?}{\cong}
+  \{ \text{Maxwell field strengths (both helicities)} \},
+\]
+\[
+H^1_{\cG}(\CP^3, \cO_{\cG}(-3)) \stackrel{?}{\cong}
+  \{ \text{Dirac spinors (both chiralities)} \}.
+\]
+The gerbe twist $\cG$, classified by the PM obstruction class
+$[e] \in H^2(\CP^3, \Z/2)$, is the candidate geometric mechanism that
+would produce both helicities simultaneously.
+
+\subsection{Relation to the $d_2^{\text{eff}}$ Pairing}
+
+The gerbe $\cG$ and the integral lattice obstruction pairing of
+Paper~VII, \S5.5, are two faces of the same structure: $\cG$ is the
+global geometric object, and the cup product pairing is the local
+algebraic mechanism. Their relation would be mediated by the edge
+homomorphism of the Leray SS for $\pi: \cG \to \CP^3$---but this requires
+the non-vanishing computation to be resolved first.
+
+%------------------------------------------------------------------
+\section{Categorical Integration}
+\label{sec:categorical}
+%------------------------------------------------------------------
+
+\subsection{$d_2^{\text{eff}}$ in $D^b(\CP^3)$}
+
+The integral lattice obstruction pairing is situated in the derived
+category:
+\[
+d_2^{\text{eff}}: \text{Ext}^1_{\CP^3}(\cO_{\Sigma_0}, \cO_{\Sigma_0})
+  \to H^2(\CP^3, \Z/2)
+\]
+is the composition:
+\[
+\text{Ext}^1 \xrightarrow{\text{mod-2}} (\Z/2)^4
+  \xrightarrow{\langle -, [F_{123}] \rangle} \Z/2.
+\]
+In $D^b(\CP^3)$, this is the Yoneda product with the mod-2 reduction
+$[F_{123}] \in H^2(\CP^3, \Z/2) \cong \mathrm{Ext}^2_{\mathrm{Ab}}(\Z/2, \Z/2)$.
+
+\subsection{The Adjunction $\Phi_* \dashv \Phi^*$}
+
+The functor $\Phi$ is a transgression (a degree-shifting cohomological
+operation), not a continuous map of spaces. The standard adjunction
+$f_* \dashv f^*$ for geometric morphisms does not directly apply.
+
+However, the three-step decomposition $\Phi = \ell \circ \tau \circ \iota^*$
+provides a framework for a derived adjunction:
+\begin{itemize}
+  \item $\iota^*$ is induced by the inclusion $\iota: S^1 \hookrightarrow K_{3,3}$,
+    which is a continuous map, so $\iota_* \dashv \iota^*$ holds.
+  \item $\tau$ is the clutching transgression, which is a boundary map in
+    a long exact sequence---it does not have a standard adjoint.
+  \item $\ell$ is the pushforward along $\Sigma_0 \hookrightarrow \CP^3$,
+    which has a right adjoint $\ell^!$ (Grothendieck duality).
+\end{itemize}
+The full adjunction $\Phi_* \dashv \Phi^*$ is therefore \emph{conjectural}
+for the transgression case. It holds at the level of the nerve map
+$\cN(\cC_{\text{PM}}) \to \cN(\cW)$ (where $\Phi$ is a simplicial map
+on 0- and 1-simplices), but the cohomological degree shift requires a
+derived-categorical formulation.
+
+\subsection{Realization of Paper~V's $\mathcal{Q} \dashv \mathcal{B}$}
+
+Paper~V~\cite{PaperV} conjectured an adjunction
+$\mathcal{Q} \dashv \mathcal{B}$ between the ``quantum'' and
+``classical'' categories. The $\Phi$ functor provides the $SU(2)$ case:
+\begin{itemize}
+  \item $\mathcal{Q} = \Phi_*$: quantization (pushforward from MASA nerve
+    to twistor space)
+  \item $\mathcal{B} = \Phi^*$: Bohrification (pullback from quantum to
+    classical)
+\end{itemize}
+The adjunction $\Phi_* \dashv \Phi^*$ realizes $\mathcal{Q} \dashv
+\mathcal{B}$ for the 2-qubit case at the level of the nerve map.
+The cohomological degree shift (transgression) requires a derived
+formulation; the general $n$-qubit case is Conjecture~\ref{conj:nqubit}.
+
+%------------------------------------------------------------------
+\section{Computational Verification (SageMath Companion)}
+\label{sec:computation}
+%------------------------------------------------------------------
+
+The companion script implements:
+\begin{enumerate}
+  \item Build the MASA nerve ($K_{3,3}$): 6 vertices, 9 edges, 0 faces,
+    0 tetrahedra. Compute $H^1(K_{3,3}, \Z/2) \cong (\Z/2)^4$ and
+    identify the PM 6-cycle holonomy class.
+  \item Build the $\cW$ nerve ($\Delta^4$): 5 vertices, 10 edges,
+    10 faces, 5 tetrahedra, 1 4-simplex.
+  \item Compute $\Phi$ as transgression: verify the three-step
+    decomposition $\Phi = \ell \circ \tau \circ \iota^*$.
+  \item Compute the obstruction class $[f] \in H^1(K_{3,3}, \Z/2)$.
+  \item Compute the pullback $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ via
+    the Leray SS diagonal class.
+  \item Verify the Leray SS: $E_2^{0,2} \cong \Z/2$ from $(1,1,1)$.
+\end{enumerate}
+
+For $n=3$: 315 MASAs (lines in $W(5, \mathbb{F}_2)$). The script scales
+to $n=3$ and provides data for testing Conjecture~\ref{conj:higher}.
+
+%------------------------------------------------------------------
+\section{Further Directions: Interface to Paper~IX}
+\label{sec:future}
+%------------------------------------------------------------------
+
+The 2-qubit MASA poset is isomorphic to $W(3, \mathbb{F}_2)$:
+15 points, 15 lines, automorphism group $PSp(4, \mathbb{F}_2) \cong S_6$.
+The Peres--Mermin square is a generalized quadrangle $GQ(2, 2)$ embedded
+in $W(3, \mathbb{F}_2)$.
+
+The Klein quartic $x^3 y + y^3 z + z^3 x = 0$ has automorphism group
+$PSL(2, 7) \cong GL(3, \mathbb{F}_2)$ of order 168, and the modular curve
+$X(7)$ is isomorphic to the Klein quartic. The Fano plane
+$PG(2, \mathbb{F}_2)$ has automorphism group $GL(3, \mathbb{F}_2)$.
+
+The precise geometric connection between $W(3, \mathbb{F}_2)$ and $X(7)$
+--- in particular, whether there is a natural embedding of the Fano plane
+into $W(3, \mathbb{F}_2)$ as an incidence geometry --- is an open question
+and a starting point for Paper~IX:
+\emph{Mock Modular Forms as $H^1$ Obstruction Signatures}.
+
+%------------------------------------------------------------------
+\section*{Acknowledgments}
+%------------------------------------------------------------------
+
+The author thanks the mathematical physics reading group for feedback
+on the transgression framework, and a research collaborator for
+identifying the $K_{3,3}$ nerve structure, the $\ell_{\text{PM}}$
+dimension correction, and the gerbe classification issue.
+
+%------------------------------------------------------------------
+\begin{thebibliography}{10}
+%------------------------------------------------------------------
+
+\bibitem[AbramskyBrandenburger2011]{AbramskyBrandenburger2011}
+S.~Abramsky and A.~Brandenburger,
+``The sheaf-theoretic structure of non-locality and contextuality,''
+\textit{New J. Phys.} \textbf{13}, 113036 (2011).
+
+\bibitem[Godement1958]{Godement1958}
+R.~Godement,
+\textit{Th\'eorie des faisceaux},
+Actualit\'es Sci. Ind. 1252,
+Hermann, Paris (1958).
+
+\bibitem[MasonSkinner2014]{MasonSkinner2014}
+L.~Mason and D.~Skinner,
+``Ambitwistor strings and the scattering equations,''
+\textit{J. High Energy Phys.} \textbf{2014}, 048 (2014).
+
+\bibitem[PaperV]{PaperV}
+Z.-L.~Chen,
+``Observation as Functor: 
+The Adjunction of Quantum and Classical,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073318} (2026).
+
+\bibitem[PaperVII]{PaperVII}
+Z.-L.~Chen,
+``Twistor Theory from the Obstruction Ladder:
+The Googly Problem as an $H^2$ Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20438042} (2026).
+
+\end{thebibliography}
+
+\end{document}

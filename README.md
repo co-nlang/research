@@ -1,6 +1,6 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A seven-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers.
+A Eight-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers, extended by Paper VIII with explicit functor construction and twisted Penrose transform.
 
 **Author:** Zhou-Li Chen (co-nlang Research)
 
@@ -50,6 +50,7 @@ research/
 │   ├── LsNote_noncommutativity.tex         # L-S contraction & H² (Appendix to Paper III)
 │   ├── LsNote_associativity.tex            # L-S contraction & H³ + octonionic boundary
 │   ├── Paper7_twistor_googly.tex
+│   ├── Paper8_explicit_construction.tex
 │   └── supplementary/
 │       ├── construct_16cell/
 │       │   ├── LICENSE                     # MIT
@@ -69,7 +70,7 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
@@ -77,6 +78,7 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **The Epilogue** provides the unifying vision (EML system, Solèr's theorem, obstruction ladder).
 - **Papers V–VI** ascend to the categorical abstraction and prove the necessity of $\mathbb{C}$.
 - **Paper VII** resolves the Penrose googly problem (twistor theory's 59-year open question) as an $H^2$ obstruction, with $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ verified computationally.
+- **Paper VIII** completes the explicit construction of the $\Phi$ functor, identifies the PM nerve as $K_{3,3}$ (not a 2-simplex), decomposes $\Phi$ as a transgression $\ell \circ \tau \circ \iota^*$, and formulates the twisted Penrose transform via $\Z/2$-gerbe as an open problem.
 
 ### Supplementary L-S Appendices
 
@@ -97,7 +99,8 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | Epilogue | *The Algebraic Logic of Geometry* | EML system & Solèr's theorem | $\mathcal{Q} \dashv \mathcal{B}$ adjunction and the obstruction ladder |
 | V | *Observation as Functor: The Adjunction of Quantum and Classical* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
 | VI | *The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of Observation* | Solèr-Cohomology Theorem | $\mathbb{C}$ is the unique division ring permitting non-trivial continuous observation |
-| VII | *Twistor Googly as Cohomological Obstruction* | Peres–Mermin → $\CP^3$ | Googly problem = $H^2$ obstruction; $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ verified |
+| VII | *Twistor Theory from the Obstruction Ladder: The Googly Problem as an H2 Obstruction* | Peres–Mermin → $\mathbb{CP}^3$ | Googly problem = $H^2$ obstruction; $\Phi^*([f]) = c_1(\cO(1)) \bmod 2$ verified |
+| VIII | *The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder: Explicit Transgression and Twisted Penrose Transform* | $K_{3,3}$ nerve, transgression, gerbe | $\Phi = \ell \circ \tau \circ \iota^*$; MASA count $(4^n-1)(4^{n-1}-1)/3$; $\Z/2$-gerbe classified by $[e] \in H^2(\CP^3,\Z/2)$ |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -147,12 +150,13 @@ All components are archived on Zenodo:
 | Epilogue | [10.5281/zenodo.20073253](https://doi.org/10.5281/zenodo.20073253) |
 | Paper V | [10.5281/zenodo.20073318](https://doi.org/10.5281/zenodo.20073318) |
 | Paper VI | [10.5281/zenodo.20073424](https://doi.org/10.5281/zenodo.20073424) |
-| `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
 | Paper VII | [10.5281/zenodo.20438042](https://doi.org/10.5281/zenodo.20438042) |
-| `paper7_conj42.py`/`paper7_conj42_layer2.py` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
+| Paper VIII | [10.5281/zenodo.20454120](https://doi.org/10.5281/zenodo.20454120) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
+| `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
+| `paper7_conj42.py`/`paper7_conj42_layer2.py` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
 
 ---
 
@@ -179,7 +183,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Seven-paper series with epilogue},
+  note   = {Eight-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```
