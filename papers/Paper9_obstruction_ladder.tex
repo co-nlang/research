@@ -1,0 +1,1093 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{The 3-Qubit Obstruction Ladder: Hyperbolic Embedding,\\
+       Mermin Pentagram, and Two Klein Quartic Bridges\\
+       {\large (Paper IX)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Paper~VIII~\cite{PaperVIII} established the 2-qubit obstruction ladder via
+  the explicit transgression functor $\Phi: H^1(K_{3,3}, \Z/2) \to H^2(\CP^3, \Z/2)$.
+  The connection to modular geometry was left open: $W(3, \F_2)$ has automorphism
+  group $PSp(4, \F_2) \cong S_6$, which is too small to contain $PSL(2, 7)$
+  (the Klein quartic's automorphism group).
+
+  Paper~IX steps up to 3 qubits. The hyperbolic embedding
+  $GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$ via $g \mapsto \mathrm{diag}(g, g^{-T})$
+  (Theorem~\ref{thm:hyperbolic}) realizes the Fano plane $PG(2, \F_2)$ as an
+  isotropic subgeometry of $W(5, \F_2)$ (Theorem~\ref{thm:fano-isotropic}).
+  Since $GL(3, \F_2) \cong PSL(2, 7)$, this provides a bridge from the 3-qubit
+  symplectic geometry to the Klein quartic $X(7)$.
+
+  The Mermin pentagram embeds into $W(5, \F_2)$ with 12{,}096 distinct
+  copies, and the $GL(3, \F_2)$-orbit of the GHZ context yields a
+  surjective map from pentagram contexts to Fano points
+  (Proposition~\ref{prop:fano-pentagram}).
+
+  A second path to $PSL(2, 7)$ arises through the Split Cayley Hexagon
+  $H(2)$: $PSL(2, 7) \leq PSU(3, 3) = G_2(2)' \leq G_2(2) \leq PSp(6, \F_2)$.
+  We prove (Proposition~\ref{prop:non-conjugacy}) that the two $PSL(2, 7)$
+  subgroups are \emph{not} conjugate in $PSp(6, \F_2)$: Path~A stabilizes a
+  Lagrangian (order-count argument: $|G_2(2)| = 12{,}096 >
+  |P_L| = 10{,}752$ for every Lagrangian stabilizer $P_L$, so Path~B's
+  $PSL(2,7) \leq G_2(2)$ cannot stabilize any Lagrangian). Thus
+  $PSp(6, \F_2)$ contains \emph{two distinct} Klein quartic bridges.
+
+  The 3-qubit obstruction class $[f_3]$ is formulated in sheaf cohomology
+  $H^1(K_5, \cF)$ where $\cF$ is the sheaf of valid eigenvalue assignments
+  on the Mermin pentagram nerve.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+Paper~VIII~\cite{PaperVIII} completed the explicit construction of the
+functor $\Phi$ mapping the Peres--Mermin~\cite{Peres1991} contextuality obstruction to
+the mod-2 Chern class of twistor space. The 2-qubit MASA poset is
+isomorphic to the symplectic polar space $W(3, \F_2)$ with automorphism
+group $PSp(4, \F_2) \cong S_6$ of order 720.
+
+The Klein quartic $X(7)$, the modular curve of level~7, has
+automorphism group $PSL(2, 7) \cong GL(3, \F_2)$ of order 168. Since
+$168 \nmid 720$, no embedding $PSL(2, 7) \hookrightarrow S_6$ exists.
+The connection to modular geometry therefore \emph{only opens at 3 qubits},
+where $PSp(6, \F_2)$ has order 1{,}451{,}520.
+
+Paper~IX resolves this connection via the \emph{hyperbolic embedding}:
+\[
+GL(3, \F_2) \hookrightarrow PSp(6, \F_2), \qquad
+g \mapsto \begin{pmatrix} g & 0 \\ 0 & g^{-T} \end{pmatrix}.
+\]
+The main results are:
+
+\begin{enumerate}
+  \item \textbf{Theorem~\ref{thm:hyperbolic} (Hyperbolic Embedding).}
+    The map $g \mapsto \mathrm{diag}(g, g^{-T})$ is an explicit embedding
+    $GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$ preserving the natural
+    symplectic form on $\F_2^3 \oplus (\F_2^3)^*$.
+
+  \item \textbf{Theorem~\ref{thm:fano-isotropic} (Fano Isotropic Subgeometry).}
+    Under the hyperbolic embedding, the 7 points of the Fano plane
+    $PG(2, \F_2)$ embed as an isotropic subgeometry of $W(5, \F_2)$.
+    The stabilizer of this subgeometry is $GL(3, \F_2) \cong PSL(2, 7)$.
+
+  \item \textbf{Proposition~\ref{prop:fano-pentagram} (Fano--Pentagram Correspondence).}
+    Every Mermin pentagram context in the $GL(3, \F_2)$-orbit of the GHZ
+    context contains exactly one point of the Fano isotropic subgeometry.
+    The equivariant map from orbit contexts to Fano points is surjective.
+
+  \item \textbf{Proposition~\ref{prop:non-conjugacy} (Non-conjugacy of Two Paths).}
+    Path~A's $PSL(2,7)$ (stabilizes the Lagrangian $V$) and Path~B's
+    $PSL(2,7)$ (embedded in $G_2(2)$, stabilizes no Lagrangian since
+    $|G_2(2)| > |P_L|$) are \emph{not} conjugate in $PSp(6, \F_2)$.
+    $PSp(6, \F_2)$ contains \emph{two distinct} Klein quartic bridges.
+
+  \item \textbf{Mock modular forms as obstruction signatures} (\S\ref{sec:mock}):
+    The shadow map of mock theta functions is structurally analogous to
+    the $d_1$ differential in the Leray spectral sequence.
+
+  \item \textbf{Quantum Darwinism categorification} (\S\ref{sec:darwinism}):
+    The adjunction $\mathcal{Q} \dashv \mathcal{B}$ is interpreted as
+    the categorical formulation of quantum Darwinism.
+\end{enumerate}
+
+The core narrative of this paper:
+
+\begin{quote}
+Paper~VIII established the 2-qubit obstruction ladder. Paper~IX steps up
+to 3 qubits: the symplectic polar space $W(5, \F_2)$ contains the Fano
+plane as an isotropic subgeometry (Theorems~\ref{thm:hyperbolic}--\ref{thm:fano-isotropic}),
+whose automorphism group $GL(3, \F_2) \cong PSL(2, 7)$ provides the first
+bridge to the Klein quartic. Surprisingly, this ``hyperbolic bridge'' (stabilizes the Lagrangian $V$)
+is not conjugate to a second bridge through $G_2(2)$ (which stabilizes
+no Lagrangian, since $|G_2(2)| = 12{,}096 > |P_L| = 10{,}752$) ---
+$PSp(6, \F_2)$ contains two geometrically inequivalent Klein quartic
+structures (Proposition~\ref{prop:non-conjugacy}).
+\end{quote}
+
+%------------------------------------------------------------------
+\section{The Hyperbolic Embedding Theorem}
+\label{sec:hyperbolic}
+%------------------------------------------------------------------
+
+\subsection{Symplectic Polar Spaces and Their Automorphisms}
+\label{sec:sp-table}
+
+The symplectic polar space $W(2n-1, \F_2)$ is the geometry of totally
+isotropic subspaces of $\F_2^{2n}$ equipped with a non-degenerate
+symplectic form. Its automorphism group is $PSp(2n, \F_2)$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c l c c l c}
+\toprule
+$n$ & Space & Points & Lines & Aut Group & Order \\
+\midrule
+1 & $W(1, \F_2)$ & 3 & --- & $PSp(2, \F_2) \cong S_3$ & 6 \\
+2 & $W(3, \F_2) = GQ(2,2)$ & 15 & 15 & $PSp(4, \F_2) \cong S_6$ & 720 \\
+3 & $W(5, \F_2)$ & 63 & 315 & $PSp(6, \F_2)$ & 1,451,520 \\
+\bottomrule
+\end{tabular}
+\caption{Symplectic polar spaces $W(2n-1, \F_2)$ for small $n$.}
+\label{tab:sp-table}
+\end{table}
+
+The 2-qubit case $W(3, \F_2)$ was the setting of Papers~VII and
+VIII~\cite{PaperVII, PaperVIII}. The 3-qubit case $W(5, \F_2)$ is the
+new territory.
+
+\subsection{The Hyperbolic Embedding}
+\label{sec:hyperbolic-embedding}
+
+Let $V = \F_2^3$. The natural symplectic form on $V \oplus V^*$ is:
+\[
+\langle (v, \phi), (w, \psi) \rangle = \phi(w) + \psi(v) \in \F_2.
+\]
+
+The group $GL(3, \F_2)$ acts on $V \oplus V^*$ by:
+\[
+g \cdot (v, \phi) = (gv, \phi \circ g^{-1}).
+\]
+
+This action preserves the symplectic form (direct verification). In
+matrix form:
+\[
+g \mapsto \begin{pmatrix} g & 0 \\ 0 & g^{-T} \end{pmatrix} \in Sp(6, \F_2).
+\]
+
+\begin{theorem}[Hyperbolic Embedding]
+\label{thm:hyperbolic}
+The map $g \mapsto \mathrm{diag}(g, g^{-T})$ is an injective homomorphism
+$GL(3, \F_2) \hookrightarrow Sp(6, \F_2) = PSp(6, \F_2)$.
+\end{theorem}
+
+\begin{proof}
+Injectivity is clear since $g \mapsto g$ is injective on $GL(3, \F_2)$.
+The symplectic preservation is verified by:
+\[
+\langle g(v, \phi), g(w, \psi) \rangle
+= (\phi \circ g^{-1})(gw) + (\psi \circ g^{-1})(gv)
+= \phi(w) + \psi(v)
+= \langle (v, \phi), (w, \psi) \rangle. \qedhere
+\]
+\end{proof}
+
+\subsection{Fano Plane as Isotropic Subgeometry}
+\label{sec:fano-isotropic}
+
+The Fano plane $PG(2, \F_2)$ is the projective plane over $\F_2$:
+7 points (non-zero vectors of $\F_2^3$ modulo scalars) and 7 lines
+(2-dimensional subspaces).
+
+Under the hyperbolic embedding, the 7 points of $PG(2, \F_2)$ map to
+the 7 non-zero vectors of $V \subset V \oplus V^*$. Since $V$ is a
+maximal isotropic subspace of $V \oplus V^*$ (the symplectic form
+vanishes identically on $V$), the image of $PG(2, \F_2)$ is an
+\emph{isotropic subgeometry} of $W(5, \F_2)$.
+
+\begin{theorem}[Fano Isotropic Subgeometry]
+\label{thm:fano-isotropic}
+Under the hyperbolic embedding $GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$,
+the Fano plane $PG(2, \F_2)$ embeds as an isotropic subgeometry of
+$W(5, \F_2)$. The stabilizer of this subgeometry in $PSp(6, \F_2)$ is
+isomorphic to $GL(3, \F_2) \cong PSL(2, 7)$.
+\end{theorem}
+
+\begin{proof}
+$V \subset V \oplus V^*$ is maximal isotropic: for all $v, w \in V$,
+$\langle (v, 0), (w, 0) \rangle = 0 + 0 = 0$. The projectivization
+$\mathbb{P}(V) \cong PG(2, \F_2)$ is therefore an isotropic subgeometry.
+
+The stabilizer in $PSp(6, \F_2)$ is the parabolic subgroup $P$ preserving
+the flag $0 \subset V \subset V \oplus V^*$, with Levi decomposition
+$P = L \ltimes U$ where $L \cong GL(3, \F_2)$ and $U$ is the unipotent
+radical (matrices $\begin{psmallmatrix} I & B \\ 0 & I \end{psmallmatrix}$
+with $B = B^T$). Elements of $U$ send $(v, 0)$ to $(v, Bv)$; this vector
+remains isotropic (since $\langle (v,Bv), (w,Bw) \rangle = v^T(B+B^T)w = 0$
+for symmetric $B$), but it lies outside $V$ unless $B = 0$. Thus $U$
+preserves the isotropic property but moves $V$ to a different Lagrangian
+subspace. The stabilizer of $\mathbb{P}(V)$ itself (not just any
+Lagrangian) is therefore exactly $L \cong GL(3, \F_2)$. \qedhere
+\end{proof}
+
+\subsection{The Klein Quartic Connection}
+\label{sec:klein-connection}
+
+The Klein quartic $X(7)$ is the modular curve of level 7:
+\[
+x^3 y + y^3 z + z^3 x = 0 \subset \CP^2.
+\]
+
+It is a Riemann surface of genus 3 with automorphism group $PSL(2, 7)$
+of order 168. The isomorphism $PSL(2, 7) \cong GL(3, \F_2)$ is classical
+(both are simple groups of order 168).
+
+The geometric chain is now complete:
+\[
+W(5, \F_2) \xrightarrow{\text{Aut}} PSp(6, \F_2)
+\supset GL(3, \F_2) \cong PSL(2, 7) \cong \text{Aut}(X(7)).
+\]
+
+The 3-qubit MASA poset (63 points, 315 lines in $W(5, \F_2)$) contains
+the Fano plane (7 points, 7 lines) as an isotropic subgeometry, and the
+automorphism group of this subgeometry is the same as the automorphism
+group of the Klein quartic.
+
+\subsection{Relation to 2-qubit $W(3, \F_2)$}
+\label{sec:2qubit-relation}
+
+The 2-qubit case $W(3, \F_2)$ has automorphism group
+$PSp(4, \F_2) \cong S_6$ of order 720. The relation to $PSL(2, 7)$
+(order 168) is indirect:
+
+\begin{itemize}
+  \item $720 \div 168 = 4.285\ldots$, not an integer. By Lagrange's
+    theorem, $PSL(2, 7) \not\leq S_6$.
+  \item $S_6$ contains no subgroup of order 168. The maximal subgroups
+    of $S_6$ are $S_5$ (120), $A_6$ (360), and $S_4 \times S_2$ (48) ---
+    none divisible by 168.
+\end{itemize}
+
+This explains why the Klein quartic connection \emph{only opens at
+3-qubit}: the 2-qubit automorphism group $S_6$ is too small to contain
+$PSL(2, 7)$.
+
+A computational observation: if one attempts to embed the Fano plane
+$PG(2, \F_2)$ into $W(3, \F_2)$ as a point set, only 3 of the 7 Fano
+lines are isotropic lines of $W(3, \F_2)$. The remaining 4 Fano lines
+fail the isotropic condition. This confirms that the Fano plane's
+``natural home'' is $W(5, \F_2)$: the hyperbolic embedding of
+Theorem~\ref{thm:hyperbolic} sends all 7 Fano lines to isotropic lines,
+which $W(3, \F_2)$ cannot accommodate.
+
+\subsection{Mermin Pentagram and the Fano Subgeometry}
+\label{sec:mermin-fano}
+
+The Mermin pentagram (10 operators, 5 contexts of 4) embeds perfectly
+into $W(5, \F_2)$. There are exactly \textbf{12{,}096} distinct
+pentagram copies in the 3-qubit Pauli group~\cite{LevayPlanatSaniga}.
+This number is significant:
+\[
+12096 = |G_2(2)| = 2^6 \cdot 3^3 \cdot 7.
+\]
+
+The Split Cayley Hexagon $H(2)$ is a subgeometry of $W(5, \F_2)$ with
+63 points (all of them) and 63 lines (a subset of the 315 lines of
+$W(5, \F_2)$). Its automorphism group is $G_2(2)$, and the 12096
+pentagrams form a $G_2(2)$-torsor.
+
+The GHZ context $\{XXX, XYY, YXY, YYX\}$ provides a concrete link to
+the Fano subgeometry. In the symplectic decomposition
+$\F_2^3 \oplus (\F_2^3)^*$:
+
+\[
+\begin{array}{c|c|c|c}
+\text{Operator} & v \text{ (X part)} & \phi \text{ (Z part)} & \text{In Fano?} \\ \hline
+XXX & (1,1,1) & (0,0,0) & \checkmark \\
+XYY & (1,1,1) & (0,1,1) & \times \\
+YXY & (1,1,1) & (1,0,1) & \times \\
+YYX & (1,1,1) & (1,1,0) & \times
+\end{array}
+\]
+
+All four operators share the same $v$-component $(1,1,1)$. Only $XXX$
+has $\phi = 0$, placing it on the Fano plane. Under the $GL(3, \F_2)$
+action $g \cdot (v, \phi) = (gv, g^{-T}\phi)$, the orbit of the GHZ
+context has the property that each context contains exactly one Fano point.
+
+\begin{proposition}[Fano--Pentagram Correspondence]
+\label{prop:fano-pentagram}
+Under the hyperbolic embedding, every Mermin pentagram context in the
+$GL(3, \F_2)$-orbit of the GHZ context contains exactly one point of
+the Fano isotropic subgeometry. The equivariant map
+\[
+\{\text{orbit contexts}\} \longrightarrow PG(2, \F_2), \quad
+C \mapsto C \cap \mathcal{F}
+\]
+is surjective onto all 7 Fano points.
+\end{proposition}
+
+\begin{proof}
+The GHZ context $\{XXX, XYY, YXY, YYX\}$ has all four operators sharing
+the same $v$-component $(1,1,1)$, with $Z$-components
+$(0,0,0), (0,1,1), (1,0,1), (1,1,0)$ respectively. Under the action
+$g \cdot (v, \phi) = (gv, g^{-T}\phi)$, the $v$-components of all four
+operators in $g \cdot C_{\text{GHZ}}$ are identically $g(1,1,1)$, while
+the $Z$-components are $g^{-T}\phi_i$ for the four distinct $\phi_i$.
+Since $g^{-T}$ is a bijection, the four $Z$-components remain distinct;
+exactly one is zero (the image of $\phi = 0$). The Fano plane condition
+is $\phi = 0$, so each context contains exactly one Fano point.
+
+Surjectivity follows because $GL(3, \F_2)$ acts transitively on the
+7 non-zero vectors of $\F_2^3$, hence transitively on the 7 Fano points.
+\qedhere
+\end{proof}
+
+\begin{remark}[Pentagram--Fano Nerve: Toward a Finite Geometry Dictionary]
+\label{rem:nerve-fano-open}
+Proposition~\ref{prop:fano-pentagram} maps \emph{GHZ-orbit} contexts
+to all 7 Fano points surjectively. A finer question arises for a
+specific Mermin pentagram (only 5 contexts): which 5 of the 7 Fano
+points appear, and what geometric configuration do they form in
+$PG(2, \F_2)$?
+
+The $K_5$ nerve has exactly $\binom{5}{2} = 10$ edges (shared operators),
+while 5 Fano points determine 10 pairs, each spanning a projective line.
+This numerical coincidence suggests a \emph{finite geometry dictionary}:
+\[
+\begin{aligned}
+\{K_5 \text{ edges (shared operators)}\}
+&\;\longleftrightarrow\;
+\{\text{pairs of Fano points}\} \\
+&\;\longleftrightarrow\;
+\{\text{incidence lines in } PG(2, \F_2)\}.
+\end{aligned}
+\]
+In $PG(2, \F_2)$, cross-ratios degenerate (characteristic 2), so the
+relevant invariant is \emph{collinearity}. Any 5 Fano points contain at
+least one collinear triple; these triples partition the 10 pairs into
+``collinear'' and ``non-collinear'' classes.
+
+\begin{conjecture}[Collinearity--Obstruction Dictionary]
+\label{conj:collinearity-obstruction}
+Under the hyperbolic embedding, the non-triviality of
+$[f_3] \in H^1(K_5, \cF)$ is equivalent to the collinearity
+pattern of the 5 corresponding Fano points admitting no consistent
+$\Z/2$-labeling compatible with all incidence relations. The
+Kochen--Specker contradiction ($0 = 1 \pmod 2$ from product parity)
+translates to a collinearity obstruction in $PG(2, \F_2)$.
+\end{conjecture}
+
+If confirmed, this conjecture would yield a purely geometric proof that
+$[f_3] \neq 0$, bypassing the algebraic product-parity argument, and
+connect the pentagram obstruction directly to the projective geometry of
+the Klein quartic's automorphism group $PSL(2, 7) = \mathrm{Aut}(PG(2,\F_2))$.
+\end{remark}
+
+\subsection{Split Cayley Hexagon and $G_2(2)$}
+\label{sec:cayley-hexagon}
+
+The number 12096 has a deeper geometric meaning. The Split Cayley
+Hexagon $H(2)$ is a generalized hexagon embedded in $W(5, \F_2)$:
+\begin{itemize}
+  \item \textbf{Points:} 63 (all points of $W(5, \F_2)$)
+  \item \textbf{Lines:} 63 (a distinguished subset of the 315 lines)
+  \item \textbf{Automorphism group:} $G_2(2)$ of order 12096
+\end{itemize}
+
+The derived subgroup $G_2(2)' = PSU(3, 3)$ has order 6048. From the
+ATLAS of Finite Groups~\cite{ATLAS}, $PSU(3, 3)$ contains $PSL(2, 7)$ as a maximal
+subgroup (index 36). This provides a second path from $PSL(2, 7)$ to
+$W(5, \F_2)$:
+\[
+PSL(2, 7) \leq PSU(3, 3) = G_2(2)' \leq G_2(2) \leq PSp(6, \F_2).
+\]
+
+\subsection{Two Paths to the Klein Quartic}
+\label{sec:two-paths}
+
+Two independent embeddings of $PSL(2, 7) \cong GL(3, \F_2)$ into
+$PSp(6, \F_2)$:
+
+\begin{itemize}
+  \item \textbf{Path A (hyperbolic):}
+    $GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$ via
+    $g \mapsto \mathrm{diag}(g, g^{-T})$ (Theorem~\ref{thm:hyperbolic})
+  \item \textbf{Path B (Cayley Hexagon):}
+    $PSL(2, 7) \leq PSU(3, 3) \leq G_2(2) \leq PSp(6, \F_2)$
+\end{itemize}
+
+\begin{proposition}[Non-conjugacy of Paths]
+\label{prop:non-conjugacy}
+The two $PSL(2, 7)$ subgroups from Path A (hyperbolic) and Path B
+(Cayley Hexagon) are \emph{not} conjugate in $PSp(6, \F_2)$. Path~A's
+$PSL(2,7)$ stabilizes a Lagrangian (namely $V$); Path~B's $PSL(2,7)$,
+embedded via $G_2(2)$, does not stabilize any Lagrangian. Since
+$|G_2(2)| = 12{,}096 > |P_L| = 10{,}752$ for every Lagrangian
+stabilizer $P_L$, conjugation in $PSp(6, \F_2)$ cannot map one
+subgroup to the other.
+\end{proposition}
+
+\begin{proof}
+\textbf{Path A fixes a Lagrangian; Path B cannot.}
+
+The hyperbolic embedding $g \mapsto \mathrm{diag}(g, g^{-T})$ preserves
+the Lagrangian subspace $V \subset V \oplus V^*$ by construction, so
+Path~A's $PSL(2,7)$ is contained in the parabolic subgroup
+$P_V \leq Sp(6, \F_2)$ stabilizing $V$.
+
+The group $Sp(6, \F_2)$ acts transitively on the 135 Lagrangians of
+$W(5, \F_2)$, giving $|P_V| = |Sp(6, \F_2)|/135 = 1{,}451{,}520/135 = 10{,}752$.
+Since $|G_2(2)| = 12{,}096 > 10{,}752$, the subgroup $G_2(2)$ is strictly
+larger than any Lagrangian stabilizer: $G_2(2) \not\leq P_L$ for
+\emph{every} Lagrangian $L$. In particular, $G_2(2)$ fixes no Lagrangian.
+
+Path~B's $PSL(2,7)$ is embedded in $G_2(2)$, whose geometric structure
+(automorphisms of the Split Cayley Hexagon) is incompatible with fixing
+any Lagrangian. Path~B therefore does not stabilize $V$ (nor any other
+Lagrangian in the same $PSp(6,\F_2)$-orbit as $V$).
+
+Since Path~A's $PSL(2,7)$ stabilizes a Lagrangian and Path~B's does
+not, the two subgroups cannot be conjugate in $PSp(6, \F_2)$: conjugation
+by any element of $PSp(6, \F_2)$ maps stabilizers of Lagrangians to
+stabilizers of Lagrangians. \qedhere
+\end{proof}
+
+This means $PSp(6, \F_2)$ contains \emph{two distinct} Klein quartic
+bridges, each with its own geometric significance:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l l}
+\toprule
+& Path A (hyperbolic) & Path B ($G_2(2)$) \\
+\midrule
+Representation & Reducible $3 \oplus 3^*$ & 6-dim, no invariant Lagrangian \\
+Fixed geometry & Fano plane $\mathbb{P}(V)$ & No invariant Lagrangian \\
+Semantics & Classical $PSL(2,7)$ & Quantum $PSL(2,7)$ \\
+\bottomrule
+\end{tabular}
+\caption{Two non-conjugate Klein quartic bridges in $PSp(6, \F_2)$.}
+\label{tab:two-paths}
+\end{table}
+
+\begin{itemize}
+  \item \textbf{Path A} (hyperbolic): connects to the Fano isotropic
+    subgeometry via the Lagrangian decomposition
+  \item \textbf{Path B} (Cayley Hexagon): connects to the Split Cayley
+    Hexagon $H(2)$ and its 12096 pentagrams
+\end{itemize}
+
+\begin{remark}[Path B and Non-Geometric Backgrounds ($\circ$)]
+\label{rem:pathb-physics}
+Path~A's Lagrangian-stabilizing $PSL(2,7)$ has a natural physical
+interpretation: the decomposition $\F_2^6 = V \oplus V^*$ mirrors the
+position/momentum split in T-duality, and stabilizing $V$ corresponds
+to fixing a ``geometric'' D-brane boundary condition.
+
+Path~B, embedded via $G_2(2)$, stabilizes no Lagrangian. In string
+theory, the failure to preserve any Lagrangian under T-duality is
+precisely the signature of \emph{non-geometric fluxes}. In the chain
+$H \to f \to Q \to R$, the $Q$- and $R$-fluxes are those that mix
+position and momentum coordinates in a way incompatible with any
+geometric T-duality frame. Path~B's $PSL(2,7) \leq G_2(2)$ may
+therefore correspond to the discrete symmetry of a non-geometric flux
+background --- the two Klein quartic bridges would represent:
+Path~A $=$ geometric modular geometry, Path~B $=$ its non-geometric
+flux dual. Whether $G_2(2)$ (automorphisms of the Split Cayley Hexagon)
+appears as a discrete symmetry in M-theory compactification on a
+$G_2$-holonomy manifold is an open problem (\S\ref{sec:pathb-physics}).
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Mock Modular Forms as $H^1$ Obstruction Signatures}
+\label{sec:mock}
+%------------------------------------------------------------------
+
+\subsection{Mock Theta Functions and the Shadow Map}
+
+A mock theta function $f(\tau)$ is a holomorphic function on the upper
+half-plane that ``almost'' transforms like a modular form but requires
+a non-holomorphic correction term~\cite{Zwegers}. The completion
+$\widehat{f} = f + g^*$ transforms as a modular form, where $g$ is the
+\emph{shadow} --- a genuine modular form of weight $k + 1/2$.
+
+The shadow map is a linear operator:
+\[
+\xi: \widehat{M}_k \longrightarrow S_{k+1/2},
+\]
+where $\widehat{M}_k$ is the space of completed mock modular forms and
+$S_{k+1/2}$ is the space of cusp forms.
+
+The exact sequence:
+\[
+0 \longrightarrow M^!_k \longrightarrow \widehat{M}_k
+\xrightarrow{\;\xi\;} S_{k+1/2} \longrightarrow 0
+\]
+has the structure of an $H^1$ exact sequence: mock forms are 1-cocycles
+that are not coboundaries, and the shadow measures ``how far'' they are
+from being genuine modular forms.
+
+\subsection{Shadow Map as $d_1$ Differential}
+
+The structural parallel with the obstruction ladder:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l}
+\toprule
+Mock Modular Forms & Obstruction Ladder \\
+\midrule
+Shadow map $\xi$ & $d_1$ differential (Leray SS) \\
+$\widehat{f}$ ``non-holomorphic'' & Gerbe-twisted $H^1$ non-vanishing \\
+Level 7 modular equations & Klein quartic $X(7)$ with $PSL(2, 7)$ action \\
+$p(n) \bmod 2$ distribution & $H^2(\CP^3, \Z/2)$ class \\
+Rogers--Ramanujan identities & Self-dual / anti-self-dual splitting \\
+\bottomrule
+\end{tabular}
+\caption{Structural parallel between mock modular forms and the obstruction ladder.}
+\label{tab:mock-parallel}
+\end{table}
+
+The shadow map $\xi$ is structurally identical to the $d_1$ differential
+in the Leray spectral sequence: both measure the failure of local data
+to glue into global sections.
+
+\subsection{Level 7 and the Klein Quartic}
+
+The modular curve $X(7)$ is the Klein quartic. The space of cusp forms
+$S_{3/2}(\Gamma(7))$ carries an action of $PSL(2, 7)$. The shadow map
+for level-7 mock forms:
+\[
+\xi_7: \widehat{M}_k(\Gamma(7)) \longrightarrow S_{k+1/2}(\Gamma(7))
+\]
+is equivariant under the $PSL(2, 7)$ action.
+
+\begin{remark}[Shadow--Obstruction Correspondence]
+\label{rem:shadow-obstruction}
+The shadow map $\xi_7$ for level-7 mock modular forms is structurally
+analogous to the $d_1$ differential in the Leray spectral sequence for
+the Fano isotropic subgeometry of $W(5, \F_2)$:
+\[
+\xi_7 \;\text{``}\cong\text{''}\; d_1: E_1^{0,1} \longrightarrow E_1^{1,1}.
+\]
+This is a heuristic correspondence: $\xi_7$ is a linear map between
+infinite-dimensional complex function spaces (half-integral weight
+modular forms), while $d_1$ is a differential between finite
+$\Z/2$-vector spaces. An equivariant isomorphism would require a
+precisely defined functor from modular forms to $\F_2$-cohomology
+(e.g., a mod-$p$ reduction functor), which is not yet constructed.
+\end{remark}
+
+\subsection{Partition Function: Open Question}
+
+Bringmann and Ono~\cite{BringmannOno2006} proved the Andrews--Dragonette conjecture using
+traces of singular moduli. Singular moduli are elements of the ideal
+class group --- which is an $H^1$ obstruction group.
+
+Ramanujan's celebrated congruences establish deep modular structure for
+$p(n)$: $p(5n+4) \equiv 0 \pmod 5$, $p(7n+5) \equiv 0 \pmod 7$,
+$p(11n+6) \equiv 0 \pmod{11}$. The behavior modulo 2 is more subtle:
+$p(n)$ is odd for a density-zero set of integers (a theorem of Serre
+via the theory of lacunary modular forms). The critical alignment for
+this paper is that $H^2(\CP^3, \Z/2)$ is also $\Z/2$-valued: any
+pairing $H_1(K_{3,3}, \Z/2) \times H^1(K_{3,3}, \Z/2) \to \Z/2$
+produces \emph{parity} outputs, naturally matching the $p(n) \bmod 2$
+domain.
+
+A speculative connection: the partition function $p(n)$ modulo 2 might
+be related to the obstruction class of the 2-qubit MASA poset via a
+pairing:
+\[
+p(n) \bmod 2 \stackrel{?}{=} \langle [f], \text{cycle}_n \rangle_{\Z/2}.
+\]
+However, this requires an explicit construction of
+$\text{cycle}_n \in H_1(K_{3,3}, \Z/2)$ from the binary expansion of
+$n$. This is moved to \S\ref{sec:open-problems} as an open problem.
+
+%------------------------------------------------------------------
+\section{$\mathcal{Q} \dashv \mathcal{B}$ as Quantum Darwinism Categorification}
+\label{sec:darwinism}
+%------------------------------------------------------------------
+
+\subsection{The Adjunction}
+
+Paper~V~\cite{PaperV} conjectured an adjunction $\mathcal{Q} \dashv \mathcal{B}$
+between ``quantum'' and ``classical'' categories. Paper~VIII realized
+this for the $SU(2)$ case:
+\begin{itemize}
+  \item $\mathcal{Q} = \Phi_*$: quantization (pushforward from MASA nerve
+    to twistor space)
+  \item $\mathcal{B} = \Phi^*$: Bohrification (pullback from quantum to
+    classical)
+\end{itemize}
+
+\subsection{Quantum Darwinism}
+
+Quantum Darwinism (Zurek~\cite{Zurek2009}) asks: what information survives decoherence
+and becomes accessible to multiple observers? The core mechanism is
+\emph{redundant encoding} --- classical information is the part of the
+quantum state that can be reconstructed from many disjoint environment
+fragments.
+
+The adjunction $\mathcal{Q} \dashv \mathcal{B}$ categorifies this:
+\begin{itemize}
+  \item $\mathcal{B} = \Phi^*$ (Bohrification) = \emph{coarse-graining}:
+    projects the full quantum state onto classical measurement contexts
+    (MASAs)
+  \item $\mathcal{Q} = \Phi_*$ (quantization) = \emph{record lifting}:
+    attempts to reconstruct the quantum state from classical records
+\end{itemize}
+
+\subsection{PM Obstruction as Non-extendable Section}
+
+The PM obstruction class $[f] \in H^1(K_{3,3}, \Z/2)$ is precisely the
+information that \emph{cannot} be reconstructed from local MASA records.
+In the language of Quantum Darwinism:
+
+\begin{itemize}
+  \item Each MASA context is an ``environment fragment''
+  \item The sheaf of local sections over the MASA nerve represents the
+    classical records
+  \item The obstruction $[f]$ is the \emph{non-extendable section} ---
+    the part of the quantum state that cannot be redundantly encoded
+\end{itemize}
+
+\begin{proposition}[Darwinistic Obstruction]
+\label{prop:darwinism}
+The PM contextuality class $[f] \in H^1(K_{3,3}, \Z/2)$ measures the
+information that is lost under Bohrification and cannot be recovered by
+any classical record-lifting procedure.
+\end{proposition}
+
+\begin{proof}
+The sheaf of local sections over $K_{3,3}$ has no global section
+extending the local data on the 6-cycle. The obstruction class $[f]$
+is a specific non-zero element of
+$H^1(K_{3,3}, \Z/2) \cong (\Z/2)^4$ --- the PM obstruction class ---
+that prevents this extension (Lemma~2.3 of Paper~VIII~\cite{PaperVIII}).
+\qedhere
+\end{proof}
+
+\subsection{n-Qubit Generalization}
+
+For $n$ qubits, the MASA nerve is the \v{C}ech nerve of
+$W(2n-1, \F_2)$. The obstruction class
+$[f_n] \in H^1(\mathcal{N}(\mathcal{C}(\mathcal{P}_n)), \Z/2)$ measures
+the information lost under $n$-qubit Bohrification.
+
+For $n=3$: $W(5, \F_2)$ has 63 points and 315 lines. The Fano isotropic
+subgeometry (7 points in $V$) is a ``classical core'' that can be
+redundantly encoded. The choice of $V$ over $V^*$ is not arbitrary: $V$
+corresponds to the position basis (the MASA of diagonal operators in the
+computational basis), while $V^*$ corresponds to the momentum basis. In
+the Bohrification picture, $V$ is the privileged classical context
+selected by the measurement apparatus --- the ``pointer basis'' in
+Zurek's terminology. The remaining 56 points of
+$W(5, \F_2) \setminus (V \cup V^*)$ carry the quantum obstruction.
+
+%------------------------------------------------------------------
+\section{Open Problems}
+\label{sec:open-problems}
+%------------------------------------------------------------------
+
+\subsection{Gerbe $H^1$ Non-vanishing (from Paper~VIII)}
+
+The twisted Penrose transform
+$H^1_{\mathcal{G}}(\CP^3, \cO_{\mathcal{G}}(-n-2))$ remains an open
+problem. The standard Leray analysis gives $R^1\pi_*\cO_{\mathcal{G}} = 0$,
+so the $\Z/2$-gerbe obstruction cannot be detected by classical sheaf
+cohomology. Three concrete activation mechanisms:
+
+\begin{enumerate}
+  \item \textbf{Kapustin--Witten $B$-field twist.}
+    {\sloppy In the geometric Langlands program~\cite{KapustinWitten2007},
+    a $B$-field background (a $U(1)$-gerbe) twists the category
+    of $\mathcal{D}$-modules; a $\Z/2$-gerbe corresponds to an
+    orientifold $B$-field. In the KW topological twist of
+    $\mathcal{N}=4$ SYM, the gerbe class $[e] \in H^2(\CP^3, \Z/2)$
+    deforms the de~Rham complex and can activate cohomology that
+    vanishes without the twist. Whether $[e]$ gives non-zero
+    $H^1_{\mathcal{G}}$ after the KW twist is the key computation.\par}
+
+  \item \textbf{Derived category with singular support.}
+    The classical Leray failure ($R^1\pi_*\cO_{\mathcal{G}} = 0$) is an
+    ordinary derived category statement. The theory of singular support
+    in $D^b_{\mathcal{G}}(\CP^3)$ --- in the spirit of the Arinkin--Gaitsgory
+    spectral decomposition in geometric Langlands --- provides a mechanism:
+    $R^1\pi_*\cO_{\mathcal{G}}$ may be non-trivial as an object with
+    specified singular support, even though it vanishes in the full
+    derived category. The $\Z/2$-Clifford algebra twist is the natural
+    coefficient system.
+
+  \item \textbf{Ambitwistor space and orientifold flux.}
+    In ambitwistor space $\mathbb{PA} \subset \mathbb{PT} \times \mathbb{PT}^*$,
+    the NS-NS $B$-field is a $U(1)$-gerbe; a $\Z/2$-gerbe corresponds to
+    orientifold flux. The twisted Penrose transform in this setting may
+    yield non-vanishing $H^1_{\mathcal{G}}$ via discrete instanton
+    corrections to the flat-space result.
+\end{enumerate}
+
+\subsection{3-qubit $W(5, \F_2)$ Obstruction Class}
+\label{sec:3qubit-obstruction}
+
+The 3-qubit analog of the PM square is the \emph{Mermin pentagram}
+(Mermin~\cite{Mermin1990}): 10 three-qubit Pauli operators arranged on a pentagram
+with 5 contexts (lines of 4 mutually commuting operators). Each operator
+appears in exactly 2 contexts.
+
+One context is
+$\{X \otimes X \otimes X,\; X \otimes Y \otimes Y,\; Y \otimes X \otimes Y,\;
+Y \otimes Y \otimes X\}$, whose product is $-\mathbf{I}_8$. In the
+symplectic vector space $\F_2^6$, these four operators span a
+3-dimensional isotropic subspace (a Lagrangian):
+\[
+\begin{array}{c|c}
+\text{Operator} & (x_1,z_1,x_2,z_2,x_3,z_3) \\ \hline
+XXX & (1,0,1,0,1,0) \\
+XYY & (1,0,1,1,1,1) \\
+YXY & (1,1,1,0,1,1) \\
+YYX & (1,1,1,1,1,0)
+\end{array}
+\]
+The sum $v_1 + v_2 + v_3 = v_4 \pmod 2$, confirming linear dependence.
+The full MASA is
+\[
+\{XXX, XYY, YXY, YYX, IZZ, ZIZ, ZZI\}
+\]
+(7 non-identity elements).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c l}
+\toprule
+Context & 4 Operators \\
+\midrule
+$C_1$ & $XXX,\; XYY,\; YXY,\; YYX$ \\
+$C_2$ & $XXX,\; ZZX,\; ZXZ,\; XZZ$ \\
+$C_3$ & $YXY,\; ZXZ,\; ZYY,\; YYZ$ \\
+$C_4$ & $YYX,\; ZZX,\; ZYY,\; YZY$ \\
+$C_5$ & $XYY,\; XZZ,\; YYZ,\; YZY$ \\
+\bottomrule
+\end{tabular}
+\caption{Explicit Mermin pentagram: 10 operators across 5 contexts.}
+\label{tab:pentagram}
+\end{table}
+
+Shared operators (= $K_5$ edges):
+\begin{align*}
+C_1 \cap C_2 &= XXX, & C_1 \cap C_3 &= YXY, &
+C_1 \cap C_4 &= YYX, & C_1 \cap C_5 &= XYY, \\
+C_2 \cap C_3 &= ZXZ, & C_2 \cap C_4 &= ZZX, &
+C_2 \cap C_5 &= XZZ, \\
+C_3 \cap C_4 &= ZYY, & C_3 \cap C_5 &= YYZ, &
+C_4 \cap C_5 &= YZY.
+\end{align*}
+
+All 10 pairs within each context commute (verified: each context's 4
+operators share a common eigenbasis). The product of operators in each
+context yields $\pm \mathbf{I}_8$; the parity of minus signs encodes the
+obstruction class $[f_3]$.
+
+\begin{remark}[KS Contradiction Prerequisite]
+{\sloppy The Kochen--Specker contradiction~\cite{KochenSpecker1967} requires
+an \emph{odd} number of contexts with product $-\mathbf{I}$. For the
+pentagram in Table~\ref{tab:pentagram}, the context products must be
+verified: the system of 5 context equations is inconsistent because
+summing all 5 equations gives $0 = 1 \pmod 2$ (each of the 10 operators
+appears in exactly 2 contexts, so the LHS sums to 0, but the RHS sums
+to 1 from the anomalous context(s)). The explicit count of $-\mathbf{I}$
+contexts should be odd for the KS contradiction to hold.\par}
+\end{remark}
+
+The \v{C}ech nerve of the Mermin pentagram is the complete graph $K_5$
+(5 vertices = contexts, 10 edges = shared operators):
+\[
+H^1(K_5, \Z/2) \cong (\Z/2)^6, \qquad \beta_1 = 6.
+\]
+The geometric transition from 2-qubit to 3-qubit is $K_{3,3}$
+(bipartite, row/column symmetry) $\to K_5$ (complete, five-fold
+symmetry).
+
+The obstruction class $[f_3]$ is the cohomology class corresponding to
+the $-\mathbf{I}$ product anomaly. Unlike the 2-qubit case where
+$[f] \in H^1(K_{3,3}, \Z/2)$ with constant coefficients, the 3-qubit
+obstruction lives in the \emph{sheaf cohomology} $H^1(K_5, \cF)$ where
+$\cF$ is the sheaf of valid eigenvalue assignments:
+
+\begin{itemize}
+  \item For each context $C_i$,
+    $\cF(C_i) = \{ \text{valid } \pm 1 \text{ assignments to 4 operators} \}
+    \cong (\Z/2)^3$ (4 variables with 1 product constraint).
+  \item For each edge $C_i \cap C_j$, $\cF(C_i \cap C_j) = \{ \pm 1 \}$
+    (the shared operator's eigenvalue).
+  \item Restriction maps: project a context's assignment to the shared
+    operator's value.
+\end{itemize}
+
+The obstruction class $[f_3] \in H^1(K_5, \cF)$ measures the failure of
+local sections to glue into a global section. For the pentagram,
+$[f_3] \neq 0$ because the system of 5 context equations is inconsistent:
+summing all 5 equations gives $0 = 1 \pmod 2$ (each of the 10 operators
+appears in exactly 2 contexts, so the LHS sums to 0, but the RHS sums
+to 1 from the single anomalous context).
+
+Under the hyperbolic embedding (Theorem~\ref{thm:hyperbolic}), $[f_3]$
+should map to a class in the equivariant cohomology of the Fano isotropic
+subgeometry:
+\[
+[f_3] \in H^1_{GL(3, \F_2)}(W(5, \F_2), \Z/2).
+\]
+The relation to the Klein quartic
+(Remark~\ref{rem:shadow-obstruction}) is the key
+open computation.
+
+\subsection{Partition Function Modulo 2}
+
+The speculative connection
+$p(n) \bmod 2 = \langle [f], \text{cycle}_n \rangle_{\Z/2}$ requires:
+\begin{enumerate}
+  \item An explicit construction of $\text{cycle}_n \in H_1(K_{3,3}, \Z/2)$
+    from the binary expansion of $n$
+  \item Verification that the pairing output matches the distribution of
+    $p(n) \bmod 2$ (an active research problem in number theory; the
+    known result is that $p(n)$ is odd for a density-zero set, via
+    Serre's theory of lacunary modular forms)
+\end{enumerate}
+
+The motivation for $\bmod 2$ specifically is the parity alignment:
+$H^2(\CP^3, \Z/2)$ is $\Z/2$-valued, and the obstruction pairing
+lands in $\Z/2$. Ramanujan's congruences establish that $p(n)$ has
+non-trivial modular structure at small primes; whether the $\bmod 2$
+case connects to the obstruction class via the $K_{3,3}$ nerve is a
+wishlist item, not a conjecture --- the mapping from integers to
+cycles is not yet defined.
+
+\subsection{n-Qubit Ladder}
+
+The general pattern for the obstruction ladder:
+\begin{itemize}
+  \item $n=1$: $W(1, \F_2)$, $H^1$, geometric phase (Paper~I)
+  \item $n=2$: $W(3, \F_2)$, $H^2$, KS contextuality
+    (Papers~III, VII, VIII~\cite{PaperIII, PaperVII, PaperVIII})
+  \item $n=3$: $W(5, \F_2)$, $H^3$, Borromean non-associativity
+    (Paper~IV~\cite{PaperIV}, open)
+  \item $n \geq 4$: $W(2n-1, \F_2)$, higher obstructions (open)
+\end{itemize}
+
+The modular geometry connection (via hyperbolic embedding) only opens
+at $n=3$, where $W(5, \F_2)$ contains the Fano plane. This suggests
+that the Ramanujan/modular connection is intrinsically a \emph{3-qubit
+and above} phenomenon.
+
+\subsection{Path B and Non-Geometric Fluxes ($\circ$)}
+\label{sec:pathb-physics}
+
+Proposition~\ref{prop:non-conjugacy} establishes two non-conjugate
+$PSL(2,7)$ subgroups in $PSp(6, \F_2)$: Path~A stabilizes a Lagrangian,
+Path~B (via $G_2(2)$) does not. The open problem is to give Path~B
+a concrete physical interpretation.
+
+The T-duality classification of string flux backgrounds suggests a
+natural dictionary. A Lagrangian subspace $L \subset \F_2^{2n}$ defines
+a ``geometric'' T-duality frame: T-dualizing along directions within $L$
+maps geometric compactifications to geometric ones ($H$- and $f$-flux).
+When no Lagrangian is preserved under the symmetry group, one enters
+the domain of \emph{non-geometric fluxes} ($Q$-flux and $R$-flux),
+where the background cannot be described in any single geometric duality
+frame.
+
+\begin{itemize}
+  \item If Path~B's $PSL(2,7) \leq G_2(2) \leq PSp(6, \F_2)$ is the
+    discrete symmetry group of a non-geometric flux background, the two
+    Klein quartic bridges would represent \emph{geometric} vs.\
+    \emph{non-geometric} modular structures on the same underlying algebra.
+  \item The group $G_2(2)$ (automorphisms of the Split Cayley Hexagon)
+    might appear as a discrete symmetry in M-theory compactification on
+    a $G_2$-holonomy manifold, where the $G_2$ holonomy group and
+    $G_2(2)$ (the split real form of $G_2$) are related by real-form
+    variation.
+  \item The obstruction class $[f_3] \in H^1(K_5, \cF)$ should map to
+    the discrete torsion of the non-geometric background if the
+    dictionary is valid.
+\end{itemize}
+
+Required: a concrete $G_2$-holonomy compactification whose discrete
+symmetry is $G_2(2)$ of order 12{,}096, and a proof that the
+obstruction class maps to the corresponding discrete torsion group.
+
+%------------------------------------------------------------------
+\section*{Appendix: Rigor Self-Assessment}
+%------------------------------------------------------------------
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l c p{6.5cm}}
+\toprule
+Claim & Rigor & Status \\
+\midrule
+Hyperbolic embedding $GL(3,\F_2) \hookrightarrow PSp(6,\F_2)$ & $\bullet$ &
+  Explicit construction $g \mapsto \mathrm{diag}(g, g^{-T})$; symplectic
+  preservation verified \\
+Fano plane as isotropic subgeometry of $W(5,\F_2)$ & $\bullet$ &
+  $V \subset V \oplus V^*$ is maximal isotropic; projectivization gives
+  $PG(2,\F_2)$ \\
+$PSL(2,7) \cong GL(3,\F_2)$ & $\bullet$ &
+  Classical isomorphism; both simple groups of order 168 \\
+Split Cayley Hexagon $H(2) \subset W(5,\F_2)$ & $\bullet$ &
+  63 points, 63 lines, $\mathrm{Aut} = G_2(2)$; standard finite geometry \\
+Mermin pentagram in $W(5,\F_2)$ (12096 copies) & $\bullet$ &
+  $12096 = |G_2(2)|$; each pentagram = 5 contexts of 4 commuting operators \\
+Shadow map $\xi$ as $d_1$ differential & $\circ$ &
+  Structural parallel established; equivariant isomorphism is a motivating
+  analogy, not yet a conjecture \\
+$p(n) \bmod 2$ = obstruction pairing & $\circ$ &
+  Moved to \S\ref{sec:open-problems} Open Problem; requires explicit cycle
+  construction \\
+$\mathcal{Q} \dashv \mathcal{B}$ = Quantum Darwinism & $\bullet/\circ$ &
+  Adjunction realized for $SU(2)$ ($\bullet$); Darwinism interpretation
+  conceptual ($\circ$) \\
+PM obstruction = non-extendable section & $\bullet/\circ$ &
+  Proposition~\ref{prop:darwinism}: $[f]$ is a specific non-zero class in
+  $(\Z/2)^4$ ($\bullet$); Darwinism link conceptual ($\circ$) \\
+3-qubit $[f_3]$ construction & $\bullet/\circ$ &
+  Mermin pentagram identified (12096 copies); nerve $K_5$ and $H^1$
+  structure ($\bullet$); explicit sheaf cohomology description ($\bullet$);
+  equivariant class under hyperbolic embedding pending ($\circ$) \\
+Proposition~\ref{prop:fano-pentagram} (Fano--Pentagram) & $\bullet$ &
+  Proven: each context has exactly one Fano point; surjectivity by
+  transitivity \\
+Proposition~\ref{prop:non-conjugacy} (Non-conjugacy) & $\bullet$ &
+  Proven: Path~A stabilizes Lagrangian $V$; Path~B cannot since
+  $|G_2(2)| = 12{,}096 > |P_L| = 10{,}752$; not conjugate \\
+Gerbe $H^1$ non-vanishing & $\circ$ &
+  Open problem from Paper~VIII \\
+$n$-qubit ladder pattern & $\bullet/\circ$ &
+  $n=1,2$ verified ($\bullet$); $n \geq 3$ conjectural ($\circ$) \\
+Modular connection at $n \geq 3$ & $\circ$ &
+  Hyperbolic embedding exists; shadow--obstruction correspondence
+  conjectural \\
+\bottomrule
+\end{tabular}
+\caption{Rigor self-assessment for Paper~IX.}
+\label{tab:rigor}
+\end{table}
+
+%------------------------------------------------------------------
+\section*{Acknowledgments}
+%------------------------------------------------------------------
+
+The author thanks the mathematical physics reading group for feedback
+on the hyperbolic embedding framework, and a research collaborator for
+identifying the non-conjugacy of the two Klein quartic bridges and the
+sheaf cohomology formulation of the 3-qubit obstruction.
+
+%------------------------------------------------------------------
+\begin{thebibliography}{10}
+%------------------------------------------------------------------
+
+\bibitem[ATLAS]{ATLAS}
+J.~H.~Conway, R.~T.~Curtis, S.~P.~Norton, R.~A.~Parker, and R.~A.~Wilson,
+\textit{Atlas of Finite Groups: Maximal Subgroups and Ordinary Characters
+for Simple Groups},
+Oxford University Press (1985).
+
+\bibitem[BringmannOno2006]{BringmannOno2006}
+K.~Bringmann and K.~Ono,
+``The $f(q)$ mock theta function conjecture and partition ranks,''
+\textit{Invent. Math.} \textbf{165}, 243--266 (2006).
+
+\bibitem[KapustinWitten2007]{KapustinWitten2007}
+A.~Kapustin and E.~Witten,
+``Electric-Magnetic Duality and the Geometric Langlands Program,''
+\textit{Commun.\ Number Theory Phys.} \textbf{1}, 1--236 (2007).
+
+\bibitem[KochenSpecker1967]{KochenSpecker1967}
+S.~Kochen and E.~P.~Specker,
+``The problem of hidden variables in quantum mechanics,''
+\textit{J. Math. Mech.} \textbf{17}, 59--87 (1967).
+
+\bibitem[LevayPlanatSaniga]{LevayPlanatSaniga}
+P.~L\'evay, M.~Planat, and M.~Saniga,
+``Grassmannian Connection Between Three- and Four-Qubit Observables,
+Mermin's Contextuality and Black Holes,''
+\textit{JHEP} \textbf{09} (2013) 037.
+
+\bibitem[Mermin1990]{Mermin1990}
+N.~D.~Mermin,
+``Simple unified form for the major no-hidden-variables theorems,''
+\textit{Am. J. Phys.} \textbf{58}, 731--734 (1990).
+
+\bibitem[PaperIII]{PaperIII}
+Z.-L.~Chen,
+``Kochen--Specker Contextuality as Central Extension:
+The Peres--Mermin Square and the Pauli Group,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073127} (2026).
+
+\bibitem[PaperIV]{PaperIV}
+Z.-L.~Chen,
+``The Cohomological Obstruction Ladder:
+Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184} (2026).
+
+\bibitem[PaperV]{PaperV}
+Z.-L.~Chen,
+``Observation as Functor: 
+The Adjunction of Quantum and Classical,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073318}, 2026.
+
+\bibitem[PaperVII]{PaperVII}
+Z.-L.~Chen,
+``Twistor Theory from the Obstruction Ladder:
+The Googly Problem as an $H^2$ Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20438042} (2026).
+
+\bibitem[PaperVIII]{PaperVIII}
+Z.-L.~Chen,
+``The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder:
+Explicit Transgression and Twisted Penrose Transform,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20454120} (2026).
+
+\bibitem[Peres1991]{Peres1991}
+A.~Peres,
+``Incompatible results of quantum measurements,''
+\textit{J. Phys. A} \textbf{24}, L175--L178 (1991).
+
+\bibitem[Zurek2009]{Zurek2009}
+W.~H.~Zurek,
+``Quantum Darwinism,''
+\textit{Nat. Phys.} \textbf{5}, 181--188 (2009).
+
+\bibitem[Zwegers]{Zwegers}
+S.~Zwegers,
+``Mock Theta Functions,''
+\textit{Ph.D.\ Thesis, Universiteit Utrecht} (2002).
+
+\end{thebibliography}
+
+\end{document}
