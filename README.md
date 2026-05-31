@@ -1,6 +1,6 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A Nine-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers, extended by Paper VIII with explicit functor construction and twisted Penrose transform, and Paper IX with the 3-qubit obstruction ladder and two non-conjugate Klein quartic bridges.
+A Ten-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers, extended by Paper VIII with explicit functor construction and twisted Penrose transform, Paper IX with the 3-qubit obstruction ladder and two non-conjugate Klein quartic bridges, and Paper X with the equiangular characterization of Mermin pentagrams.
 
 **Author:** Zhou-Li Chen (co-nlang Research)
 
@@ -52,16 +52,31 @@ research/
 │   ├── Paper7_twistor_googly.tex
 │   ├── Paper8_explicit_construction.tex
 │   ├── Paper9_obstruction_ladder.tex
-│   └── supplementary/
-│       ├── construct_16cell/
-│       │   ├── LICENSE                     # MIT
-│       │   ├── README.md
-│       │   └── construct_16cell.py
-│       └── paper7_conj42/
-│           ├── LICENSE                     # MIT
-│           ├── README.md
-│           ├── paper7_conj42.py
-│           └── paper7_conj42_layer2.py
+│   └── Paper10_equiangular_characterization.tex
+├── supplementary/
+│   ├── construct_16cell/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   └── construct_16cell.py
+│   ├── paper7_conj42/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── paper7_conj42.py
+│   │   └── paper7_conj42_layer2.py
+│   └── paper10/
+│       ├── LICENSE                         # MIT
+│       ├── README.md
+│       ├── p0_enumerate_contexts.py
+│       ├── p1_orbit_check.py
+│       ├── p2_typeB_analysis.py
+│       ├── p3_sign_patterns.py
+│       ├── p4_typeF4_analysis.py
+│       ├── p5_ghost_pentagon.py
+│       ├── p6_equiangular_check.py
+│       ├── p7_ray_cap.py
+│       ├── p8_sufficiency_check.py
+│       ├── g2_orbits.py
+│       └── orbit_type_lagrangian.py
 ```
 
 ---
@@ -71,7 +86,7 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
@@ -81,6 +96,7 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **Paper VII** resolves the Penrose googly problem (twistor theory's 59-year open question) as an $H^2$ obstruction, with $\Phi^*([f]) = c_1(\mathcal{O}(1)) \bmod 2$ verified computationally.
 - **Paper VIII** completes the explicit construction of the $\Phi$ functor, identifies the PM nerve as $K_{3,3}$ (not a 2-simplex), decomposes $\Phi$ as a transgression $\ell \circ \tau \circ \iota^*$, and formulates the twisted Penrose transform via $\Z/2$-gerbe as an open problem.
 - **Paper IX** steps up to 3 qubits: the hyperbolic embedding $GL(3,\mathbb{F}_2) \hookrightarrow PSp(6,\mathbb{F}_2)$ realizes the Fano plane as an isotropic subgeometry of $W(5,\mathbb{F}_2)$, and reveals two non-conjugate $PSL(2,7)$ subgroups (hyperbolic vs.\ $G_2(2)$ path) — two distinct Klein quartic bridges in $PSp(6,\mathbb{F}_2)$.
+- **Paper X** proves that every Mermin pentagram has equiangular Lagrangian configuration ($\dim(L_i \cap L_j) = 1$ for all 10 pairs), and conversely every equiangular $K_5$ is a Mermin pentagram. The 10 shared operators form a 10-point cap in $PG(5,\mathbb{F}_2)$. Collinearity in the Fano plane is shown to be a shadow, not the obstruction. $G_2(2)'$ acts with 4 orbits revealing a 2-class geometric structure.
 
 ### Supplementary L-S Appendices
 
@@ -104,6 +120,7 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | VII | *Twistor Theory from the Obstruction Ladder: The Googly Problem as an H2 Obstruction* | Peres–Mermin → $\mathbb{CP}^3$ | Googly problem = $H^2$ obstruction; $\Phi^*([f]) = c_1(\mathcal{O}(1)) \bmod 2$ verified |
 | VIII | *The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder: Explicit Transgression and Twisted Penrose Transform* | $K_{3,3}$ nerve, transgression, gerbe | $\Phi = \ell \circ \tau \circ \iota^*$; MASA count $(4^n-1)(4^{n-1}-1)/3$; $\Z/2$-gerbe classified by $[e] \in H^2(\mathbb{CP}^3,\Z/2)$ |
 | IX | *The 3-Qubit Obstruction Ladder: Hyperbolic Embedding, Mermin Pentagram, and Two Klein Quartic Bridges* | $W(5,\mathbb{F}_2)$, Fano isotropic subgeometry, $G_2(2)$ | $GL(3,\mathbb{F}_2) \hookrightarrow PSp(6,\mathbb{F}_2)$; two non-conjugate $PSL(2,7)$ paths; $[f_3] \in H^1(K_5,\mathcal{F})$ |
+| X | *The Equiangular Characterization of Mermin Pentagrams: Symplectic Embedding, 10-Ray Cap, and the Failure of the Collinearity–Obstruction Dictionary* | Equiangular Lagrangian config, 10-ray cap, $G_2(2)'$ orbits | $K_5 \Leftrightarrow$ equiangular $\Leftrightarrow$ Mermin; collinearity is shadow; 4 orbits, 2-class structure |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -137,6 +154,7 @@ A candid inventory of the mathematical machinery powering this series and the op
 |-----------|-------------|
 | [`supplementary/construct_16cell/`](supplementary/construct_16cell/) | Z3 SAT solver construction of the 16-cell nerve for $S^3$-type Borromean contextuality (Paper IV) |
 | [`supplementary/paper7_conj42/`](supplementary/paper7_conj42/) | Verification scripts for Conjecture 4.2: Peres-Mermin obstruction class and $\Phi^*$ pullback computation (Paper VII) |
+| [`supplementary/paper10/`](supplementary/paper10/) | Computational enumeration of Mermin pentagrams: 135 Lagrangians, 945 proper contexts, 12,096 pentagrams, equiangular characterization, $G_2(2)'$ orbit decomposition (Paper X) |
 
 ---
 
@@ -156,11 +174,13 @@ All components are archived on Zenodo:
 | Paper VII | [10.5281/zenodo.20438042](https://doi.org/10.5281/zenodo.20438042) |
 | Paper VIII | [10.5281/zenodo.20454120](https://doi.org/10.5281/zenodo.20454120) |
 | Paper IX | [10.5281/zenodo.20465623](https://doi.org/10.5281/zenodo.20465623) |
+| Paper X | [10.5281/zenodo.20476659](https://doi.org/10.5281/zenodo.20476659) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
 | `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
 | `paper7_conj42.py`/`paper7_conj42_layer2.py` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
+| `supplementary/paper10/` (12 scripts) | [10.5281/zenodo.20472357](https://doi.org/10.5281/zenodo.20472357) |
 
 ---
 
@@ -187,7 +207,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Nine-paper series with epilogue},
+  note   = {Ten-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```
