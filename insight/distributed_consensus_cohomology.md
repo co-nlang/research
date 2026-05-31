@@ -11,10 +11,11 @@ what cohomology measures. Each fault model corresponds to a different
 dimensional obstruction:
 
 | Fault model | Nerve dimension | Cohomology | Classical theorem |
-|---|---|---|---|
+|---|---|---|---|---|
 | Network partition (Crash) | 1-cycle (loop) | $\check{H}^1 \neq 0$ | CAP: choose availability or consistency |
 | Asynchrony + single crash | 2-simplex (face) | $\check{H}^2 \neq 0$ (via $d_2$) | FLP: deterministic consensus impossible |
 | Byzantine fault | 3-simplex (tetrahedron) | $\check{H}^3 \neq 0$ | Byzantine fault tolerance ($> 2/3$) |
+| Sybil attack | 4-simplex (4-cell) | $\check{H}^4 \neq 0$ | Proof of Work / Stake / Space |
 
 Each level corresponds to a progressively deeper uncertainty about the
 state of other nodes — and each requires a progressively more complex
@@ -265,7 +266,80 @@ and the remaining system can be solved.
 
 ---
 
-## 6. Unified Table
+## 6. Sybil Attack as $H^4$ Obstruction
+
+**Setup.** An attacker creates multiple fake identities $Z_1, Z_2,
+\dots, Z_k$ that appear as distinct nodes to the honest majority.
+The system believes it sees $n + k$ independent participants when
+only $n$ real ones exist.
+
+**Why this is $H^4$, not $H^3$.** The Byzantine fault ($H^3$)
+involves a *real* node that lies. The cocycle condition on a
+$3$-simplex $\partial[A, B, C, Z] \neq 0$ fails because $Z$ sends
+different values to $A$, $B$, $C$ — but $A$, $B$, $C$, $Z$ are
+all *genuine nodes*. The identity of each participant is trustworthy;
+only the messages are malicious.
+
+The Sybil attack is fundamentally different: **the attacker fabricates
+identities themselves.** The system's nerve complex becomes fraudulent
+at the level of its *vertex set*:
+
+$$|\mathcal{N}(\mathcal{U})|_{\text{apparent}} \neq |\mathcal{N}(\mathcal{U})|_{\text{actual}}.$$
+
+The $4$-simplex structure enters because the falsehood lives in the
+relationship between four apparent identities that collapse to one
+real entity. Consider four fake nodes $Z_1, Z_2, Z_3, Z_4$ that the
+cover $\mathcal{U}$ treats as distinct vertices. The actual nerve has
+these four vertices identified (they are the same attacker), but the
+apparent nerve treats them as independent. The obstruction lives at
+$\check{H}^4$ because the $4$-cocycle condition on the $4$-simplex
+$[Z_1, Z_2, Z_3, Z_4]$ detects the inconsistency between the apparent
+and true identifications.
+
+**In LHS spectral sequence terms:** the Sybil attack corrupts the
+*input* to the spectral sequence itself — it is not an obstruction at
+some intermediate page $E_r$, but a falsification of the $E_1$ page's
+definition. The base space (the set of participants) is misreported.
+This is why Sybil resistance cannot be achieved by consensus logic
+alone; it requires external anchoring.
+
+### How Sybil Resistance Mechanisms Anchor $H^4$
+
+Each Sybil resistance mechanism forces the attacker to pay a physical
+cost for each fake identity, thereby grounding the nerve's vertex set
+in reality:
+
+| Defense mechanism | Geometric interpretation |
+|---|---|
+| Proof of Work (PoW) | Real computation = lower bound on the volume of a $4$-simplex |
+| Proof of Stake (PoS) | Real stake = "mass" of the $H^4$ class |
+| Proof of Space (PoSpace) | Real storage = lower bound on $4$-dimensional volume |
+| Physical identity (KYC) | Outsources $H^4$ verification to the real world |
+| Web of Trust | Graph-theoretic bound on $H^4$ via transitive trust |
+
+Every mechanism forces the nerve's identity dimension to have a
+real-world anchor — making the cost of forging an identity equivalent
+to the cost of forging a physical $4$-simplex.
+
+### The Completeness of the Ladder
+
+With Sybil at $H^4$, the distributed consensus ladder now mirrors
+the quantum obstruction ladder exactly:
+
+| Level | Quantum | Distributed systems |
+|---|---|---|
+| $H^1$ | Geometric phase (A-B, Berry) | CAP: partition disagreement |
+| $H^2$ | Central extension (Peres-Mermin, KS) | FLP: asynchronous disagreement |
+| $H^3$ | Bundle gerbe (Borromean, $H^3$ conj.) | Byzantine fault: equivocation |
+| $H^4$ | 2-gerbe / $d_4$ transgression | **Sybil: identity fabrication** |
+
+Each level involves a deeper layer of the system's definition:
+$H^1$ questions values, $H^2$ questions timing, $H^3$ questions
+intent, $H^4$ questions **existence**.
+
+---
+
+## 7. Unified Table
 
 | Level | Fault model | Nerve | Cohomology | Classical theorem |
 |---|---|---|---|---|
@@ -273,14 +347,13 @@ and the remaining system can be solved.
 | $H^2$ | Async crash | 2-simplex | $d_2 \neq 0$ | FLP impossible |
 | Paxos fix | Async crash | 4-cycle overlap | $d_2 \to 0$ via quorum | Paxos safety |
 | $H^3$ | Byzantine | 3-simplex | $H^3 \neq 0$ | $n > 3f$ required |
+| $H^4$ | Sybil | 4-simplex | $H^4 \neq 0$ | PoW / PoS / PoSpace |
 
 The progression is the same as the quantum contextuality ladder:
 - $H^1$: geometric phase → partition disagreement
 - $H^2$: central extension → asynchronous disagreement
 - $H^3$: non-associativity → Byzantine equivocation
-
-And just as in the quantum case, each level requires a more
-sophisticated "context" (MASA cover) to be resolved.
+- $H^4$: identity fabrication → Sybil attack
 
 ---
 
@@ -288,7 +361,9 @@ sophisticated "context" (MASA cover) to be resolved.
 distributed computing and algebraic topology. It reformulates
 classical impossibility results and algorithms as cohomological
 obstruction phenomena, providing a unified geometric language
-for fault tolerance.*
+for fault tolerance. With the addition of Sybil at $H^4$, the
+distributed systems ladder now matches the quantum obstruction
+ladder in full: $H^1$ through $H^4$.*
 
 ---
 

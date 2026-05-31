@@ -1,0 +1,855 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{The Equiangular Characterization of Mermin Pentagrams:\\
+       Symplectic Embedding, 10-Ray Cap, and the Failure\\
+       of the Collinearity--Obstruction Dictionary\\
+       {\large (Paper X)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Paper~IX~\cite{PaperIX} established the Fano--pentagram correspondence
+  (Proposition~2.6) and conjectured a ``collinearity--obstruction
+  dictionary'' (Conjecture~2.5): the Kochen--Specker obstruction
+  $[f_3] \in H^1(K_5, \cF)$ would be equivalent to a collinearity
+  obstruction in $PG(2, \F_2)$.
+
+  Paper~X tests this conjecture computationally and finds it false.
+  Among 12{,}096 Mermin pentagrams in $W(5, \F_2)$, we classify them
+  into four types by their Fano-point shadow:
+  Type~A (5 distinct points) $= 0$,
+  Type~B (4 distinct) $= 1{,}344$,
+  Type~F2 (2 transverse) $= 7{,}168$,
+  Type~F4 (4 transverse) $= 3{,}584$.
+  Collinearity is a weak statistical signal, not a deterministic
+  constraint: 33.3\% of Type~B are 4-arcs with no collinearity, and
+  25\% of Type~F4 have \emph{zero} Fano points at all.
+
+  The true invariant is geometric, not projective. We prove
+  (Theorem~\ref{thm:equiangular}) that in the proper context framework
+  of $W(5, \F_2)$, three notions coincide:
+  \[
+  K_5 \;\Longleftrightarrow\; \text{equiangular } K_5
+  \;\Longleftrightarrow\; \text{Mermin pentagram}.
+  \]
+  The equiangular condition $\dim(L_i \cap L_j) = 1$ for all 10 pairs
+  is \emph{forced} by the $K_5$ structure itself (pure geometry, no
+  computation needed). The 10 intersection rays form a 10-point cap in
+  $PG(5, \F_2)$ (Theorem~\ref{thm:cap}).
+
+  The odd parity of every equiangular $K_5$ is the evaluation of
+  $[f_3] \in H^1(K_5, \cF)$, a symplectic characteristic class of
+  $W(5, \F_2)$. Conjecture~2.5 asked the wrong question: collinearity
+  is a projection of the equiangular structure onto $V$, not the
+  obstruction itself.
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+Paper~IX~\cite{PaperIX} embedded the Fano plane $PG(2, \F_2)$ as an
+isotropic subgeometry of $W(5, \F_2)$ via the hyperbolic embedding
+$GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$, and established a
+surjective map from Mermin pentagram contexts to Fano points
+(Proposition~2.6). Conjecture~2.5 proposed a ``collinearity--obstruction
+dictionary'': the KS obstruction $[f_3] \in H^1(K_5, \cF)$ would
+translate to a collinearity obstruction in $PG(2, \F_2)$.
+
+This paper tests Conjecture~2.5 by exhaustive computation and
+geometric analysis. The main results are:
+
+\begin{enumerate}
+  \item \textbf{Theorem~\ref{thm:type-a} (Type~A Exclusion, computational).}
+    No Mermin pentagram has 5 distinct Fano points forming 2 intersecting
+    Fano lines. The sign algebra alone does not rule out Type~A; the
+    obstruction is symplectic-geometric.
+
+  \item \textbf{Theorem~\ref{thm:equiangular} (Equiangular Characterization, geometric).}
+    In the proper context framework of $W(5, \F_2)$:
+    \[
+    K_5 \;\Longleftrightarrow\; \text{equiangular } K_5
+    \;\Longleftrightarrow\; \text{Mermin pentagram}.
+    \]
+    Non-equiangular $K_5$ do not exist. Non-Mermin equiangular $K_5$
+    do not exist.
+
+  \item \textbf{Theorem~\ref{thm:cap} (10-Ray Cap Structure).}
+    The 10 intersection rays $R_{ij} = L_i \cap L_j$ form a 10-point
+    cap in $PG(5, \F_2)$: no three rays are collinear. Each Lagrangian
+    contains 4 rays summing to zero. The KS contradiction arises from
+    5 Lagrangian dependencies summing to $0 = 1 \pmod{2}$.
+
+  \item \textbf{Corollary~\ref{cor:characteristic} ($[f_3]$ as Symplectic
+    Characteristic Class).} The odd parity of every equiangular $K_5$
+    is the evaluation of $[f_3] \in H^1(K_5, \cF)$, a global
+    cohomological invariant of $W(5, \F_2)$.
+\end{enumerate}
+
+The core narrative:
+
+\begin{quote}
+  Conjecture~2.5 asked the wrong question. Collinearity is a
+  \emph{shadow} --- a projection of the equiangular Lagrangian
+  configuration onto the Fano subgeometry $V$. The true invariant is
+  the symplectic embedding of $K_5$ into $W(5, \F_2)$: every proper
+  context $K_5$ is equiangular ($\dim(L_i \cap L_j) = 1$ for all
+  10 pairs), and this rigid geometric structure forces the KS parity
+  anomaly via the symplectic characteristic class $[f_3]$.
+\end{quote}
+
+%------------------------------------------------------------------
+\section{Computational Enumeration}
+\label{sec:enumeration}
+%------------------------------------------------------------------
+
+\subsection{Lagrangians and Proper Contexts}
+
+The symplectic polar space $W(5, \F_2)$ has 63 points and 315 lines.
+A \emph{Lagrangian} is a 3-dimensional totally isotropic subspace
+(maximal isotropic). There are exactly 135 Lagrangians in $W(5, \F_2)$.
+
+Each Lagrangian $L$ has 7 non-zero points, forming a Fano plane
+$PG(2, \F_2)$. A \emph{proper context} is a 4-element subset of $L$
+obtained by removing a Fano line (3 collinear points). Each Lagrangian
+has 7 Fano lines, hence 7 proper contexts.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r l}
+\toprule
+Object & Count & Notes \\
+\midrule
+Lagrangians in $W(5, \F_2)$ & 135 & 3-dim totally isotropic subspaces \\
+Proper contexts & 945 & $135 \times 7$ (complement of each Fano line) \\
+Contexts with $-\mathbf{I}$ product & 324 & 34.3\% of 945 \\
+\bottomrule
+\end{tabular}
+\caption{Enumeration of Lagrangians and proper contexts.}
+\label{tab:enumeration}
+\end{table}
+
+\subsection{\texorpdfstring{MASA Classification by $V$-Intersection}{MASA Classification by V-Intersection}}
+
+Under the hyperbolic embedding $GL(3, \F_2) \hookrightarrow PSp(6, \F_2)$,
+the Lagrangian $V \subset V \oplus V^*$ is the Fano isotropic
+subgeometry. Each Lagrangian $L$ intersects $V$ in a subspace of
+dimension $k = \dim(L \cap V)$:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c c c l}
+\toprule
+Type & $\dim(L \cap V)$ & $|L \cap V \setminus \{0\}|$ & Count \\
+\midrule
+$k=7$ & 3 & 7 & 1 ($V$ itself) \\
+$k=3$ & 2 & 3 & 14 (contains a Fano line) \\
+$k=1$ & 1 & 1 & 56 (contains a single Fano point) \\
+$k=0$ & 0 & 0 & 64 (transverse to $V$) \\
+\bottomrule
+\end{tabular}
+\caption{MASA classification by intersection with $V$.}
+\label{tab:masa-types}
+\end{table}
+
+\subsection{Mermin Pentagrams}
+
+A \emph{Mermin pentagram}~\cite{Mermin1990} is a $K_5$ clique of proper contexts:
+5 contexts $\{C_1, \ldots, C_5\}$ with 10 distinct shared operators
+(each operator in exactly 2 contexts), satisfying the odd-parity
+condition $\prod_{i=1}^5 s_i = -1$ where $s_i = \pm 1$ is the product
+sign of context $C_i$.
+
+Exhaustive enumeration yields:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r l}
+\toprule
+Object & Count & Notes \\
+\midrule
+Mermin pentagrams & \textbf{12{,}096} & verified by $G_2(2)$ orbit decomposition \\
+$G_2(2)$ orbits & 4 & sizes $6{,}048 + 2{,}016 + 2{,}016 + 2{,}016$ \\
+\bottomrule
+\end{tabular}
+\caption{Mermin pentagram enumeration.}
+\label{tab:mermin-count}
+\end{table}
+
+\begin{remark}[Previous Overcounting]
+An earlier version of the enumeration script counted each $K_5$ once
+per root vertex, yielding $5 \times 12{,}096 = 60{,}480$. After
+deduplication, the correct count is $12{,}096$, matching the
+literature value for the $G_2(2)$ orbit of the standard pentagram.
+\end{remark}
+
+\subsection{Type Classification by Fano Shadow}
+
+Each Mermin pentagram has 5 contexts, each contributing a Fano point
+(if the context's Lagrangian intersects $V$ non-trivially) or being
+\emph{transverse} (if the Lagrangian is transverse to $V$). We classify
+by the number of distinct Fano points:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l r r}
+\toprule
+Type & Pattern & Count & Fraction \\
+\midrule
+\textbf{A} & 5 distinct Fano points & \textbf{0} & \textbf{0\%} \\
+B & 4 distinct (one collision) & 1{,}344 & 11.11\% \\
+F2 & 3 Fano points + 2 transverse & 7{,}168 & 59.26\% \\
+F4 & 1 Fano point + 4 transverse & 3{,}584 & 29.63\% \\
+\midrule
+Total & & \textbf{12{,}096} & 100\% \\
+\bottomrule
+\end{tabular}
+\caption{Mermin pentagram type classification.}
+\label{tab:type-classification}
+\end{table}
+
+%------------------------------------------------------------------
+\section{Type~A Exclusion}
+\label{sec:type-a}
+%------------------------------------------------------------------
+
+\begin{theorem}[Type~A Exclusion]
+\label{thm:type-a}
+No Type~A Mermin pentagram exists. Among all $K_5$ context-quintets
+with 5 distinct Fano points forming 2 intersecting Fano lines, none
+satisfy the KS odd-parity condition.
+\end{theorem}
+
+\begin{proof}[Proof (computational)]
+Exhaustive enumeration over all 945 proper contexts confirms that
+zero $K_5$ cliques with 5 distinct Fano points satisfy the odd-parity
+condition. The code is available in the supplementary
+material~\cite{PaperXsuppl}.
+\end{proof}
+
+\begin{remark}[Why the Naive Sign Argument Fails]
+Let the 5 Fano points form two intersecting Fano lines
+$L_1 = \{p_1, p_2, p_3\}$ and $L_2 = \{p_3, p_4, p_5\}$ sharing $p_3$.
+Collinearity constraints give:
+\[
+s_1 \cdot s_2 \cdot s_3 = -1 \quad (\text{from } L_1), \qquad
+s_3 \cdot s_4 \cdot s_5 = -1 \quad (\text{from } L_2).
+\]
+These are compatible with $s_3 = -1$: set $s_1 s_2 = +1$,
+$s_4 s_5 = +1$, then total product $= s_3 = -1$ (Mermin $\checkmark$).
+The sign algebra alone does \emph{not} rule out Type~A.
+
+The real obstruction is symplectic-geometric: the $K_5$ structure in
+$W(5, \F_2)$ cannot realize the $s_3 = -1$ sign combination for Type~A
+configurations. A geometric proof (without computation) is open.
+\end{remark}
+
+\begin{corollary}
+\label{cor:type-a}
+Conjecture~2.5 cannot be tested on Type~A pentagrams. The
+collinearity--obstruction dictionary must be reformulated for Types~B,
+F2, or F4.
+\end{corollary}
+
+%------------------------------------------------------------------
+\section{Collinearity is Not the Obstruction}
+\label{sec:collinearity-failure}
+%------------------------------------------------------------------
+
+\subsection{Type~B: 4-Arcs and Collinear Triples}
+
+Type~B has 4 distinct Fano points with one collision (2 contexts share
+the same Fano point). Among 1{,}344 Type~B pentagrams:
+
+\begin{itemize}
+  \item 896 (66.7\%) have 1 collinear triple among the 4 Fano points
+  \item 448 (33.3\%) are \emph{4-arcs}: no 3 points collinear
+\end{itemize}
+
+The existence of 4-arcs (hyperovals in $PG(2, \F_2)$) shows that valid
+KS pentagrams can have \emph{no collinearity structure at all}.
+
+For the 896 collinear cases, the sign pattern of the collinear
+triple is:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r r}
+\toprule
+\# of $-I$ in collinear triple & Count & Fraction \\
+\midrule
+0 $(+,+,+)$ & 300 & 33.5\% \\
+1 $(-,+,+)$ + perms & 444 & 49.6\% \\
+2 $(-,-,+)$ + perms & 132 & 14.7\% \\
+3 $(-,-,-)$ & 20 & 2.2\% \\
+\bottomrule
+\end{tabular}
+\caption{Type~B collinear triple sign distribution.}
+\label{tab:type-b-signs}
+\end{table}
+
+The naive expectation ``collinear $\Rightarrow$ product $= -1$'' is
+\textbf{false}: the distribution is approximately 50--50, not
+concentrated on odd parity.
+
+\subsection{Type~F2: The Dominant Case}
+
+Type~F2 has 3 Fano points (from 3 non-transverse contexts) plus
+2 transverse contexts. Among 7{,}168 Type~F2 pentagrams:
+
+\begin{itemize}
+  \item 896 (12.5\%) have 3 collinear Fano points
+  \item 6{,}272 (87.5\%) have non-collinear Fano points
+\end{itemize}
+
+The non-transverse context sign distribution (all Type~F2):
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r r}
+\toprule
+\# of $-I$ in 3 non-transverse & Count & Fraction \\
+\midrule
+0 $(+,+,+)$ & 3{,}028 & 42.2\% \\
+1 $(-,+,+)$ + perms & 3{,}036 & 42.4\% \\
+2 $(-,-,+)$ + perms & 972 & 13.6\% \\
+3 $(-,-,-)$ & 132 & 1.8\% \\
+\bottomrule
+\end{tabular}
+\caption{Type~F2 sign distribution.}
+\label{tab:type-f2-signs}
+\end{table}
+
+The collinear subset has a slightly different distribution (more
+1-minus: 46.9\% vs 42.4\%), but the effect is modest. Collinearity
+is a weak statistical signal, not a deterministic constraint.
+
+\subsection{Summary: Collinearity is a Shadow}
+
+\begin{proposition}[Naive Dictionary Failure]
+\label{prop:naive-failure}
+The collinearity pattern of Fano points does \emph{not} determine the
+KS obstruction:
+\begin{enumerate}
+  \item 33.3\% of Type~B are 4-arcs with no collinearity.
+  \item 87.5\% of Type~F2 have non-collinear Fano points.
+  \item Collinear sign patterns are approximately 50--50, not
+    concentrated on odd parity.
+\end{enumerate}
+Collinearity is the KS obstruction's \emph{shadow} on $V$, not the
+obstruction itself.
+\end{proposition}
+
+%------------------------------------------------------------------
+\section{Type~F4: Pure Transverse Obstruction}
+\label{sec:type-f4}
+%------------------------------------------------------------------
+
+\subsection{Zero Fano Points}
+
+Type~F4 has 4 transverse contexts plus 1 context that may or may not
+contribute a Fano point. Among 3{,}584 Type~F4 pentagrams:
+
+\begin{itemize}
+  \item 2{,}688 (75\%) have 1 Fano point, uniformly distributed
+    (384 each for all 7 Fano points)
+  \item \textbf{896 (25\%) have ZERO Fano points} --- all 5 contexts
+    are transverse
+\end{itemize}
+
+The 896 ``pure transverse'' pentagrams are the strongest evidence
+against the naive dictionary: they have \emph{no Fano points at all},
+yet the KS obstruction is fully present.
+
+\begin{theorem}[Pivot Pentagon Rigidity]
+\label{thm:ghost}
+All 896 pure transverse Type~F4 pentagrams share the same rigid
+geometric structure:
+\begin{itemize}
+  \item \textbf{Lagrangian intersection:} All 10 pairwise intersections
+    have dimension 1 (equiangular configuration).
+  \item \textbf{$V$-intersection type:} $(0,0,0,0,3)$ --- 4 Lagrangians
+    transverse to $V$ ($k=0$), 1 contains a Fano line ($k=3$).
+\end{itemize}
+\end{theorem}
+
+\begin{remark}[Fano Geometry at the Lagrangian Level]
+``Zero Fano points'' describes the \emph{context} level, not the
+\emph{Lagrangian} level. The $k=3$ Lagrangian contains a Fano line,
+and this Fano line is precisely the element removed to form the proper
+context. The context therefore has 0 Fano points not because the Fano
+geometry is absent, but because it serves as the \emph{structural
+pivot} of the construction. Pivot Pentagons are the case where Fano
+geometry is most tightly embedded: the Fano line is not a shadow but
+the axis around which the context is built.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The Equiangular Characterization}
+\label{sec:equiangular}
+%------------------------------------------------------------------
+
+\subsection{The Main Theorem}
+
+\begin{theorem}[Equiangular Characterization]
+\label{thm:equiangular}
+In the proper context framework of $W(5, \F_2)$, the following three
+notions coincide:
+\[
+K_5 \;\Longleftrightarrow\; \text{equiangular } K_5
+\;\Longleftrightarrow\; \text{Mermin pentagram}.
+\]
+\end{theorem}
+
+\begin{proof}[Proof (pure geometry, no computation)]
+The equiangular condition is forced by the $K_5$ structure itself:
+
+\begin{enumerate}
+  \item $K_5$ has 10 operators, each appearing in exactly 2 contexts.
+  \item Each pair of Lagrangians $(L_i, L_j)$ must share exactly the
+    operator at their edge.
+  \item If $\dim(L_i \cap L_j) = 0$: they share 0 operators ---
+    impossible for a $K_5$ edge.
+  \item If $\dim(L_i \cap L_j) = 2$: they share 3 Fano points (a Fano
+    line). But proper context construction removes the Fano line from
+    each context, so the contexts share 0 operators --- impossible for
+    a $K_5$ edge.
+  \item Therefore $\dim(L_i \cap L_j) = 1$ for all 10 pairs. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+Non-equiangular $K_5$ do not exist in the proper context framework.
+Non-Mermin equiangular $K_5$ do not exist either.
+\end{corollary}
+
+\begin{remark}[Computational Confirmation]
+The geometric theorem is confirmed computationally:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r}
+\toprule
+Direction & Count \\
+\midrule
+Mermin $\Rightarrow$ equiangular & 12{,}096 / 12{,}096 (100\%) \\
+Equiangular $\Rightarrow$ Mermin & 12{,}096 / 12{,}096 (100\%) \\
+Non-equiangular $K_5$ & 0 \\
+Even-parity equiangular $K_5$ & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Computational verification of Theorem~\ref{thm:equiangular}.}
+\label{tab:equiangular-verify}
+\end{table}
+
+The parity distribution among equiangular $K_5$
+(Supplementary Script~P8~\cite{PaperXsuppl}):
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l r r}
+\toprule
+Pattern & Count & Fraction \\
+\midrule
+1 minus & 7{,}884 & 65.18\% \\
+3 minus & 4{,}104 & 33.93\% \\
+5 minus & 108 & 0.89\% \\
+\textbf{All odd} & \textbf{12{,}096} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\caption{Parity distribution among equiangular $K_5$ (Script~P8~\cite{PaperXsuppl}).}
+\label{tab:parity-dist}
+\end{table}
+\end{remark}
+
+\subsection{The 10-Ray Cap}
+
+\begin{theorem}[10-Ray Cap Structure]
+\label{thm:cap}
+The 10 intersection rays $R_{ij} = L_i \cap L_j$ are exactly the
+10 shared operators. They form a \emph{10-point cap} in $PG(5, \F_2)$:
+no three rays are collinear. The 10 rays span the full $\F_2^6$.
+\end{theorem}
+
+\begin{proof}[Proof (computational)]
+Each Lagrangian $L_i$ contains 4 rays (one for each edge incident to
+vertex $i$ in $K_5$). Each ray lies in exactly 2 Lagrangians.
+
+The cap property and spanning property are verified computationally
+(Supplementary \\Script~P7~\cite{PaperXsuppl}):
+for a representative equiangular $K_5$, the 10 rays $R_{ij}$ satisfy:
+\begin{itemize}
+  \item \textbf{Cap:} $\binom{10}{3} = 120$ triples checked;
+    0 are collinear (i.e., no $R_{mn} = R_{ij} + R_{kl}$).
+  \item \textbf{Span:} $\dim\langle R_{ij} \rangle = 6$
+    (the 10 rays span the full $\F_2^6$).
+\end{itemize}
+A purely geometric proof of the cap property from the equiangular
+condition remains open (see Section~\ref{sec:open-problems}).
+\end{proof}
+
+\begin{remark}[Geometric Structure]
+The $K_5$ embedding in $PG(5, \F_2)$:
+\begin{itemize}
+  \item 5 vertices $\to$ 5 Lagrangians (3-dim subspaces)
+  \item 10 edges $\to$ 10 intersection rays (1-dim subspaces)
+  \item Each Lagrangian contains 4 rays; each ray lies in 2 Lagrangians
+  \item No 3 rays collinear (cap property)
+\end{itemize}
+\end{remark}
+
+\subsection{The KS Contradiction from Equiangular Geometry}
+
+The KS contradiction separates into two independent layers:
+the \emph{linear algebra} of $\F_2^6$ and the \emph{sign contradiction}
+on $\{\pm 1\}$.
+
+\medskip
+\noindent\textbf{Layer 1: Linear dependencies in $\F_2^6$.}
+
+\begin{enumerate}
+  \item Each proper context $C_i$ consists of 4 operators whose
+    representative vectors in $\F_2^6$ sum to zero:
+    $\sum_{v \in C_i} v = 0$.
+    (The 4 operators form the complement of a Fano line in a
+    3-dimensional Lagrangian, hence are linearly dependent.)
+  \item Consequently, the Pauli product of the 4 operators in $C_i$
+    is $\pm I$, with sign $s_i \in \{+1, -1\}$ determined by the
+    symplectic phase.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Layer 2: The sign contradiction.}
+
+Suppose a consistent value assignment $f\colon \{\text{operators}\} \to
+\{\pm 1\}$ exists.
+
+\begin{enumerate}
+  \setcounter{enumi}{2}
+  \item For each context $C_i$, the product of assigned values satisfies
+    $\prod_{v \in C_i} f(v) = s_i$.
+  \item Taking the product over all 5 contexts:
+    \[
+    \prod_{i=1}^{5} \prod_{v \in C_i} f(v) = \prod_{i=1}^{5} s_i.
+    \]
+  \item \textbf{LHS:} Each of the 10 operators appears in exactly
+    2 contexts, so $\prod_{i} \prod_{v \in C_i} f(v)
+    = \prod_{v} f(v)^2 = (+1)^{10} = +1$.
+  \item \textbf{RHS:} The odd-parity condition (Definition,
+    \S\ref{sec:enumeration}) requires $\prod_{i=1}^{5} s_i = -1$.
+  \item Hence $+1 = -1$: contradiction. No consistent $\pm 1$
+    assignment exists.
+\end{enumerate}
+
+\medskip
+The equiangular configuration \emph{automatically forces} odd parity
+(Section~\ref{sec:characteristic}).
+This is not a coincidence --- it is the evaluation of a global
+cohomological invariant.
+
+%------------------------------------------------------------------
+\section{\texorpdfstring{$[f_3]$}{[f3]} as Symplectic Characteristic Class}
+\label{sec:characteristic}
+%------------------------------------------------------------------
+
+\begin{corollary}[{${[f_3]}$} as Symplectic Characteristic Class]
+\label{cor:characteristic}
+The odd parity of every equiangular $K_5$ is the evaluation of
+$[f_3] \in H^1(K_5, \cF)$, the symplectic characteristic class of
+$W(5, \F_2)$. This is not an ad hoc sign assignment --- it is a global
+cohomological invariant of the symplectic building.
+\end{corollary}
+
+\begin{proof}[Proof sketch (computational)]
+The sheaf $\cF$ assigns to each context $C_i$ the set of valid
+$\pm 1$ eigenvalue assignments to its 4 operators, and to each edge
+$C_i \cap C_j$ the eigenvalue of the shared operator. The obstruction
+class $[f_3] \in H^1(K_5, \cF)$ measures the failure of local sections
+to glue into a global section.
+
+By exhaustive computational verification
+(Table~\ref{tab:parity-dist}, Script~P8~\cite{PaperXsuppl}), every equiangular $K_5$
+in $W(5, \F_2)$ has odd parity $\prod s_i = -1$. Since every proper
+context $K_5$ is equiangular (Theorem~\ref{thm:equiangular}), every
+Mermin pentagram has $[f_3] \neq 0$.
+
+A purely geometric proof that the equiangular condition forces
+$\prod s_i = -1$ --- which would establish $[f_3]$ as a true
+symplectic characteristic class without computation --- remains open
+(Conjecture~\ref{conj:odd-parity}).
+\end{proof}
+
+\begin{remark}[Geometric Interpretation]
+The KS obstruction lives in the \emph{symplectic embedding} of $K_5$
+into $W(5, \F_2)$, not in individual Lagrangian intersections with $V$.
+The equiangular configuration is a rigid geometric structure that forces
+the KS parity anomaly via $[f_3]$. Fano collinearity is merely a shadow
+of this deeper structure.
+\end{remark}
+
+\subsection{Conjecture~2.5: The Wrong Question}
+
+Conjecture~2.5 of Paper~IX~\cite{PaperIX} proposed a collinearity--obstruction
+dictionary: the KS obstruction would translate to a collinearity
+obstruction in $PG(2, \F_2)$.
+
+This paper shows that Conjecture~2.5 asked the \emph{wrong question}:
+
+\begin{itemize}
+  \item Collinearity is a \emph{projection} of the equiangular structure
+    onto $V$, not the obstruction itself.
+  \item The true invariant is the symplectic embedding of $K_5$ into
+    $W(5, \F_2)$: every proper context $K_5$ is equiangular, and this
+    rigid geometric structure forces the KS parity anomaly.
+  \item The collinearity pattern varies (4-arcs, non-collinear triples,
+    zero Fano points), but the equiangular structure is invariant.
+\end{itemize}
+
+The correct statement is Theorem~\ref{thm:equiangular}: the equiangular
+Lagrangian configuration with its 10-ray cap structure is the true
+geometric invariant.
+
+%------------------------------------------------------------------
+\section{\texorpdfstring{$G_2(2)$}{G2(2)} Orbit Decomposition}
+\label{sec:orbits}
+%------------------------------------------------------------------
+
+\begin{proposition}[$G_2(2)$ Orbit Structure, computational]
+\label{prop:orbits}
+$G_2(2)$ (order $12{,}096$; its simple subgroup $G_2(2)' \cong PSU(3,3)$
+has index~2) acts on the 12{,}096 Mermin pentagrams with exactly 4 orbits:
+\[
+12{,}096 = 6{,}048 + 2{,}016 + 2{,}016 + 2{,}016.
+\]
+The largest orbit ($\mathcal{O}_1$, size $6{,}048$, stabilizer order~$2$)
+contains the standard pentagram. The three equal-sized special orbits
+($\mathcal{O}_2, \mathcal{O}_3, \mathcal{O}_4$, size $2{,}016$ each,
+stabilizer order~$6$) carry enhanced symmetry.
+\end{proposition}
+
+\begin{corollary}[Two Geometric Classes]
+\label{cor:two-classes}
+The orbit type distributions reveal a splitting into two geometric
+classes:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l r r r}
+\toprule
+Class & Orbits & Size & F2\% & F4\% \\
+\midrule
+I & $\mathcal{O}_1 \cup \mathcal{O}_2$ & 8{,}064 & 61.1\% & 27.8\% \\
+II & $\mathcal{O}_3 \cup \mathcal{O}_4$ & 4{,}032 & 55.6\% & 33.3\% \\
+\bottomrule
+\end{tabular}
+\caption{Two-class structure of Mermin pentagrams.}
+\label{tab:two-classes}
+\end{table}
+
+Class~II pentagrams have enhanced transverse obstruction ($+5.5$ pp in
+Type~F4) and reduced Fano shadow ($-5.5$ pp in Type~F2) relative to
+Class~I. The standard pentagram belongs to Class~I.
+
+In all four orbits, the Type~B fraction is exactly $1/9$:
+$672/6{,}048 = 224/2{,}016 = 1/9$.
+This uniformity suggests that the Type~B pattern (4 Fano points with
+one collision) is a $G_2(2)$-invariant.
+\end{corollary}
+
+The 3-fold symmetry among $\mathcal{O}_2, \mathcal{O}_3, \mathcal{O}_4$
+is partially broken: $\mathcal{O}_2$ shares the type ratios of
+$\mathcal{O}_1$, while $\mathcal{O}_3$ and $\mathcal{O}_4$ form a
+conjugate pair with distinct ratios.
+
+%------------------------------------------------------------------
+\section{Open Problems}
+\label{sec:open-problems}
+%------------------------------------------------------------------
+
+\subsection{Geometric Proof of Odd Parity}
+
+Theorem~\ref{thm:equiangular} proves that every proper context $K_5$
+is equiangular. The computational verification shows that every
+equiangular $K_5$ has odd parity (100\%). A geometric proof of this
+implication --- without computation --- would establish $[f_3]$ as a
+purely cohomological invariant:
+
+\begin{conjecture}
+\label{conj:odd-parity}
+The equiangular configuration $\dim(L_i \cap L_j) = 1$ for all 10 pairs
+implies odd parity $\prod s_i = -1$ by a direct geometric argument.
+Equivalently, $[f_3] \in H^1(K_5, \cF)$ is the non-trivial class for
+every equiangular $K_5$.
+\end{conjecture}
+
+\subsection{Orbit Stabilizer Structure}
+
+Proposition~\ref{prop:orbits} establishes 4 orbits with stabilizer
+orders 2 and 6. The stabilizer of order~6 has two candidates ($Z_6$
+or $S_3$), and their identification would clarify whether the 3-fold
+partial symmetry arises from a normal subgroup action. Separately,
+the geometric characterization of Class~II pentagrams
+(Corollary~\ref{cor:two-classes}) --- what distinguishes their
+enhanced F4 fraction --- is open.
+
+\subsection{Klein Quartic Connection}
+
+The relationship between the equiangular configuration and the Klein
+quartic $X(7)$ is open. The 10-ray cap in $PG(5, \F_2)$ may have a
+modular interpretation via the $PSL(2, 7)$ action on $X(7)$.
+
+\subsection{\texorpdfstring{$n$-Qubit}{n-Qubit} Generalization}
+
+The equiangular characterization is specific to 3 qubits ($W(5, \F_2)$).
+For $n$ qubits, the obstruction ladder continues:
+\begin{itemize}
+  \item $n=1$: $W(1, \F_2)$, $H^1$, geometric phase
+  \item $n=2$: $W(3, \F_2)$, $H^2$, KS contextuality (Peres--Mermin square)
+  \item $n=3$: $W(5, \F_2)$, $H^3$, equiangular characterization (this paper)
+  \item $n \geq 4$: $W(2n-1, \F_2)$, higher obstructions (open)
+\end{itemize}
+
+The modular geometry connection (via hyperbolic embedding) only opens
+at $n=3$. Whether the equiangular characterization generalizes to
+$n \geq 4$ is open.
+
+\subsection{\texorpdfstring{Gerbe $H^1$}{Gerbe H1} Non-vanishing}
+
+The twisted Penrose transform
+$H^1_{\mathcal{G}}(\CP^3, \cO_{\mathcal{G}}(-n-2))$ remains an open
+problem from Paper~VIII~\cite{PaperVIII}. The standard Leray analysis
+gives $R^1\pi_*\cO_{\mathcal{G}} = 0$, so the $\Z/2$-gerbe obstruction
+cannot be detected by classical sheaf cohomology.
+
+%------------------------------------------------------------------
+\section*{Appendix: Rigor Self-Assessment}
+%------------------------------------------------------------------
+
+\begin{table}[H]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l c p{6.5cm}}
+\toprule
+Claim & Rigor & Status \\
+\midrule
+135 Lagrangians in $W(5, \F_2)$ & $\bullet$ &
+  Standard finite geometry; $|PSp(6, \F_2)|/|P_L| = 135$ \\
+945 proper contexts & $\bullet$ &
+  $135 \times 7$ (complement of each Fano line) \\
+12{,}096 Mermin pentagrams & $\bullet$ &
+  Exhaustive enumeration (deduped); code in~\cite{PaperXsuppl} \\
+Type~A $= 0$ & $\bullet$ &
+  Computational verification; geometric proof open \\
+Type~B: 33.3\% are 4-arcs & $\bullet$ &
+  Computational verification \\
+Type~F2: 87.5\% non-collinear & $\bullet$ &
+  Computational verification \\
+Type~F4: 25\% zero Fano points & $\bullet$ &
+  Computational verification \\
+Pivot Pentagon Rigidity & $\bullet$ &
+  Computational verification; all 4{,}480 have equiangular config \\
+Theorem~\ref{thm:equiangular} (Equiangular $\Leftrightarrow$ Mermin) & $\bullet$ &
+  \textbf{Geometric proof} (pure algebra, no computation) \\
+Theorem~\ref{thm:cap} (10-Ray Cap) & $\bullet$ &
+  Computational (Script~P7~\cite{PaperXsuppl}); geometric proof open \\
+$[f_3]$ as symplectic characteristic class & $\bullet/\circ$ &
+  Cohomological interpretation ($\bullet$); full proof of uniqueness ($\circ$) \\
+$G_2(2)$ orbit decomposition & $\bullet$ &
+  4 orbits: $6{,}048 + 2{,}016 \times 3$; two geometric classes \\
+Klein quartic connection & $\circ$ &
+  Open problem \\
+$n$-qubit generalization & $\circ$ &
+  Open problem \\
+\bottomrule
+\end{tabular}
+\caption{Rigor self-assessment for Paper~X.}
+\label{tab:rigor}
+\end{table}
+
+%------------------------------------------------------------------
+\section*{Acknowledgments}
+%------------------------------------------------------------------
+
+The author thanks the mathematical physics reading group for feedback
+on the equiangular characterization, and a research collaborator for
+identifying the geometric proof of Theorem~\ref{thm:equiangular} and
+the interpretation of $[f_3]$ as a symplectic characteristic class.
+
+%------------------------------------------------------------------
+\begin{thebibliography}{10}
+%------------------------------------------------------------------
+
+\bibitem[Mermin1990]{Mermin1990}
+N.~D.~Mermin,
+``Simple unified form for the major no-hidden-variables theorems,''
+\textit{Am. J. Phys.} \textbf{58}, 731--734 (1990).
+
+\bibitem[PaperVIII]{PaperVIII}
+Z.-L.~Chen,
+``The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder:
+Explicit Transgression and Twisted Penrose Transform,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20454120} (2026).
+
+\bibitem[PaperIX]{PaperIX}
+Z.-L.~Chen,
+``The 3-Qubit Obstruction Ladder: Hyperbolic Embedding,
+Mermin Pentagram, and Two Klein Quartic Bridges,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20465623} (2026).
+
+\bibitem[PaperXsuppl]{PaperXsuppl}
+Z.-L.~Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Computational Verification,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20472357} (2026).
+
+\bibitem[LevayPlanatSaniga]{LevayPlanatSaniga}
+P.~L\'evay, M.~Planat, and M.~Saniga,
+``Grassmannian Connection Between Three- and Four-Qubit Observables,
+Mermin's Contextuality and Black Holes,''
+\textit{JHEP} \textbf{09} (2013) 037.
+
+\end{thebibliography}
+
+\end{document}

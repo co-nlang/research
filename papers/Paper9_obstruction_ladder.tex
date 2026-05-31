@@ -813,15 +813,21 @@ operators share a common eigenbasis). The product of operators in each
 context yields $\pm \mathbf{I}_8$; the parity of minus signs encodes the
 obstruction class $[f_3]$.
 
-\begin{remark}[KS Contradiction Prerequisite]
-{\sloppy The Kochen--Specker contradiction~\cite{KochenSpecker1967} requires
-an \emph{odd} number of contexts with product $-\mathbf{I}$. For the
-pentagram in Table~\ref{tab:pentagram}, the context products must be
-verified: the system of 5 context equations is inconsistent because
-summing all 5 equations gives $0 = 1 \pmod 2$ (each of the 10 operators
-appears in exactly 2 contexts, so the LHS sums to 0, but the RHS sums
-to 1 from the anomalous context(s)). The explicit count of $-\mathbf{I}$
-contexts should be odd for the KS contradiction to hold.\par}
+\begin{remark}[KS Contradiction: Explicit Parity Count]
+\label{rem:ks-parity}
+The Kochen--Specker contradiction requires an \emph{odd} number of
+contexts with product $-\mathbf{I}$. For the explicit pentagram in
+Table~\ref{tab:pentagram}, direct computation of the five context
+products via Pauli matrix multiplication shows that \textbf{all five
+contexts evaluate to $-\mathbf{I}$} (verified in the supplementary
+code~\cite{PaperXsuppl}).
+
+Summing the five $\mathbb{Z}/2$ eigenvalue equations:
+the left-hand side is $0$ (each of the 10 operators appears in exactly
+two contexts, so each eigenvalue is counted twice);
+the right-hand side is $1+1+1+1+1 = 5 \equiv 1 \pmod{2}$.
+Hence $0 = 1 \pmod{2}$: no consistent $\pm 1$ assignment exists,
+confirming $[f_3] \neq 0$.
 \end{remark}
 
 The \v{C}ech nerve of the Mermin pentagram is the complete graph $K_5$
@@ -1048,6 +1054,12 @@ Z.-L.~Chen,
 ``Kochen--Specker Contextuality as Central Extension:
 The Peres--Mermin Square and the Pauli Group,''
 \textit{Zenodo, DOI: 10.5281/zenodo.20073127} (2026).
+
+\bibitem[PaperXsuppl]{PaperXsuppl}
+Z.-L.~Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Computational Verification,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20472357} (2026).
 
 \bibitem[PaperIV]{PaperIV}
 Z.-L.~Chen,
