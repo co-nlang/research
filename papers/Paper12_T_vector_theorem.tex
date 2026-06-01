@@ -1,0 +1,621 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{The T-Vector Theorem: Symplectic Characteristic Elements\\
+       and the Kochen--Specker Obstruction\\
+       {\large (Paper XII)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Paper~XI~\cite{PaperXI} established the $\beta$-formula for context
+  signs of Mermin pentagrams and proved algebraically that
+  $\omega(r_{ij}, r_{kl}) = 1$ for every disjoint ray pair, yielding
+  $\omega_{\text{total}} \equiv 1 \pmod{2}$. The parity theorem
+  $\beta_{\text{sum}} \equiv 2 \pmod{4}$ was verified computationally
+  for all $12{,}096$ pentagrams.
+
+  In this paper we prove the \emph{T-vector theorem}: for any
+  equiangular Mermin pentagram with 10 rays $\{r_{ij}\}$, the sum
+  $T = \sum r_{ij}$ satisfies $\omega(T, r) = 1$ for every ray $r$
+  (Theorem~\ref{thm:T-vector}). The proof is purely algebraic and
+  $G_2(2)$-equivariant.
+
+  We interpret $T$ as a \emph{symplectic characteristic element} of the
+  10-ray system, drawing an analogy with Wu classes in algebraic
+  topology (Remark~\ref{rem:wu}).
+
+  We then prove a negative result: the Arf invariant framework for the
+  KS obstruction is incompatible with $G_2(2)$ symmetry. Specifically,
+  $G_2(2)$ acts transitively on $\F_2^6 \setminus \{0\}$
+  (Proposition~\ref{prop:transitive}) and no $G_2(2)$-invariant
+  quadratic form exists
+  (Proposition~\ref{prop:no-invariant-form}). The obstruction class
+  $[f_3] \in H^1(K_5, \cF)$ therefore requires a cohomological
+  interpretation beyond quadratic refinements.
+
+  We close with the mod~4 lifting problem: an algebraic derivation of
+  $\beta_{\text{sum}} \equiv 2 \pmod{4}$ from the T-vector theorem
+  remains open (Conjecture~\ref{conj:mod4}).
+\end{abstract}
+
+%------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+%------------------------------------------------------------------
+
+The Kochen--Specker (KS) theorem~\cite{KochenSpecker1967} forbids
+non-contextual hidden variable models of quantum mechanics. In the
+three-qubit setting, Mermin's pentagram~\cite{Mermin1990} provides a
+state-independent proof using 10 observables arranged in 5 contexts of
+4 mutually commuting operators.
+
+Paper~X~\cite{PaperX} established the \emph{equiangular
+characterization}: every Mermin pentagram has Lagrangian configuration
+with $\dim(L_i \cap L_j) = 1$ for all 10 pairs, and conversely every
+equiangular $K_5$ in $W(5, \F_2)$ is a Mermin pentagram. The 10 shared
+operators form a 10-point cap in $\text{PG}(5, \F_2)$ spanning the full
+space $\F_2^6$.
+
+Paper~XI~\cite{PaperXI} provided an explicit formula for context signs
+via the $\beta$-formula and proved algebraically that $\omega(r_{ij},
+r_{kl}) = 1$ for every disjoint ray pair. The parity theorem
+$\beta_{\text{sum}} \equiv 2 \pmod{4}$ was verified computationally.
+
+\medskip
+
+\textbf{Main results of this paper.}
+\begin{enumerate}
+  \item \textbf{T-vector theorem} (Theorem~\ref{thm:T-vector}):
+    For any equiangular pentagram, $T = \sum r_{ij}$ satisfies
+    $\omega(T, r) = 1$ for all rays. Proof is algebraic and
+    $G_2(2)$-equivariant.
+  \item \textbf{Symplectic characteristic element}
+    (Remark~\ref{rem:wu}): $T$ is the unique element encoding the
+    symplectic structure of the ray system, analogous to the Wu class
+    in algebraic topology.
+  \item \textbf{Arf framework incompatibility}
+    (Theorem~\ref{thm:arf-fails}): The identification $[f_3] =
+    \Phi^*(\text{Arf}(q'))$ is incompatible with $G_2(2)$ symmetry.
+    $G_2(2)$ acts transitively on $\F_2^6 \setminus \{0\}$ and no
+    $G_2(2)$-invariant quadratic form exists.
+  \item \textbf{Mod~4 lifting problem}
+    (Conjecture~\ref{conj:mod4}): An algebraic derivation of
+    $\beta_{\text{sum}} \equiv 2 \pmod{4}$ from the T-vector theorem
+    remains open.
+\end{enumerate}
+
+\medskip
+
+\textbf{Structure.}
+Section~\ref{sec:T-vector} proves the T-vector theorem and its
+corollaries. Section~\ref{sec:symplectic-char} develops the geometric
+interpretation as symplectic characteristic element.
+Section~\ref{sec:arf-fails} proves the incompatibility of the Arf
+framework. Section~\ref{sec:mod4} formulates the mod~4 lifting problem.
+Section~\ref{sec:open} lists open problems.
+
+%------------------------------------------------------------------
+\section{The T-Vector Theorem}
+\label{sec:T-vector}
+%------------------------------------------------------------------
+
+\begin{definition}[T-vector]
+\label{def:T}
+Let $P$ be a Mermin pentagram with 10 rays
+$\{r_{ij}\}_{1 \leq i < j \leq 5} \subset \F_2^6$, where $r_{ij}$ is
+the unique shared operator between contexts $C_i$ and $C_j$. The
+\emph{T-vector} of $P$ is
+\[
+  T = \bigoplus_{1 \leq i < j \leq 5} r_{ij} \in \F_2^6.
+\]
+\end{definition}
+
+\begin{theorem}[T-vector theorem]
+\label{thm:T-vector}
+For every equiangular Mermin pentagram and every ray $r_{ab}$:
+\[
+  \omega(T, r_{ab}) = 1 \pmod{2}.
+\]
+\end{theorem}
+
+\begin{proof}
+Fix a ray $r_{ab}$. The 10 rays decompose relative to the edge $(a,b)$
+of $K_5$:
+
+\medskip
+
+\textbf{Sharing rays} (6): $r_{ac}, r_{ad}, r_{ae}, r_{bc}, r_{bd},
+r_{be}$, where $c, d, e$ are the remaining vertices. Each sharing ray
+lies in the same Lagrangian as $r_{ab}$ (both belong to context $C_a$
+or $C_b$), so $\omega(r_{ac}, r_{ab}) = 0$, etc.
+
+\medskip
+
+\textbf{Disjoint rays} (3): $r_{cd}, r_{ce}, r_{de}$ where
+$\{c,d,e\} = \{1,2,3,4,5\} \setminus \{a,b\}$. By the disjoint pair
+theorem (Paper~XI, Theorem~3.5), $\omega(r_{kl}, r_{ab}) = 1$ for
+each disjoint pair.
+
+\medskip
+
+Since $T = \bigoplus_k r_k$ and $\omega$ is bilinear over $\F_2$:
+\[
+  \omega(T, r_{ab})
+  = \sum_{k} \omega(r_k, r_{ab})
+  = 6 \times 0 + 3 \times 1
+  = 3 \equiv 1 \pmod{2}. \quad \square
+\]
+\end{proof}
+
+\begin{corollary}
+\label{cor:T-not-in-L}
+$T \notin L_i$ for any Lagrangian $L_i$ of the pentagram.
+\end{corollary}
+
+\begin{proof}
+If $T \in L_i$, then $\omega(T, v) = 0$ for all $v \in L_i$, including
+the rays of context $C_i$. But $\omega(T, r) = 1$ for all rays by
+Theorem~\ref{thm:T-vector}.
+\end{proof}
+
+\begin{corollary}
+\label{cor:T-nonzero}
+$T \neq 0$ for every Mermin pentagram.
+\end{corollary}
+
+\begin{remark}[Computational properties of $T$]
+\label{rem:T-stats}
+The following are verified computationally for all $12{,}096$ Mermin
+pentagrams~\cite{PaperXIIsuppl}:
+\begin{itemize}
+  \item $T$ takes all 63 non-zero values in $\F_2^6$, each appearing
+    exactly 192 times.
+  \item The integer symplectic form $\omega_{\text{int}}(T, r) \in
+    \{-3, -1, +1, +3\}$, always odd.
+  \item $q(T) = 0$ for $6{,}720$ pentagrams (55.6\%) and $q(T) = 1$
+    for $5{,}376$ pentagrams (44.4\%), where $q(v) = x_1 z_1 + x_2 z_2
+    + x_3 z_3$ is the standard quadratic form.
+\end{itemize}
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Symplectic Characteristic Elements}
+\label{sec:symplectic-char}
+%------------------------------------------------------------------
+
+\begin{definition}[Symplectic characteristic element]
+\label{def:symplectic-char}
+Let $(V, \omega)$ be a symplectic vector space over $\F_2$ and
+$S = \{r_1, \ldots, r_n\} \subset V$ a finite set. A
+\emph{symplectic characteristic element} of $S$ is a vector $T \in V$
+satisfying
+\[
+  \omega(T, r_i) = 1 \quad \text{for all } r_i \in S.
+\]
+\end{definition}
+
+Theorem~\ref{thm:T-vector} states that for any equiangular pentagram,
+the sum $T = \sum r_{ij}$ is a symplectic characteristic element of the
+10-ray system.
+
+\begin{proposition}[Uniqueness]
+\label{prop:uniqueness}
+For equiangular pentagrams, the symplectic characteristic element is
+unique.
+\end{proposition}
+
+\begin{proof}
+If $T'$ is another symplectic characteristic element, then
+$\omega(T - T', r) = 0$ for all rays $r$, so $T - T' \in S^\perp$
+where $S$ is the set of 10 rays. By the 10-ray cap theorem
+of~\cite{PaperX}, the rays span $\F_2^6$, so $S^\perp = \{0\}$ and
+$T = T'$.
+\end{proof}
+
+\begin{remark}[Analogy with Wu classes]
+\label{rem:wu}
+In algebraic topology, the Wu class $v \in H^*(M; \F_2)$ of a closed
+manifold $M$ is characterized by
+\[
+  \text{Sq}^i(x) = v \cup x \quad \text{for all } x \in H^*(M; \F_2).
+\]
+The T-vector is the finite-field symplectic geometry analog:
+
+\medskip
+
+\begin{center}
+\begin{tabular}{l l l}
+\toprule
+& \textbf{Wu class} & \textbf{T-vector} \\
+\midrule
+Domain & Manifold cohomology & Symplectic vector space \\
+Characterizes & Steenrod operations & Symplectic pairing \\
+Via & Cup product & $\omega(\cdot, \cdot)$ \\
+Equation & $\text{Sq}^i(x) = v \cup x$ & $\omega(T, r) = 1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+
+Both are ``universal'' elements encoding global structure through local
+operations. The existence of a symplectic characteristic element
+implies that the ray system has \emph{maximal non-isotropy}: the rays
+cannot all lie in a Lagrangian subspace, and $T$ serves as a
+``witness'' to the symplectic structure of the configuration.
+\end{remark}
+
+\begin{remark}[KS obstruction as symplectic phenomenon]
+\label{rem:symplectic-ks}
+The T-vector theorem reveals that the KS obstruction is fundamentally a
+\emph{symplectic} phenomenon. The obstruction arises from the symplectic
+pairing structure of the rays, not from the Arf invariant of a
+quadratic form. This is made precise by the incompatibility result of
+Section~\ref{sec:arf-fails}.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Incompatibility of the Arf Framework}
+\label{sec:arf-fails}
+%------------------------------------------------------------------
+
+The symplectic space $(\F_2^6, \omega)$ admits $2^6 = 64$ quadratic
+refinements $q_u = q + \ell_u$ where $q(v) = x_1 z_1 + x_2 z_2 + x_3
+z_3$ is the standard form and $\ell_u(v) = \omega(u, v)$. The Arf
+invariant classifies these into two families:
+\begin{itemize}
+  \item \textbf{Even} ($\text{Arf} = 0$): 36 forms
+    ($u = 0$ or $q(u) = 0$, giving $1 + 35 = 36$ choices)
+  \item \textbf{Odd} ($\text{Arf} = 1$): 28 forms
+    ($q(u) = 1$, giving 28 choices)
+\end{itemize}
+
+The shift formula gives $\text{Arf}(q + \ell_u) = \text{Arf}(q) +
+q(u)$, so $\text{Arf}(q_u) = q(u)$ since $\text{Arf}(q) = 0$.
+
+\begin{remark}[Correction to Paper~XI]
+\label{rem:paper-xi-correction}
+Paper~XI~\cite{PaperXI}, \S6.3 incorrectly stated ``the Arf invariant
+is 1 for the standard quadratic form on $\F_2^6$.'' The correct value
+is $\text{Arf}(q) = 0$, as computed above via $\text{Arf}(q) = \sum_k
+q(e_k)q(f_k) = 0$ in any symplectic basis. Paper~XI \S6.3 has been
+corrected in the Zenodo version; the present paper uses the correct
+value throughout.
+\end{remark}
+
+\medskip
+
+The original conjecture~\cite{PaperIX} was that the KS obstruction
+class $[f_3] \in H^1(K_5, \cF)$ could be identified with the pullback
+$\Phi^*(\text{Arf}(q'))$ for some geometrically natural quadratic form
+$q'$. We now prove this is impossible.
+
+\begin{proposition}[$G_2(2)$ transitivity, computational]
+\label{prop:transitive}
+$G_2(2)$ (order $12{,}096$) acts transitively on $\F_2^6 \setminus
+\{0\}$. There is a single orbit of size 63.
+\end{proposition}
+
+\begin{proof}
+Verified by exhaustive computation~\cite{PaperXIIsuppl}: starting from
+any non-zero vector, the orbit under the two generators of $G_2(2)$
+contains all 63 non-zero vectors.
+\end{proof}
+
+\begin{corollary}
+\label{cor:mixes-q}
+$G_2(2)$ does not preserve the standard quadratic form $q$. The orbit
+of any vector contains 35 vectors with $q = 0$ and 28 with $q = 1$.
+\end{corollary}
+
+\begin{proof}
+Since $G_2(2)$ is transitive on all 63 non-zero vectors, the orbit of
+any vector is the entire set $\F_2^6 \setminus \{0\}$, which contains
+35 vectors with $q = 0$ and 28 with $q = 1$.
+\end{proof}
+
+\begin{proposition}[No invariant quadratic form, computational]
+\label{prop:no-invariant-form}
+Among all 64 quadratic forms refining $\omega$, none is
+$G_2(2)$-invariant.
+\end{proposition}
+
+\begin{proof}
+Verified by exhaustive search~\cite{PaperXIIsuppl}: for each of the 64
+forms $q_u$, there exists $g \in G_2(2)$ and $v \in \F_2^6$ such that
+$q_u(g \cdot v) \neq q_u(v)$.
+\end{proof}
+
+\begin{remark}[Conceptual reason]
+\label{rem:conceptual}
+Proposition~\ref{prop:no-invariant-form} follows immediately from
+Proposition~\ref{prop:transitive} without computation. Since $G_2(2)$
+acts transitively on $\F_2^6 \setminus \{0\}$, any $G_2(2)$-invariant
+function $q: \F_2^6 \to \F_2$ must be constant on non-zero vectors.
+But $q(0) = 0$ for any quadratic form, so $q$ would be either
+identically zero (not a refinement of $\omega$) or identically one on
+non-zero vectors (which fails $q(a+b) + q(a) + q(b) = \omega(a,b)$).
+\end{remark}
+
+\begin{theorem}[No canonical Arf identification]
+\label{thm:arf-fails}
+There is no $G_2(2)$-canonical identification of $[f_3]$ with the Arf
+invariant of a quadratic form: no $G_2(2)$-invariant quadratic form
+$q'$ refining $\omega$ satisfies $\emph{Arf}(q') = 1$.
+\end{theorem}
+
+\begin{proof}
+By Proposition~\ref{prop:no-invariant-form}, no $G_2(2)$-invariant
+quadratic form exists at all, so no $G_2(2)$-invariant $q'$ with
+$\text{Arf}(q') = 1$ can be found.
+
+Any geometrically natural (i.e., $G_2(2)$-canonical) identification of
+$[f_3]$ with an Arf invariant would require a $G_2(2)$-invariant choice
+of $q'$. Since no such choice exists, the identification cannot be made
+canonically.
+\end{proof}
+
+\begin{remark}[Non-canonical identifications exist]
+\label{rem:noncanonical}
+For any of the 28 quadratic forms with $\text{Arf} = 1$, one may
+formally write $[f_3] = 1 = \text{Arf}(q')$. But this identification
+is non-canonical: there is no $G_2(2)$-equivariant rule to select $q'$
+among the 28 odd forms, and no single $q'$ distinguishes the KS
+obstruction geometrically.
+\end{remark}
+
+\begin{remark}[No universal dual vector]
+\label{rem:no-universal-u}
+For each fixed $u$ with $q(u) = 1$, the vector $u$ belongs to exactly
+15 Lagrangians and $u \in \bigcup_i L_i$ for exactly $4{,}800$ of the
+$12{,}096$ pentagrams (39.7\%). No single $u$ covers all pentagrams.
+This is consistent with Theorem~\ref{thm:arf-fails}: the ``correct''
+dual vector would need to be pentagram-dependent, but no
+$G_2(2)$-equivariant selection rule exists.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{The Mod~4 Lifting Problem}
+\label{sec:mod4}
+%------------------------------------------------------------------
+
+Paper~XI established two results at different levels:
+\begin{enumerate}
+  \item \textbf{Mod~2} (algebraic): $\omega_{\text{total}} \equiv 1
+    \pmod{2}$, proved via the disjoint pair theorem.
+  \item \textbf{Mod~4} (computational): $\beta_{\text{sum}} \equiv 2
+    \pmod{4}$, verified for all $12{,}096$ pentagrams.
+\end{enumerate}
+
+The T-vector theorem (Theorem~\ref{thm:T-vector}) is a consequence of
+the mod~2 result. The gap between mod~2 and mod~4 remains the central
+open problem.
+
+\begin{conjecture}[Mod~4 lifting]
+\label{conj:mod4}
+The congruence $\beta_{\text{sum}} \equiv 2 \pmod{4}$ can be derived
+algebraically from the T-vector theorem $\omega(T, r) = 1$ and the
+equiangular geometry.
+\end{conjecture}
+
+\begin{remark}[Connection to the $\beta$-formula]
+\label{rem:beta-connection}
+The $\beta$-formula of Paper~XI gives the context sign as
+$s(C_i) = (-1)^{\beta(C_i)/2}$ where
+\[
+  \beta(C_i) = \sum_{j<k} \omega_{\text{int}}(v_j, v_k)
+\]
+and $\omega_{\text{int}}$ is the \emph{integer} symplectic form. The
+total parity is
+\[
+  \prod_{i=1}^5 s(C_i) = (-1)^{\sum_i \beta(C_i)/2}.
+\]
+The sum $\sum_i \beta(C_i)$ involves $\omega_{\text{int}}$ evaluated on
+the 30 sharing pairs (pairs of rays sharing a $K_5$ vertex). Each
+sharing pair lies in a Lagrangian, so $\omega_{\text{int}}$ is even and
+$\omega_{\text{int}}/2$ is an integer.
+
+\medskip
+
+The quadratic form identity
+\[
+  q(T) + \sum_{a=1}^{10} q(r_a) \equiv \omega_{\text{total}} \equiv 1
+  \pmod{2}
+\]
+connects the T-vector to the integer structure. Lifting this to mod~4
+requires understanding the relationship between $\omega_{\text{int}}$
+(integer-valued) and $\omega$ (mod~2 reduction).
+\end{remark}
+
+\begin{remark}[Parity distribution]
+\label{rem:parity-dist}
+Among the $12{,}096$ Mermin pentagrams, the number of negative contexts
+is always odd:
+\begin{center}
+\begin{tabular}{l r r}
+\toprule
+\textbf{Parity} & \textbf{Count} & \textbf{Fraction} \\
+\midrule
+1-minus & $7{,}884$ & 65.2\% \\
+3-minus & $4{,}104$ & 33.9\% \\
+5-minus & $108$ & 0.9\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+All counts are $G_2(2)$-invariant. The 5-minus pentagrams (108 total)
+are the most symmetric configurations.
+\end{remark}
+
+%------------------------------------------------------------------
+\section{Open Problems}
+\label{sec:open}
+%------------------------------------------------------------------
+
+\begin{enumerate}
+  \item \textbf{Algebraic proof of mod~4 lifting.}
+    Derive $\beta_{\text{sum}} \equiv 2 \pmod{4}$ from the T-vector
+    theorem and the equiangular geometry, closing the gap between the
+    algebraic mod~2 result and the computational mod~4 verification.
+
+  \item \textbf{Weil representation.}
+    The $\beta$-formula may arise naturally from the Weil representation
+    of $\text{Sp}(6, \F_2)$. The integer symplectic form
+    $\omega_{\text{int}}$ and the phase $i^{\beta}$ suggest a connection
+    to the metaplectic representation~\cite{LionVergne}.
+
+  \item \textbf{Higher cohomological operations.}
+    Since the Arf invariant framework fails
+    (Theorem~\ref{thm:arf-fails}), the obstruction $[f_3]$ may
+    correspond to a higher-degree cohomological operation: Steenrod
+    squares, Massey products, or characteristic classes of a gerbe on
+    the context complex.
+
+  \item \textbf{$n$-qubit generalization.}
+    Does the T-vector theorem generalize to $n$-qubit Mermin stars?
+    For an $n$-qubit system with $N$ rays in $\F_2^{2n}$, the sum $T =
+    \sum r_a$ may satisfy $\omega(T, r_a) = c$ for some constant $c$
+    determined by the combinatorial structure.
+
+  \item \textbf{Class~II geometric characterization.}
+    The $G_2(2)$ orbit decomposition yields two geometric classes
+    (Paper~X, Corollary~8.2). Class~II pentagrams have enhanced
+    transverse obstruction ($+5.5$ pp in Type~F4). A geometric
+    invariant distinguishing the classes remains to be identified.
+
+  \item \textbf{Split Cayley Hexagon.}
+    The T-vector $T$ takes all 63 non-zero values uniformly. The
+    connection between $T$ and the Split Cayley Hexagon
+    substructures~\cite{LevayPlanatSaniga} of $W(5, \F_2)$ is open.
+\end{enumerate}
+
+%------------------------------------------------------------------
+\section*{Appendix: Rigor Self-Assessment}
+\label{app:rigor}
+%------------------------------------------------------------------
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l}
+\toprule
+\textbf{Result} & \textbf{Label} & \textbf{Verification} \\
+\midrule
+T-vector theorem & thm:T-vector & Algebraic \\
+$T \notin L_i$ & cor:T-not-in-L & Algebraic \\
+$T \neq 0$ & cor:T-nonzero & Algebraic \\
+Uniqueness of $T$ & prop:uniqueness & Algebraic \\
+$G_2(2)$ transitivity & prop:transitive & Computational \\
+No invariant form & prop:no-invariant-form & Computational \\
+Arf incompatibility & thm:arf-fails & Algebraic (from comp.\ lemmas) \\
+No universal $u$ & rem:no-universal-u & Computational \\
+Mod~4 lifting & conj:mod4 & Open \\
+$T$-vector statistics & rem:T-stats & Computational \\
+Parity distribution & rem:parity-dist & Computational \\
+\bottomrule
+\end{tabular}
+\caption{Rigor classification of main results.}
+\label{tab:rigor}
+\end{table}
+
+%------------------------------------------------------------------
+\section*{Acknowledgments}
+%------------------------------------------------------------------
+
+This work continues the computational-algebraic investigation of the
+symplectic geometry of Mermin pentagrams. The computations were
+performed using Python with NumPy. Scripts are archived
+in~\cite{PaperXIIsuppl}.
+
+%------------------------------------------------------------------
+\begin{thebibliography}{9}
+%------------------------------------------------------------------
+
+\bibitem[PaperIX]{PaperIX}
+Z.-L.~Chen,
+``The 3-Qubit Obstruction Ladder: Hyperbolic Embedding,
+Mermin Pentagram, and Two Klein Quartic Bridges,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20465623} (2026).
+
+\bibitem[KochenSpecker1967]{KochenSpecker1967}
+S.~Kochen and E.~P.~Specker,
+``The problem of hidden variables in quantum mechanics,''
+\textit{J. Math. Mech.} \textbf{17}, 59--87 (1967).
+
+\bibitem[LevayPlanatSaniga]{LevayPlanatSaniga}
+P.~L\'evay, M.~Planat, and P.~Saniga,
+``Three-qubit Mermin pentagram, the split Cayley hexagon, and
+the black-hole analogy,''
+\textit{arXiv:1303.5653} (2013).
+
+\bibitem[LionVergne]{LionVergne}
+G.~Lion and M.~Vergne,
+\emph{The Weil Representation, Maslov Index and Theta Series},
+\textit{Birkh\"auser, Boston} (1980).
+
+\bibitem[Mermin1990]{Mermin1990}
+N.~D.~Mermin,
+``Simple unified form for the major no-hidden-variables theorems,''
+\textit{Am. J. Phys.} \textbf{58}, 731--734 (1990).
+
+\bibitem[PaperX]{PaperX}
+Z.-L. Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Symplectic Embedding, 10-Ray Cap, and the Failure of the
+Collinearity--Obstruction Dictionary,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20476659} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L.~Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:\\
+The $\beta$-Formula, Geometric Decomposition, and the\\
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXIIsuppl]{PaperXIIsuppl}
+Z.-L.~Chen,
+``Supplementary computational materials for Paper XII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20488394} (2026).
+
+\end{thebibliography}
+
+\end{document}
