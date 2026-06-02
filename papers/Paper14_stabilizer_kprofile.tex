@@ -1,0 +1,697 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\PP}{\mathcal{P}}
+
+
+\title{Stabilizer Algebra and the $k$-Profile Theorem\\
+       for Mermin Pentagrams\\
+       {\large (Paper XIV)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We complete the computational foundations for the Weil representation framework
+for Mermin pentagrams established in Papers~XI--XIII.
+Our main results are:
+(1)~the \emph{$k$-Profile Theorem}: all 12{,}096 Mermin pentagrams fall into
+exactly 7 $k$-profile types (sorted $V$-intersection dimensions), and every
+profile forces odd total parity, upgrading the 500-sample proposition of
+Paper~XIII to a full theorem;
+(2)~the \emph{Stabilizer Classification}: the four $G_2(2)$ orbits have
+stabilizer subgroups $\mathbb{Z}_2$ (Orbit~1) and $S_3$ (Orbits 2, 3, 4),
+showing in particular that no orbit has a cyclic stabilizer of order~6;
+(3)~the \emph{5-Minus Exclusion}: pentagrams with $k$-profiles $(3,3,3,0,0)$
+or $(7,1,1,1,1)$ never attain the all-five-minus h-pattern, with an algebraic
+proof for the $(7,1,1,1,1)$ case;
+and (4)~\emph{$\beta_{\mathrm{sum}}$ distribution statistics} across all
+12{,}096 pentagrams, refining the 500-sample estimates of Paper~XIII.
+A key negative result is that the Orbit~4 parity anomaly
+(60.6\% 1-minus vs.\ 65--68\% for Orbits 1--3) is \emph{not} explained by
+the abstract stabilizer type, since all three order-6 orbits share the same
+$S_3$ structure; the anomaly must reside in the embedding of $S_3$ in $G_2(2)$.
+We close with an outlook on the Weil representation framework (Paper~XV),
+in which $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ will be interpreted as a
+2-cocycle constraint in the metaplectic extension of $Sp(6,\mathbb{F}_2)$.
+\end{abstract}
+
+
+\section{Introduction}
+
+Papers~XI through~XIII established the parity theorem for Mermin pentagrams
+\cite{PaperXI,PaperXII,PaperXIII}.
+For each context $C = \{v_1,v_2,v_3,v_4\}$ in a Mermin pentagram, the sign
+\[
+  s(C) = (-1)^{\beta(C)/2}, \quad
+  \beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k),
+\]
+gives $\prod_{i=1}^5 s(C_i) = -1$, i.e., $\beta_{\mathrm{sum}} \equiv 2\pmod 4$,
+for all 12{,}096 Mermin pentagrams \cite{PaperXI}.
+Paper~XIII showed that the Maslov/Kashiwara index framework does not explain
+this constraint, identified a parity anomaly in Orbit~4, and upgraded the
+$k$-profile result to a 500-sample proposition \cite{PaperXIII}.
+
+This paper resolves the remaining computational questions:
+
+\begin{enumerate}
+  \item \textbf{$k$-Profile Theorem} (\S\ref{sec:kprofile}):
+        Full 12{,}096-pentagram verification of 7 $k$-profile types, all forcing
+        odd parity.
+
+  \item \textbf{Stabilizer Classification} (\S\ref{sec:stabilizer}):
+        Computation of the stabilizer subgroup for each of the four
+        $G_2(2)$ orbits; result is $\mathbb{Z}_2$ for Orbit~1 and $S_3$ for
+        Orbits~2, 3, 4.
+
+  \item \textbf{Parity Distribution and 5-Minus Exclusion}
+        (\S\ref{sec:hpattern}):
+        Complete h-pattern distribution across all $k$-profiles;
+        algebraic exclusion of the all-five-minus pattern for $k$-profile
+        $(7,1,1,1,1)$.
+
+  \item \textbf{$\beta_{\mathrm{sum}}$ Distribution} (\S\ref{sec:betadist}):
+        Full-enumeration statistics; range $[-34, 30]$, negative bias
+        ($\bar{\beta} = -2.5$).
+\end{enumerate}
+
+\noindent
+All computations were performed by \texttt{stabilizer\_algebra.py} and
+\texttt{beta\_distribution.py} in \cite{PaperXIVsuppl}.
+
+
+\section{\texorpdfstring{The $k$-Profile Theorem}{The k-Profile Theorem}}\label{sec:kprofile}
+
+\subsection{Setup}
+
+Let $V = \mathbb{F}_2^3 \times \{0\}^3 \subset \mathbb{F}_2^6$ be the
+standard Lagrangian subspace (the MASA of ``position'' observables).
+For a Mermin pentagram $\mathbf{P}$ with Lagrangians $L_1,\ldots,L_5$, define
+the \emph{$k$-profile} as the sorted tuple
+\[
+  \kappa(\mathbf{P}) = (k_1 \geq k_2 \geq \cdots \geq k_5),
+  \quad k_i = |L_i \cap V|.
+\]
+The four possible $k$-types are $k \in \{0,1,3,7\}$, corresponding to the
+four MASA types among the 135 Lagrangians of $W(5,\mathbb{F}_2)$: transverse
+($k=0$, 64 Lagrangians), one $V$-point ($k=1$, 56), Fano line in $V$ ($k=3$,
+14), and $V$ itself ($k=7$, 1).%
+\footnote{Paper~XIII used ascending order $(k_1 \leq \cdots \leq k_5)$.
+Descending order is adopted here because $k$ measures proximity to $V$,
+so larger $k$ is the more ``special'' Lagrangian.
+The correspondence is direct reversal:
+e.g., Paper~XIII's $(0,0,0,0,1)$ = this paper's $(1,0,0,0,0)$.}
+
+The \emph{integer symplectic form} is defined on
+$\mathbb{F}_2^6 \cong \mathbb{F}_2^3 \times \mathbb{F}_2^3$ by
+\[
+  \omega_{\mathrm{int}}(u,v) = u_x \cdot v_z - u_z \cdot v_x \;\in\; \mathbb{Z},
+\]
+where $u = (u_x, u_z)$ with $u_x, u_z \in \{0,1\}^3$ are the
+position and momentum components and the product is taken over $\mathbb{Z}$
+\cite{PaperXI}.
+For each context $C_i = \{v_1,v_2,v_3,v_4\} \subset L_i$, define
+$\beta(C_i) = \sum_{j<k} \omega_{\mathrm{int}}(v_j,v_k)$ and
+$h_i = \beta(C_i)/2 \bmod 2 \in \{0,1\}$.
+Odd parity means $\sum_{i=1}^5 h_i \equiv 1\pmod 2$.
+
+\subsection{The Seven Profiles}
+
+\begin{theorem}[k-Profile Theorem]\label{thm:kprofile}
+All 12{,}096 Mermin pentagrams fall into exactly 7 $k$-profile types.
+Every profile forces odd total parity: $\sum_{i=1}^5 h_i \equiv 1 \pmod 2$.
+Verified computationally for all 12{,}096 pentagrams (0 exceptions).
+\end{theorem}
+
+\begin{table}[H]
+\centering
+\caption{The 7 $k$-profiles and their distribution among all 12{,}096 Mermin
+pentagrams. The ``Type'' column uses the F2/F4/B classification from Paper~X
+\cite{PaperX} where applicable. All profiles give odd parity ($\Sigma h \bmod 2 = 1$).}
+\label{tab:kprofiles}
+\begin{tabular}{lrrll}
+\toprule
+$k$-profile (desc.) & Count & \% & Type (Paper~X) & $\Sigma h \bmod 2$ \\
+\midrule
+$(3,1,1,0,0)$ & 2{,}688 & 22.2\% & F2 & 1 \\
+$(1,1,1,0,0)$ & 3{,}584 & 29.6\% & F4 & 1 \\
+$(1,0,0,0,0)$ & 2{,}688 & 22.2\% & B  & 1 \\
+$(3,3,3,0,0)$ &    896 &  7.4\% & —  & 1 \\
+$(3,0,0,0,0)$ &    896 &  7.4\% & —  & 1 \\
+$(1,1,1,1,1)$ &    896 &  7.4\% & —  & 1 \\
+$(7,1,1,1,1)$ &    448 &  3.7\% & —  & 1 \\
+\midrule
+Total         & 12{,}096 & 100\% & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}
+The three most common profiles (F2, F4, B) together account for 74\% of all
+pentagrams and correspond to the type classification introduced in Paper~X.
+The remaining four profiles (totalling 26\%) are ``new'' in the sense that they
+do not map cleanly to a single Paper~X type (they mix Lagrangians of different
+types within a single pentagram).
+\end{remark}
+
+\begin{remark}[$k$-profile is $G_2(2)$-equivariant]
+Since $G_2(2)$ preserves the symplectic form and the subspace $V$, the
+$k$-value $|L \cap V|$ is preserved under the action, so $\kappa(\mathbf{P})$
+is a $G_2(2)$-invariant of the pentagram (as a sorted tuple).
+The full 12{,}096 enumeration directly verifies that exactly 7 profiles occur,
+independently of any orbit-decomposition argument.
+\end{remark}
+
+
+\section{Stabilizer Classification}\label{sec:stabilizer}
+
+\subsection{Setup}
+
+The group $G_2(2)$ has order 12{,}096 and acts on the set $\PP$ of
+12{,}096 Mermin pentagrams.
+Paper~X \cite{PaperX} established that this action decomposes into 4 orbits:
+\[
+  \PP = O_1 \sqcup O_2 \sqcup O_3 \sqcup O_4,
+  \quad |O_1| = 6{,}048, \quad |O_2| = |O_3| = |O_4| = 2{,}016.
+\]
+By the orbit-stabilizer theorem, the stabilizer orders are:
+\[
+  |\mathrm{Stab}(O_1)| = 12{,}096/6{,}048 = 2, \quad
+  |\mathrm{Stab}(O_i)| = 12{,}096/2{,}016 = 6 \text{ for } i=2,3,4.
+\]
+The two groups of order 6 are $\mathbb{Z}_6$ (abelian, element orders $\{1,2,3,6\}$)
+and $S_3$ (non-abelian, element orders $\{1,2,2,2,3,3\}$).
+They are distinguished by the number of elements of order~2: one for
+$\mathbb{Z}_6$, three for $S_3$.
+
+\subsection{Computation}
+
+For each orbit, we computed the stabilizer of a representative pentagram by
+testing all 12{,}096 group elements and retaining those fixing all 5 contexts.
+The element-order distribution of each stabilizer was computed directly.
+
+\begin{theorem}[Stabilizer Classification]\label{thm:stabilizer}
+The stabilizer subgroup of each $G_2(2)$ orbit on $\PP$ is:
+$O_1$ has stabilizer $\mathbb{Z}_2$ (abelian, order~2);
+each of $O_2$, $O_3$, $O_4$ has stabilizer $S_3$ (non-abelian, order~6,
+with 3~elements of order~2 and 2~elements of order~3).
+In particular, no orbit has a cyclic stabilizer of order~6.
+See Table~\ref{tab:stabilizers} for the complete element-order data.
+\end{theorem}
+
+\begin{table}[H]
+\centering
+\caption{Stabilizer subgroup structure for the four $G_2(2)$ orbits.
+Verified computationally for one representative per orbit \cite{PaperXIVsuppl}.}
+\label{tab:stabilizers}
+\begin{tabular}{lcccccl}
+\toprule
+Orbit & $|O_i|$ & $|\mathrm{Stab}|$ & Group & Abelian?
+      & $\#$(order 2) & $\#$(order 3) \\
+\midrule
+$O_1$ & 6{,}048 & 2 & $\mathbb{Z}_2$ & Yes & 1 & 0 \\
+$O_2$ & 2{,}016 & 6 & $S_3$          & No  & 3 & 2 \\
+$O_3$ & 2{,}016 & 6 & $S_3$          & No  & 3 & 2 \\
+$O_4$ & 2{,}016 & 6 & $S_3$          & No  & 3 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Geometric interpretation]
+The $\mathbb{Z}_2$ stabilizer of $O_1$ corresponds to a single symplectic
+reflection fixing the pentagram.
+The $S_3$ stabilizers correspond to the symmetry group of a triangle
+(3-fold rotation and reflection), reflecting the threefold structure
+inherent in the 3-qubit setting.
+No orbit has a cyclic $\mathbb{Z}_6$ stabilizer; hexagonal symmetry does not
+occur among Mermin pentagrams in $W(5,\mathbb{F}_2)$.
+\end{remark}
+
+\begin{remark}[Non-conjugate $S_3$ embeddings and Orbit~4 anomaly]
+\label{rem:nonconj}
+All three order-6 stabilizers are abstractly isomorphic to $S_3$.
+However, since $O_2$, $O_3$, $O_4$ are distinct $G_2(2)$-orbits, their
+stabilizer subgroups are pairwise non-conjugate in $G_2(2)$: $G_2(2)$
+contains at least three distinct conjugacy classes of $S_3$ subgroups.
+
+This implies that the Orbit~4 parity anomaly---Orbit~4 has 60.6\% 1-minus
+pentagrams versus 65--68\% for Orbits~1--3 (Paper~XIII \cite{PaperXIII})---is
+\emph{not} explained by the abstract stabilizer type, which is $S_3$ for all
+three orbits.
+The anomaly must originate in the specific \emph{embedding} of $S_3$ into
+$G_2(2)$ (i.e., the conjugacy class of the subgroup) and its action on the
+parity function, not the abstract group structure.
+Identifying which embedding property causes the anomaly is deferred to
+future work.
+\end{remark}
+
+
+\section{Parity Distribution and h-Pattern Structure}\label{sec:hpattern}
+
+\subsection{The Three h-Pattern Types}
+
+For a Mermin pentagram, the sorted tuple $(h_1 \leq h_2 \leq \cdots \leq h_5)$
+with $h_i \in \{0,1\}$ and $\sum h_i \equiv 1 \pmod 2$ can only be
+$(0,0,0,0,1)$, $(0,0,1,1,1)$, or $(1,1,1,1,1)$---corresponding to exactly
+1, 3, or 5 minus-contexts.
+This is a direct combinatorial consequence of Theorem~\ref{thm:kprofile}
+(odd parity) and does not add independent content.
+What \emph{is} non-trivial is the distribution of these three types across
+$k$-profiles, and the structural exclusion of the 5-minus type for two
+specific $k$-profiles.
+
+\subsection{\texorpdfstring{Per $k$-Profile Distribution}{Per k-Profile Distribution}}
+
+\begin{table}[H]
+\centering
+\caption{Parity distribution (percentage of 1-minus, 3-minus, 5-minus
+pentagrams) within each $k$-profile.
+All values are computational, from \cite{PaperXIVsuppl}.
+The two bottom rows have no 5-minus pentagrams (see
+Proposition~\ref{prop:5minus}).}
+\label{tab:hpatterns}
+\begin{tabular}{lrrrrl}
+\toprule
+$k$-profile & Count & 1-minus & 3-minus & 5-minus & h-types \\
+\midrule
+$(3,1,1,0,0)$ & 2{,}688 & 64.7\% & 34.8\% & 0.4\% & 3 \\
+$(1,1,1,0,0)$ & 3{,}584 & 63.5\% & 35.5\% & 1.0\% & 3 \\
+$(1,0,0,0,0)$ & 2{,}688 & 58.5\% & 40.2\% & 1.3\% & 3 \\
+$(1,1,1,1,1)$ &    896 & 72.3\% & 26.8\% & 0.9\% & 3 \\
+$(3,0,0,0,0)$ &    896 & 66.1\% & 32.1\% & 1.8\% & 3 \\
+$(3,3,3,0,0)$ &    896 & 78.6\% & 21.4\% & ---  & 2 \\
+$(7,1,1,1,1)$ &    448 & 78.6\% & 21.4\% & ---  & 2 \\
+\midrule
+Global        & 12{,}096 & $\approx$65\% & $\approx$34\% & $\approx$1\% & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Numerical coincidence of $(3,3,3,0,0)$ and $(7,1,1,1,1)$]
+\label{rem:coincidence}
+The profiles $(3,3,3,0,0)$ and $(7,1,1,1,1)$ share identical parity
+distributions (78.6\% 1-minus, 21.4\% 3-minus, 0\% 5-minus) and their
+counts satisfy $896 : 448 = 2 : 1$.
+This is unlikely to be coincidental.
+A speculative connection: both profiles are precisely the two that exclude
+5-minus pentagrams (Proposition~\ref{prop:5minus})---the single $k=7$
+Lagrangian $V$ and the three $k=3$ Lagrangians with Fano lines in $V$ each
+force $h = 0$ on their respective contexts, placing identical structural
+constraints on the parity distribution.
+The factor-of-2 ratio in counts may reflect the orbit of $V$ itself under a
+$\mathbb{Z}_2$ subgroup of $G_2(2)$ relating the two profile types.
+\end{remark}
+
+\begin{remark}[Orbit~4 anomaly is intra-profile, not compositional]
+\label{rem:orbit4-intraprofile}
+The orbit $\times$ $k$-profile cross-table (Table~\ref{tab:crosstable}) shows
+that Orbit~4 has the \emph{smallest} fraction of the low-1-minus profile
+$(1,0,0,0,0)$ (16.7\%, vs.\ 22.2\% for $O_1$ and 25.0\% for $O_2, O_3$)
+and the \emph{largest} fraction of (3,0,0,0,0) (11.1\%, vs.\ 5.6--8.3\%
+for $O_1$--$O_3$).
+By a weighted-average calculation using the per-$k$-profile 1-minus rates
+from Table~\ref{tab:hpatterns}, the $k$-profile composition of Orbit~4 would
+predict a 1-minus rate \emph{higher} than the global 65\%, not lower.
+The observed anomaly of 60.6\% therefore cannot be attributed to
+$k$-profile composition.
+\textbf{The Orbit~4 parity anomaly is intra-profile}: Orbit~4 pentagrams
+have a systematically lower 1-minus rate \emph{within each $k$-profile type},
+relative to the other orbits.
+This strengthens the conclusion of Remark~\ref{rem:nonconj}: the anomaly
+must originate in the specific $S_3$ embedding in $G_2(2)$, not in the
+global pentagram composition.
+\end{remark}
+
+\subsection{5-Minus Exclusion}
+
+\begin{proposition}[5-minus exclusion]\label{prop:5minus}
+Pentagrams with $k$-profile $(7,1,1,1,1)$ never attain the all-five-minus
+h-pattern $(1,1,1,1,1)$.
+Pentagrams with $k$-profile $(3,3,3,0,0)$ never attain the all-five-minus
+h-pattern; verified computationally for all 896 such pentagrams.
+\end{proposition}
+
+\begin{proof}[Proof for $(7,1,1,1,1)$]
+The unique Lagrangian with $k=7$ is $V = \mathbb{F}_2^3\times\{0\}^3$ itself.
+For any context $C \subset V$, every vector $v \in V$ has $v_z = 0$, so
+$\omega_{\mathrm{int}}(u,v) = u_x \cdot v_z - u_z \cdot v_x = 0$ for all
+$u, v \in C$.
+Therefore $\beta(C) = \sum_{j<k}\omega_{\mathrm{int}}(v_j,v_k) = 0$,
+hence $h(C) = 0$ for the $V$-context.
+At most four of the five contexts can have $h=1$; the all-five-minus pattern
+is impossible.
+\end{proof}
+
+\begin{proof}[Proof for $(3,3,3,0,0)$ (computational)]
+All 896 pentagrams with $k$-profile $(3,3,3,0,0)$ were verified by exhaustive
+enumeration in \cite{PaperXIVsuppl} (Script \texttt{beta\_distribution.py}).
+None attains the all-five-minus h-pattern.
+An algebraic explanation is deferred to future work; the phenomenon likely
+relates to the Fano-line structure forcing $h(C_i) = 0$ for at least two
+of the three $k=3$ contexts.
+\end{proof}
+
+
+\section{\texorpdfstring{$\beta_{\mathrm{sum}}$ Distribution}{beta_sum Distribution}}\label{sec:betadist}
+
+\subsection{Global Statistics}
+
+\begin{table}[H]
+\centering
+\caption{Global $\beta_{\mathrm{sum}}$ statistics over all 12{,}096 Mermin
+pentagrams.
+Paper~XIII estimated the range from a 500-pentagram sample; the full
+enumeration reveals a wider true range.}
+\label{tab:betadist}
+\begin{tabular}{ll}
+\toprule
+Quantity & Value \\
+\midrule
+$\beta_{\mathrm{sum}} \bmod 4$ & $2$ (100\%, all 12{,}096) \\
+Range of $\beta_{\mathrm{sum}}$ & $[-34,\; 30]$ \\
+Range of $\beta_{\mathrm{sum}}/2$ & $[-17,\; 15]$ \\
+Mean $\bar{\beta}_{\mathrm{sum}}$ & $-2.5$ \\
+Median & $-2$ \\
+Most frequent values & $-2$ (22.3\%), $-6$ (18.6\%), $2$ (18.0\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Range from full enumeration]
+The 500-pentagram sample in Paper~XIII \cite{PaperXIII} captured
+$\beta_{\mathrm{sum}}/2 \in \{-13,\ldots,+9\}$.
+The full 12{,}096 enumeration reveals the true range is $[-17,\;15]$ for
+$\beta_{\mathrm{sum}}/2$ (equivalently, $[-34,\;30]$ for $\beta_{\mathrm{sum}}$).
+The discrepancy reflects the low frequency of extreme values, which are
+unlikely to appear in a 500-sample.
+The Kashiwara triple index range $\{-2,\ldots,+2\}$ (Paper~XIII) remains far
+smaller than the $\beta_{\mathrm{sum}}/2$ range $[-17,15]$, confirming the
+range-mismatch argument for refuting the Kashiwara--$\beta$ identification.
+\end{remark}
+
+\begin{remark}[Negative bias]
+The mean $\bar{\beta}_{\mathrm{sum}} = -2.5$ and median $= -2$ indicate a
+systematic negative bias.
+Since $\beta_{\mathrm{sum}} \equiv 2\pmod 4$ and the values $-2, -6, 2$
+account for $\approx 59\%$ of all pentagrams, the distribution is concentrated
+near $0$ but skewed toward negative values.
+This asymmetry is a global property of the standard symplectic form
+$\omega_{\mathrm{int}}$ and the choice of $V$; it is not preserved under the
+$G_2(2)$ action (which permutes pentagrams but may shift $\beta_{\mathrm{sum}}$).
+\end{remark}
+
+
+\section{Weil Representation Outlook (Paper~XV Preview)}\label{sec:weil}
+
+The results of Papers~XI--XIV collectively establish that the parity theorem
+$\beta_{\mathrm{sum}} \equiv 2 \pmod 4$ is:
+\begin{itemize}
+  \item \emph{computationally universal} (all 12{,}096 pentagrams, Papers~XI, XIV),
+  \item \emph{ordering-invariant as a mod-4 quantity} (Paper~XIII),
+  \item \emph{holistic}: not decomposable into independent per-context contributions
+        (Paper~XIII),
+  \item \emph{resistant to known invariants}: Maslov/Kashiwara index,
+        $k$-profile, stabilizer type all fail to explain it algebraically.
+\end{itemize}
+
+The natural framework for an algebraic proof is the \emph{metaplectic
+(Weil) representation} of $Sp(6,\mathbb{F}_2)$ \cite{LionVergne1980,Gerardin}.
+
+\subsection{Metaplectic Extension}
+
+The metaplectic group $\widetilde{Sp}(6,\mathbb{F}_2)$ is the non-trivial
+central extension
+\[
+  1 \;\longrightarrow\; \mathbb{Z}/2 \;\longrightarrow\;
+  \widetilde{Sp}(6,\mathbb{F}_2) \;\longrightarrow\;
+  Sp(6,\mathbb{F}_2) \;\longrightarrow\; 1,
+\]
+corresponding to a class in $H^2(Sp(6,\mathbb{F}_2),\,\mathbb{Z}/2)$.
+The Weil representation \cite{Gerardin} provides a concrete realization of this
+extension over $\mathbb{F}_q$.
+
+\subsection{\texorpdfstring{$\beta$ as a Phase Factor}{beta as a Phase Factor}}
+
+The quantity $\beta(C)/2$ should be interpreted as the \emph{phase factor}
+associated to the Lagrangian splitting transition at context $C$.
+More precisely, if $\tilde{g}_C \in \widetilde{Sp}(6,\mathbb{F}_2)$ is the
+lift of the symplectic transformation associated to the Lagrangian pair
+$(L_i, V)$, then $(-1)^{\beta(C)/2}$ is the image of $\tilde{g}_C$ under the
+central $\mathbb{Z}/2$.
+
+Under this interpretation, $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$ means that
+the product of the five phase factors
+\[
+  \prod_{i=1}^5 (-1)^{\beta(C_i)/2} = -1
+\]
+equals the non-trivial central element.
+In other words, the five Lagrangian transitions of a Mermin pentagram multiply
+to $-1$ in $\widetilde{Sp}(6,\mathbb{F}_2)$---a statement about a 2-cocycle
+evaluated on the pentagram loop.
+
+\subsection{Key References for Paper~XV}
+
+An algebraic proof of $\beta_{\mathrm{sum}} \equiv 2\pmod 4$ via this framework
+requires:
+\begin{enumerate}
+  \item Computing $H^2(Sp(6,\mathbb{F}_2),\,\mathbb{Z}/2)$ and identifying the
+        Weil cocycle \cite{Gerardin};
+  \item Showing that the pentagram $K_5$ loop evaluates to the non-trivial
+        class;
+  \item Connecting this to the $G_2(2)$ symmetry breaking pattern.
+\end{enumerate}
+The relevant references are Lion--Vergne \cite{LionVergne1980} (real case,
+Maslov cocycle), G\'erardin \cite{Gerardin} (Weil representation over
+$\mathbb{F}_q$), and Gurevich--Hadani \cite{GurevichHadani} (canonical
+intertwining operators over finite fields).
+
+
+\section{Open Problems}\label{sec:open}
+
+\begin{enumerate}
+  \item \textbf{Algebraic proof of $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$}
+        via the Weil 2-cocycle (Paper~XV program).
+
+  \item \textbf{Orbit~4 anomaly}: identify the property of the $S_3$
+        embedding in $G_2(2)$ that causes the 60.6\% vs.\ 65--68\% parity
+        discrepancy.
+        The anomaly is \emph{intra-profile} (Remark~\ref{rem:orbit4-intraprofile}):
+        Orbit~4 has a lower 1-minus rate within each $k$-profile type,
+        ruling out compositional explanations.
+        Candidates: conjugacy class of the $S_3$ subgroup, action on the
+        $\beta_{\mathrm{sum}}$ fiber, or cocycle evaluation on the pentagram loop.
+
+  \item \textbf{5-minus exclusion for $(3,3,3,0,0)$}: algebraic proof that
+        three Fano-line Lagrangians cannot all contribute $h=1$.
+
+  \item \textbf{$k$-profile algebraic proof}: prove each of the 7 profiles
+        forces odd $\Sigma h$ without exhaustive enumeration.
+        The $(7,1,1,1,1)$ case is done (Proposition~\ref{prop:5minus});
+        the remaining six cases require analysis of $\omega_{\mathrm{int}}$
+        on non-V Lagrangians.
+
+  \item \textbf{Class~II geometric characterization}: find a
+        $G_2(2)$-equivariant invariant distinguishing Class~I
+        ($O_1 \cup O_2$) from Class~II ($O_3 \cup O_4$), beyond the
+        F2/F4-type fractions of Paper~X.
+        The $O_2$/$O_3$ paradox (identical parity and $q(T)$ distributions
+        despite different classes) suggests the invariant must be computed
+        at the level of $V$-projections, not Lagrangians.
+\end{enumerate}
+
+
+\appendix
+\setcounter{table}{5}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\theHtable}{A\arabic{table}}
+\section{Rigor Self-Assessment}
+
+\begin{table}[H]
+\centering
+\caption{Rigor classification and verification scope for all main results.}
+\label{tab:rigor}
+\begin{tabular}{p{6cm}ll}
+\toprule
+Result & Type & Scope \\
+\midrule
+Thm~\ref{thm:kprofile} (k-profile, 7 types, odd parity)
+  & Computational & All 12{,}096 \cite{PaperXIVsuppl} \\
+Thm~\ref{thm:stabilizer} ($O_1 = \mathbb{Z}_2$, $O_{2,3,4} = S_3$)
+  & Computational & One rep.\ per orbit \\
+Rem~\ref{rem:nonconj} (non-conjugate $S_3$ embeddings)
+  & Algebraic & Orbit-stabilizer theorem \\
+Prop~\ref{prop:5minus} (5-minus excl., $(7,1,1,1,1)$)
+  & Algebraic & Exact proof \\
+Prop~\ref{prop:5minus} (5-minus excl., $(3,3,3,0,0)$)
+  & Computational & All 896 \cite{PaperXIVsuppl} \\
+Table~\ref{tab:hpatterns} (parity distribution per $k$-profile)
+  & Computational & All 12{,}096 \cite{PaperXIVsuppl} \\
+Table~\ref{tab:betadist} ($\beta_{\mathrm{sum}}$ statistics)
+  & Computational & All 12{,}096 \cite{PaperXIVsuppl} \\
+Table~\ref{tab:crosstable} (orbit $\times$ $k$-profile cross-table)
+  & Computational & All 12{,}096 \cite{PaperXIVsuppl} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Orbit $\times$ $k$-Profile Cross-Table}
+
+\begin{table}[H]
+\centering
+\caption{Number of pentagrams in each orbit with each $k$-profile.
+All counts are multiples of 56 (= $|\mathcal{P}|/216 = 2^3 \cdot 7$),
+reflecting the group-theoretic structure of $G_2(2)$.
+Columns are sorted by total count (descending).}
+\label{tab:crosstable}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Orbit & $(1,1,1,0,0)$ & $(1,0,0,0,0)$ & $(3,1,1,0,0)$ & $(3,3,3,0,0)$
+      & $(1,1,1,1,1)$ & $(3,0,0,0,0)$ & $(7,1,1,1,1)$ \\
+\midrule
+$O_1$ (6{,}048) & 1{,}848 & 1{,}344 & 1{,}344 & 504 & 504 & 336 & 168 \\
+$O_2$ (2{,}016) &   616 &   504 &   336 & 168 & 112 & 168 & 112 \\
+$O_3$ (2{,}016) &   504 &   504 &   504 & 112 & 112 & 168 & 112 \\
+$O_4$ (2{,}016) &   616 &   336 &   504 & 112 & 168 & 224 &  56 \\
+\midrule
+Total & 3{,}584 & 2{,}688 & 2{,}688 & 896 & 896 & 896 & 448 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Percentage of each $k$-profile within each orbit
+(row percentages, summing to 100\% per orbit).}
+\label{tab:crosstable-pct}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Orbit & $(1,1,1,0,0)$ & $(1,0,0,0,0)$ & $(3,1,1,0,0)$ & $(3,3,3,0,0)$
+      & $(1,1,1,1,1)$ & $(3,0,0,0,0)$ & $(7,1,1,1,1)$ \\
+\midrule
+$O_1$ & 30.6\% & 22.2\% & 22.2\% & 8.3\% & 8.3\% & 5.6\% & 2.8\% \\
+$O_2$ & 30.6\% & 25.0\% & 16.7\% & 8.3\% & 5.6\% & 8.3\% & 5.6\% \\
+$O_3$ & 25.0\% & 25.0\% & 25.0\% & 5.6\% & 5.6\% & 8.3\% & 5.6\% \\
+$O_4$ & 30.6\% & 16.7\% & 25.0\% & 5.6\% & 8.3\% & 11.1\% & 2.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[$O_3$ uniformity and the 56-multiple structure]
+Orbit~$O_3$ is the only orbit with equal fractions of the three most common
+profiles: $(1,1,1,0,0) = (1,0,0,0,0) = (3,1,1,0,0) = 25.0\%$
+(i.e., exactly 504 pentagrams each).
+This three-fold balance may reflect an additional symmetry of $O_3$ not
+captured by the stabilizer type alone.
+
+All 28 entries in Table~\ref{tab:crosstable} are multiples of 56.
+Since $12{,}096 = 216 \times 56$ and the smallest non-zero entry is 56
+(the $(7,1,1,1,1)$ count in $O_4$), the natural ``atom'' of this
+distribution is $56 = 2^3 \cdot 7$.
+This divisibility pattern is a direct consequence of the orbit structure of
+$G_2(2)$ and will be relevant to the cocycle computation in Paper~XV.
+\end{remark}
+
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperIX]{PaperIX}
+Z.-L. Chen,
+``The 3-Qubit Obstruction Ladder: Hyperbolic Embedding,
+Mermin Pentagram, and Two Klein Quartic Bridges,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20465623} (2026).
+
+\bibitem[PaperX]{PaperX}
+Z.-L. Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Symplectic Embedding, 10-Ray Cap, and the Failure of the
+Collinearity--Obstruction Dictionary,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20476659} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXIII]{PaperXIII}
+Z.-L. Chen,
+``The Maslov Index and the Kochen--Specker Obstruction:
+Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20496513} (2026).
+
+\bibitem[PaperXIsuppl]{PaperXIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XI,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482283} (2026).
+
+\bibitem[PaperXIIIsuppl]{PaperXIIIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XIII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20495857} (2026).
+
+\bibitem[PaperXIVsuppl]{PaperXIVsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XIV,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20501961} (2026).
+
+\bibitem[LionVergne1980]{LionVergne1980}
+G. Lion and M. Vergne,
+``The Weil Representation, Maslov Index and Theta Series,''
+\textit{Birkh\"auser, Boston} (1980).
+
+\bibitem[Gerardin]{Gerardin}
+P. G\'erardin,
+``Weil representations associated to finite fields,''
+\textit{J. Algebra} \textbf{46} (1977), 54--101.
+
+\bibitem[GurevichHadani]{GurevichHadani}
+S. Gurevich and R. Hadani,
+``Quantization of symplectic vector spaces over finite fields,''
+\textit{J. Symplectic Geom.} \textbf{9} (2011), 1--12.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,540 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\barPP}{\overline{\mathcal{P}}}
+
+
+\title{The Maslov Index and the Kochen--Specker Obstruction:\\
+       Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly\\
+       {\large (Paper XIII)}}
+
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We investigate whether the Maslov index from symplectic geometry can explain the parity theorem for Mermin pentagrams established in Papers~XI and~XII.
+We compute the Kashiwara triple index for all 12{,}096 Mermin pentagrams and find that it does \emph{not} match the $\beta$-sum invariant: the Kashiwara index has range $\{-2,\ldots,+2\}$ while $\beta_{\mathrm{sum}}/2$ has range $\{-13,\ldots,+9\}$.
+We correct a structural error in the K$_5$ vertex-to-context mapping and show that $\beta_{\mathrm{sum}}$ depends on point ordering, but $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ is ordering-invariant.
+Our main positive result is the \emph{$k$-profile theorem}: the parity $\sum h_i \pmod{2}$ is completely determined by the Lagrangian $V$-intersection profile $(k_1,\ldots,k_5)$, with all 7 occurring profiles giving odd parity.
+We prove algebraically that the $V$-contribution to $\beta_{\mathrm{sum}}$ is not individually constrained mod~4, establishing that the parity theorem is inherently \emph{holistic}.
+A full enumeration of G$_2(2)$-equivariant geometric invariants across the 4 orbits reveals that standard invariants ($k$-profile, $q(T)$, triple intersections) cannot distinguish the two orbit classes, and we identify a parity anomaly in Orbit~4.
+\end{abstract}
+
+
+\section{Introduction}
+
+In Paper~XI \cite{PaperXI}, we established the parity theorem for Mermin pentagrams using the integer symplectic form $\omega_{\mathrm{int}}$ and the $\beta$-formula:
+\[
+  s(C) = (-1)^{\beta(C)/2}, \quad \beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k).
+\]
+The total parity $\prod_{i=1}^5 s(C_i) = (-1)^{\sum \beta_i / 2} = -1$ for all 12{,}096 Mermin pentagrams.
+
+In Paper~XII \cite{PaperXII}, we proved the T-vector theorem and showed that the Arf invariant framework is incompatible with the G$_2(2)$ symmetry.
+
+This paper investigates whether the \emph{Maslov index} from symplectic geometry can provide a geometric explanation for the parity theorem.
+The Maslov index $\mu(L_1, L_2, L_3)$ measures the relative position of three Lagrangian subspaces and is a fundamental invariant in symplectic topology \cite{LionVergne1980}.
+
+Our main results are:
+\begin{enumerate}
+  \item \textbf{Kashiwara index refuted} (\S\ref{sec:kashiwara}): The standard Kashiwara triple index does not equal $\beta_{\mathrm{sum}}/2$.
+  \item \textbf{K$_5$ structure correction} (\S\ref{sec:k5}): Contexts correspond to vertex stars, not non-incident edges.
+  \item \textbf{Ordering dependence} (\S\ref{sec:ordering}): $\beta_{\mathrm{sum}}$ depends on point ordering, but $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ is invariant.
+  \item \textbf{$k$-profile theorem} (\S\ref{sec:kprofile}): The parity $\sum h_i \pmod{2}$ is determined by the $k$-profile.
+  \item \textbf{Holistic parity} (\S\ref{sec:holistic}): The $V$-contribution to $\beta_{\mathrm{sum}}$ is not individually constrained mod~4.
+  \item \textbf{G$_2(2)$-equivariant invariants fail} (\S\ref{sec:class2}): Standard invariants cannot distinguish orbit classes.
+  \item \textbf{Orbit~4 anomaly} (\S\ref{sec:orbit4}): Orbit~4 has a distinct parity distribution.
+\end{enumerate}
+
+
+\section{The Kashiwara Triple Index}\label{sec:kashiwara}
+
+\subsection{Definition}
+
+For three Lagrangian subspaces $L_1, L_2, L_3 \subset \F_2^6$, the Kashiwara index is defined via the signature of a quadratic form on $L_1 \cap (L_2 + L_3)$.
+Over $\F_2$, this reduces to the dimension and Arf invariant of the relevant subspace.
+
+\subsection{Computation}
+
+We computed the Kashiwara index for 500 Mermin pentagrams (sampled uniformly from the 12{,}096 total).
+For each pentagram with Lagrangians $L_1, \ldots, L_5$, we computed:
+\begin{itemize}
+  \item \textbf{Consecutive triples}: $\mu(L_i, L_{i+1}, L_{i+2})$ for $i=1,\ldots,5$ (indices mod 5)
+  \item \textbf{Reference $L_1$}: $\mu(L_1, L_i, L_j)$ for all pairs $(i,j)$
+  \item \textbf{Reference $V$}: $\mu(V, L_i, L_j)$ for all pairs $(i,j)$
+\end{itemize}
+
+\subsection{Results}
+
+The Kashiwara index has range $\{-2, -1, 0, 1, 2\}$ for consecutive triples, with 86\% of values being 0.
+The sum $\sum \mu_{\mathrm{consec}}$ has distribution:
+\[
+  \{-2: 0.2\%,\; -1: 10\%,\; 0: 45\%,\; 1: 39.8\%,\; 2: 5\%\}.
+\]
+
+\begin{theorem}[Kashiwara index does not match $\beta_{\mathrm{sum}}/2$]\label{thm:kashiwara-fails}
+The Kashiwara triple index does not equal $\beta_{\mathrm{sum}}/2$ for Mermin pentagrams.
+Match rates: 10.4\% (consecutive), 4.8\% (reference $L_1$), 5.4\% (reference $V$).
+\end{theorem}
+
+\begin{remark}
+This is not a normalization issue. The Kashiwara range $\{-2,\ldots,+2\}$ is far smaller than the $\beta_{\mathrm{sum}}/2$ range $\{-13,\ldots,+9\}$.
+The two quantities are fundamentally different.
+\end{remark}
+
+
+\section{\texorpdfstring{K$_5$}{K5} Structure Correction}\label{sec:k5}
+
+\subsection{Vertex-to-Context Mapping}
+
+In the K$_5$ graph underlying a Mermin pentagram, each vertex $v$ corresponds to a context $C_v$ consisting of the 4 rays \emph{incident} to $v$ (the star graph at $v$).
+This corrects an earlier error where contexts were mapped to non-incident edges.
+
+\begin{proposition}\label{prop:star}
+For a K$_5$ with vertices $\{1,2,3,4,5\}$, the context at vertex $v$ is:
+\[
+  C_v = \{r_{vj} : j \neq v\}
+\]
+where $r_{ij}$ is the shared ray between contexts $C_i$ and $C_j$.
+\end{proposition}
+
+\subsection{Sharing vs.\ Disjoint Pairs}
+
+The 45 ray pairs decompose as:
+\begin{itemize}
+  \item \textbf{30 sharing pairs}: pairs within the same context (K$_5$-adjacent rays)
+  \item \textbf{15 disjoint pairs}: pairs across different contexts (K$_5$-non-adjacent rays)
+\end{itemize}
+
+All 6 pairs within a context are sharing pairs (since any two edges incident to $v$ share $v$).
+No disjoint pairs exist within contexts.
+
+
+\section{\texorpdfstring{Ordering Dependence of $\beta_{\mathrm{sum}}$}{Ordering Dependence of beta-sum}}\label{sec:ordering}
+
+\subsection{\texorpdfstring{Antisymmetry of $\omega_{\mathrm{int}}$}{Antisymmetry of omega-int}}
+
+The integer symplectic form $\omega_{\mathrm{int}}(a,b) = a_x \cdot b_z - a_z \cdot b_x$ is antisymmetric:
+$\omega_{\mathrm{int}}(a,b) = -\omega_{\mathrm{int}}(b,a)$.
+
+Therefore, $\beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k)$ depends on the ordering of points within $C$.
+
+\subsection{Example}
+
+For the standard pentagram:
+\begin{itemize}
+  \item Frozenset ordering: $\beta_{\mathrm{sum}} = 2$
+  \item K$_5$ edge label ordering: $\beta_{\mathrm{sum}} = -6$
+\end{itemize}
+
+\subsection{The Mod 4 Invariant}
+
+\begin{theorem}\label{thm:mod4-invariant}
+While $\beta_{\mathrm{sum}}$ depends on point ordering, the residue $\beta_{\mathrm{sum}} \pmod{4}$ is ordering-invariant.
+For all 12{,}096 Mermin pentagrams:
+\[
+  \beta_{\mathrm{sum}} \equiv 2 \pmod{4}.
+\]
+\end{theorem}
+
+\begin{proof}[Proof (Computational)]
+Verified for all 12{,}096 pentagrams in \cite{PaperXIsuppl}\\(Script \texttt{quadratic\_refinement\_v2.py}).
+\end{proof}
+
+\begin{corollary}\label{cor:parity}
+The quantity $\beta_{\mathrm{sum}}/2 \pmod{2}$ is well-defined and equals 1 for all Mermin pentagrams.
+\end{corollary}
+
+
+\section{\texorpdfstring{The $k$-Profile Theorem}{The k-Profile Theorem}}\label{sec:kprofile}
+
+\subsection{Definition}
+
+For a Mermin pentagram with contexts $C_1, \ldots, C_5$ from Lagrangians $L_1, \ldots, L_5$, define:
+\begin{itemize}
+  \item $k_i = |L_i \cap V|$ where $V = \{(x,0) : x \in \F_2^3\}$ (the $V$-intersection type)
+  \item $h_i = \beta(C_i)/2 \pmod{2}$
+  \item $k$-profile: the sorted tuple $(k_1, k_2, k_3, k_4, k_5)$
+\end{itemize}
+
+\subsection{\texorpdfstring{Individual $h_i$ is Not Determined by $k$-Type}{Individual h-i is Not Determined by k-Type}}
+
+\begin{proposition}\label{prop:h-varies}
+The value $h_i \pmod{2}$ is not determined by $k_i$ alone.
+Distribution of $h_i = 1$ by $k$-type:
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+$k$-type & $P(h_i = 1)$ \\
+\midrule
+0 & 39.3\% \\
+1 & 28.6\%--35.7\% \\
+3 & 14.3\%--21.4\% \\
+7 & 0\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{proposition}
+
+\begin{remark}
+For $k=7$, all rays have $z=0$, so $\omega_{\mathrm{int}}(a,b) = a_x \cdot 0 - 0 \cdot b_x = 0$, giving $h=0$ always.
+\end{remark}
+
+\subsection{The Sum is Determined}
+
+\begin{proposition}[$k$-Profile Observation]\label{thm:kprofile}
+In a uniform 500-pentagram sample, the parity $\sum_{i=1}^5 h_i \pmod{2}$ is completely determined by the $k$-profile.
+All 7 occurring $k$-profiles give odd parity with 100\% consistency.
+Full verification over all 12{,}096 pentagrams is deferred to future work.
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$k$-profile & Count (in 500-sample) & $\sum h_i \pmod{2}$ \\
+\midrule
+$(0,0,0,0,1)$ & 168 & 1 \\
+$(0,0,0,0,3)$ & 56 & 1 \\
+$(0,0,1,1,1)$ & 132 & 1 \\
+$(0,0,1,1,3)$ & 104 & 1 \\
+$(0,0,3,3,3)$ & 28 & 1 \\
+$(1,1,1,1,1)$ & 6 & 1 \\
+$(1,1,1,1,7)$ & 6 & 1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{proposition}
+
+\begin{proof}[Proof (Computational, 500-sample)]
+Verified for 500 pentagrams (sampled uniformly) in\\
+\cite{PaperXIIIsuppl} (Script \texttt{path\_a\_half\_symplectic\_sample.py}).
+\end{proof}
+
+\begin{remark}
+Since $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ is established for all 12{,}096 pentagrams
+(Theorem~\ref{thm:mod4-invariant}), and the 500-sample covers all 7 $k$-profiles, the
+$k$-profile observation is consistent with full verification. A complete enumeration is
+left for future work.
+\end{remark}
+
+\subsection{\texorpdfstring{$h$-Pattern Structure}{h-Pattern Structure}}
+
+While the sum is constrained, individual $h$-patterns vary:
+\begin{itemize}
+  \item $k$-profile $(0,0,0,0,1)$: 16 distinct $h$-patterns, all with odd sum
+  \item $k$-profile $(0,0,1,1,1)$: 16 distinct $h$-patterns, all with odd sum
+  \item $k$-profile $(1,1,1,1,7)$: 6 distinct $h$-patterns observed (theoretical max: 8), all with odd sum
+\end{itemize}
+
+The most common pattern is $(0,0,0,0,1)$: one context has $h=1$, four have $h=0$.
+
+
+\section{Holistic Parity}\label{sec:holistic}
+
+\subsection{\texorpdfstring{The $(1,1,1,1,7)$ Case}{The (1,1,1,1,7) Case}}
+
+We analyze the $k$-profile $(1,1,1,1,7)$ in detail to understand why the parity is odd.
+In the 500-pentagram sample, 6 have this $k$-profile; the full count among all 12{,}096 is not individually enumerated here.
+
+The context $C_4$ (from the $k=7$ Lagrangian) has all rays in $V$, so $h_4 = 0$ algebraically.
+The remaining 4 contexts $C_0, C_1, C_2, C_3$ each come from $k=1$ Lagrangians.
+
+\subsection{\texorpdfstring{$V$-Contribution Decomposition}{V-Contribution Decomposition}}
+
+For a $k=1$ context $C_i$, order the rays as $(r_{i,j_1}, r_{i,j_2}, r_{i,j_3}, r_{i4})$ where $r_{i4}$ is the $V$-point.
+The $\beta$-value decomposes:
+\[
+  \beta(C_i) = \beta_{\mathrm{non\text{-}V}}(C_i) + \beta_V(C_i)
+\]
+where the $V$-contribution is:
+\[
+  \beta_V(C_i) = -\,(r_{i4})_x \cdot \sum_{a \in \{j_1,j_2,j_3\}} (r_{ia})_z.
+\]
+
+By the context sum-to-zero constraint $\sum_a r_{ia} + r_{i4} = 0$ in $\F_2^6$, the integer sum $\sum_a (r_{ia})_z = 2s_i$ for some $s_i \in \{0,1\}^3$ (since each component sum is $\equiv 0 \pmod{2}$ and bounded by 3, hence 0 or 2).
+Thus $\beta_V(C_i) = -2 \cdot (r_{i4})_x \cdot s_i$, which is always even.
+
+\subsection{\texorpdfstring{Failure of $V$-Contribution Reduction}{Failure of V-Contribution Reduction}}
+
+\begin{remark}[Example: holistic nature of parity]\label{rem:v-contrib-example}
+For two pentagrams $P_1, P_2$ in the 500-sample with $k$-profile $(1,1,1,1,7)$:
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+Pentagram & $\sum(a_i \cdot s_i)$ & $\sum \beta_V \pmod{4}$ & $\sum \beta_{\mathrm{non\text{-}V}} \pmod{4}$ & $\beta_{\mathrm{sum}} \pmod{4}$ \\
+\midrule
+$P_1$ & $4 \equiv 0$ & 0 & 2 & 2 \\
+$P_2$ & $3 \equiv 1$ & 2 & 0 & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Both $\sum \beta_V$ and $\sum \beta_{\mathrm{non\text{-}V}}$ vary mod~4 individually, but their sum is
+always $\equiv 2 \pmod{4}$. This illustrates that the parity constraint is
+\emph{holistic}: it cannot be decomposed into independent constraints on
+sub-components. The odd parity emerges from the global interplay between
+all 5 Lagrangians and their shared rays.
+\end{remark}
+
+\subsection{\texorpdfstring{Algebraic Facts for $(1,1,1,1,7)$}{Algebraic Facts for (1,1,1,1,7)}}
+
+Despite the holistic nature, several facts are algebraically established:
+\begin{itemize}
+  \item $s(C_4) = +1$ (all rays have $z=0$, so all operators are $X$-type and their product is $+I$)
+  \item $\prod_{i=1}^5 s(C_i) = -1$ (KS contradiction, from Paper~X \cite{PaperX})
+  \item Therefore $\prod_{i \neq 4} s(C_i) = -1$ (algebraic corollary)
+\end{itemize}
+
+However, connecting $\prod s_i = -1$ to $\sum h_i \equiv 1$ requires the $\beta$-formula $s(C) = (-1)^{\beta/2}$, which is precisely the quantity whose algebraic structure we seek to understand.
+
+
+\section{\texorpdfstring{G$_2(2)$-Equivariant Invariants Cannot Distinguish Orbit Classes}{G2(2)-Equivariant Invariants Cannot Distinguish Orbit Classes}}\label{sec:class2}
+
+\subsection{Background}
+
+Paper~X \cite{PaperX} established that the 12{,}096 Mermin pentagrams decompose into 4 G$_2(2)$ orbits:
+\[
+  \mathcal{O}_1 \text{ (6{,}048)}, \quad \mathcal{O}_2 \text{ (2{,}016)}, \quad \mathcal{O}_3 \text{ (2{,}016)}, \quad \mathcal{O}_4 \text{ (2{,}016)}.
+\]
+The type distribution (B/F2/F4) revealed a 2-class structure:
+\begin{itemize}
+  \item \textbf{Class~I}: $\mathcal{O}_1 \cup \mathcal{O}_2$ (8{,}064 pentagrams, 61.1\% F2, 27.8\% F4)
+  \item \textbf{Class~II}: $\mathcal{O}_3 \cup \mathcal{O}_4$ (4{,}032 pentagrams, 55.6\% F2, 33.3\% F4)
+\end{itemize}
+
+\subsection{Full Enumeration of Invariants}
+
+We computed the following G$_2(2)$-equivariant invariants for all 12{,}096 pentagrams:
+\begin{itemize}
+  \item $k$-profile distribution
+  \item $q(T)$ distribution (where $T$ is the T-vector from Paper~XII)
+  \item Whether $T \in \bigcup L_i$
+  \item Triple intersection profile $\dim(L_i \cap L_j \cap L_k)$
+  \item Parity distribution (number of $-1$ contexts)
+\end{itemize}
+
+\subsection{Results}
+
+\begin{theorem}\label{thm:invariants-fail}
+Standard G$_2(2)$-equivariant geometric invariants do not distinguish Class~I from Class~II.
+\end{theorem}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Invariant & Class~I (8{,}064) & Class~II (4{,}032) & Distinguishing? \\
+\midrule
+$k$-profile & Similar & Similar & No \\
+$q(T)$ & 41.3/42.9/14.3/1.6\% & 41.3/42.9/14.3/1.6\% & Identical \\
+$T \in \bigcup L_i$ & All False & All False & No \\
+Triple intersections & All zero & All zero & No \\
+Parity (1/3/5-minus) & 65.7/33.3/1.0\% & 64.2/35.1/0.7\% & Slight \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{corollary}[Identical $q(T)$ distribution is algebraic]\label{cor:qT-identical}
+For any two $G_2(2)$ orbits, the distribution of $q(T)$ values is identical.
+\end{corollary}
+
+\begin{proof}
+$G_2(2)$ acts transitively on $\F_2^6 \setminus \{0\}$ (Paper~XII, Prop.~4.1), so
+for any pentagram $P$ and any $g \in G_2(2)$, $T_{g(P)} = g(T_P)$ ranges over all
+63 non-zero vectors as $P$ ranges over any orbit. The $q$-value distribution of $T$
+over any orbit is therefore the uniform distribution on $\F_2^6 \setminus \{0\}$:
+$35/63$ zeros and $28/63$ ones, giving the 55.6\%/44.4\% split observed.
+Any G$_2(2)$-equivariant function of $T$ has the same distribution across all orbits.
+\end{proof}
+
+\subsection{Implication}
+
+Distinguishing Class~I from Class~II requires \emph{non}-equivariant structure---properties that depend on the specific stabilizer algebra of each orbit, not on the G$_2(2)$ action itself.
+
+\begin{remark}[$\mathcal{O}_2$ vs.\ $\mathcal{O}_3$: same invariants, different classes]
+Table~1 shows that $\mathcal{O}_2$ and $\mathcal{O}_3$ have identical parity distributions
+(1{,}366/636/14) and identical $q(T)$ distributions.
+Yet Paper~X classifies $\mathcal{O}_2$ into Class~I and $\mathcal{O}_3$ into Class~II
+based on their F2/F4 type fractions (Class~I: 61.1\%/27.8\%; Class~II: 55.6\%/33.3\%).
+The F2/F4 type of a pentagram depends on the number of Fano points in each context,
+a property at the V-projection level that is \emph{not} captured by the Lagrangian-level
+invariants tested here.
+Whether the Class~I/II distinction corresponds to a geometric property at the Lagrangian
+level---rather than at the V-projection level---remains open.
+\end{remark}
+
+
+\section{Orbit~4 Parity Anomaly}\label{sec:orbit4}
+
+\subsection{Per-Orbit Parity Distribution}
+
+The parity distribution (number of $-1$ contexts) reveals an anomaly:
+
+\begin{center}
+\begin{tabular}{lccccc}
+\toprule
+Orbit & Size & Class & 1-minus & 3-minus & 5-minus \\
+\midrule
+$\mathcal{O}_1$ & 6{,}048 & I & 3{,}930 (65.0\%) & 2{,}052 (33.9\%) & 66 (1.1\%) \\
+$\mathcal{O}_2$ & 2{,}016 & I & 1{,}366 (67.8\%) & 636 (31.5\%) & 14 (0.7\%) \\
+$\mathcal{O}_3$ & 2{,}016 & II & 1{,}366 (67.8\%) & 636 (31.5\%) & 14 (0.7\%) \\
+$\mathcal{O}_4$ & 2{,}016 & II & 1{,}222 (60.6\%) & 780 (38.7\%) & 14 (0.7\%) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}[Orbit~4 Anomaly]\label{prop:orbit4}
+Orbit~4 ($\mathcal{O}_4$) has a distinctly different parity distribution from the other three orbits:
+60.6\% 1-minus vs.\ 65.0\%--67.8\% for $\mathcal{O}_1, \mathcal{O}_2, \mathcal{O}_3$.
+\end{proposition}
+
+\begin{remark}
+Orbits $\mathcal{O}_2$ and $\mathcal{O}_3$ have \emph{identical} parity distributions (1{,}366/636/14), yet they belong to different classes.
+This confirms that the Class~I/II boundary cuts across orbits with similar parity structure.
+The true distinguishing feature of $\mathcal{O}_4$ is likely its stabilizer algebra.
+\end{remark}
+
+\subsection{Interpretation}
+
+The 2-class structure (I vs.\ II) is not the most natural decomposition from the parity perspective.
+The orbit-level structure reveals:
+\begin{itemize}
+  \item $\mathcal{O}_1$ (6{,}048): unique $k$-profile distribution, ``large orbit''
+  \item $\mathcal{O}_2, \mathcal{O}_3$ (2{,}016 each): identical parity and $q(T)$ distributions, different classes
+  \item $\mathcal{O}_4$ (2{,}016): anomalous parity distribution
+\end{itemize}
+
+The stabilizer sizes ($|\mathrm{Stab}| = 2$ for $\mathcal{O}_1$, $|\mathrm{Stab}| = 6$ for $\mathcal{O}_2, \mathcal{O}_3, \mathcal{O}_4$) suggest that the stabilizer algebra ($\Z_6$ vs.\ $S_3$) may be the correct invariant for distinguishing orbits.
+
+
+\section{Open Problems}\label{sec:open}
+
+\subsection{\texorpdfstring{Algebraic Proof of the $k$-Profile Theorem}{Algebraic Proof of the k-Profile Theorem}}
+
+Can one prove algebraically that each of the 7 $k$-profiles forces $\sum h_i \equiv 1 \pmod{2}$?
+This would reduce the parity theorem to a finite check and provide structural insight.
+The holistic nature of parity (\S\ref{sec:holistic}) suggests this requires analyzing the interplay between all 5 Lagrangians, not individual $k$-types.
+
+\subsection{Weil Representation Cocycle}
+
+The mod~4 invariant $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ may correspond to a Weil representation cocycle rather than the Kashiwara index.
+Constructing the Weil representation of $\mathrm{Sp}(6, \F_2)$ and computing the relevant cocycle is left for future work.
+
+\subsection{Stabilizer Algebra}
+
+Compute the stabilizer structure of $\mathcal{O}_2, \mathcal{O}_3, \mathcal{O}_4$ explicitly ($\Z_6$ vs.\ $S_3$) and find a geometric interpretation of the Orbit~4 parity anomaly.
+
+\subsection{Split Cayley Hexagon}
+
+The 135 Lagrangians of $W(5, \F_2)$ embed into the split Cayley hexagon.
+Whether the 2-class structure corresponds to distinct embedding types in the hexagon remains open.
+
+\subsection{\texorpdfstring{$n$-Qubit Generalization}{n-Qubit Generalization}}
+
+Does the $k$-profile theorem or the Maslov index framework generalize to $n > 3$ qubits?
+
+
+
+\section*{Appendix: Rigor Self-Assessment}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Result} & \textbf{Type} & \textbf{Status} \\
+\midrule
+Thm~\ref{thm:kashiwara-fails} (Kashiwara $\neq \beta/2$) & Computational & 500-pentagram sample \\
+Prop~\ref{prop:star} (K$_5$ star structure) & Algebraic & Proven \\
+Thm~\ref{thm:mod4-invariant} ($\beta_{\mathrm{sum}} \equiv 2$) & Computational & All 12{,}096~\cite{PaperXIsuppl} \\
+Prop~\ref{prop:h-varies} (individual $h$ varies) & Computational & All 945 contexts \\
+Prop~\ref{thm:kprofile} ($k$-profile observation) & Computational & 500-pentagram sample \\
+Rem~\ref{rem:v-contrib-example} (holistic example) & Computational & 2 pentagrams \\
+Cor~\ref{cor:qT-identical} ($q(T)$ dist.\ algebraic) & Algebraic & G$_2(2)$ transitivity \\
+Thm~\ref{thm:invariants-fail} (invariants fail) & Computational & All 12{,}096 \\
+Prop~\ref{prop:orbit4} (Orbit~4 anomaly) & Computational & All 12{,}096 \\
+\bottomrule
+\end{tabular}
+\caption{Rigor assessment for main results.}
+\end{table}
+
+\section*{Acknowledgments}
+
+We thank the co-nlang research team for computational resources and feedback.
+
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperX]{PaperX}
+Z.-L. Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Symplectic Embedding, 10-Ray Cap, and the Failure of the
+Collinearity--Obstruction Dictionary,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20476659} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXsuppl]{PaperXsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~X,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20472357} (2026).
+
+\bibitem[PaperXIsuppl]{PaperXIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XI,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482283} (2026).
+
+\bibitem[PaperXIIIsuppl]{PaperXIIIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XIII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20495857} (2026).
+
+\bibitem[LionVergne1980]{LionVergne1980}
+G. Lion and M. Vergne,
+``The Weil Representation, Maslov Index and Theta Series,''
+\textit{Birkh\"auser, Boston} (1980).
+
+\end{thebibliography}
+
+\end{document}

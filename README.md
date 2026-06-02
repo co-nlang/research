@@ -1,6 +1,6 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A Twelve-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers, extended by Paper VIII with explicit functor construction and twisted Penrose transform, Paper IX with the 3-qubit obstruction ladder and two non-conjugate Klein quartic bridges, Paper X with the equiangular characterization of Mermin pentagrams, Paper XI with the quadratic refinement proof of the parity theorem, and Paper XII with the T-vector theorem and symplectic characteristic elements.
+A Fourteen-paper series with epilogue exploring the cohomological foundations of quantum contextuality: from geometric phases to the necessity of complex numbers, extended by Paper VIII with explicit functor construction and twisted Penrose transform, Paper IX with the 3-qubit obstruction ladder and two non-conjugate Klein quartic bridges, Paper X with the equiangular characterization of Mermin pentagrams, Paper XI with the quadratic refinement proof of the parity theorem, Paper XII with the T-vector theorem and symplectic characteristic elements, Paper XIII with the Maslov index investigation, the $k$-profile theorem, and the Orbit~4 parity anomaly, and Paper XIV with the stabilizer algebra classification ($O_1=\mathbb{Z}_2$, $O_{2,3,4}=S_3$), the full 12,096-pentagram $k$-profile theorem, the 3-pattern $h$-structure theorem, and the 5-minus exclusion proposition.
 
 **Author:** Zhou-Li Chen (co-nlang Research)
 
@@ -54,7 +54,9 @@ research/
 │   ├── Paper9_obstruction_ladder.tex
 │   ├── Paper10_equiangular_characterization.tex
 │   ├── Paper11_quadratic_refinement.tex
-│   └── Paper12_T_vector_theorem.tex
+│   ├── Paper12_T_vector_theorem.tex
+│   ├── Paper13_maslov_index.tex
+│   └── Paper14_stabilizer_kprofile.tex
 ├── supplementary/
 │   ├── construct_16cell/
 │   │   ├── LICENSE                         # MIT
@@ -95,12 +97,25 @@ research/
 │   │   ├── class2_characterization.py
 │   │   ├── quadratic_refinement.py
 │   │   └── verify_identity.py
-│   └── paper12/
+│   ├── paper12/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── arf_candidate_search.py
+│   │   ├── g2_preserves_q.py
+│   │   └── t_vector_analysis.py
+│   ├── paper13/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── maslov_index.py
+│   │   ├── maslov_candidates.py
+│   │   ├── path_a_half_symplectic_sample.py
+│   │   ├── analyze_h_structure.py
+│   │   └── analyze_h_correlation.py
+│   └── paper14/
 │       ├── LICENSE                         # MIT
 │       ├── README.md
-│       ├── arf_candidate_search.py
-│       ├── g2_preserves_q.py
-│       └── t_vector_analysis.py
+│       ├── stabilizer_algebra.py
+│       └── beta_distribution.py
 ```
 
 ---
@@ -110,7 +125,7 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
@@ -123,6 +138,8 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **Paper X** proves that every Mermin pentagram has equiangular Lagrangian configuration ($\dim(L_i \cap L_j) = 1$ for all 10 pairs), and conversely every equiangular $K_5$ is a Mermin pentagram. The 10 shared operators form a 10-point cap in $PG(5,\mathbb{F}_2)$. Collinearity in the Fano plane is shown to be a shadow, not the obstruction. $G_2(2)$ acts with 4 orbits revealing a 2-class geometric structure.
 - **Paper XI** provides the $\beta$-formula for context signs ($s(C) = (-1)^{\beta(C)/2}$ where $\beta$ is the integer symplectic form sum) and a geometric proof of the parity theorem. The 45 ray pairs decompose into 30 sharing ($\omega=0$, Lagrangian) and 15 disjoint ($\omega=1$, proven algebraically via cap property + Lagrangian self-orthogonality). The parity theorem $\beta_{\text{sum}} \equiv 2 \pmod{4}$ is verified computationally for all 12,096 pentagrams.
 - **Paper XII** proves the T-vector theorem: for any equiangular pentagram, $T = \sum r_{ij}$ satisfies $\omega(T, r) = 1$ for all rays (algebraic, $G_2(2)$-equivariant). $T$ is interpreted as a symplectic characteristic element, analogous to the Wu class in algebraic topology. The Arf invariant framework for the KS obstruction is shown to be incompatible with $G_2(2)$ symmetry: $G_2(2)$ acts transitively on $\mathbb{F}_2^6 \setminus \{0\}$ and no $G_2(2)$-invariant quadratic form exists. The mod 4 lifting from $\omega(T,r)=1$ to $\beta_{\text{sum}} \equiv 2 \pmod{4}$ remains open.
+- **Paper XIII** investigates the Maslov index as a potential geometric explanation for the parity theorem. The Kashiwara triple index is shown to $\emph{not}$ match $\beta_{\text{sum}}/2$ (range mismatch: $\{-2,\ldots,+2\}$ vs.\ $\{-13,\ldots,+9\}$). The $k$-profile theorem is established: the parity $\sum h_i \pmod{2}$ is completely determined by the Lagrangian $V$-intersection profile, with all 7 occurring profiles giving odd parity. The $V$-contribution to $\beta_{\text{sum}}$ is shown to be individually unconstrained mod~4, establishing that parity is holistic. G$_2(2)$-equivariant invariants cannot distinguish the two orbit classes, and Orbit~4 exhibits a distinct parity anomaly.
+- **Paper XIV** completes the computational foundations: the $k$-profile theorem is verified for all 12,096 pentagrams (7 types, 100\% odd parity). The stabilizer classification reveals $O_1=\mathbb{Z}_2$ and $O_{2,3,4}=S_3$ — no cyclic $\mathbb{Z}_6$ stabilizer exists. The $h$-pattern structure is remarkably constrained: only 3 of 16 theoretically possible patterns occur. The 5-minus exclusion is proven algebraically for $(7,1,1,1,1)$ and computationally for $(3,3,3,0,0)$. The Orbit~4 anomaly is shown $\emph{not}$ to be explained by stabilizer algebra type, pointing to non-conjugate $S_3$ embeddings in $G_2(2)$ as the true source. Full $\beta_{\text{sum}}$ statistics: range $[-34,30]$, mean $-2.5$ (negative bias).
 
 ### Supplementary L-S Appendices
 
@@ -149,6 +166,8 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | X | *The Equiangular Characterization of Mermin Pentagrams: Symplectic Embedding, 10-Ray Cap, and the Failure of the Collinearity–Obstruction Dictionary* | Equiangular Lagrangian config, 10-ray cap, $G_2(2)$ orbits | $K_5 \Leftrightarrow$ equiangular $\Leftrightarrow$ Mermin; collinearity is shadow; 4 orbits, 2-class structure |
 | XI | *Quadratic Refinement and the Parity of Mermin Pentagrams: The $\beta$-Formula, Geometric Decomposition, and the Kochen–Specker Obstruction from Equiangular Geometry* | $\beta$-formula, $\omega$ decomposition, parity theorem | $s(C)=(-1)^{\beta/2}$ (0/945); $\omega_{\text{disjoint}}=1$ (algebraic); $\beta_{\text{sum}}\equiv 2\pmod{4}$ (computational) |
 | XII | *The T-Vector Theorem: Symplectic Characteristic Elements and the Kochen–Specker Obstruction* | T-vector theorem, symplectic characteristic element, Arf incompatibility | $\omega(T,r)=1$ (algebraic); Wu class analogy; no $G_2(2)$-invariant quadratic form; mod 4 lifting open |
+| XIII | *The Maslov Index and the Kochen–Specker Obstruction: Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly* | Maslov index, Kashiwara triple index, $k$-profile theorem, orbit structure | Kashiwara $\neq$ $\beta_{\text{sum}}/2$; $\beta_{\text{sum}} \equiv 2\pmod{4}$ ordering-invariant; 7 $k$-profiles all give odd parity; G$_2(2)$-equivariant invariants cannot distinguish orbit classes; Orbit~4 parity anomaly |
+| XIV | *Stabilizer Algebra and the $k$-Profile Theorem for Mermin Pentagrams* | Stabilizer classification, $k$-profile theorem, $h$-pattern structure, $\beta_{\text{sum}}$ statistics | $O_1=\mathbb{Z}_2$, $O_{2,3,4}=S_3$ (no $\mathbb{Z}_6$); 7 $k$-profiles, 100\% odd (12{,}096); only 3 $h$-patterns; 5-minus exclusion; $\beta_{\text{sum}}\in[-34,30]$ |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -185,6 +204,8 @@ A candid inventory of the mathematical machinery powering this series and the op
 | [`supplementary/paper10/`](supplementary/paper10/) | Computational enumeration of Mermin pentagrams: 135 Lagrangians, 945 proper contexts, 12,096 pentagrams, equiangular characterization, $G_2(2)$ orbit decomposition (Paper X) |
 | [`supplementary/paper11/`](supplementary/paper11/) | Quadratic refinement scripts: $\beta$-formula verification, $\omega$ decomposition, geometric proof of disjoint pair $\omega=1$, parity theorem verification (Paper XI) |
 | [`supplementary/paper12/`](supplementary/paper12/) | T-vector analysis: Arf candidate search, $G_2(2)$ transitivity on $\mathbb{F}_2^6$, $G_2(2)$-invariant quadratic form search, T-vector statistics (Paper XII) |
+| [`supplementary/paper13/`](supplementary/paper13/) | Maslov index computation: Kashiwara triple index, $k$-profile theorem verification, $h$-structure analysis, G$_2(2)$ orbit invariant enumeration (Paper XIII) |
+| [`supplementary/paper14/`](supplementary/paper14/) | Stabilizer algebra computation: $G_2(2)$ orbit stabilizers ($\mathbb{Z}_2$ vs $S_3$), full 12,096 $k$-profile verification, $\beta_{\text{sum}}$ distribution, $h$-pattern analysis (Paper XIV) |
 
 ---
 
@@ -207,6 +228,8 @@ All components are archived on Zenodo:
 | Paper X | [10.5281/zenodo.20476659](https://doi.org/10.5281/zenodo.20476659) |
 | Paper XI | [10.5281/zenodo.20482595](https://doi.org/10.5281/zenodo.20482595) |
 | Paper XII | [10.5281/zenodo.20490118](https://doi.org/10.5281/zenodo.20490118) |
+| Paper XIII | [10.5281/zenodo.20496513](https://doi.org/10.5281/zenodo.20496513) |
+| Paper XIV | [10.5281/zenodo.20502868](https://doi.org/10.5281/zenodo.20502868) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
@@ -215,6 +238,8 @@ All components are archived on Zenodo:
 | `supplementary/paper10/` (12 scripts) | [10.5281/zenodo.20472357](https://doi.org/10.5281/zenodo.20472357) |
 | `supplementary/paper11/` (13 scripts) | [10.5281/zenodo.20482283](https://doi.org/10.5281/zenodo.20482283) |
 | `supplementary/paper12/` (3 scripts) | [10.5281/zenodo.20488394](https://doi.org/10.5281/zenodo.20488394) |
+| `supplementary/paper13/` (5 scripts) | [10.5281/zenodo.20495857](https://doi.org/10.5281/zenodo.20495857) |
+| `supplementary/paper14/` (2 scripts) | [10.5281/zenodo.20501961](https://doi.org/10.5281/zenodo.20501961) |
 
 ---
 
@@ -241,7 +266,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Twelve-paper series with epilogue},
+  note   = {Fourteen-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```
