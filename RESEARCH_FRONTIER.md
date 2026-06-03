@@ -295,11 +295,52 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 ---
 
+### 15. The $n$-Qubit Cross-Context Anticommutation Theorem (Paper XVII, Open Problem 1)
+
+**Status:** Paper XVII proves that for any $K_5$ configuration of Lagrangians in $Sp(6,\mathbb{F}_2)$ (the 3-qubit case), all 15 cross-context ray pairs satisfy $\omega(v_{ij},v_{kl})=1$. The proof uses a size argument: 10 rays cannot be mutually isotropic because any totally isotropic subspace of $\mathbb{F}_2^6$ has at most $2^3-1=7$ nonzero vectors, and $10>7$.
+
+**Why it fails for $n\geq 4$:** For $n$ qubits, a Lagrangian in $\mathbb{F}_2^{2n}$ has $2^n-1$ nonzero vectors. For $n=4$: $2^4-1=15\geq 10$, so the size argument fails. A $K_5$ of Lagrangians in $Sp(8,\mathbb{F}_2)$ might admit mutually isotropic cross-context rays. The question is whether the Cross-Context Anticommutation Theorem holds for $n\geq 4$ (via a different proof) or genuinely fails.
+
+**What's needed:** Either (a) prove the theorem for all $n$ via a structural argument not relying on the dimension bound, or (b) exhibit an explicit $K_5$ of Lagrangians in $Sp(8,\mathbb{F}_2)$ with $c=0$ (an "even $K_5$"). The latter would imply that the KS obstruction is not universal for $n$-qubit systems with $n\geq 4$.
+
+---
+
+### 16. Petersen Graph Non-3-Colorability and KS No-Coloring (Paper XVII, Open Problem 2)
+
+**Status:** The 15 cross-context ray pairs of any Mermin pentagram form the edge set of the Petersen graph $K(5,2)$. The Petersen graph is famously non-3-colorable (chromatic number 4) and is the unique $(3,5)$-cage. The KS theorem asserts that the 10-ray system admits no binary valuation consistent with the commutativity constraints.
+
+**The connection to make precise:** The Petersen graph's non-3-colorability and the KS no-coloring result both assert the impossibility of a consistent global assignment. Is there a direct combinatorial proof that the Petersen structure of the cross-context anticommutation pattern forces the KS obstruction? A direct proof would bypass the Weyl algebra entirely and give a purely graph-theoretic statement of KS contextuality.
+
+**What's needed:** Formulate the KS coloring constraint as a graph-coloring problem on the Petersen graph and identify which classical graph-theoretic property (non-3-colorability, odd cycle structure, Petersen's theorem on cubic graphs) is the direct witness.
+
+---
+
+### 17. Weil Representation Unification of Context- and Pentagram-Level Signs (Paper XVII, Open Problem 4)
+
+**Status:** The series has identified two levels of the KS obstruction:
+- **Context level** (Paper XVI): $W_C = s(C)\cdot I_8$, where $s(C)=(-1)^{\beta(C)/2}$ is the Weyl product sign — realised by the Weil representation of $Sp(6,\mathbb{F}_2)$ on $\mathbb{C}^8$.
+- **Pentagram level** (Paper XVII): $\prod_C s(C)=-1$, realised by the Petersen graph anticommutation structure.
+
+**What's needed:** A single Weil-representation-theoretic statement encoding both levels. The 5-cycle of the Petersen graph selected by the product ordering (Remark 4.3 of Paper XVII) is a combinatorial shadow of the $K_5$ geometry; there should be a representation-theoretic reason that the 5-cycle count is odd. A character-theoretic or cohomological statement in terms of the Weil representation of $Sp(6,\mathbb{F}_2)$ would unify Papers XVI and XVII into a single theorem.
+
+---
+
+### 18. Symplectic Geometry Beyond $\mathbb{F}_2$: Analogs over $\mathbb{F}_q$ (Paper XVII, Open Problem 3)
+
+**Status:** The entire Mermin pentagram program (Papers X–XVII) is specific to $\mathbb{F}_2$: the Fano zero-sum property ($v_1\oplus\cdots\oplus v_4=0$) uses the fact that $\mathrm{char}=2$, and the Lagrangian size bound uses $|L\setminus\{0\}|=2^3-1=7$.
+
+**What's needed:** Determine which results extend to $Sp(6,\mathbb{F}_q)$ for odd primes $q$:
+- The Fano zero-sum analog requires a context-level identity in $\mathbb{F}_q^6$; it is not clear what replaces $v_1\oplus\cdots\oplus v_4=0$ for $q>2$.
+- The Weyl operator algebra over $\mathbb{F}_q$ uses $q$-th roots of unity; the commutation relation $W(v)W(w)=\zeta^{\omega(v,w)}W(w)W(v)$ with $\zeta$ a primitive $q$-th root may alter the product structure.
+- Are there "even $K_5$s" over $\mathbb{F}_q$ for $q>2$? If so, what is their density?
+
+---
+
 ## How to Contribute
 
 This document is both a guide and an invitation. If you have expertise in any of the areas above — spectral sequences, topos theory, octonions, SAT solving, twistor theory, symplectic finite geometry, or modular forms — the open questions listed here are concrete, well-scoped, and mathematically meaningful.
 
-The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 are from Papers VII–VIII and set the agenda for Paper IX.
+The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 are from Papers VII–IX. Items 15–18 are from Papers XVI–XVII and form the current research frontier.
 
 ---
 

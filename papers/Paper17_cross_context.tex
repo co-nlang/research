@@ -1,0 +1,655 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\Wop}[1]{W(#1)}
+
+
+\title{The Cross-Context Anticommutation Theorem\\
+       and the Algebraic Origin of the Kochen--Specker Obstruction\\
+       {\large (Paper XVII)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We prove the \emph{Cross-Context Anticommutation Theorem}:
+for any $K_5$ configuration of Lagrangians
+$L_1, \ldots, L_5$ in $(\mathbb{F}_2^6, \omega)$
+(pairwise intersecting in dimension~1),
+the unique shared ray $v_{ij} = L_i \cap L_j \setminus \{0\}$
+satisfies
+\[
+  \omega(v_{ij},\, v_{kl}) = 1
+\]
+for every pair $\{i,j\}, \{k,l\}$ with $\{i,j\} \cap \{k,l\} = \emptyset$
+(cross-context pairs).
+The proof is a pure symplectic-geometry argument in three steps:
+(1)~the Fano zero-sum property (Paper~XVI)
+forces all three cross-context partners of any ray $v_{ij}$
+to share the same $\omega$-value;
+(2)~symmetry of $\omega \bmod 2$ then forces that value to be uniform
+across all 15 cross-context pairs;
+(3)~a Lagrangian size argument ($10 > 2^3 - 1 = 7$) forces the value
+to be~$1$, not~$0$.
+
+As a corollary, the 15 cross-context pairs form the edge set of the
+\emph{Petersen graph} $K(5,2)$, all 15 edges contributing a factor of
+$-1$ to the operator product.
+This gives a purely algebraic proof of the
+Kochen--Specker obstruction:
+$\prod_{C \in \mathbf{P}} W_C = (-1)^{15} I_8 = -I_8$
+for any $K_5$ configuration of Lagrangians in $Sp(6,\mathbb{F}_2)$.
+In particular, there are \emph{no even $K_5$s}:
+parity $-1$ is automatic from the $K_5$ geometry,
+not an additional constraint.
+This resolves Open Problem~4 of Paper~XVI.
+\end{abstract}
+
+
+\section{Introduction}
+
+Paper~XVI established the Weyl Product Identity $W_C = s(C) \cdot I_8$
+for every context $C = \{v_1, v_2, v_3, v_4\}$,
+where $s(C) = (-1)^{\beta(C)/2}$ is the context sign \cite{PaperXVI}.
+The KS obstruction $\prod_{C \in \mathbf{P}} W_C = -I_8$
+then followed by invoking the parity theorem of Paper~XI \cite{PaperXI},
+which is itself a computational result over all 12{,}096 Mermin pentagrams.
+
+Paper~XVI left as Open Problem~4:
+
+\begin{quote}
+\emph{Give a direct Weyl-algebraic proof that
+$\prod_{C \in \mathbf{P}} W_C = -I_8$
+without invoking the 12{,}096-pentagram enumeration.}
+\end{quote}
+
+This paper closes that problem.
+
+\subsection*{Main idea}
+
+A Mermin pentagram has 5 contexts $C_1, \ldots, C_5$ that are
+\emph{pairwise adjacent}: every pair $C_i, C_j$ shares exactly one ray.
+This gives the structure of a complete graph $K_5$, not a pentagon.
+The 10 shared rays $v_{ij} = C_i \cap C_j$ (for $i < j$) each appear in
+exactly 2 contexts; each context contains exactly 4 rays.
+
+Expanding the product $\prod_i W_{C_i}$:
+each ray $v_{ij}$ appears exactly twice (once from $C_i$, once from $C_j$).
+Pairing each $W(v_{ij})$ with its duplicate:
+$W(v_{ij})^2 = I_8$, but moving the second copy leftward to meet the first
+picks up a factor of $(-1)^{\omega(v_{ij}, w)}$ for each operator $W(w)$
+it passes.
+In the standard ordering (contexts $C_1,\ldots,C_5$, rays within each
+context ordered by ascending index), a cross-context pair
+$\{v_{ij},v_{kl}\}$ contributes a sign of $(-1)^{\omega(v_{ij},v_{kl})}$
+if and only if the two copies \emph{interleave} in the product sequence
+--- i.e., the context-index intervals $[i,j]$ and $[k,l]$
+overlap without nesting (Lemma~\ref{lem:pair}).
+The total sign is $(-1)^{N_\mathcal{I}}$
+where $N_\mathcal{I}$ is the number of anticommuting interleaving pairs.
+
+The main theorem shows all 15 cross-context pairs anticommute.
+Of these, exactly 5 interleave in the standard ordering ---
+one per 4-element subset of $\{1,\ldots,5\}$ (Lemma~\ref{lem:interleave})
+--- giving $(-1)^5 = -1$ directly.
+Computationally verified: all 15 cross-context pairs anticommute
+for all 12{,}096 Mermin pentagrams \cite{PaperXVIIsuppl}.
+
+\subsection*{Structure of the paper}
+
+Section~\ref{sec:k5} establishes the $K_5$ structure and the ray labeling.
+Section~\ref{sec:main} states and proves the Cross-Context Anticommutation
+Theorem.
+Section~\ref{sec:ks} derives the KS obstruction as a corollary.
+Section~\ref{sec:connections} connects the result to the Petersen graph
+and to earlier papers.
+Section~\ref{sec:open} states open problems.
+
+
+\section{\texorpdfstring{The $K_5$ Structure of Mermin Pentagrams}{The K5 Structure of Mermin Pentagrams}}\label{sec:k5}
+
+\begin{definition}[$K_5$ configuration]\label{def:k5}
+A \emph{$K_5$ configuration} in $(V, \omega) = (\mathbb{F}_2^6, \omega)$
+is a 5-tuple of Lagrangians $(L_1, \ldots, L_5)$ such that
+$\dim(L_i \cap L_j) = 1$ for all $i \neq j$.
+Denote by $v_{ij} = L_i \cap L_j \setminus \{0\}$
+the unique non-zero shared ray.
+\end{definition}
+
+\begin{remark}[Why $K_5$, not a pentagon]
+The Mermin pentagram is often drawn as a pentagon with a pentagram star
+inscribed, but the adjacency structure of the 5 contexts is that of a
+\emph{complete graph $K_5$}: every pair of contexts shares a ray.
+The star and cycle drawings are representations, not the combinatorial
+structure.
+\end{remark}
+
+The $K_5$ labeling organizes the shared rays as follows.
+
+\begin{proposition}[$K_5$ ray statistics]\label{prop:k5rays}
+A $K_5$ configuration has:
+\begin{enumerate}
+  \item $\binom{5}{2} = 10$ shared rays $\{v_{ij} : 1 \leq i < j \leq 5\}$.
+  \item Each ray $v_{ij}$ lies in exactly 2 contexts
+        ($C_i$ and $C_j$, where $C_i = \bigcup_{j \neq i} \{v_{ij}\}$).
+  \item Each context $C_i$ contains exactly 4 rays
+        $\{v_{ij} : j \neq i\}$.
+  \item Ray pairs: $\binom{10}{2} = 45$ total,
+        of which 30 are \emph{same-context pairs}
+        ($\{v_{ij}, v_{ik}\}$ sharing index $i$: $5 \cdot \binom{4}{2} = 30$)
+        and 15 are \emph{cross-context pairs}
+        ($\{v_{ij}, v_{kl}\}$ with $\{i,j\} \cap \{k,l\} = \emptyset$:
+        $\binom{10}{2} - 30 = 15$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Elementary counting from the $K_5$ labeling.
+The 15 cross-context pairs are exactly the pairs
+$\{v_{ij}, v_{kl}\}$ where $\{i,j\}$ and $\{k,l\}$ are disjoint
+2-element subsets of $\{1,\ldots,5\}$; their count is
+$\binom{5}{2,2,1}/2 = 15$.
+\end{proof}
+
+\begin{remark}[Same-context pairs are isotropic]\label{rem:sameiso}
+For a same-context pair $\{v_{ij}, v_{ik}\}$, both rays lie in
+the Lagrangian $L_i$, so $\omega(v_{ij}, v_{ik}) = 0$:
+same-context pairs always commute.
+The symplectic question is entirely about the 15 cross-context pairs.
+\end{remark}
+
+The product of all five context Weyl operators expands as:
+\begin{equation}\label{eq:expand}
+  \prod_{i=1}^5 W_{C_i}
+  = \prod_{i=1}^5 \prod_{j \neq i} W(v_{ij})
+  = \prod_{i < j} W(v_{ij})^2 \cdot (\text{sign from commutation moves}),
+\end{equation}
+where the sign arises from moving each pair $W(v_{ij})$ together
+via bubble-sort transpositions.
+Since $W(v_{ij})^2 = I_8$, the product equals $(-1)^{N_\mathcal{I}} \cdot I_8$
+where $N_\mathcal{I}$ is the number of anticommuting cross-context pairs
+that \emph{interleave} in the product ordering
+(see Lemmas~\ref{lem:pair}--\ref{lem:interleave}).
+
+
+\section{The Cross-Context Anticommutation Theorem}\label{sec:main}
+
+\begin{theorem}[Cross-Context Anticommutation]\label{thm:main}
+Let $(L_1, \ldots, L_5)$ be a $K_5$ configuration in
+$(\mathbb{F}_2^6, \omega)$, with shared rays $v_{ij} = L_i \cap L_j \setminus \{0\}$.
+
+For every cross-context pair $\{v_{ij}, v_{kl}\}$
+(with $\{i,j\} \cap \{k,l\} = \emptyset$):
+\[
+  \omega(v_{ij},\, v_{kl}) = 1.
+\]
+\end{theorem}
+
+\begin{proof}
+We prove the theorem in three steps.
+
+\textbf{Step~1 (Fano zero-sum forces uniform value within a row).}
+Fix indices $i < j$ and pick any $m \notin \{i,j\}$.
+The context $C_m$ contains the 4 rays $\{v_{mj'} : j' \neq m\}$.
+By the Fano zero-sum property (Paper~XVI, Theorem~3.1):
+\[
+  \bigoplus_{j' \neq m} v_{mj'} = 0 \in \mathbb{F}_2^6.
+\]
+Applying $\omega(v_{ij}, \cdot)$ and using bilinearity:
+\[
+  \sum_{j' \neq m} \omega(v_{ij},\, v_{mj'}) \equiv 0 \pmod 2.
+\]
+Among the four terms indexed by $j' \in \{1,\ldots,5\} \setminus \{m\}$:
+\begin{itemize}
+  \item $j' = i$: the pair $\{v_{ij}, v_{mi}\}$ shares index $i$,
+        so $v_{mi} \in L_i$ (same Lagrangian as $v_{ij}$)
+        $\Rightarrow \omega(v_{ij}, v_{mi}) = 0$.
+  \item $j' = j$: the pair $\{v_{ij}, v_{mj}\}$ shares index $j$,
+        so $\omega(v_{ij}, v_{mj}) = 0$.
+  \item $j' \notin \{i,j\}$: these are the 2 cross-context terms
+        (since $\{i,j\} \cap \{m,j'\} = \emptyset$ when $j' \neq i,j,m$).
+        There are exactly 2 such values of $j'$
+        (namely $\{1,\ldots,5\} \setminus \{i,j,m\}$ has 2 elements).
+\end{itemize}
+
+The congruence reduces to:
+\[
+  \omega(v_{ij},\, v_{m,j_1'}) + \omega(v_{ij},\, v_{m,j_2'}) \equiv 0 \pmod 2,
+\]
+where $\{j_1', j_2'\} = \{1,\ldots,5\} \setminus \{i,j,m\}$.
+Hence the two values are equal.
+
+Applying this for all three choices $m \in \{1,\ldots,5\} \setminus \{i,j\}$:
+all 3 cross-context partners of $v_{ij}$ have the \emph{same} $\omega$-value.
+Call it $c_{ij} \in \{0, 1\}$.
+
+\textbf{Step~2 (Symmetry forces a global uniform value).}
+Since $\omega(v,w) = \omega(w,v) \bmod 2$ (the symplectic form is
+alternating mod~2, and $-1 \equiv 1 \bmod 2$, so it is also symmetric mod~2),
+$\omega(v_{ij}, v_{kl}) = \omega(v_{kl}, v_{ij})$.
+Therefore $c_{ij} = c_{kl}$ for any cross-context pair $\{v_{ij}, v_{kl}\}$.
+
+By the connectivity of the cross-context graph
+(the Petersen graph $K(5,2)$, which is 3-regular and connected),
+all 15 cross-context pairs share the same value $c \in \{0,1\}$.
+
+\textbf{Step~3 (Size argument forces $c = 1$).}
+Suppose for contradiction that $c = 0$.
+Then all 10 rays $\{v_{ij}\}$ are mutually isotropic:
+$\omega(v_{ij}, v_{kl}) = 0$ for all cross-context pairs,
+and $\omega(v_{ij}, v_{ik}) = 0$ for same-context pairs (Remark~\ref{rem:sameiso}).
+Hence the 10 rays span a totally isotropic subspace of $(\mathbb{F}_2^6, \omega)$.
+
+Any totally isotropic subspace of $\mathbb{F}_2^6$ has dimension at most~3
+(it is contained in a Lagrangian), hence contains at most
+$2^3 - 1 = 7$ nonzero vectors.
+But 10 $>$ 7 --- contradiction.
+
+Therefore $c = 1$, and all 15 cross-context pairs satisfy
+$\omega(v_{ij}, v_{kl}) = 1$. \qed
+\end{proof}
+
+\begin{remark}[Algebraic vs.\ computational]
+The proof uses no case-by-case enumeration of pentagrams.
+The only inputs are:
+(i) the Fano zero-sum property (Paper~XVI, Theorem~3.1),
+(ii) the symmetry of $\omega \bmod 2$,
+(iii) the bound $\dim(\text{Lagrangian}) = 3$.
+All are structural facts about $(\mathbb{F}_2^6, \omega)$.
+\end{remark}
+
+\begin{remark}[The Petersen graph]\label{rem:petersen}
+The cross-context anticommutation pattern on the 10 rays is exactly
+the adjacency matrix of the \emph{Petersen graph} $K(5,2)$:
+\begin{itemize}
+  \item Vertices: 2-element subsets $\{i,j\}$ of $\{1,\ldots,5\}$ (the 10 rays).
+  \item Edges: disjoint pairs $\{\{i,j\},\{k,l\}\}$ (the 15 cross-context pairs).
+\end{itemize}
+Theorem~\ref{thm:main} says the Weyl anticommutation graph on the 10 rays
+is \emph{exactly} the Petersen graph: edge $\Leftrightarrow$ anticommutation.
+The Petersen graph is 3-regular (each ray anticommutes with exactly 3 others),
+has girth~5, and is the unique $(3,5)$-cage.
+\end{remark}
+
+
+\section{The KS Obstruction}\label{sec:ks}
+
+\begin{lemma}[Pairing sign]\label{lem:pair}
+Let $W(u_1)\cdots W(u_{2n})$ be a product of Hermitian Pauli operators
+in which each of $n$ distinct vectors $v_1,\ldots,v_n \in \mathbb{F}_2^6$
+appears exactly twice.
+Say that a pair $\{v_k, v_l\}$ \emph{interleaves} if the four copies
+appear in the alternating pattern
+$\ldots v_k \ldots v_l \ldots v_k \ldots v_l \ldots$
+(or its mirror).
+Then
+\[
+  W(u_1)\cdots W(u_{2n}) \;=\; (-1)^{|\mathcal{I}|} \cdot I,
+\]
+where $\mathcal{I} = \bigl\{\{v_k,v_l\} : \omega(v_k,v_l) = 1
+\text{ and } \{v_k,v_l\} \text{ interleaves}\bigr\}$.
+\end{lemma}
+
+\begin{proof}
+Bring the two copies of each $v_k$ together by adjacent transpositions,
+processing pairs in any order.
+For a non-interleaving pair $\{v_k,v_l\}$, the two copies of $v_k$
+can be united passing $v_l$ an even number of times:
+zero times if the pairs are separated (both copies of $v_k$ before
+both copies of $v_l$, or vice versa), and two times if they are
+nested (both copies of $v_k$ lie between the two copies of $v_l$).
+In either case the contribution is $(-1)^0 = +1$.
+For an interleaving pair, one copy of $v_k$ must pass exactly one copy
+of $v_l$ to reach the other copy of $v_k$: the crossing count is odd,
+contributing $(-1)^{\omega(v_k,v_l)}$.
+After all pairs are united, $W(v_k)^2 = I$ cancels each pair,
+leaving the accumulated sign $(-1)^{|\mathcal{I}|}$.
+\end{proof}
+
+\begin{lemma}[Interleaving count]\label{lem:interleave}
+In the product $\prod_{i=1}^5 W_{C_i}$ with contexts ordered
+$C_1,\ldots,C_5$ and rays within $C_i$ ordered by ascending~$j$,
+exactly \emph{5} cross-context pairs interleave.
+These are the pairs $\{v_{ac},\, v_{bd}\}$, one for each 4-element
+subset $\{a < b < c < d\} \subset \{1,\ldots,5\}$.
+\end{lemma}
+
+\begin{proof}
+The two copies of $v_{ij}$ ($i < j$) appear in block $C_i$ and
+block $C_j$.
+Two cross-context pairs $\{v_{ij}, v_{kl}\}$
+(with $\{i,j\}\cap\{k,l\}=\emptyset$, $i<j$, $k<l$) interleave
+in the sequence if and only if the context-index intervals $[i,j]$ and
+$[k,l]$ overlap without nesting: $i < k < j < l$ or $k < i < l < j$.
+This equivalence holds because the global positions of the two copies
+of $v_{ij}$ are within blocks $C_i$ and $C_j$ respectively, so copy
+ordering in the sequence is determined solely by context-block ordering.
+Concretely, for indices in $\{1,\ldots,5\}$, the interleaving case
+$i < k < j < l$ places the four copies in block order
+$C_i, C_k, C_j, C_l$, which is the alternating pattern
+(verified computationally for all 15 cross-context pairs \cite{PaperXVIIsuppl}).
+
+For any 4-element subset $\{a < b < c < d\} \subset \{1,\ldots,5\}$,
+the three cross-context pairings of its elements give intervals:
+\begin{enumerate}
+  \item $\{a,b\}\,|\,\{c,d\}$: $[a,b]$ and $[c,d]$ are
+        \emph{separated} ($b < c$). Not interleaving.
+  \item $\{a,c\}\,|\,\{b,d\}$: $a < b < c < d$ implies
+        $[a,c]$ and $[b,d]$ \emph{interleave}. $\checkmark$
+  \item $\{a,d\}\,|\,\{b,c\}$: $[b,c] \subset [a,d]$, \emph{nested}.
+        Not interleaving.
+\end{enumerate}
+With $\binom{5}{4} = 5$ choices of 4-element subset, there are exactly
+5 interleaving cross-context pairs.
+\end{proof}
+
+\begin{remark}[The 5 interleaving pairs form a pentagon]
+\label{rem:pentagon}
+The 5 interleaving pairs $\{v_{13},v_{24}\}$, $\{v_{24},v_{35}\}$,
+$\{v_{35},v_{14}\}$, $\{v_{14},v_{25}\}$, $\{v_{25},v_{13}\}$
+form a 5-cycle (pentagon) in the Petersen graph $K(5,2)$
+(see Remark~\ref{rem:petersen}).
+Since the 5-cycle has an odd number of edges and all 5 pairs
+satisfy $\omega = 1$, the sign is $(-1)^5 = -1$.
+\end{remark}
+
+\begin{corollary}[Algebraic KS Obstruction]\label{cor:ks}
+For any $K_5$ configuration of Lagrangians in $(\mathbb{F}_2^6, \omega)$,
+\[
+  \prod_{i=1}^5 W_{C_i} \;=\; -I_8.
+\]
+In particular, $\prod_{C \in \mathbf{P}} s(C) = -1$ for every Mermin pentagram.
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:interleave}, in the standard product ordering,
+exactly 5 cross-context pairs interleave.
+By Theorem~\ref{thm:main}, all 15 cross-context pairs (and hence
+all 5 interleaving ones) satisfy $\omega(v_{ij},v_{kl}) = 1$.
+By Lemma~\ref{lem:pair}:
+\[
+  \prod_{i=1}^5 W_{C_i}
+  \;=\; (-1)^5 \cdot I_8
+  \;=\; -I_8.
+\]
+Combined with $W_{C_i} = s(C_i) \cdot I_8$ (Paper~XVI, Theorem~4.1):
+$\prod_i s(C_i) = -1$. \qed
+\end{proof}
+
+\begin{remark}[Comparison with Paper~XVI]
+Paper~XVI derived $\prod_C W_C = -I_8$ by:
+(a) proving $W_C = s(C) I_8$ algebraically (Theorem~4.1), and
+(b) citing the parity theorem of Paper~XI ($\prod s(C) = -1$)
+    which relied on a 12{,}096-pentagram enumeration.
+
+Corollary~\ref{cor:ks} replaces step~(b) with the algebraic
+Theorem~\ref{thm:main}.
+The result is now a pure theorem of symplectic geometry over $\mathbb{F}_2$,
+with no computer enumeration in the logical chain.
+\end{remark}
+
+\begin{corollary}[No even $K_5$s]\label{cor:noeven}
+There are no $K_5$ configurations of Lagrangians in $Sp(6, \mathbb{F}_2)$
+with $\prod_{i=1}^5 s(C_i) = +1$.
+The parity $\prod s(C_i) = -1$ is \emph{automatic} from the $K_5$ geometry.
+Computationally: all 12{,}096 $K_5$ configurations have parity $-1$
+\cite{PaperXVIIsuppl}.
+\end{corollary}
+
+\begin{proof}
+Immediate from Corollary~\ref{cor:ks}: every $K_5$ configuration
+satisfies $\prod s(C_i) = -1$, so no $K_5$ can have product $+1$.
+\end{proof}
+
+\begin{remark}[Consequence for the KS theorem]
+Corollary~\ref{cor:noeven} shows that the Mermin pentagram condition
+``is a pentagram'' (which requires $\prod s(C) = -1$ for the
+no-coloring argument) is automatically satisfied by \emph{every}
+$K_5$ configuration of Lagrangians in $Sp(6,\mathbb{F}_2)$.
+The KS obstruction is not a property of a special subset of $K_5$s;
+it is a universal property of the $K_5$ geometry.
+\end{remark}
+
+
+\section{Connections to Previous Papers}\label{sec:connections}
+
+\subsection{Resolution of Paper~XVI Open Problem~4}
+
+Theorem~\ref{thm:main} and Corollary~\ref{cor:ks} together close
+Open Problem~4 of Paper~XVI:
+
+\begin{quote}
+\emph{Give a direct Weyl-algebraic proof that
+$\prod_{C \in \mathbf{P}} W_C = -I_8$
+without invoking the 12{,}096-pentagram enumeration.}
+\end{quote}
+
+The algebraic chain is now complete:
+\[
+  \underbrace{\text{Fano zero-sum}}_{\text{Paper~XVI, Thm~3.1}}
+  \;\Rightarrow\;
+  \underbrace{N_{\mathrm{anti}} = 15}_{\text{Thm~\ref{thm:main}}}
+  \;\Rightarrow\;
+  \underbrace{N_\mathcal{I} = 5 \text{ (odd)}}_{\text{Lem~\ref{lem:interleave}}}
+  \;\Rightarrow\;
+  \underbrace{\prod W_C = (-1)^5 I_8 = -I_8}_{\text{Cor~\ref{cor:ks}}}.
+\]
+
+\subsection{The T-Vector Theorem (Paper~XII)}
+
+Paper~XII established the existence of a \emph{T-vector}
+$T \in \mathbb{F}_2^6$ satisfying $\omega(T, v) = 1$ for all 10 rays
+of any Mermin pentagram \cite{PaperXII}.
+
+Theorem~\ref{thm:main} provides context: since all 15 cross-context
+pairs anticommute, the 10 rays are not mutually isotropic, confirming
+that the system $\omega(T,v)=1$ for all 10 rays is non-trivial.
+The spanning result --- that the 10 rays span all of $\mathbb{F}_2^6$
+--- was established in Paper~X (Theorem~6.4: the 10 shared operators
+form a 10-point cap in $PG(5,\mathbb{F}_2)$, which spans $\mathbb{F}_2^6$)
+\cite{PaperX}.
+Computationally, $T$ is the unique solution to a rank-6 linear system
+$\{AT = \mathbf{1}\}$ over $\mathbb{F}_2$, and uniqueness holds for all
+12{,}096 pentagrams \cite{PaperXVIIsuppl}.
+
+\subsection{The Parity Theorem (Paper~XI)}
+
+Paper~XI established $\prod s(C) = -1$ computationally
+(all 12{,}096 pentagrams) \cite{PaperXI}.
+Corollary~\ref{cor:ks} now provides a purely algebraic proof.
+The computational result is subsumed.
+
+\subsection{Updated Resolution Table}
+
+\begin{table}[H]
+\centering
+\caption{Resolution of open problems from Papers~XI--XVI.}
+\label{tab:resolution}
+\begin{tabular}{p{1.4cm}p{5.0cm}p{5.4cm}}
+\toprule
+Paper & Open Problem & Resolution \\
+\midrule
+XI & Algebraic proof of $\prod s(C) = -1$
+   & \textbf{Paper~XVII:} Cross-Context Anticommutation Theorem \\
+\addlinespace
+XII & T-vector existence
+   & \textbf{Paper~XVII:} Structural (10 rays span $\mathbb{F}_2^6$,
+     rank-6 system) \\
+\addlinespace
+XIII--XV & Maslov / Weil / cocycle attempts
+   & Resolved by Paper~XVI (Weyl Product Identity) \\
+\addlinespace
+XVI OP~4 & Algebraic $\prod W_C = -I_8$
+   & \textbf{Paper~XVII:} Cor~\ref{cor:ks} (this paper) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Open Problems}\label{sec:open}
+
+\begin{enumerate}
+
+\item \textbf{$n$-qubit generalization.}
+      Does Theorem~\ref{thm:main} hold in $Sp(2n, \mathbb{F}_2)$
+      for arbitrary $n \geq 2$?
+      The Fano zero-sum and bilinearity arguments (Steps~1--2) generalize
+      directly; only Step~3 (the size argument) depends on the specific
+      bound $10 > 2^3 - 1 = 7$.
+      For $n \geq 4$: a Lagrangian in $\mathbb{F}_2^{2n}$ has $2^n - 1$
+      nonzero vectors, and $2^4 - 1 = 15 \geq 10$, so the size argument
+      \emph{fails}.
+      Either the theorem requires a different proof for $n \geq 4$,
+      or there exist $K_5$ configurations with $c = 0$.
+
+\item \textbf{Petersen graph and KS no-coloring.}
+      The Petersen graph is famously non-3-colorable (it has chromatic
+      number~4), and the KS theorem asserts that the 10-ray system
+      has no binary valuation (coloring) consistent with the measurement
+      constraints.
+      Is there a direct combinatorial proof connecting the
+      non-3-colorability of the Petersen graph to the KS no-coloring
+      result for the 10 rays?
+
+\item \textbf{Other symplectic geometries.}
+      Does an analog of Theorem~\ref{thm:main} hold in $Sp(6, \mathbb{F}_q)$
+      for odd primes $q$, or in other finite classical geometries?
+      The Fano zero-sum property is specific to $\mathbb{F}_2$
+      (it uses the fact that $|L| = 2^3$ forces $\bigoplus_{v \in L} v = 0$);
+      its analogue over $\mathbb{F}_q$ for $q > 2$ may require different
+      combinatorial input.
+
+\item \textbf{Weil representation interpretation.}
+      The context-level sign $s(C) = (-1)^{\beta(C)/2}$ is realised
+      as the Pauli product $W_C$ (Paper~XVI).
+      The pentagram-level product $\prod s(C) = -1$
+      is realised as the cross-context anticommutation count (this paper).
+      Is there a single Weil-representation-theoretic statement
+      that encodes both levels simultaneously?
+
+\end{enumerate}
+
+
+\appendix
+\setcounter{table}{4}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\theHtable}{A\arabic{table}}
+\section{Rigor Self-Assessment}
+
+\begin{table}[H]
+\centering
+\caption{Rigor classification for all main results.}
+\label{tab:rigor}
+\begin{tabular}{p{6.2cm}lp{4.0cm}}
+\toprule
+Result & Type & Scope \\
+\midrule
+Prop~\ref{prop:k5rays} ($K_5$ ray statistics)
+  & Algebraic & Combinatorial counting \\
+Thm~\ref{thm:main} (Cross-Context Anticommutation)
+  & Algebraic & 3-step pure proof \\
+Cor~\ref{cor:ks} ($\prod W_C = -I_8$)
+  & Algebraic + Cite & Thm~\ref{thm:main} + Paper~XVI Thm~4.1 \\
+Cor~\ref{cor:noeven} (No even $K_5$s)
+  & Algebraic + Comp & Follows from Cor~\ref{cor:ks};
+                       12{,}096/12{,}096 verified \cite{PaperXVIIsuppl} \\
+Rem~\ref{rem:petersen} (Petersen graph)
+  & Algebraic & Combinatorial identity \\
+T-vector uniqueness (\S\ref{sec:connections})
+  & Computational & 12{,}096/12{,}096 verified \cite{PaperXVIIsuppl} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperX]{PaperX}
+Z.-L. Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Symplectic Embedding, 10-Ray Cap, and the Failure of the
+Collinearity--Obstruction Dictionary,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20476659} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXIII]{PaperXIII}
+Z.-L. Chen,
+``The Maslov Index and the Kochen--Specker Obstruction:
+Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20496513} (2026).
+
+\bibitem[PaperXIV]{PaperXIV}
+Z.-L. Chen,
+``Stabilizer Algebra and the $k$-Profile Theorem for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20502868} (2026).
+
+\bibitem[PaperXV]{PaperXV}
+Z.-L. Chen,
+``The Weil Representation and the $S_3$ Lifting Classification
+for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519654} (2026).
+
+\bibitem[PaperXVI]{PaperXVI}
+Z.-L. Chen,
+``The Weyl Product Identity and the Algebraic Origin
+of the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519733} (2026).
+
+\bibitem[PaperXVIIsuppl]{PaperXVIIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XVII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20528739} (2026).
+
+\bibitem[Mermin]{Mermin}
+N.D. Mermin,
+``Hidden variables and the two theorems of John Bell,''
+\textit{Rev. Mod. Phys.} \textbf{65} (1993), 803--815.
+
+\bibitem[Petersen]{Petersen}
+J. Petersen,
+``Sur le th\'eor\`eme de Tait,''
+\textit{L'Interm\'ediaire des Math\'ematiciens} \textbf{5} (1898), 225--227.
+
+\end{thebibliography}
+
+\end{document}
