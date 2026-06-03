@@ -1,0 +1,637 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\PT}{\mathbb{PT}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\Wop}[1]{W(#1)}
+
+
+\title{The Weyl Product Identity and the Algebraic Origin\\
+       of the Kochen--Specker Obstruction\\
+       {\large (Paper XVI)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We resolve the context-level $\beta$ identification problem
+(Paper~XV Open Problem~1) by showing that $\beta(C)/2 \bmod 2$ is
+the accumulated phase of the Weyl operator product
+$W_C := W(v_1)W(v_2)W(v_3)W(v_4)$,
+where $W(v)$ is the Weyl (Pauli-string) operator for ray $v \in \mathbb{F}_2^6$.
+Our main result is:
+
+\begin{center}
+\textbf{Weyl Product Identity:}~
+$W_C \;=\; s(C) \cdot I_8$
+\end{center}
+
+for every context $C = \{v_1, v_2, v_3, v_4\}$,
+where $s(C) = (-1)^{\beta(C)/2}$ is the context sign from Paper~XI.
+The proof uses three ingredients:
+(1)~the \emph{Pauli commutation relation}
+$W(v)W(w) = (-1)^{\omega(v,w)} W(w)W(v)$, which for Lagrangian pairs
+($\omega=0$) gives exact commutativity;
+(2)~the \emph{Fano zero-sum property}
+$v_1 \oplus v_2 \oplus v_3 \oplus v_4 = 0$ (an algebraic identity in the
+Fano-plane structure of each Lagrangian), which forces
+$W_C \in \{\pm I_8\}$;
+and (3)~a \emph{direct phase computation} on $|0\rangle$ showing that
+the scalar equals $(-1)^{\beta(C)/2}$ where
+$\beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k)$.
+The Kochen--Specker obstruction follows immediately:
+$\prod_{C \in \mathbf{P}} W_C = -I_8$
+for all 12{,}096 Mermin pentagrams,
+recovering $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$
+as a Weyl-algebra identity.
+This resolves the open question from Papers~XI--XV:
+the mod~4 structure is not a lift of a mod-2 phenomenon but
+is encoded in the integer symplectic form $\omega_{\mathrm{int}}$
+via the $\beta$-formula, whose sign is realised as the
+Pauli-string product $W_C$.
+\end{abstract}
+
+
+\section{Introduction}
+
+Papers~XI through~XV established the parity theorem for Mermin pentagrams
+and systematically explored its origins
+\cite{PaperXI,PaperXII,PaperXIII,PaperXIV,PaperXV}.
+For each context $C = \{v_1,v_2,v_3,v_4\}$, the context sign
+\[
+  s(C) = (-1)^{\beta(C)/2}, \qquad
+  \beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k),
+\]
+satisfies $\prod_{i=1}^5 s(C_i) = -1$ for all 12{,}096 Mermin pentagrams
+\cite{PaperXI}.
+Paper~XV established that $\beta(C)$ is a \emph{context-level} invariant,
+depending on the specific four rays of $C$ and not just the
+Lagrangian $L_C$, and identified the problem of finding a
+group-theoretic object encoding $\beta(C)$ at context level as the
+primary open problem for further work \cite{PaperXV}.
+
+This paper solves that problem.
+The key observation is that the Weyl (Pauli-string) operators on $\mathbb{C}^8$
+satisfy the commutation relation
+\[
+  W(v)\,W(w) = (-1)^{\omega(v,w)}\, W(w)\,W(v),
+\]
+so that for Lagrangian pairs ($\omega=0$) the operators commute exactly.
+Combined with the Fano zero-sum property $v_1 \oplus \cdots \oplus v_4 = 0$
+(which forces $W_C \in \{\pm I_8\}$) and a direct phase computation
+on $|0\rangle$ (which identifies the sign as $(-1)^{\beta(C)/2}$),
+this gives $W_C = s(C) I_8$ with no external citation needed.
+
+The central circle of ideas is summarised in Figure~\ref{fig:circle}:
+
+\begin{enumerate}
+  \item \textbf{Pauli commutation} ($\omega=0$ for Lagrangian pairs)
+        ensures $W_C$ is a well-defined product of commuting operators.
+  \item \textbf{Fano zero-sum} forces the Pauli-string content of $W_C$
+        to be $W(0) = I_8$, so $W_C \in \{\pm I_8\}$.
+  \item \textbf{Phase computation} on $|0\rangle$ identifies the sign:
+        $W_C|0\rangle = (-1)^{\beta(C)/2}|0\rangle$, so $W_C = s(C) I_8$.
+  \item \textbf{Parity theorem} (Papers~XI--XV) gives
+        $\prod_C s(C) = -1$, hence $\prod_C W_C = -I_8$.
+\end{enumerate}
+
+\noindent
+The script \texttt{displacement\_operator.py} in \cite{PaperXVIsuppl}
+verifies all steps computationally for all 945 contexts and 12{,}096
+pentagrams.
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{ccccc}
+Pauli commutation + Fano zero-sum
+& $\xrightarrow{\text{Steps 1--2}}$
+& $W_C = \pm I_8$
+& $\xrightarrow{\text{Step 3 (phase on $|0\rangle$)}}$
+& $W_C = s(C) \cdot I_8$ \\
+& & & $\xrightarrow{\text{KS parity}}$
+& $\displaystyle\prod_C W_C = -I_8$
+\end{tabular}
+\caption{The proof chain producing the KS obstruction
+from Pauli algebra and the Fano zero-sum property.}
+\label{fig:circle}
+\end{figure}
+
+
+\section{Weyl Operators and the Exact Commutation Relation}\label{sec:weyl}
+
+\subsection{Weyl Operators as Pauli Strings}
+
+Let $V = \mathbb{F}_2^6$ with the standard symplectic form
+$\omega(v,w) = \sum_{i=0}^2 (v_i w_{i+3} - v_{i+3} w_i) \bmod 2$
+and integer symplectic form
+$\omega_{\mathrm{int}}(v,w) = \sum_{i=0}^2 (v_i w_{i+3} - v_{i+3} w_i) \in \mathbb{Z}$.
+
+Write $v = (a_v, b_v)$ with $a_v = (v_0,v_1,v_2) \in \mathbb{F}_2^3$ (X-part)
+and $b_v = (v_3,v_4,v_5) \in \mathbb{F}_2^3$ (Z-part).
+The \emph{Weyl operator} $W(v)$ on $\mathbb{C}^8$
+(with basis $\{|x\rangle : x \in \mathbb{F}_2^3\}$) is the
+3-qubit Pauli string:
+\[
+  W(v) \;=\; \bigotimes_{q=0}^{2} P_q(a_q, b_q),
+\]
+where $P_q(0,0) = I$, $P_q(1,0) = X$, $P_q(0,1) = Z$,
+$P_q(1,1) = Y = iXZ$.
+Explicitly, $W(a,b)|x\rangle = i^{a \cdot b}(-1)^{b \cdot x}|x+a\rangle$
+(arithmetic in $\mathbb{F}_2^3$, with $a \cdot b = \sum_i a_i b_i \in \mathbb{Z}$).
+
+\begin{remark}[Standard Pauli operators]
+The map $v \mapsto W(v)$ recovers every $n$-qubit Pauli string
+(up to global phase):
+$W(e_i) = X_i$, $W(e_{i+3}) = Z_i$, $W(e_i + e_{i+3}) = Y_i$,
+and $W(v+w) = \pm W(v)W(w)$ modulo phase.
+\end{remark}
+
+\subsection{Pauli Commutation and the Integer Symplectic Form}
+
+\begin{proposition}[Pauli commutation relation]\label{prop:weylcomm}
+For all $v, w \in \mathbb{F}_2^6$,
+\[
+  W(v)\,W(w) \;=\; (-1)^{\omega(v,w)} \, W(w)\,W(v),
+\]
+where $\omega(v,w) \in \{0,1\}$ is the mod-$2$ symplectic form.
+In particular, for Lagrangian pairs with $\omega(v,w) = 0$,
+the operators $W(v)$ and $W(w)$ commute exactly.
+\end{proposition}
+
+\begin{proof}
+Standard Pauli algebra: two Pauli strings commute iff they share an
+even number of anticommuting single-qubit factors, which is precisely
+the condition $\omega(v,w) \equiv 0 \pmod 2$.
+\end{proof}
+
+\begin{remark}[The integer symplectic form $\omega_{\mathrm{int}}$]
+\label{rem:intform}
+For $v, w \in L$ (Lagrangian), $\omega(v,w) = 0$ but
+$\omega_{\mathrm{int}}(v,w) \in 2\mathbb{Z}$ can be $\pm 2, \pm 4, \ldots$.
+The integer form records the \emph{degree of non-commutativity} in a finer
+sense than the mod-2 reduction:
+$W(v)W(w) = W(w)W(v)$ (exact, since $\omega = 0$),
+but $W(v)W(w) \neq W(v \oplus w)$ in general when $\omega_{\mathrm{int}}(v,w) \neq 0$.
+
+The formula $W(v)W(w) = (-i)^{\omega_{\mathrm{int}}(v,w)} W(v \oplus w)$
+would be natural but is incorrect for the Pauli/Weyl operators $W(v)$
+defined here (which carry the self-phase $i^{a_v \cdot b_v}$ built into
+the $Y$-convention).
+The correct product formula is more involved and depends on the
+self-phase terms $a \cdot b$ and $a' \cdot b'$ separately
+(not just their difference via $\omega_{\mathrm{int}}$).
+
+The \emph{$\beta$-formula} $s(C) = (-1)^{\beta(C)/2}$ with
+$\beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k)$
+is not an independent postulate: it is the direct consequence of
+evaluating the Pauli product $W(v_1) \cdots W(v_4)$ on the vacuum
+state $|0\rangle$, where the Fano zero-sum property ensures the
+final state is again $|0\rangle$ and the accumulated phase is
+exactly $(-1)^{\beta(C)/2}$.
+See Theorem~\ref{thm:weyl}, Step~3.
+\end{remark}
+
+
+\section{The Fano Zero-Sum Property}\label{sec:fano}
+
+\begin{theorem}[Fano zero-sum]\label{thm:fano}
+For every context $C = \{v_1, v_2, v_3, v_4\}$ in a Mermin pentagram,
+\[
+  v_1 \oplus v_2 \oplus v_3 \oplus v_4 \;=\; 0 \;\in\; \mathbb{F}_2^6.
+\]
+Computationally verified for all 945 distinct contexts \cite{PaperXVIsuppl}.
+\end{theorem}
+
+\begin{proof}
+Each Lagrangian $L$ is a 3-dimensional isotropic subspace of
+$(\mathbb{F}_2^6, \omega)$, with $|L \setminus \{0\}| = 7$ non-zero elements
+forming the points of a \emph{Fano plane} (the projective plane over $\mathbb{F}_2$).
+In any context $C = \{v_1, v_2, v_3, v_4\} \subset L$,
+the four points are the complement of a Fano \emph{line}
+$\ell = \{l_1, l_2, l_3\} \subset L$ (the unique line disjoint from $C$).
+
+Two identities hold in $\mathbb{F}_2^6$:
+
+\noindent
+\emph{(i) XOR of all 7 non-zero Lagrangian points is $0$.}
+The 7 non-zero vectors of $L \cong \mathbb{F}_2^3$ are all non-zero binary 3-tuples.
+Each standard basis vector $e_i$ of $\mathbb{F}_2^3$ appears in exactly 4
+of the 7 vectors (those with $e_i$-coordinate~1), so its contribution
+to the total XOR is $4 \cdot e_i \equiv 0$.
+
+\noindent
+\emph{(ii) XOR of any Fano line $\{l_1, l_2, l_3\}$ is $0$.}
+By the Fano collinearity condition, $l_1 + l_2 = l_3$
+(mod~2 in $\mathbb{F}_2^3$), so $l_1 \oplus l_2 \oplus l_3 = 0$.
+
+Combining: $v_1 \oplus v_2 \oplus v_3 \oplus v_4
+= (l_1 \oplus l_2 \oplus l_3) \oplus (\bigoplus_{p \in L \setminus \{0\}} p)
+= 0 \oplus 0 = 0$.
+\end{proof}
+
+
+\section{The Weyl Product Theorem}\label{sec:main}
+
+\begin{theorem}[Weyl Product Identity]\label{thm:weyl}
+For every context $C = \{v_1, v_2, v_3, v_4\}$ in a Mermin pentagram,
+\[
+  W_C \;:=\; W(v_1)\,W(v_2)\,W(v_3)\,W(v_4) \;=\; s(C) \cdot I_8,
+\]
+where $s(C) = (-1)^{\beta(C)/2} \in \{+1, -1\}$.
+Computationally verified for all 945 distinct contexts \cite{PaperXVIsuppl}.
+\end{theorem}
+
+\begin{proof}
+\textbf{Step 1 (Commutativity).}
+Since $v_1, v_2, v_3, v_4 \in L$ (a Lagrangian), they are pairwise
+isotropic: $\omega(v_j, v_k) = 0$ for all $j \neq k$.
+By Proposition~\ref{prop:weylcomm}, $W(v_j)$ and $W(v_k)$ commute exactly.
+
+\textbf{Step 2 ($W_C = \pm I_8$).}
+The four operators $W(v_1), \ldots, W(v_4)$ are commuting Hermitian unitaries
+each satisfying $W(v_j)^2 = I_8$ (Pauli property).
+Their product $W_C$ is Hermitian (product of commuting Hermitians)
+and satisfies $W_C^2 = W(v_1)^2 \cdots W(v_4)^2 = I_8$ (using commutativity
+to rearrange).
+Furthermore, by Theorem~\ref{thm:fano}, $v_1 \oplus \cdots \oplus v_4 = 0$.
+In the Pauli group, the Pauli-string content of any product
+$W(v_1) \cdots W(v_4)$ is $W(v_1 \oplus \cdots \oplus v_4) = W(0) = I_8$
+up to a global phase; hence $W_C \in \mathbb{C} \cdot I_8$.
+Combined with $W_C = \pm I_8$ (from Step~1 above), we obtain $W_C \in \{+I_8, -I_8\}$.
+
+\textbf{Step 3 (Identification of the sign).}
+Write $v_j = (a_j, b_j)$ with $a_j, b_j \in \mathbb{F}_2^3$.
+Using $W(a,b)|x\rangle = i^{a \cdot b}(-1)^{b \cdot x}|x \oplus a\rangle$
+(all dot products integer-valued), we compute $W_C|0\rangle$
+by applying the four operators from right to left.
+The Fano zero-sum property (Theorem~\ref{thm:fano}) gives
+$a_1 \oplus a_2 \oplus a_3 \oplus a_4 = 0$, so the final state
+is again $|0\rangle$ and
+\[
+  W_C |0\rangle \;=\; c \cdot |0\rangle,
+\]
+where the accumulated phase is
+\[
+  c \;=\; i^{\sum_j a_j \cdot b_j} \cdot (-1)^{\sum_{j<k} b_j \cdot a_k}.
+\]
+(Since all entries of $a_j$, $b_j$ are binary, correction terms
+arising from XOR versus integer addition in the exponents of $(-1)$
+are always even integers and do not contribute to the phase.)
+Let $S = \sum_j a_j \cdot b_j$, $T = \sum_{j<k} b_j \cdot a_k$,
+and $U = \sum_{j<k} a_j \cdot b_k$.
+The key identity (integer arithmetic) is
+\[
+  S + U + T \;=\; \Bigl(\sum_j a_j\Bigr) \cdot \Bigl(\sum_k b_k\Bigr).
+\]
+The Fano zero-sum $v_1 \oplus \cdots \oplus v_4 = 0$ in $\mathbb{F}_2^6$
+implies that each component of $\sum_j a_j$ and $\sum_k b_k$ is an
+even integer (each is $0$, $2$, or $4$), so their dot product is
+divisible by~4.
+Hence $S + U + T \equiv 0 \pmod 4$, giving $i^S = i^{-(U+T)}$.
+The phase simplifies to
+\[
+  c \;=\; i^{-(U+T)} \cdot (-1)^T
+  \;=\; i^{-(U+T)} \cdot i^{2T}
+  \;=\; i^{T-U}
+  \;=\; i^{-\beta(C)},
+\]
+where $\beta(C) = U - T = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k)$.
+Since $\beta(C) \in 2\mathbb{Z}$ (Remark~\ref{rem:betaeven}),
+\[
+  c \;=\; i^{-\beta(C)} \;=\; (-1)^{\beta(C)/2} \;=\; s(C).
+\]
+Since $W_C = c \cdot I_8$ (Step~2), we obtain $W_C = s(C) \cdot I_8$.
+\end{proof}
+
+\begin{remark}[Why $\beta(C)$ is always even]\label{rem:betaeven}
+For $v_j, v_k \in L$, each term $\omega_{\mathrm{int}}(v_j,v_k)$ is
+individually even: since $\omega = \omega_{\mathrm{int}} \bmod 2$,
+the isotropic condition $\omega(v_j,v_k) = 0$ forces
+$\omega_{\mathrm{int}}(v_j,v_k) \equiv 0 \pmod 2$.
+Hence $\beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j,v_k)$ is a
+sum of even integers, so $\beta(C) \in 2\mathbb{Z}$ and
+$s(C) = (-1)^{\beta(C)/2} \in \{+1,-1\}$.
+\end{remark}
+
+\begin{remark}[Context-level vs.\ Lagrangian-level identification]
+Paper~XV showed that the Lagrangian-level conjecture
+$\beta(C)/2 \equiv c(g_C, g_C^{-1}) \pmod 2$ fails because 60\% of
+Lagrangians have varying $h$-values across their contexts \cite{PaperXV}.
+Theorem~\ref{thm:weyl} explains why: the correct encoding of $\beta(C)$
+is \emph{context-level} because $W_C$ depends on the four specific rays
+$v_1, \ldots, v_4$, not just on the Lagrangian $L_C$ that contains them.
+Different contexts in the same Lagrangian generally have different
+$\beta$-values, reflected in different $W_C$ signs.
+\end{remark}
+
+
+\section{The KS Obstruction as a Weyl-Algebra Identity}\label{sec:ks}
+
+\begin{corollary}[Pentagram product identity]\label{cor:pent}
+For every Mermin pentagram $\mathbf{P} = (C_1, \ldots, C_5)$,
+\[
+  \prod_{i=1}^{5} W_{C_i} \;=\; -I_8.
+\]
+Computationally verified for all 12{,}096 Mermin pentagrams
+\cite{PaperXVIsuppl}.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:weyl}, $W_{C_i} = s(C_i) I_8$ for each $i$.
+The product of five scalar multiples of $I_8$ is
+$\bigl(\prod_{i=1}^5 s(C_i)\bigr) I_8$.
+The parity theorem \cite{PaperXI} gives $\prod_{i=1}^5 s(C_i) = -1$
+for every Mermin pentagram.
+\end{proof}
+
+\begin{remark}[The mod~4 structure from the $\beta$-formula]
+The equation $\prod_C W_C = -I_8$ is equivalent to $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$:
+the product of $5$ context signs is $(-1)^{\beta_{\mathrm{sum}}/2}$,
+which equals $-1$ iff $\beta_{\mathrm{sum}}/2$ is odd, i.e., $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$.
+The derivation above makes the origin of the mod~4 structure explicit:
+it arises from the $\beta$-formula $s(C) = (-1)^{\beta(C)/2}$ where
+$\beta(C) = \sum_{j<k} \omega_{\mathrm{int}}(v_j, v_k)$ uses the
+\emph{integer} symplectic form, not its mod-2 reduction.
+The mod-2 reduction loses the phase information that encodes the sign.
+\end{remark}
+
+
+\section{G\texorpdfstring{$_2(2)$}{2(2)} Equivariance and the Orbit Structure}\label{sec:g2}
+
+The Weyl Product Identity is compatible with the $G_2(2)$ orbit structure
+established in Papers~X--XV.
+
+\begin{proposition}[$G_2(2)$-equivariance of Weyl signs]\label{prop:equiv}
+For any $g \in G_2(2) \leq Sp(6,\mathbb{F}_2)$,
+$s(g \cdot C) = s(C)$: the context sign is a $G_2(2)$-invariant.
+Hence $W_{g \cdot C} = s(C) \cdot I_8 = W_C$.
+\end{proposition}
+
+\begin{proof}
+$G_2(2)$ preserves the symplectic form, hence $\beta(g \cdot C) = \beta(C)$
+(since $\omega_{\mathrm{int}}(gv, gw) = \omega_{\mathrm{int}}(v,w)$ for
+$g \in Sp(6,\mathbb{F}_2)$), and therefore $s(g \cdot C) = s(C)$.
+\end{proof}
+
+\begin{table}[H]
+\centering
+\caption{Weyl sign distribution for the 945 contexts, broken down by
+$k$-type $k = |L_C \cap V|$ of the containing Lagrangian.
+$s(C) = W_C[0,0]$ as computed by \texttt{displacement\_operator.py}
+\cite{PaperXVIsuppl}.}
+\label{tab:weylsigns}
+\begin{tabular}{lrrrr}
+\toprule
+$k$-type & Total & $s(C) = -1$ & $s(C) = +1$ & \% minus \\
+\midrule
+$k = 0$ & 448 & 176 & 272 & 39.3\% \\
+$k = 1$ & 392 & 128 & 264 & 32.7\% \\
+$k = 3$ &  98 &  20 &  78 & 20.4\% \\
+$k = 7$ &   7 &   0 &   7 &  0.0\% \\
+\midrule
+Total   & 945 & 324 & 621 & 34.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[$k = 7$ and the uniform zero case]
+For $k = 7$, the Lagrangian $L_C = V$ itself.
+Every context $C \subset V$ has $\omega_{\mathrm{int}}(v,w) = 0$ for
+$v, w \in V = \mathbb{F}_2^3 \times \{0\}^3$ (since $b_v = b_w = 0$),
+so $\beta(C) = 0$ and $s(C) = +1$ uniformly.
+The 0\% minus rate for $k=7$ in Table~\ref{tab:weylsigns} is an algebraic
+consequence, not an empirical coincidence.
+\end{remark}
+
+
+\section{Resolution of Previous Open Problems}\label{sec:resolution}
+
+Theorem~\ref{thm:weyl} and Corollary~\ref{cor:pent} complete the
+research arc of Papers~XI--XV.
+Table~\ref{tab:resolution} summarises the resolution.
+
+\begin{table}[H]
+\centering
+\caption{Resolution of open problems from Papers~XI--XV by the Weyl
+Product Identity (Theorem~\ref{thm:weyl}).}
+\label{tab:resolution}
+\begin{tabular}{p{1.4cm}p{5.2cm}p{5.2cm}}
+\toprule
+Paper & Open Problem & Paper~XVI Resolution \\
+\midrule
+XI & Origin of the $\beta$-formula
+    & $\beta(C) = \sum_{j<k}\omega_{\mathrm{int}}(v_j,v_k)$ is the
+      phase accumulated by $W_C$ acting on $|0\rangle$;
+      $W_C = s(C)\cdot I_8$ derived algebraically (no external citation) \\
+\addlinespace
+XII & Origin of mod~4 structure
+    & The $\beta$-formula uses $\omega_{\mathrm{int}} \in \mathbb{Z}$
+      (not mod~2); the sign $(-1)^{\beta/2}$ is intrinsically mod~4 \\
+\addlinespace
+XIII & Why Maslov index fails
+    & Maslov index is a mod-2 construction; it cannot encode the
+      integer symplectic phase $\omega_{\mathrm{int}}$ that determines
+      the sign via the $\beta$-formula \\
+\addlinespace
+XIV & $h$-pattern structure
+    & $h(C) = \beta(C)/2 \bmod 2 = $ sign of $W_C$;
+      the parity structure reflects the Pauli algebra of the context \\
+\addlinespace
+XV  & Context-level $\beta$ identification
+     (Open Problem~1)
+    & \textbf{Solved:} $\beta(C)/2 \bmod 2 = $ sign of $W_C$;
+      the Pauli product $W_C$ is the context-level object \\
+\addlinespace
+XV  & Why $\beta$-cocycle conjecture failed
+    & $\beta(C)$ is determined by the Pauli product sign,
+      not a metaplectic cocycle; cocycles are Lagrangian-level,
+      Pauli signs are context-level \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Open Problems}\label{sec:open}
+
+\begin{enumerate}
+  \item \textbf{$n$-qubit generalization}:
+        Does the Weyl Product Identity extend to Mermin pentagrams in
+        $W(2n-1, \mathbb{F}_2)$ for arbitrary $n$?
+        The Fano zero-sum and Weyl commutation both generalise to
+        arbitrary Lagrangians, but the context structure and parity theorem
+        need to be established for general $n$.
+
+  \item \textbf{Gerbe / Dixmier--Douady class}:
+        The sign assignment $C \mapsto s(C) \in \{+1,-1\}$
+        with $\prod_{C \in \mathbf{P}} s(C) = -1$ is a
+        \v{C}ech 1-cocycle on the pentagram nerve.
+        Is this cocycle the Dixmier--Douady class of a gerbe on the
+        Lagrangian Grassmannian
+        \cite{DixmierDouady,Brylinski1993}?
+
+  \item \textbf{Physical interpretation of $W_C = s(C)I_8$}:
+        The identity $W(v_1) \cdots W(v_4) = \pm I$ is the
+        stabilizer-group statement that the product of all generators
+        of a maximal abelian subgroup is $\pm I$.
+        Does the specific sign $s(C) = (-1)^{\beta(C)/2}$ have a
+        physical interpretation in terms of measurement backaction or
+        contextuality witnesses?
+
+  \item \textbf{Algebraic proof of $\prod_C s(C) = -1$ from Weyl alone
+        (primary open problem)}:
+        Corollary~\ref{cor:pent} derives $\prod_C W_C = -I_8$
+        by invoking the parity theorem of Paper~XI \cite{PaperXI}
+        (which is itself a computational result over all 12{,}096 pentagrams).
+        Theorem~\ref{thm:weyl} is now algebraically complete at the
+        \emph{context} level: both $W_C = \pm I_8$ and
+        $\mathrm{sign}(W_C) = s(C)$ are derived from Pauli algebra
+        and the Fano zero-sum property without external citation.
+        The remaining gap is a direct Weyl-algebraic proof that
+        $\prod_{C \in \mathbf{P}} W_C = -I_8$ without invoking the
+        12{,}096-pentagram enumeration.
+        This is the sole remaining obstacle to full algebraic
+        completeness of the mod~4 problem.
+        The $G_2(2)$ orbit structure (Papers~X--XV) and the
+        representation-theoretic properties of the Weil representation
+        are the most promising entry points.
+
+  \item \textbf{Orbit~4 anomaly via Weyl signs}:
+        Paper~XV showed that $O_4$ has a 60.6\% 1-minus rate vs.\
+        65--68\% for $O_1$--$O_3$, with the asymmetric metaplectic
+        lift as the structural candidate.
+        Does the Weyl sign distribution of Table~\ref{tab:weylsigns},
+        broken down by orbit, show a differential pattern for $O_4$
+        that can be derived from the NS-asymmetric $S_3$ lift?
+\end{enumerate}
+
+
+\appendix
+\setcounter{table}{4}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\theHtable}{A\arabic{table}}
+\section{Rigor Self-Assessment}
+
+\begin{table}[H]
+\centering
+\caption{Rigor classification and verification scope for all main results.}
+\label{tab:rigor}
+\begin{tabular}{p{6cm}lp{4cm}}
+\toprule
+Result & Type & Scope \\
+\midrule
+Prop~\ref{prop:weylcomm} (Pauli commutation $\omega(v,w)=0$)
+  & Algebraic & Standard Pauli algebra \\
+Rem~\ref{rem:intform} ($\omega_{\mathrm{int}}$ vs $\omega$ mod~2)
+  & Algebraic & Structural note; no computation \\
+Thm~\ref{thm:fano} (Fano zero-sum)
+  & Algebraic & Exact proof + all 945 contexts \cite{PaperXVIsuppl} \\
+Rem~\ref{rem:betaeven} ($\beta(C)$ always even)
+  & Algebraic & Follows from Prop~\ref{prop:weylcomm} \\
+Thm~\ref{thm:weyl} (Weyl Product Identity)
+  & Algebraic & Exact proof (Steps 1--3); \\
+& & verified 945/945 \cite{PaperXVIsuppl} \\
+Cor~\ref{cor:pent} (Pentagram product $= -I_8$)
+  & Algebraic + Cite & Follows from Thm~\ref{thm:weyl} + \cite{PaperXI}; \\
+& & 12,096 pentagrams verified \cite{PaperXVIsuppl} \\
+Prop~\ref{prop:equiv} ($G_2(2)$-equivariance)
+  & Algebraic & Follows from Sp-invariance of $\omega_{\mathrm{int}}$ \\
+Table~\ref{tab:weylsigns} (Weyl sign by $k$-type)
+  & Computational & All 945 contexts \cite{PaperXVIsuppl} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperX]{PaperX}
+Z.-L. Chen,
+``The Equiangular Characterization of Mermin Pentagrams:
+Symplectic Embedding, 10-Ray Cap, and the Failure of the
+Collinearity--Obstruction Dictionary,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20476659} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXIII]{PaperXIII}
+Z.-L. Chen,
+``The Maslov Index and the Kochen--Specker Obstruction:
+Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20496513} (2026).
+
+\bibitem[PaperXIV]{PaperXIV}
+Z.-L. Chen,
+``Stabilizer Algebra and the $k$-Profile Theorem for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20502868} (2026).
+
+\bibitem[PaperXV]{PaperXV}
+Z.-L. Chen,
+``The Weil Representation and the $S_3$ Lifting Classification
+for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519654} (2026).
+
+\bibitem[PaperXVIsuppl]{PaperXVIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XVI,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519672} (2026).
+
+\bibitem[DixmierDouady]{DixmierDouady}
+J. Dixmier and A. Douady,
+``Champs continus d'espaces hilbertiens et de $C^*$-alg\`ebres,''
+\textit{Bull. Soc. Math. France} \textbf{91} (1963), 227--284.
+
+\bibitem[Brylinski1993]{Brylinski1993}
+J.-L. Brylinski,
+\textit{Loop Spaces, Characteristic Classes and Geometric Quantization},
+Birkh\"auser, Boston (1993).
+
+\bibitem[Gerardin]{Gerardin}
+P. G\'erardin,
+``Weil representations associated to finite fields,''
+\textit{J. Algebra} \textbf{46} (1977), 54--101.
+
+\bibitem[Mermin]{Mermin}
+N.D. Mermin,
+``Hidden variables and the two theorems of John Bell,''
+\textit{Rev. Mod. Phys.} \textbf{65} (1993), 803--815.
+
+\end{thebibliography}
+
+\end{document}
