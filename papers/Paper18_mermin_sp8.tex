@@ -1,0 +1,1182 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{conjecture*}{Conjecture}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Sp}{\mathrm{Sp}}
+
+\title{Mermin Pentagrams in $\Sp(8,\mathbb{F}_2)$:\\
+       Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle\\
+       {\large (Paper XVIII)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+For every proper $K_5$ configuration of Lagrangians in
+$(\mathbb{F}_2^8, \omega) = \Sp(8,\mathbb{F}_2)$ ($n=4$ qubits),
+we prove that exactly $N_{\mathrm{anti}} = 10$ of the 15 cross-context
+ray pairs anticommute, and all five Mermin matching parities satisfy
+$\Sigma_m = 0$.
+This is in sharp contrast to $n=3$, where $N_{\mathrm{anti}}=15$
+(all-anticommuting) holds universally only within the \emph{all-Fano}
+(Mermin-pentagram) subclass studied in Paper~XVII --- which comprises only
+$\approx 16\%$ of proper $K_5$s; over \emph{all} proper $K_5$s the $n=3$ value
+is mixed --- and to $n \geq 5$ (mixed, non-universal).
+Over the full class of proper $K_5$s, $n=4$ is therefore the \emph{unique}
+dimension with universal $N_{\mathrm{anti}}$.
+
+We give a direct, fully algebraic proof via the \emph{transversal property}: every
+Mermin matching has exactly one commuting cross-context pair. It follows from three
+elementary geometric lemmas about a single proper $K_4$. (B0)~No vertex is Fano (no
+3-term relation): otherwise the six rays form an isotropic Fano plane and a
+pigeonhole in the symplectic reduction $W^\perp/W$ collapses two Lagrangians.
+(B1)~If two pairings of a matching commuted, the four rays would span a ``secret''
+Lagrangian forced to contain all six $K_4$ rays, contradicting $\dim(L_i\cap L_j)=1$;
+hence at most one commuting pair, so $N_{\mathrm{anti}}\geq 10$. (B2)~If all three
+pairings anticommuted, the six rays would span a non-degenerate $\mathbb{F}_2^6$
+whose four Lagrangian shadows in the $2$-dimensional complement collide by
+pigeonhole; hence at least one commuting pair, so $N_{\mathrm{anti}}\leq 10$.
+Together they give the transversal, $N_{\mathrm{anti}}=10$, and $\Sigma_m=0$ as a
+corollary.
+
+The argument is self-contained at the $K_4$ level and independent of the rank$=8$
+theorem. We also record an alternative structural route via a \emph{Gram rank
+selection principle}, whose Key Lemma is computationally verified (840/840) but no
+longer load-bearing.
+
+Supplementary code is available at \cite{PaperXVIIIsuppl}.
+\end{abstract}
+
+
+
+\section{Introduction}\label{sec:intro}
+
+\subsection*{\texorpdfstring{Context: From $n=3$ to $n=4$}{Context: From n=3 to n=4}}
+
+Paper~XVII \cite{PaperXVII} proved the \emph{Cross-Context Anticommutation Theorem}:
+for every \emph{all-Fano} $K_5$ configuration in $\Sp(6,\mathbb{F}_2)$ ($n=3$) ---
+that is, one in which all five Lagrangians satisfy the Mermin-pentagram zero-sum
+condition $w_a = 0$ --- all 15 cross-context ray pairs satisfy
+$\omega(v_{ij}, v_{kl}) = 1$.
+This gives the value $N_{\mathrm{anti}} = 15$ (all pairs anticommute),
+which is the algebraic source of the Kochen--Specker obstruction $\prod_C W_C = -I_8$.
+We emphasise that this universality is conditioned on the all-Fano hypothesis:
+over \emph{all} proper $K_5$s in $\Sp(6,\mathbb{F}_2)$ (only $\approx 16\%$ of
+which are all-Fano), $N_{\mathrm{anti}}$ takes both values $12$ and $15$ and is
+\emph{not} universal (verified computationally; see Table~\ref{tab:landscape}).
+
+A natural question is whether analogous universality holds in higher-dimensional
+symplectic spaces.
+Computational survey (Table~\ref{tab:landscape}) shows a striking picture
+once properness is enforced on the sampled $K_5$s:
+\begin{itemize}
+  \item $n=3$: $N_{\mathrm{anti}}$ is \emph{mixed} over proper $K_5$s
+        ($15$ on the $\approx 16\%$ all-Fano subclass, $12$ otherwise).
+        Universal \emph{only} within the all-Fano subclass.
+  \item $n=4$: $N_{\mathrm{anti}} = 10$ for \emph{every} proper $K_5$.  Universal,
+        with \emph{no} Fano hypothesis required.
+  \item $n \geq 5$: $N_{\mathrm{anti}}$ varies across proper $K_5$s.  Non-universal.
+\end{itemize}
+Thus $n=4$ is the \emph{only} dimension with universal $N_{\mathrm{anti}}$ over the
+full class of proper $K_5$s; the $n=3$ universality of Paper~XVII requires the
+all-Fano hypothesis, which is moreover \emph{impossible} at $n=4$ (a proper $K_5$
+in $\Sp(8,\mathbb{F}_2)$ has at most one Fano Lagrangian; Section~\ref{sec:structure}).
+This paper provides the algebraic explanation for the $n=4$ universality.
+
+\subsection*{Main theorem}
+
+\begin{theorem}[Universal $N_{\mathrm{anti}} = 10$]\label{thm:main}
+For every proper $K_5$ configuration $(L_0, \ldots, L_4)$ of Lagrangians
+in $(\mathbb{F}_2^8, \omega)$,
+\[
+  N_{\mathrm{anti}} = 10
+  \qquad \text{and} \qquad
+  \Sigma_m = 0 \text{ for all } m \in \{0,1,2,3,4\}.
+\]
+Equivalently, the five commuting cross-context pairs form a
+\emph{transversal} of the five Mermin matchings: exactly one commuting
+pair per matching.
+\end{theorem}
+
+\subsection*{Method: the transversal property}
+
+The main theorem is equivalent to a statement about a single proper $K_4$ (four
+Lagrangians, pairwise meeting in a ray, six distinct rays): exactly one of its
+three matching pairings commutes. We prove this by three elementary geometric
+lemmas, all at the $K_4$ level. B0 (Proposition~\ref{prop:no3term}) rules out a
+Fano vertex (a 3-term relation): it would force the six rays into an isotropic Fano
+plane, and a pigeonhole in the symplectic reduction $W^\perp/W$ then collapses two
+Lagrangians together. B1 (Proposition~\ref{prop:b1}) rules out two commuting
+pairings: their four mutually isotropic rays would span a Lagrangian forced, by
+self-duality, to swallow all six $K_4$ rays, violating $\dim(L_i\cap L_j)=1$. B2
+(Proposition~\ref{prop:b2}) rules out an all-anticommuting $K_4$: the six rays would
+span a non-degenerate $\mathbb{F}_2^6$, and a pigeonhole on the four Lagrangian
+shadows in its $2$-dimensional complement forces a ray to be orthogonal to that
+non-degenerate subspace. The proof is fully algebraic and independent of the
+rank$=8$ theorem.
+
+\subsection*{Structure of the paper}
+
+Section~\ref{sec:setup} establishes definitions and the computational landscape.
+Section~\ref{sec:structure} describes the structure of $n=4$ $K_5$s.
+Section~\ref{sec:transversal} proves the main theorem via the transversal property
+(B0, B1, B2), entirely at the $K_4$ level.
+Section~\ref{sec:main_proof} records an alternative route, the Gram rank selection
+principle.
+Section~\ref{sec:open} states open problems and Section~\ref{sec:rigor} assesses
+rigor. Appendix~\ref{sec:rank8} proves the rank$=8$ theorem, used only by the
+Gram rank route.
+
+
+\section{Setup and Computational Landscape}\label{sec:setup}
+
+\subsection{Definitions}
+
+\begin{definition}[Symplectic setup]
+Fix $n = 4$.
+Let $(V, \omega) = (\mathbb{F}_2^8, \omega)$ be the standard symplectic space,
+where $\omega \colon V \times V \to \mathbb{F}_2$ is the standard alternating
+non-degenerate bilinear form.
+A \emph{Lagrangian} is a 4-dimensional subspace $L \leq V$ with
+$\omega|_L = 0$ (i.e., $L = L^\perp$ under $\omega$).
+\end{definition}
+
+\begin{definition}[$K_5$ configuration and context rays]
+A \emph{$K_5$ configuration} is a 5-tuple of Lagrangians
+$(L_0, \ldots, L_4)$ in $(\mathbb{F}_2^8, \omega)$ with
+$\dim(L_i \cap L_j) = 1$ for all $i \neq j$.
+It is \emph{proper} if all $\binom{5}{2} = 10$ intersection rays
+$v_{ij} = L_i \cap L_j \setminus \{0\}$ are distinct.
+
+The \emph{context rays of $L_a$} are $\{v_{ab} : b \neq a\}$ (four rays).
+A \emph{cross-context pair} is a pair $(v_{ij}, v_{kl})$
+with $\{i,j\} \cap \{k,l\} = \emptyset$ (15 total, indexed by the
+Petersen graph $K(5,2)$).
+\end{definition}
+
+\begin{definition}[Mermin matching and $\Sigma_m$]
+For $m \in \{0,1,2,3,4\}$, let $\{a,b,c,d\} = \{0,1,2,3,4\} \setminus \{m\}$.
+The \emph{Mermin matching} $\mathcal{M}_m$ consists of the three cross-context pairs
+\[
+  \mathcal{M}_m
+  = \bigl\{ (v_{ab},v_{cd}),\; (v_{ac},v_{bd}),\; (v_{ad},v_{bc}) \bigr\}.
+\]
+The \emph{matching parity} is
+\[
+  \Sigma_m
+  = \omega(v_{ab},v_{cd}) \oplus \omega(v_{ac},v_{bd}) \oplus \omega(v_{ad},v_{bc})
+  \in \mathbb{F}_2.
+\]
+The total anticommuting count is
+$N_{\mathrm{anti}} = \#\{(i,j,k,l) : \{i,j\}\cap\{k,l\}=\emptyset,\;
+\omega(v_{ij},v_{kl})=1\}$,
+which satisfies $N_{\mathrm{anti}} = \sum_m \#\{$anticommuting pairs in $\mathcal{M}_m\}$.
+\end{definition}
+
+\begin{remark}
+$\Sigma_m = 0$ means the three pairs in matching $m$ have an even number of
+anticommuting pairs (0 or 2).
+Since $\Sigma_m = 0$ for all $m$ and each cross-context pair appears in
+exactly one matching, we get $N_{\mathrm{anti}} \equiv 0 \pmod{2}$.
+The main theorem specifies $N_{\mathrm{anti}} = 10$ exactly.
+\end{remark}
+
+\subsection{Computational landscape}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{ccccc}
+\toprule
+$n$ & Fano profile (proper $K_5$) & $\Sigma_m$ uniform & $N_{\mathrm{anti}}$ (all proper $K_5$) & Universal? \\
+\midrule
+3 & $0$ or $5$ Fano ($\approx 16\%$ all-Fano) & $16\%$ & Mixed: $15$ (all-Fano) / $12$ (else) & No$^\dagger$ \\
+4 & $0$ or $1$ Fano & $100\%$ & \textbf{10} & \textbf{Yes} \\
+5 & mostly $0$ Fano & $72\%$ & Mixed ($0$--$12$) & No \\
+6 & $0$ Fano & $\approx 13\%$ & Mixed ($6$--$11$) & No \\
+\bottomrule
+\end{tabular}
+\caption{Cross-context anticommutation statistics for \emph{proper} $K_5$s in
+$\Sp(2n, \mathbb{F}_2)$ (all 10 intersection rays distinct), verified
+computationally with random sampling (seed~42; \texttt{recheck\_paper18.py},
+cross-checked against \texttt{verify\_sigma.py}). The Fano property refers to
+$w_a = \bigoplus_{b \neq a} v_{ab} = 0$.
+$^\dagger$The $n=3$ value is universal ($N_{\mathrm{anti}}=15$, $\Sigma_m=1$)
+\emph{only} within the all-Fano subclass of Paper~XVII, which is $\approx 16\%$ of
+proper $K_5$s; over all proper $K_5$s it is mixed. Among $n \in \{3,4,5,6\}$,
+$n=4$ is the unique dimension universal over \emph{all} proper $K_5$s.}
+\label{tab:landscape}
+\end{table}
+
+\noindent
+The universality of $n=4$ is the content of Theorem~\ref{thm:main}.
+
+\subsection{The Fano-failure vector}
+
+\begin{definition}[Fano-failure vector and Fano Lagrangian]
+For Lagrangian $L_a$ in a $K_5$ configuration, define
+\[
+  w_a = v_{a0} \oplus v_{a1} \oplus v_{a2} \oplus v_{a3} \oplus v_{a4}
+  \in V \quad (\text{XOR of its 4 context rays}).
+\]
+We call $L_a$ \emph{Fano} if $w_a = 0$ (its 4 context rays sum to zero)
+and \emph{non-Fano} if $w_a \neq 0$.
+
+The global identity $w_0 \oplus w_1 \oplus w_2 \oplus w_3 \oplus w_4 = 0$
+holds for every $K_5$ (each $v_{ij}$ counted twice).
+\end{definition}
+
+\begin{remark}
+In $n=3$ ($\Sp(6,\mathbb{F}_2)$): the all-Fano $K_5$s studied in Paper~XVII have
+every Lagrangian Fano by hypothesis, but this is \emph{not} automatic --- only
+$\approx 16\%$ of proper $K_5$s are all-Fano; the remaining $\approx 84\%$ have a
+mix of Fano and non-Fano Lagrangians (verified computationally).
+In $n=4$ ($\Sp(8,\mathbb{F}_2)$): computationally, proper $K_5$s have either
+0 or exactly 1 Fano Lagrangian (see Section~\ref{sec:structure}).
+This is a consequence of the rank$=8$ theorem (Theorem~\ref{thm:rank8}).
+\end{remark}
+
+
+\section{Structure of \texorpdfstring{$n=4$}{n=4}
+         \texorpdfstring{$K_5$}{K5}s}\label{sec:structure}
+
+\subsection{Type I and Type II configurations}
+
+Computationally, every proper $K_5$ in $\Sp(8,\mathbb{F}_2)$ falls into one of
+two types (verified over 500 $K_5$s, 0 exceptions):
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+& \textbf{Type I} (85\%) & \textbf{Type II} (15\%) \\
+\midrule
+Fano Lagrangians & Exactly 1 (say $L_0$, $w_0=0$) & None ($w_a \neq 0$ for all $a$) \\
+Commuting pairs & Non-PM transversal & Perfect matching of $K(5,2)$ \\
+Anticommuting graph & Petersen-like & Two disjoint 5-cycles \\
+\bottomrule
+\end{tabular}
+\caption{Type classification of proper $K_5$s in $\Sp(8,\mathbb{F}_2)$.
+PM = perfect matching.}
+\label{tab:types}
+\end{table}
+
+\subsection{Linear relations among context rays}
+
+\begin{proposition}[Rank$=8$ implies sparse linear relations]\label{prop:relations}
+For a proper $K_5$ in $\Sp(8,\mathbb{F}_2)$, once rank$(\{v_{ij}\}) = 8$
+is established:
+\begin{enumerate}
+  \item There are exactly $10 - 8 = 2$ independent $\mathbb{F}_2$-linear
+        relations among the 10 rays.
+  \item The relations fall into three types by their support sizes:
+        $(4,6)$-type (62\%), $(6,6)$-type (26\%), $(5,5)$-type (12\%).
+  \item At most 1 Lagrangian can be Fano: if $w_a = 0$, then the 4 context
+        rays of $L_a$ satisfy a 4-term relation, contributing 1 of the 2
+        independent relations.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) is rank-nullity over $\mathbb{F}_2$.
+(2) is verified computationally by \texttt{compute\_relations.py}.
+(3): If 2 Lagrangians $L_a, L_b$ were both Fano, their 4-term relations
+would contribute 2 independent relations (they cannot be the same relation
+since $L_a \neq L_b$), which would account for all 2 relations. But then
+no further relations exist, and in particular $L_c, L_d, L_e$ have
+rank-4 context rays (no relation). However, rank$=8$ forces linear constraints that prevent two simultaneous Fano
+conditions among $\{L_c, L_d, L_e\}$: if three or more Fano conditions hold,
+their cross-sum yields a dependency among clean anchor rays
+(see Case~2A of the rank$=8$ proof).
+Computationally: 0 exceptions over 500 $K_5$s.
+\end{proof}
+
+
+\section{The Transversal Property}\label{sec:transversal}
+
+We now give a direct, elementary proof of the main theorem. It rests on two
+geometric lemmas about a single \emph{proper $K_4$} and uses neither the
+constraint coset nor the Gram rank selection of Section~\ref{sec:main_proof}.
+
+\begin{definition}[Proper $K_4$]\label{def:k4}
+A \emph{proper $K_4$} is a 4-tuple of Lagrangians $(L_a,L_b,L_c,L_d)$ in
+$(\mathbb{F}_2^8,\omega)$ with $\dim(L_x\cap L_y)=1$ for all $x\neq y$ and all six
+rays $v_{xy}=L_x\cap L_y\setminus\{0\}$ distinct.
+Its three \emph{matching pairings} are
+$(v_{ab},v_{cd})$, $(v_{ac},v_{bd})$, $(v_{ad},v_{bc})$; every other pair among the
+six rays shares a Lagrangian index and is therefore isotropic.
+\end{definition}
+
+Every 4-element subset of a proper $K_5$ is a proper $K_4$, and for the subset
+omitting index $m$ the three matching pairings are exactly the three pairs of the
+Mermin matching $\mathcal{M}_m$. Thus the main theorem is equivalent to: every
+proper $K_4$ has exactly one commuting matching pairing.
+
+We use only properness, Lagrangian self-duality ($L^\perp=L$), the fact that a
+non-degenerate symplectic space $(\mathbb{F}_2^{2k},\omega)$ has maximal isotropic
+dimension $k$, and symplectic reduction. In particular the whole argument is
+independent of the rank$=8$ theorem of Section~\ref{sec:rank8}: the no-3-term
+property it needs is re-derived directly at the $K_4$ level below.
+
+\subsection{B0: no 3-term relation}
+
+\begin{proposition}[No Fano vertex]\label{prop:no3term}
+In a proper $K_4$ no vertex is Fano: $w_x := \bigoplus_{y\neq x} v_{xy}\neq 0$ for
+each $x$; equivalently, the three context rays of each $L_x$ are linearly
+independent. Hence in a proper $K_5$ no Lagrangian's context rays satisfy a
+$3$-term relation $v_{ij}+v_{ik}+v_{il}=0$.
+\end{proposition}
+
+\begin{proof}
+Suppose $w_a=0$, i.e. $v_{ad}=v_{ab}+v_{ac}$.
+
+\emph{Step 1 (all three pairings commute).} As $v_{bd},v_{ad}\in L_d$ we have
+$\omega(v_{bd},v_{ad})=0$; expanding via $v_{ad}=v_{ab}+v_{ac}$ and using
+$\omega(v_{bd},v_{ab})=0$ (both in $L_b$) gives $\omega(v_{ac},v_{bd})=0$.
+Symmetrically $\omega(v_{cd},v_{ad})=0$ gives $\omega(v_{ab},v_{cd})=0$, and
+$\omega(v_{ad},v_{bc})=\omega(v_{ab}+v_{ac},v_{bc})=0$. Thus all six rays are
+mutually isotropic.
+
+\emph{Step 2 (every vertex is Fano).} Let $W=\operatorname{span}\{v_{xy}\}$; by
+Step~1 it is isotropic, so $\dim W\leq 4$. Write $Q_x=\langle\text{the three rays of
+}x\rangle\subseteq L_x$. If two vertices $x,y$ were non-Fano, then $\dim Q_x=\dim
+Q_y=3$, and $Q_x\cap Q_y\subseteq L_x\cap L_y=\langle v_{xy}\rangle$ has dimension
+$1$ (it contains $v_{xy}$), so $\dim(Q_x+Q_y)=3+3-1=5$. But $Q_x+Q_y\subseteq W$
+forces $\dim W\geq 5$ --- contradicting $\dim W\leq 4$. So at most one vertex is
+non-Fano; since $\bigoplus_x w_x=0$ (each ray is counted twice), all four vertices
+are Fano.
+
+\emph{Step 3 ($\dim W=3$).} The three Fano relations, viewed as coefficient vectors
+in $\mathbb{F}_2^6$ over the six rays, are $\mathbb{F}_2$-independent (each has a ray
+absent from the other two: $w_a$ contains $e_{ad}$, $w_b$ contains $e_{bd}$,
+$w_c$ contains $e_{cd}$, with $w_d=w_a+w_b+w_c$); so the six rays satisfy
+three independent linear dependencies and span dimension $6-3=3$. (They cannot span dimension
+$\leq 2$, since a $2$-dimensional space has only $3$ nonzero vectors while the six
+rays are distinct.) Thus $W$ is an isotropic Fano plane.
+Moreover $L_x\cap W=Q_x:=\langle\text{rays of }x\rangle$ has dimension~$2$: if it were
+$3$ then $L_x\supseteq W$, forcing the opposite ray $v_{yz}\in L_x$ and hence
+$v_{yz}\in L_x\cap L_y=\langle v_{xy}\rangle$, a collision.
+
+\emph{Step 4 (symplectic reduction).} Put $R=W^\perp/W$, a non-degenerate symplectic
+space of dimension $8-2\cdot3=2$, with quotient map $q\colon W^\perp\to R$. For each
+$x$, the map $L_x\to W^\ast,\ v\mapsto\omega(v,\cdot)|_W$ kills $Q_x=L_x\cap W$ and so
+factors through $W/Q_x$ (dimension~$1$); its image has dimension $\leq 1$, whence
+$\dim(L_x\cap W^\perp)\geq 3$. Also $\bar L_x:=q(L_x\cap W^\perp)$ is isotropic in
+$R$, so $\dim\bar L_x\leq 1$; since $\dim\bar L_x=\dim(L_x\cap W^\perp)-\dim Q_x
+=\dim(L_x\cap W^\perp)-2$, this forces $\dim(L_x\cap W^\perp)=3$ and
+$\dim\bar L_x=1$. Each $\bar L_x$ is thus one of the three nonzero lines of $R$; with
+four vertices, pigeonhole gives $\bar L_x=\bar L_y=:\ell$ for some $x\neq y$. Finally
+$(L_x\cap W^\perp)+(L_y\cap W^\perp)$ has dimension $3+3-1=5=\dim W^\perp$ (the two
+meet in $L_x\cap L_y\cap W^\perp=\langle v_{xy}\rangle$), so $q$ maps it onto $R$
+(dimension~$2$); yet it maps into $\bar L_x+\bar L_y=\ell$ (dimension~$1$).
+Contradiction; therefore $w_a\neq 0$.
+
+For the $K_5$ statement, a relation $v_{ij}+v_{ik}+v_{il}=0$ is exactly $w_i=0$ in
+the proper $K_4$ on $\{i,j,k,l\}$, which the above excludes.
+\end{proof}
+
+\subsection{B1: at most one commuting pairing}
+
+\begin{proposition}[Secret-Lagrangian lemma]\label{prop:b1}
+A proper $K_4$ has at most one commuting matching pairing. Equivalently, if
+$\omega(v_{ab},v_{cd})=0$ then $\omega(v_{ac},v_{bd})=1$, and likewise for the
+third pairing. Consequently $N_{\mathrm{anti}}\geq 10$ for every proper $K_5$.
+\end{proposition}
+
+\begin{proof}
+Suppose two pairings commute, say $\omega(v_{ab},v_{cd})=0$ and
+$\omega(v_{ac},v_{bd})=0$. Then all six pairings among
+$S=\{v_{ab},v_{ac},v_{bd},v_{cd}\}$ vanish (the other four share an index), so $S$
+is mutually isotropic.
+
+\emph{Independence.} A 2-term relation would equate two rays (excluded by
+properness). A 3-term relation, e.g. $v_{ab}+v_{ac}+v_{bd}=0$, would give
+$v_{bd}\in L_a$, hence $v_{bd}\in L_a\cap L_b=\langle v_{ab}\rangle$, i.e.
+$v_{bd}=v_{ab}$ — excluded. The 4-term relation
+$v_{ab}+v_{ac}+v_{bd}+v_{cd}=0$ yields
+$v_{ab}+v_{ac}=v_{bd}+v_{cd}\in L_a\cap L_d=\langle v_{ad}\rangle$, hence
+$v_{ab}+v_{ac}+v_{ad}=0$ — a 3-term relation in $L_a$, excluded by
+Proposition~\ref{prop:no3term}. So $\dim\operatorname{span}S=4$; being isotropic, $L'
+:=\operatorname{span}S$ is a Lagrangian.
+
+\emph{Forced membership.} The ray $v_{ad}$ shares an index with every generator of
+$L'$ (index $a$ with $v_{ab},v_{ac}$; index $d$ with $v_{bd},v_{cd}$), so
+$\omega(v_{ad},L')=0$ and therefore $v_{ad}\in L'^\perp=L'$. Identically
+$v_{bc}\in L'$. Hence $L'$ contains all six $K_4$ rays.
+
+\emph{Contradiction.} Put $P_a=\langle v_{ab},v_{ac},v_{ad}\rangle\subseteq L_a\cap
+L'$ and $P_b=\langle v_{ab},v_{bc},v_{bd}\rangle\subseteq L_b\cap L'$. Each is
+$3$-dimensional (Proposition~\ref{prop:no3term}) and they are distinct
+($v_{ac}\notin L_b$, else $v_{ac}\in L_a\cap L_b=\langle v_{ab}\rangle$). Two
+distinct hyperplanes of $L'\cong\mathbb{F}_2^4$ meet in dimension
+$\geq 3+3-4=2$; but $P_a\cap P_b\subseteq L_a\cap L_b=\langle v_{ab}\rangle$ has
+dimension $\leq 1$. Contradiction.
+
+Each Mermin matching therefore has at most one commuting pair, so the five
+matchings contribute at most five commuting pairs and
+$N_{\mathrm{anti}}=15-(\text{commuting})\geq 10$.
+\end{proof}
+
+\subsection{B2: at least one commuting pairing}
+
+\begin{proposition}[Shadow lemma]\label{prop:b2}
+A proper $K_4$ cannot be all-anticommuting. Consequently $N_{\mathrm{anti}}\leq 10$
+for every proper $K_5$.
+\end{proposition}
+
+\begin{proof}
+Suppose all three matching pairings anticommute. The Gram matrix of the six rays
+has as its only nonzero entries the three matching pairings, all equal to $1$; it
+is the block matrix
+$\bigl[\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\bigr]^{\oplus 3}$,
+which is nonsingular over $\mathbb{F}_2$. Hence the six rays are linearly
+independent: $W=\operatorname{span}$ has $\dim W=6$ with $\omega|_W$
+\emph{non-degenerate}, and $\mathbb{F}_2^8=W\oplus W^\perp$ with $\dim W^\perp=2$
+(so $W^\perp$ has exactly three nonzero vectors).
+
+\emph{Shadows.} Fix $x\in\{a,b,c,d\}$. Its three rays lie in $W$, are isotropic,
+and (as a subset of the independent six) independent — a maximal isotropic
+$3$-space of $W$. Since $L_x$ is isotropic, $L_x\cap W$ equals this $3$-space; in
+particular $L_x\not\subseteq W$, and the projection $\pi\colon\mathbb{F}_2^8\to
+W^\perp$ along $W$ satisfies $\pi(L_x)=\langle s_x\rangle$ with
+$s_x\in W^\perp\setminus\{0\}$.
+
+\emph{Pigeonhole.} The four shadows $s_a,s_b,s_c,s_d$ lie among the three nonzero
+vectors of $W^\perp$, so $s_x=s_y$ for some $x\neq y$; say $s_a=s_b$.
+
+\emph{Collapse.} Then $\pi(L_a+L_b)=\langle s_a,s_b\rangle$ is $1$-dimensional,
+while $\dim(L_a+L_b)=4+4-\dim(L_a\cap L_b)=8-1=7$. Hence
+$\dim\bigl((L_a+L_b)\cap W\bigr)=7-1=6$, i.e. $W\subseteq L_a+L_b$.
+
+\emph{Contradiction.} $(L_a+L_b)^\perp=L_a^\perp\cap L_b^\perp=L_a\cap
+L_b=\langle v_{ab}\rangle$. Thus $\omega(v_{ab},L_a+L_b)=0$ and in particular
+$\omega(v_{ab},W)=0$, with $v_{ab}\in W\setminus\{0\}$ — contradicting the
+non-degeneracy of $\omega|_W$. (For whichever pair $\{x,y\}$ collides, the ray
+$v_{xy}\in W$ gives the identical contradiction.)
+
+Each Mermin matching therefore has at least one commuting pair, so the five
+matchings contribute at least five commuting pairs and $N_{\mathrm{anti}}\leq 10$.
+\end{proof}
+
+\subsection{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $(L_0,\ldots,L_4)$ be a proper $K_5$. Each 4-subset is a proper $K_4$, so by
+Propositions~\ref{prop:b1} and~\ref{prop:b2} every Mermin matching has exactly one
+commuting pair (and hence two anticommuting). Summing over the five matchings,
+which partition the 15 cross-context pairs, gives $N_{\mathrm{anti}}=5\times 2=10$.
+For each $m$ the matching has one commuting ($\omega=0$) and two anticommuting
+($\omega=1$) pairs, so $\Sigma_m=0\oplus 1\oplus 1=0$. The five commuting pairs,
+one per matching, form a transversal of the five matchings.
+\end{proof}
+
+\begin{remark}
+Propositions~\ref{prop:no3term},~\ref{prop:b1} and~\ref{prop:b2} use only
+properness, Lagrangian self-duality, maximal-isotropic dimension, and symplectic
+reduction --- all at the $K_4$ level. The proof of the main theorem is therefore
+\emph{fully algebraic} and \emph{independent of the rank$=8$ theorem}
+(Appendix~\ref{sec:rank8}), which is retained only to support the alternative Gram
+rank route of Section~\ref{sec:main_proof}.
+\end{remark}
+
+
+\section{Alternative Characterisation: Gram Rank Selection}\label{sec:main_proof}
+
+The transversal property of Section~\ref{sec:transversal} already proves the main
+theorem. The present section records an independent, structural route through the
+\emph{Gram rank selection principle}; it is no longer load-bearing, but it
+illuminates the affine structure of the cross-context $\omega$-values and the role
+of non-degeneracy. The selection statement (Lemma~\ref{lem:key}) remains
+computationally verified, with an algebraic proof left open
+(Section~\ref{sec:open}).
+
+The rank$=8$ theorem reduces the $\omega$-value problem to a 4-element
+affine space.
+We now show that the non-degenerate symplectic form selects the unique
+element with $\Sigma_m = 0$.
+
+\subsection{The 4-candidate constraint space}
+
+\begin{proposition}[Rank-13 constraint system]\label{prop:constraint}
+For any proper $K_5$ in $\Sp(8,\mathbb{F}_2)$ (rank$(M)=8$):
+\begin{enumerate}
+  \item The 10 rays satisfy exactly 2 independent $\mathbb{F}_2$-linear
+        relations $R_1, R_2$ (the null space of $M$).
+  \item For each relation $R_\alpha = \sum_{k} c_k^{(\alpha)} v_k = 0$
+        and each ray $v_l$, the Lagrangian condition gives
+        $\omega(v_l, R_\alpha) = \sum_k c_k^{(\alpha)} \omega(v_l, v_k) = 0$
+        (since $\omega$ is $\mathbb{F}_2$-linear and
+        $\omega(v_l, v_k) = 0$ for same-context pairs).
+        This yields up to 20 linear constraints on the 15 cross-context
+        $\omega$-values.
+  \item The constraint matrix has rank~13 (verified computationally,
+        \texttt{explore\_solution\_space.py}).
+        The null space is 2-dimensional, giving exactly 4 candidate
+        $\omega$-vectors $\{x_0, x_1, x_2, x_3\} \subset \mathbb{F}_2^{15}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+The 4 candidates form a coset of a 2-dimensional subspace of $\mathbb{F}_2^{15}$,
+equivalently a translate of $\{0, z_1, z_2, z_1 \oplus z_2\}$ where $z_1, z_2$
+are the two null-space generators.
+The actual $\omega$-vector is one of these 4 candidates; the remaining 3 are
+``ghost'' solutions consistent with the Lagrangian constraints but not
+realizable by any proper $K_5$.
+\end{remark}
+
+\subsection{The Gram matrix and its rank}
+
+\begin{definition}[Gram matrix]
+For a proper $K_5$ with rays $v_0, \ldots, v_9 \in \mathbb{F}_2^8$
+(any ordering of the 10 rays), define:
+\begin{itemize}
+  \item $M$: the $10 \times 8$ matrix with $i$-th row $= v_i^T \in \mathbb{F}_2^8$.
+  \item $J$: the $8 \times 8$ standard symplectic matrix (antisymmetric, non-degenerate).
+  \item $G = MJM^T$: the $10 \times 10$ Gram matrix, with $G_{ij} = \omega(v_i, v_j)$.
+        Over $\mathbb{F}_2$, $G$ is symmetric with zero diagonal (i.e., an
+        \emph{alternating matrix}: $G_{ii} = 0$ and $G_{ij} = G_{ji}$);
+        the rank of any alternating matrix is even.
+\end{itemize}
+For an $\omega$-candidate $x \in \mathbb{F}_2^{15}$,
+define the \emph{candidate Gram matrix} $G_x$ to be the $10 \times 10$
+alternating matrix with $(i,j)$-entry $= x_e$ where $e$ is the cross-context
+edge index of $(v_i, v_j)$ (and 0 for same-context pairs and diagonal).
+\end{definition}
+
+\begin{lemma}[Gram rank selects $\Sigma_m = 0$]\label{lem:key}
+\textup{(Key Lemma --- computationally verified)}
+For every proper $K_5$ in $\Sp(8,\mathbb{F}_2)$,
+the 4 candidate Gram matrices $G_{x_0}, G_{x_1}, G_{x_2}, G_{x_3}$ have
+ranks in $\{0, 2, 6, 8\}$ or $\{0, 4, 4, 8\}$, and:
+\[
+  \mathrm{rank}(G_x) \in \{0, 8\}
+  \quad \Longleftrightarrow \quad
+  \Sigma_m(x) = 0 \text{ for all } m \in \{0,1,2,3,4\}.
+\]
+Equivalently, $\mathrm{rank}(G_x) \in \{2, 4, 6\}$ if and only if
+some $\Sigma_m(x) = 1$.
+\end{lemma}
+
+\begin{proof}
+Computationally verified over 210 proper $K_5$s $\times$ 4 candidates
+$= 840$ instances, with 0 exceptions (\texttt{explore\_solution\_space.py}).
+
+The pattern can be understood qualitatively:
+\begin{itemize}
+  \item The rank-0 candidate is the all-zero $\omega$-vector (trivially $\Sigma_m = 0$).
+  \item The rank-8 candidate is the actual $\omega$-vector (see Proposition~\ref{prop:rank8gram}).
+  \item The intermediate-rank candidates ($\{2,4,6\}$) arise from adding
+        half of the null-space generators to the actual $\omega$-vector,
+        producing degenerate forms whose radicals force some $\Sigma_m = 1$.
+\end{itemize}
+The algebraic proof of this equivalence is open; see Open Problem~\ref{open:keylemma}.
+\end{proof}
+
+\subsection{Non-degeneracy selects the rank-8 candidate}
+
+\begin{proposition}[Actual Gram matrix has rank~8]\label{prop:rank8gram}
+For a proper $K_5$ in $\Sp(8,\mathbb{F}_2)$ with rank$(M)=8$:
+\[
+  \mathrm{rank}(G) = \mathrm{rank}(MJM^T) = 8.
+\]
+\end{proposition}
+
+\begin{proof}
+Since $J$ is non-degenerate ($\mathrm{rank}(J) = 8$):
+\[
+  \mathrm{rank}(MJ) = \mathrm{rank}(M) = 8
+  \quad (\text{multiplying by invertible }J).
+\]
+By the Sylvester rank inequality applied to $G = (MJ) \cdot M^T$:
+\[
+  \mathrm{rank}(G) \geq \mathrm{rank}(MJ) + \mathrm{rank}(M^T) - 8
+  = 8 + 8 - 8 = 8.
+\]
+Also $\mathrm{rank}(G) \leq \min(10, 8) = 8$ (since $G = MJM^T$ and $\mathrm{rank}(M) = 8$).
+Therefore $\mathrm{rank}(G) = 8$ exactly.
+\end{proof}
+
+\subsection{Alternative proof via Gram rank}
+
+The theorem is already proved in Section~\ref{sec:transversal}. The following is an
+independent derivation through the Gram rank selection principle, contingent on the
+(computationally verified) Key Lemma~\ref{lem:key}.
+
+\begin{proof}[Alternative proof of Theorem~\ref{thm:main}]
+Let $(L_0, \ldots, L_4)$ be any proper $K_5$ in $\Sp(8,\mathbb{F}_2)$.
+
+\textbf{Step 1}: By Theorem~\ref{thm:rank8}, $\mathrm{rank}(M) = 8$.
+
+\textbf{Step 2}: By Proposition~\ref{prop:constraint}, the actual
+$\omega$-vector lies in a 4-element constraint space
+$\{x_0, x_1, x_2, x_3\} \subset \mathbb{F}_2^{15}$.
+
+\textbf{Step 3}: The actual Gram matrix $G = MJM^T$ has $\mathrm{rank}(G) = 8$
+(Proposition~\ref{prop:rank8gram}).
+Therefore the actual $\omega$-vector is the unique candidate $x_i$ with
+$\mathrm{rank}(G_{x_i}) = 8$.
+
+\textbf{Step 4}: By Lemma~\ref{lem:key} (Key Lemma),
+$\mathrm{rank}(G_{x_i}) = 8 \Rightarrow \Sigma_m(x_i) = 0$ for all $m$.
+Therefore $\Sigma_m = 0$ for all $m \in \{0,1,2,3,4\}$.
+
+\textbf{Step 5}: With $\Sigma_m = 0$ for all $m$, each matching $\mathcal{M}_m$
+contributes an even number (0 or 2) of anticommuting pairs.
+Since the 5 matchings partition the 15 cross-context pairs and there are 5
+matchings each with 3 pairs:
+\[
+  N_{\mathrm{anti}} = \sum_{m=0}^{4} \#\{\text{anticommuting pairs in } \mathcal{M}_m\}.
+\]
+By Proposition~\ref{prop:b2} each matching has at least one commuting pair, so
+exactly 2 anticommuting:
+\[
+  N_{\mathrm{anti}} = 5 \times 2 = 10. \qquad \square
+\]
+\end{proof}
+
+\begin{remark}[Why $N_{\mathrm{anti}} = 10$ and not 0]
+With $\Sigma_m = 0$, each matching has 0 or 2 anticommuting pairs. The case of 0
+(all 3 pairs commuting) is excluded by Proposition~\ref{prop:b1} (at most one
+commuting pair per matching); equivalently, in the Gram rank picture, the all-zero
+$\omega$-vector is the rank-0 candidate, excluded by non-degeneracy
+($\mathrm{rank}(G)=8\neq 0$). Either way each matching has exactly 2 anticommuting
+pairs, giving $N_{\mathrm{anti}}=10$.
+\end{remark}
+
+\subsection{Type II: perfect-matching refinement}
+
+Propositions~\ref{prop:b1} and~\ref{prop:b2} already give the transversal property
+for all proper $K_5$s. For Type~II $K_5$s (no Fano Lagrangians) the commuting
+transversal moreover has perfect-matching structure, which we record for
+completeness:
+
+\begin{proposition}[Type II transversal]\label{prop:typeII}
+For a Type~II proper $K_5$ in $\Sp(8,\mathbb{F}_2)$,
+the 5 commuting pairs form a perfect matching $\mathcal{P}$ of $K(5,2)$.
+Each missing index $m \in \{0,1,2,3,4\}$ appears as the missing index
+of exactly one edge of $\mathcal{P}$; hence each Mermin matching $\mathcal{M}_m$
+contains exactly 1 commuting pair (and 2 anticommuting), so $\Sigma_m = 0$.
+\end{proposition}
+
+\begin{proof}
+The 5 commuting pairs form a perfect matching $\mathcal{P}$ of $K(5,2)$
+(5 disjoint edges covering all $\binom{5}{2}$-indexed edges of the Petersen graph,
+no two sharing a context index --- verified computationally, 75/75 Type~II $K_5$s).
+Each edge $(v_{ab}, v_{cd}) \in \mathcal{P}$ has a unique missing index
+$m = \{0,1,2,3,4\} \setminus \{a,b,c,d\}$.
+The distribution of missing indices across the 5 edges is uniform (75 per
+missing index across 75 Type~II $K_5$s $\times$ 5 edges $= 375$ slots,
+perfectly uniform), so each of the 5 possible missing indices appears exactly once.
+Therefore each Mermin matching $\mathcal{M}_m$ contains exactly the 1 perfect matching
+edge with missing index $m$ (commuting, $\omega=0$), plus 2 non-matching edges
+(anticommuting, $\omega=1$). Hence $\Sigma_m = 0\oplus 1\oplus 1 = 0$. $\square$
+\end{proof}
+
+
+\section{Open Problems}\label{sec:open}
+
+\begin{enumerate}
+
+\item\label{open:keylemma} \textbf{Algebraic proof of the Key Lemma (now optional).}
+  With the transversal property (Section~\ref{sec:transversal}) the main theorem no
+  longer depends on the Key Lemma; the following is of independent structural
+  interest only.
+  Lemma~\ref{lem:key} is verified for 840/840 instances but lacks an
+  algebraic proof.
+  The correspondence ``rank $\in \{0,8\} \Leftrightarrow \Sigma_m = 0$ for all $m$''
+  is a statement about alternating forms over $\mathbb{F}_2$: since $G_x$ is an alternating
+  $10 \times 10$ matrix, its rank is even and its determinantal structure is controlled
+  by Pfaffians.
+  \begin{conjecture*}
+  The condition $\Sigma_m(x) = 0$ for all $m$ is algebraically equivalent to the vanishing
+  of specific sub-Pfaffians of $G_x$ associated to the five Mermin matchings.
+  Equivalently, the non-zero Pfaffians of the rank-$\{2,4,6\}$ candidates detect the
+  matching parities $\Sigma_m = 1$ via the radical of the corresponding alternating form.
+  \end{conjecture*}
+  An alternative approach not involving Pfaffians: show that the two null-space generators
+  $z_1, z_2$ of the constraint system always satisfy $\Sigma_m(z_1) = \Sigma_m(z_2)$
+  for all $m$, which forces $\Sigma_m(z_1 \oplus z_2) = 0 = \Sigma_m(\omega_{\mathrm{actual}})$.
+  This would follow from showing that the null-space structure is symmetric under the
+  $\mathbb{F}_2$-action swapping $z_1$ and $z_2$.
+
+\item\label{open:n5} \textbf{Why does universality fail for $n \geq 5$?}
+  For $n = 5$, about $72\%$ of proper $K_5$s in $\Sp(10,\mathbb{F}_2)$
+  have uniform $\Sigma_m$, with the remaining $\approx 28\%$ exhibiting mixed parities.
+  What is the algebraic mechanism that breaks universality?
+  Is there an Arf/Witt-index characterization of the ``regular'' $K_5$s
+  (those with $\Sigma_m = 0$)?
+
+\item\label{open:specialn} \textbf{What is special about $n=4$?}
+  Over the full class of proper $K_5$s, $n=4$ is the \emph{unique} dimension with
+  universal $N_{\mathrm{anti}}$; $n=3$ is universal only once the all-Fano
+  (Mermin-pentagram) hypothesis of Paper~XVII is imposed, and that hypothesis is
+  impossible at $n=4$.
+  This contrast suggests a structural threshold.
+  In $n=3$: all rays anticommute (rank$=6$ Gram → non-degenerate on $\mathbb{F}_2^6$,
+  1 cross-context Petersen graph).
+  In $n=4$: exactly 10 anticommute (rank$=8$ Gram selects $\Sigma=0$ coset element).
+  Is there a representation-theoretic or cohomological explanation for why
+  $n \geq 5$ breaks the pattern?
+
+\end{enumerate}
+
+
+\section{Connections to Previous Papers}\label{sec:connections}
+
+\begin{itemize}
+  \item \textbf{Paper~XVII} \cite{PaperXVII}: proved $N_{\mathrm{anti}} = 15$ for all
+        \emph{all-Fano} $K_5$s in $\Sp(6,\mathbb{F}_2)$ via Fano zero-sum + size argument
+        (this universality requires the all-Fano hypothesis; over all proper $K_5$s
+        the $n=3$ value is mixed, see Table~\ref{tab:landscape}).
+        That proof used $10 > 2^3 - 1 = 7$ (rank$=6$ forces all cross-context to anticommute);
+        the analogue for $n=4$ ($10 > 2^4-1 = 15$?) fails since $10 < 15$.
+        The new mechanism --- Gram rank selection within a 4-element coset --- is genuinely
+        different from the $n=3$ proof.
+  \item \textbf{Paper~XI} \cite{PaperXI}: the quadratic refinement / Arf invariant approach
+        to parity for $n=3$.
+        The Key Lemma (Problem~\ref{open:keylemma}) may have a natural formulation
+        in terms of the Arf invariant of the alternating form restricted to the
+        span of the 10 rays; this would connect Papers~XI and~XVIII.
+  \item \textbf{Papers~XII/XIII} \cite{PaperXII,PaperXIII}: the T-vector
+        $T = \bigoplus_{i<j} v_{ij}$ (XOR of all 10 rays) and its symplectic
+        properties played a central role in $n=3$.
+        For $n=4$: $T \in W = \mathbb{F}_2^8$ (rank$=8$, so $T$ lives in the full space),
+        and $\omega(T, v_{ij})$ has mixed values (not uniform like $n=3$).
+\end{itemize}
+
+
+\section{Rigor Self-Assessment}\label{sec:rigor}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{4.2cm}p{5.8cm}p{3.5cm}}
+\toprule
+Step & Claim & Status \\
+\midrule
+\multicolumn{3}{l}{\emph{Main line (transversal) --- fully algebraic, $K_4$-level:}}\\
+Prop.~\ref{prop:no3term} (B0) & no Fano vertex / no 3-term & $\checkmark$ Algebraic \\
+Prop.~\ref{prop:b1} (B1) & secret-Lagrangian $\Rightarrow$ $\leq 1$ commuting, $N_{\mathrm{anti}}\geq 10$ & $\checkmark$ Algebraic \\
+Prop.~\ref{prop:b2} (B2) & shadow pigeonhole $\Rightarrow$ $\geq 1$ commuting, $N_{\mathrm{anti}}\leq 10$ & $\checkmark$ Algebraic \\
+Main Thm.\ (transversal) & B0 $+$ B1 $+$ B2 $\Rightarrow$ $N_{\mathrm{anti}}=10$, $\Sigma_m=0$ & $\checkmark$ Algebraic \\
+\midrule
+\multicolumn{3}{l}{\emph{Appendix~\ref{sec:rank8} (rank$=8$) and Gram rank route --- not load-bearing:}}\\
+Thm.~\ref{thm:rank8} (Case~2A, 3) & clean-anchor / shadow contradictions & $\checkmark$ Algebraic \\
+Thm.~\ref{thm:rank8} (Case~1A/1B) & 3-term cascade & Partial (computational) \\
+Lemma~\ref{lem:key} (Key Lemma) & rank-8 $\Leftrightarrow$ $\Sigma_m=0$ & Computational (840/840) \\
+Prop.~\ref{prop:rank8gram} & rank$(G)=8$ via Sylvester & $\checkmark$ Algebraic \\
+Prop.~\ref{prop:typeII} & Type~II perfect matching & Algebraic + computational \\
+Table~\ref{tab:landscape} & $n=3,4,5,6$ landscape & Computational (proper $K_5$, seed 42) \\
+\bottomrule
+\end{tabular}
+\caption{Rigor status of each claim. ``Algebraic'' = full proof given.
+``Partial'' = algebraic argument outlined, one sub-case remains computational.
+``Computational'' = verified by code in \cite{PaperXVIIIsuppl} with explicit
+parameters (seed, sample size).}
+\label{tab:rigor}
+\end{table}
+
+The main theorem is now proved \emph{fully algebraically} by the transversal
+property (Propositions~\ref{prop:no3term},~\ref{prop:b1},~\ref{prop:b2}), entirely
+at the $K_4$ level and independent of the rank$=8$ theorem. The no-3-term
+proposition was additionally checked by an essentially exhaustive structured search
+(all $15^4$ Lagrangian completions of the canonical Fano-plane configuration, $0$
+all-Fano $K_4$s) and by random sampling ($0$ in $24{,}000$ proper $K_4$s).
+The rank$=8$ theorem (Appendix~\ref{sec:rank8}) and the Gram rank route are retained
+for structural interest only; their lone remaining gap, the Case~1A/1B 3-term
+cascade, no longer bears on any stated result.
+Total computational verification: $\sim$500+ proper $K_5$s for the main claims
+(\texttt{recheck\_paper18.py}, cross-checked against \texttt{verify\_sigma.py}),
+all with seed=42 and additional seeds for robustness.
+
+
+\appendix
+
+\section{\texorpdfstring{The Rank$=8$ Theorem}{The Rank=8 Theorem}}\label{sec:rank8}
+
+\begin{theorem}[Rank$=8$]\label{thm:rank8}
+For any proper $K_5$ in $\Sp(8,\mathbb{F}_2)$,
+the $10$ context rays $\{v_{ij}\}$ span all of $\mathbb{F}_2^8$.
+That is, the $10 \times 8$ matrix $M$ (rows $= $ rays) has $\mathrm{rank}(M) = 8$.
+\end{theorem}
+
+\begin{proof}
+Suppose for contradiction that $\mathrm{rank}(M) \leq 7$.
+Let $W = \mathrm{span}\{v_{ij}\}$ be the span of the 10 context rays ($\dim W \leq 7$).
+
+Call a Lagrangian \emph{clean} if its 4 context rays are linearly independent,
+i.e.\ it is non-Fano (no 4-term relation) \emph{and} has no 3-term relation.
+Equivalently, $L_a$ is clean iff its 4 context rays span $L_a$ as a 4-dimensional
+$\mathbb{F}_2$-vector space.
+
+Fix two clean Lagrangians $L_0, L_1$ as \emph{anchors}.
+When two clean anchors exist, the argument below (Cases~1 and~2) applies directly.
+When fewer than two clean anchors exist — that is, at least four of the five Lagrangians carry
+a 3-term or Fano relation — the combined cascade from those relations forces all 15 cross-context
+$\omega$-values to zero (Case~1B), yielding rank$(G)=0$ and an immediate Sylvester
+contradiction; see the Case~1B paragraph below.
+
+Since $L_0$ is clean, $\{v_{01}, v_{02}, v_{03}, v_{04}\}$ spans $L_0$ (a 4-dimensional basis).
+Similarly $L_1$ clean implies $\{v_{01}, v_{12}, v_{13}, v_{14}\}$ spans $L_1$.
+
+These 7 rays span
+\[
+  V_7 := L_0 + L_1, \qquad \dim V_7 = \dim L_0 + \dim L_1 - \dim(L_0 \cap L_1) = 4+4-1 = 7.
+\]
+Since the 7 context rays of $L_0 \cup L_1$ span $V_7$ (dim~7) and
+$W \ni $ all 10 rays contains these 7 rays ($W \supseteq V_7$, dim~$\geq 7$),
+combined with $\dim W \leq 7$: we conclude $W = V_7$.
+Thus \textbf{all 10 rays lie in $V_7$}.
+
+The radical of $V_7$ is $\mathrm{rad}(V_7) = V_7 \cap V_7^\perp$.
+Since $L_0^\perp = L_0$ and $L_1^\perp = L_1$:
+\[
+  V_7^\perp = (L_0 + L_1)^\perp = L_0^\perp \cap L_1^\perp = L_0 \cap L_1 = \mathrm{span}(v_{01}).
+\]
+Also $\mathrm{span}(v_{01}) \leq L_0 + L_1 = V_7$, so
+$\mathrm{rad}(V_7) = \mathrm{span}(v_{01})$.
+In particular, $\omega(v_{01}, w) = 0$ for all $w \in V_7$.
+
+\medskip
+Since all 10 rays are in $V_7$ (dim~7), for each $a \in \{2,3,4\}$:
+\[
+  \dim(L_a \cap V_7) \geq \dim L_a + \dim V_7 - \dim V = 4 + 7 - 8 = 3.
+\]
+We claim $L_a \not\leq V_7$: if $L_a \leq V_7$, then $\omega(v_{01}, L_a) = 0$
+(since $v_{01} \in \mathrm{rad}(V_7)$ and $L_a \leq V_7$), hence
+$v_{01} \in L_a^\perp = L_a$, giving $v_{01} \in L_0 \cap L_a = \mathrm{span}(v_{0a})$,
+so $v_{01} = v_{0a}$, contradicting proper $K_5$.
+Therefore $\dim(L_a \cap V_7) = 3$ exactly, and the 4 context rays of $L_a$
+lie in a 3-dimensional subspace of $V_7$ — they satisfy at least one
+$\mathbb{F}_2$-linear relation.
+
+We now derive a contradiction by case analysis on the type of relations.
+
+\medskip
+\noindent\textbf{Case~1: Some $L_a$ has a 3-term relation (clean anchors $L_0, L_1$ assumed).}
+
+By relabeling, call the Lagrangian with the 3-term relation $L_2$.
+Since $L_0, L_1$ are chosen as clean anchors, the 3-term Lagrangian is
+among $\{L_2, L_3, L_4\}$.
+WLOG $L_2$ satisfies $v_{02} + v_{12} + v_{23} = 0$
+(other 3-term configurations are symmetric).
+
+\textit{Round 1 (forced zeros from $L_2$'s relation):}
+Applying $\omega(\cdot, v_{13})$ to the relation:
+\[
+  \omega(v_{02}, v_{13}) + \underbrace{\omega(v_{12}, v_{13})}_{0\,(\text{share }1)}
+  + \underbrace{\omega(v_{23}, v_{13})}_{0\,(\text{share }3)} = 0
+  \implies \omega(v_{02}, v_{13}) = 0.
+\]
+Similarly $\omega(v_{03}, v_{12}) = 0$.
+Since $v_{01} \in \mathrm{rad}(V_7)$:
+$\omega(v_{01}, v_{23}) = \omega(v_{01}, v_{24}) = \omega(v_{01}, v_{34}) = 0$.
+\textbf{(5 forced zeros.)}
+
+\textit{Round 2 (cascade through $L_3$):}
+$L_3$'s context rays satisfy some relation $\alpha v_{03} + \beta v_{13} + \gamma v_{23} + \delta v_{34} = 0$
+(with $\alpha,\beta,\gamma,\delta \in \mathbb{F}_2$, not all zero).
+\begin{itemize}
+  \item If $\delta \neq 0$ (i.e.\ $\delta = 1$): apply $\omega(\cdot, v_{02})$ using Round~1 zeros:
+  $\alpha \cdot 0 + \beta \cdot 0 + \gamma \cdot 0 + \delta \cdot \omega(v_{34}, v_{02}) = 0$,
+  so $\omega(v_{02}, v_{34}) = 0$; similarly $\omega(v_{12}, v_{34}) = 0$.
+  \item If $\delta = 0$ (i.e.\ $L_3$ has relation $v_{03} + v_{13} + v_{23} = 0$):
+  subtract from $L_2$'s relation to get
+  $v_{02} + v_{03} = v_{12} + v_{13} \in L_0 \cap L_1 = \mathrm{span}(v_{01})$,
+  forcing $L_0$ and $L_1$ to each acquire a 3-term relation, from which the same
+  zero $\omega(v_{02}, v_{34}) = 0$ follows.
+\end{itemize}
+\textbf{(7+ forced zeros.)}
+
+\textit{Rounds 3--4 (cascade through $L_4$ and feedback to $L_2$):}
+Applying $L_4$'s relation (any type) to the growing list of zero $\omega$-values,
+and feeding the new zeros back through $L_2$'s relation, forces at least
+$\mathbf{13}$ of the 15 cross-context $\omega$-values to zero.
+The remaining $\leq 2$ unknowns all involve a single ray
+(say $v_{14}$) and satisfy a common parity constraint.
+(Detailed case analysis for all combinations of $L_3, L_4$ relation types
+is verified by \texttt{check\_3term.py} and worked out in \cite{PaperXVIIIsuppl}.)
+
+\textit{Sylvester contradiction (Case~1A, clean anchors):}
+From the 13+ zeros and the 3-term identity $v_{23} = v_{02} + v_{12}$
+(which makes row($v_{23}$) $=$ row($v_{02}$) $+$ row($v_{12}$) in $G = MJM^T$):
+$\mathrm{rank}(G) \leq 2$.
+Since $L_0, L_1$ are clean anchors, their 7 context rays are linearly independent
+and span $W = V_7$, so $\mathrm{rank}(M) = 7$ exactly.
+By the Sylvester rank inequality:
+\[
+  \mathrm{rank}(G) \geq 2 \cdot \mathrm{rank}(M) - 8 = 2 \cdot 7 - 8 = 6.
+\]
+Contradiction: $2 < 6$. \quad (\textit{Case~1A complete.})
+
+\medskip
+\noindent\textbf{Case~1B (no two clean anchors):}
+If fewer than two clean Lagrangians exist among all five, at least four Lagrangians
+carry a 3-term or Fano relation.
+In particular, at least one Lagrangian $L_b$ (with $b \neq 2$) has a relation.
+
+\textit{Sub-case $L_b$ has a 3-term:}
+Relabeling, say $L_0$ satisfies $v_{01} + v_{02} + v_{03} = 0$.
+Apply $\omega(\cdot, v_{23})$ to $L_0$'s 3-term:
+$\omega(v_{01}, v_{23}) + \underbrace{\omega(v_{02}, v_{23})}_{0\,(\text{share }L_2)}
++ \underbrace{\omega(v_{03}, v_{23})}_{0\,(\text{share }L_3)} = 0$,
+so $\omega(v_{01}, v_{23}) = 0$.
+Since at most one of $\{L_1, L_3, L_4\}$ is clean, at least two carry relations.
+Applying $\omega(v_{01}, \cdot)$ to each: rays $v_{0k}$ and $v_{1k}$ vanish by
+isotropy of $L_0$ and $L_1$; $v_{23}$ vanishes by the zero above.
+Hence any relation of $L_3$ involving $v_{34}$ directly forces $\omega(v_{01},v_{34})=0$,
+and any relation of $L_4$ involving $v_{24}$ directly forces $\omega(v_{01},v_{24})=0$.
+In the remaining sub-case where $L_3$'s relation is $v_{03}+v_{13}+v_{23}=0$:
+adding it to $L_2$'s 3-term forces $L_1$ to carry $v_{01}+v_{12}+v_{13}=0$,
+and the same isotropy argument on $L_1$'s and $L_4$'s relations then yields both zeros;
+all sub-cases are verified by \texttt{check\_3term.py}.
+These three zeros, together with Round~1 zeros from $L_2$'s 3-term and the cascades
+through $L_3, L_4$ (following the Rounds~2--4 cascade of Case~1A), force all 15 cross-context
+$\omega$-values to zero.
+
+\textit{Sub-case $L_b$ is Fano} (but not clean): $L_b$'s 4-term Fano relation enters
+the Rounds~2--4 cascade directly --- the cascade at Rounds~3--4 already accepts any
+relation type for $L_3, L_4$ (each step applies $\omega(\cdot, v_{kl})$ to the relation,
+whatever its length). Applying this to $L_b$'s Fano sum yields the same sequence of
+forced zeros as the 3-term sub-case, giving all 15 cross-context $\omega$-values $= 0$.
+
+\textit{Conclusion:} In both sub-cases, rank$(G) = 0$.
+Sylvester backward: $0 \geq 2\,\mathrm{rank}(M) - 8$, so $\mathrm{rank}(M) \leq 4$.
+But rank$(M) \leq 4$ forces all Lagrangians into a common 4-dim space, giving
+$\dim(L_i \cap L_j) = 4 \neq 1$, contradicting proper $K_5$. \quad (\textit{Case~1B complete.})
+
+\medskip
+\noindent\textbf{Case~2: All of $L_2, L_3, L_4$ have 4-term (Fano) relations.}
+
+In this sub-case, $L_2, L_3, L_4$ are all Fano ($w_a = 0$ for $a \in \{2,3,4\}$)
+with no 3-term relations.
+Sub-case~2A handles when $L_0, L_1$ are both clean (non-Fano);
+the complementary all-5-Fano scenario (where $L_0$ or $L_1$ is also Fano)
+is treated as Case~3 below, which does not require clean anchors.
+
+\textit{Sub-case~2A (anchors $L_0, L_1$ are both clean, hence both non-Fano):}
+The Fano conditions of $L_2, L_3, L_4$ give vector equations in $V_8$:
+\begin{align*}
+  F_2{:}\; & v_{02} + v_{12} + v_{23} + v_{24} = 0, \\
+  F_3{:}\; & v_{03} + v_{13} + v_{23} + v_{34} = 0, \\
+  F_4{:}\; & v_{04} + v_{14} + v_{24} + v_{34} = 0.
+\end{align*}
+Adding $F_2 + F_3 + F_4$ over $\mathbb{F}_2$: each of $v_{23}, v_{24}, v_{34}$
+appears in exactly two equations and cancels, leaving
+\[
+  v_{02} + v_{03} + v_{04} + v_{12} + v_{13} + v_{14} = 0.
+\]
+But $\{v_{01}, v_{02}, v_{03}, v_{04}, v_{12}, v_{13}, v_{14}\}$ are the 7 context rays
+of the clean anchors, linearly independent (they form a basis of $V_7 = L_0 + L_1$,
+since $L_0, L_1$ are clean).
+The relation above (6 of these 7 basis vectors summing to zero) contradicts their
+independence. Contradiction. \quad (\textit{Case~2A complete.})
+
+\medskip
+\noindent\textbf{Case~3: All 5 Lagrangians Fano ($w_a = 0$ for all $a \in \{0,1,2,3,4\}$).}
+
+\textit{Rank bound.}
+The 5 Fano conditions give linear dependencies among the 10 context rays over
+$\mathbb{F}_2$; the global identity $\bigoplus_a w_a = 0$ (each $v_{ij}$ appears
+in exactly two of the five) ensures the fifth is determined by the other four,
+so at least 4 are independent.
+Hence $\mathrm{rank}(M) \leq 10 - 4 = 6$.
+
+\textit{Common value $x$.}
+For any pair $L_0, L_1$ in a proper $K_5$,
+$V_7 := L_0 + L_1$ satisfies $\dim V_7 = 7$ and
+$\mathrm{rad}(V_7) = \mathrm{span}(v_{01})$
+(since $\dim(L_0 \cap L_1) = 1$), so $\omega(v_{01}, w) = 0$ for all $w \in V_7$.
+The Fano conditions of $L_2, L_3$ give:
+\begin{align*}
+  v_{23} + v_{24} &= v_{02} + v_{12} \in L_0 + L_1 = V_7, \\
+  v_{23} + v_{34} &= v_{03} + v_{13} \in V_7.
+\end{align*}
+Applying $\omega(v_{01}, \cdot)$ to each (it vanishes on $V_7$):
+\[
+  \omega(v_{01},v_{23}) = \omega(v_{01},v_{24}), \qquad
+  \omega(v_{01},v_{23}) = \omega(v_{01},v_{34}).
+\]
+Set $x := \omega(v_{01},v_{23}) = \omega(v_{01},v_{24}) = \omega(v_{01},v_{34})
+\in \mathbb{F}_2$.
+
+\medskip
+\noindent\textit{Sub-case $x = 0$.}
+
+\textit{Step~2 ($L_0$ and $L_1$ Fano expansions):}
+From $v_{01} = v_{02} \oplus v_{03} \oplus v_{04}$ (Fano of $L_0$) and $\omega(v_{01},v_{34})=0$:
+\[
+  0 = \omega(v_{02},v_{34}) + \underbrace{\omega(v_{03},v_{34})}_{0\,(\text{share }L_3)}
+  + \underbrace{\omega(v_{04},v_{34})}_{0\,(\text{share }L_4)}
+  \implies \omega(v_{02},v_{34}) = 0.
+\]
+From $v_{01} = v_{12} \oplus v_{13} \oplus v_{14}$ (Fano of $L_1$):
+similarly $\omega(v_{12},v_{34}) = 0$.
+
+\textit{Step~3 (cross-anchor zeros via $L_3$, $L_4$ Fano):}
+Apply $\omega(\cdot, v_{02})$ to $L_3$'s Fano $v_{03}+v_{13}+v_{23}+v_{34}=0$:
+\[
+  \underbrace{\omega(v_{03},v_{02})}_{0\,(\text{share }L_0)}
+  + \omega(v_{02},v_{13})
+  + \underbrace{\omega(v_{23},v_{02})}_{0\,(\text{share }L_2)}
+  + \underbrace{\omega(v_{34},v_{02})}_{0\,(\text{Step~2})}
+  = 0
+  \implies \omega(v_{02},v_{13}) = 0.
+\]
+The remaining five cross-anchor entries follow by the same pattern
+($L_3$ Fano with $v_{12}$; $L_4$ Fano with $v_{02}$, $v_{12}$, $v_{03}$;
+and $L_2$ then $L_4$ Fano with $v_{13}$):
+\[
+  \omega(v_{03},v_{12})=\omega(v_{02},v_{14})=\omega(v_{04},v_{12})
+  =\omega(v_{03},v_{14})=\omega(v_{04},v_{13})=0.
+\]
+
+\textit{Step~4 (remaining four zeros via $L_2$ and $L_4$ Fano):}
+Apply $\omega(\cdot, v_{03})$ to $L_2$'s Fano ($v_{02}+v_{12}+v_{23}+v_{24}=0$):
+\[
+  \underbrace{\omega(v_{02},v_{03})}_{0} + \underbrace{\omega(v_{12},v_{03})}_{0}
+  + \underbrace{\omega(v_{23},v_{03})}_{0} + \omega(v_{24},v_{03}) = 0
+  \implies \omega(v_{03},v_{24}) = 0.
+\]
+Similarly ($L_2$ with $v_{04}$; $L_4$ with $v_{13}$ and $v_{23}$):
+$\omega(v_{04},v_{23}) = \omega(v_{13},v_{24}) = \omega(v_{14},v_{23}) = 0$.
+
+All 15 cross-context $\omega$-values are zero, so $G = 0$ and $\mathrm{rank}(G) = 0$.
+Sylvester: $0 \geq 2\,\mathrm{rank}(M) - 8$, giving $\mathrm{rank}(M) \leq 4$.
+This forces all Lagrangians into a common 4-dimensional space, giving
+$\dim(L_i \cap L_j) = 4 \neq 1$: contradiction.
+\quad (\textit{Sub-case $x=0$ complete.})
+
+\medskip
+\noindent\textit{Sub-case $x = 1$.}
+With $x=1$, each Step~2 computation gives
+$1 = \omega(\cdot,\cdot) + 0 + 0$ (forcing the unknown to $1$),
+and each Step~3 computation gives
+$1 = 0 + \omega(\cdot,\cdot) + 0 + 1$ (again forcing $1$).
+All 15 cross-context $\omega$-values equal~$1$, so $G$ is the adjacency
+matrix of the Petersen graph $K(5,2)$ (vertices $= \{v_{ij}\}$, edges $=$
+crossing pairs).
+Over $\mathbb{F}_2$ this matrix has rank~$6$
+(the $-2$ real eigenspace of dimension~$4$ becomes the $\mathbb{F}_2$-null space,
+giving rank $= 10 - 4 = 6$).
+
+Since $\mathrm{rank}(G) \leq \mathrm{rank}(M) \leq 6$, we conclude
+$\mathrm{rank}(M) = 6$ and $\dim W = 6$.
+Because $\mathrm{null}(G)$ and the left null space of $M$ coincide --- if
+$c\in\mathrm{null}(G^\top)$ then $c^\top M J M^\top=0$, so $Mc\in\mathrm{null}(J)=\{0\}$
+as $J$ is invertible, whence $c\in\mathrm{null}(M^\top)$; the reverse inclusion is
+immediate, and both spaces have dimension $10-6=4$, spanned by the four independent
+Fano relations --- the map $c \mapsto \sum c_i v_i$ sends $\mathrm{null}(G)$ entirely
+to $\{0\}$, so $\mathrm{rad}(W) = \{0\}$ and $\omega|_W$ is non-degenerate.
+
+Hence $\mathbb{F}_2^8 = W \oplus W^\perp$ with $\dim W^\perp = 2$,
+so $W^\perp$ has exactly~3 nonzero vectors; let
+$\pi\colon \mathbb{F}_2^8 \to W^\perp$ be the projection along $W$.
+We argue by the same shadow/pigeonhole mechanism as
+Proposition~\ref{prop:b2}.
+
+\emph{Each $L_a$ has a $1$-dimensional shadow.}
+The four context rays of $L_a$ are distinct (proper $K_5$) and satisfy the Fano
+relation $\bigoplus_{b\neq a} v_{ab}=0$. Four distinct nonzero vectors cannot lie in
+a $2$-dimensional space (which has only $3$ nonzero vectors), while the Fano
+relation caps their span at dimension~$3$; hence they span exactly a
+$3$-dimensional subspace of $W$. Since $L_a$ is isotropic and the maximal isotropic
+dimension of $W$ is~$3$, this $3$-space \emph{is} $L_a\cap W$. Thus
+$\dim(L_a\cap W)=3$ and $\pi(L_a)=\langle s_a\rangle$ with
+$s_a\in W^\perp\setminus\{0\}$.
+
+\emph{Pigeonhole and collapse.}
+The five shadows $s_0,\ldots,s_4$ lie among the three nonzero vectors of $W^\perp$,
+so $s_i=s_j$ for some $i\neq j$. Then $\pi(L_i+L_j)=\langle s_i,s_j\rangle$ is
+$1$-dimensional, while $\dim(L_i+L_j)=4+4-\dim(L_i\cap L_j)=8-1=7$; hence
+$\dim\bigl((L_i+L_j)\cap W\bigr)=7-1=6$, i.e. $W\subseteq L_i+L_j$. But
+$(L_i+L_j)^\perp=L_i^\perp\cap L_j^\perp=L_i\cap L_j=\langle v_{ij}\rangle$, so
+$\omega(v_{ij},W)=0$ with $v_{ij}\in W\setminus\{0\}$ (every context ray lies in
+$W=\operatorname{span}\{v_{kl}\}$) --- contradicting the non-degeneracy of
+$\omega|_W$.
+\quad (\textit{Case~3 complete.})
+
+\medskip
+All cases (1A, 1B, 2A, 3) yield a contradiction.
+Therefore $\mathrm{rank}(M) = 8$.
+\end{proof}
+
+\begin{remark}[Existence of clean anchors]\label{rem:nonfano_exist}
+The proof of Cases~1A and~2A uses two \emph{clean} anchor Lagrangians $L_0, L_1$
+(non-Fano and no 3-term relation).
+Cases~1B and~3 do not require clean anchors: Case~1B uses only the 3-term cascade,
+and Case~3 uses only the Fano conditions of all 5 Lagrangians together with the
+$V_7 = L_0 + L_1$ radical structure, which holds for any pair in a proper $K_5$.
+Computationally, every proper $K_5$ in $\Sp(8,\mathbb{F}_2)$ has 4--5 non-Fano
+Lagrangians and 0 Lagrangians with 3-term relations (500/500, Types I and II),
+so Cases~1B and~3 are never encountered in practice; they exist to close the logical gap.
+\end{remark}
+
+\begin{remark}
+The no-3-term property is proved directly and independently at the $K_4$ level in
+Proposition~\ref{prop:no3term}; consequently the rank$=8$ theorem above is not
+needed for the main theorem (Section~\ref{sec:transversal}) and serves only the
+Gram rank route of Section~\ref{sec:main_proof}.
+\end{remark}
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXIII]{PaperXIII}
+Z.-L. Chen,
+``The Maslov Index and the Kochen--Specker Obstruction:
+Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20496513} (2026).
+
+\bibitem[PaperXVII]{PaperXVII}
+Z.-L. Chen,
+``The Cross-Context Anticommutation Theorem
+and the Algebraic Origin of the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20528739} (2026).
+
+\bibitem[PaperXVIIIsuppl]{PaperXVIIIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XVIII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20546121} (2026).
+
+\end{thebibliography}
+
+\end{document}

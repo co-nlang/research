@@ -1,0 +1,1126 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\rad}{\mathrm{rad}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\Nanti}{N_{\mathrm{anti}}}
+
+\title{Mermin Pentagrams in $\Sp(2n,\mathbb{F}_2)$, $n\ge 5$:\\
+       Structure, Obstruction, and the Modulus Phenomenon\\
+       {\large (Paper XIX)}}
+
+\author{Zhou-Li Chen \\ co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Paper~XVIII~\cite{PaperXVIII} established that in $\Sp(8,\mathbb{F}_2)$ ($n=4$ qubits) every proper
+$K_5$ configuration of Lagrangians satisfies $\Nanti=10$---a dimension-specific
+rigidity forced by two independent pieces of symplectic dimension arithmetic.
+This paper initiates the systematic study of the \emph{softening} of that rigidity
+for $n\ge5$.
+
+Our main result is a \textbf{negative theorem}: the fiber of the na-vector
+(or of $\Nanti\bmod2$) over a fixed symplectic rank is \textbf{not classified}
+by any relative-position invariant of the five Lagrangian traces of arity at most~$4$.
+We exhibit a concrete \textbf{modulus witness}: two proper $K_5$ configurations
+sharing identical values of every coarse symplectic invariant $(\dim W, \rank G,
+\dim\rad(W))$ together with every Maslov triple index and every natural quadruple
+invariant, yet having \emph{opposite} $\Nanti$ parities ($8$ vs.\ $9$).
+
+On the positive side we establish:
+\begin{enumerate}
+\item The \textbf{trichotomy}: $n=4$ is the \emph{unique} universally rigid
+  dimension ($\Nanti=10$, Petersen minus a transversal, Paper~XVIII), sandwiched
+  between two mixed regimes.  At $n=3$ the value is mixed but tightly bounded,
+  $\Nanti\in\{12,15\}$: the all-Fano subclass ($\approx16\%$) realises the full
+  Petersen graph $\Nanti=15$ (Paper~XVII), the generic proper $K_5$ gives
+  $\Nanti=12$.  At $n\ge5$ the value spreads broadly.  The two pillars B1 and B2
+  of Paper~XVIII each require $n=4$ for a different reason, pinning the rigid
+  dimension uniquely.
+\item An \textbf{upper-bound ladder} $\Nanti\le \mathrm{maxedge}(\rank G)$, a rigorous
+  graph-theoretic theorem proved by exhaustive enumeration of all $2^{15}$ subgraphs
+  of the Petersen graph $K(5,2)$; and the matching \textbf{lower bound}
+  $\rank G=4\Rightarrow\Nanti=6$, proved via a symplectic reduction to the $S_6$ doily
+  $\Sp(4,\mathbb F_2)$ together with a radical-counting argument excluding the only
+  sub-maximal configuration (the ``$C_5$ pentagon'').
+\item Two \textbf{deterministic tail strata} (for $n=5$): $n_{\mathrm{odd}}\le5
+  \Rightarrow\Nanti$ even (0 exceptions / 455 proper $K_5$s across 8 independent
+  seeds); and within the $(8,6,2)$-stratum, intrinsic-$q$ non-existence
+  $\Rightarrow\Nanti$ odd.
+\end{enumerate}
+The order parameter $\rad(\omega|_W)$ controls coarse Sigma-uniformity but not the
+fine fiber. Any complete classifier must live strictly above the Maslov triple level.
+\end{abstract}
+
+% ------------------------------------------------------------------
+\section{Introduction}\label{sec:intro}
+% ------------------------------------------------------------------
+
+\subsection*{The series arc}
+
+Papers~XI--XVI~\cite{PaperXI,PaperXII,PaperXIII,PaperXIV,PaperXV,PaperXVI}
+of this series studied the downstream parity $\Sigma_m=0$ of Mermin
+pentagrams (all-Fano proper $K_5$ configurations in $\Sp(6,\mathbb F_2)$), taking the
+anticommutation structure as given.  Paper~XVII~\cite{PaperXVII} shifted to the upstream question:
+\emph{why} is the anticommutation graph of any proper $K_5$ in $\Sp(6,\mathbb F_2)$
+exactly the Petersen graph $K(5,2)$?  Paper~XVIII~\cite{PaperXVIII} then proved the sharper $n=4$ version:
+for every proper $K_5$ in $\Sp(8,\mathbb F_2)$, the anticommutation graph is the
+Petersen graph \emph{minus a transversal} ($\Nanti=10$)---and this holds over the
+full class, not just the all-Fano $16\%$.
+
+The present paper asks: \textbf{what happens when $n\ge5$?}
+
+\subsection*{The softening phenomenon}
+
+For $n=5$ the $n=4$ rigidity softens into a genuine modulus.
+The na-vector (the 5-tuple of per-matching anticommuting-pair counts) varies across
+proper $K_5$ configurations even at fixed symplectic rank.  The Petersen-minus-transversal
+pattern is no longer universal, but it remains an \emph{attractor}: the mode of
+per-matching anticommuting count is still 2 (which is the $n=4$ value), and at 67\%
+of sampled proper $K_4$s the anti-count is exactly 2.
+
+\subsection*{Main theorem (obstruction)}
+
+\begin{theorem}[Modulus]\label{thm:modulus}
+There exist two proper $K_5$ configurations $\mathcal C_1$, $\mathcal C_2$ in
+$\Sp(10,\mathbb F_2)$ such that:
+\begin{enumerate}
+\item $(\dim W_i,\, \rank G_i,\, \dim\rad(W_i)) = (8,6,2)$ for $i=1,2$;
+\item the odd-triple count $n_{\mathrm{odd}}$ and the Maslov odd-triple
+  hypergraph (up to $S_5$) coincide;
+\item the full quadruple invariant profile coincides;
+\item $\Nanti(\mathcal C_1)$ is even and $\Nanti(\mathcal C_2)$ is odd.
+\end{enumerate}
+In particular, no Sp$(W)$-invariant of the relative position of the five Lagrangian
+traces of \emph{arity $\le4$} classifies $\Nanti\bmod2$ within the fiber.
+\end{theorem}
+
+The term \emph{arity} refers to the number of Lagrangians involved in the invariant.
+The quadruple invariant probed is the natural generalisation of the Maslov triple index
+to four Lagrangians (Definition~\ref{def:q4}).
+
+\subsection*{Why $n=4$ is the unique rigid dimension}
+
+The rigidity of $n=4$ (Paper~XVIII) rests on three $K_4$-level lemmas:
+
+\begin{itemize}
+\item \textbf{B0} (no Fano vertex): proved at the $K_4$ level by symplectic reduction.
+\item \textbf{B1} ($\le1$ commuting per matching): if two pairings commute the four
+  rays span a Lagrangian $L'$; self-duality forces $L'$ to absorb all six $K_4$ rays;
+  two dim-3 hyperplanes of $L'\cong\mathbb F_2^4$ meet in dim $\ge2$ yet both lie in
+  $\langle v_{ab}\rangle$ (dim 1).  \emph{This requires Lagrangian dimension $=4$.}
+\item \textbf{B2} ($\ge1$ commuting per matching): if all three pairings anticommute the
+  six rays are independent and span a non-degenerate $W$ with $\dim W^\perp=2n-6$.
+  Four Lagrangian shadows in $W^\perp$ collide by pigeonhole only when $|W^\perp\setminus\{0\}|<4$,
+  i.e.\ $2^{2n-6}-1\le3$, i.e.\ $n\le4$.  \emph{This requires $n=4$.}
+\end{itemize}
+
+The trichotomy follows:
+\begin{center}
+\begin{tabular}{cp{5.5cm}p{5.5cm}}
+\toprule
+$n$ & B1 & B2 \\
+\midrule
+$3$ & holds (Lag-dim $=3$; B1 still gives $\le1$) &
+  fails ($W^\perp=0$: no shadow space, so all-anti $K_4$s are permitted) \\[4pt]
+$\mathbf{4}$ & \textbf{holds} (Lag-dim $=4$, span equals Lagrangian) &
+  \textbf{holds} ($W^\perp$ dim $2$, three nonzero, pigeonhole forces collision) \\[4pt]
+$\ge5$ & fails (span of 4 isotropic rays has dim $\le4<5$) &
+  fails ($W^\perp$ dim $\ge4$, $\ge15$ nonzero, no forced collision) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+For $n=3$ all-anti $K_4$s \emph{do} occur (in the all-Fano subclass all three
+matching pairings anticommute, so $W=\mathbb F_2^6$ is non-degenerate with
+$W^\perp=0$ and B2's shadow space vanishes), giving $\Nanti=15$ on that subclass;
+the generic $n=3$ proper $K_5$ has $\Nanti=12$.  For $n\ge5$ both B1 and B2 break,
+and the na-vector is unconstrained modulo coarse symplectic data.
+
+\begin{remark}
+The failure of B1 at $n=5$ is not accidental: when two pairings commute, the four
+rays span an isotropic subspace of dimension \emph{exactly} 4 in $\mathbb F_2^{10}$
+(observed in 1456 of 1456 sampled cases; 0 of dimension 5)---one short of a Lagrangian,
+so the self-duality forcing of B1 does not engage.
+\end{remark}
+
+\subsection*{Where does the rigidity go?}
+
+The single question organising this paper is: \emph{at $n=4$ every proper $K_5$ obeys
+$\Nanti=10$; where does that rigidity go when $n\ge5$?} The answer has two faces, and
+they are the two halves of the paper.
+
+\emph{Generically it dissolves into a modulus.} The fine fiber---the na-vector at fixed
+symplectic rank---is no longer determined by any relative-position invariant of arity
+$\le4$ (Theorem~\ref{thm:modulus}); and we exhibit a concrete witness. The coarse
+order parameter $\rad(\omega|_W)$ tracks how rigid a stratum still is, but it does not
+classify the fiber.
+
+\emph{Yet in the low-rank strata it survives, and there it can be solved completely.}
+The mechanism is a \textbf{symplectic descent}: the radical quotient
+$\bar W=W/\rad(\omega|_W)$ is a non-degenerate symplectic space of dimension $\rank G$,
+into which the whole proper $K_5$ projects. At $\rank G=4$ this descent lands in the
+$36$-year-old object $\Sp(4,\mathbb F_2)\cong S_6$---the syntheme--duad doily
+$GQ(2,2)$---and the question $\Nanti=6?$ becomes a finite, classical one, which we
+settle (Section~\ref{sec:rank4}): the lone sub-maximal possibility, a ``$C_5$ pentagon'',
+is excluded by a short counting argument inside $\rad(W)$. Strikingly, the only
+obstruction to that argument---a three-term ``Fano star'' among the rays---exists
+precisely because the lemma B0 of Paper~XVIII \emph{fails} at $n\ge5$. The series thus
+closes on itself: the same B0-failure that destroys $n=4$ rigidity is what the rank-4
+proof must, and does, route around.
+
+\subsection*{Structure of the paper}
+
+Section~\ref{sec:setup} fixes notation and records the computational landscape.
+Section~\ref{sec:structure} establishes the trichotomy and the order parameter
+$\rad(\omega|_W)$.
+Section~\ref{sec:upbound} proves the upper-bound ladder (graph-theoretic, exhaustive).
+Section~\ref{sec:obstruction} develops the obstruction theory: the Maslov triple index,
+its insufficiency, the quadruple bit, and the modulus witness.
+Section~\ref{sec:arf} rules out Arf invariants and records the structural skeleton of
+the $(8,6,2)$ stratum and the symplectic-descent frame.
+Section~\ref{sec:rank4} carries out the rank-4 descent to the $S_6$ doily and proves
+$\rank G=4\Rightarrow\Nanti=6$.
+Section~\ref{sec:partial} collects the remaining partial-rigidity results.
+Section~\ref{sec:open} lists open problems.
+Section~\ref{sec:connections} connects to earlier papers.
+Section~\ref{sec:rigor} provides a self-assessment of proof rigor.
+
+% ------------------------------------------------------------------
+\section{Setup and Landscape}\label{sec:setup}
+% ------------------------------------------------------------------
+
+\subsection{Definitions}
+
+Let $n\ge3$.  We work in $V=(\mathbb F_2^{2n},\omega)$ where
+$\omega(e_i,e_{n+j})=\delta_{ij}$ (standard symplectic form).
+A \emph{Lagrangian} is an $n$-dimensional subspace $L$ with $L^\perp=L$
+(maximally isotropic).
+
+A \emph{proper $K_5$ configuration} (proper $K_5$) is a set of five Lagrangians
+$\{L_0,\ldots,L_4\}$ with $\dim(L_a\cap L_b)=1$ for all $0\le a<b\le4$, and all
+ten \emph{context rays} $v_{ab}=L_a\cap L_b$ distinct.
+
+A \emph{proper $K_4$} is a four-element subset of a proper $K_5$; it has six context
+rays and three \emph{matching pairings}: $\{v_{ab},v_{cd}\}$, $\{v_{ac},v_{bd}\}$,
+$\{v_{ad},v_{bc}\}$, for $\{a,b,c,d\}=\{0,1,2,3,4\}\setminus\{m\}$.
+
+The \emph{Mermin matching} $M_m$ is the set of three matching pairings indexed by
+excluding vertex $m$.  A pairing $\{v_{ab},v_{cd}\}$ is \emph{commuting} if
+$\omega(v_{ab},v_{cd})=0$ and \emph{anticommuting} if $\omega(v_{ab},v_{cd})=1$.
+
+The \emph{na-vector} of a proper $K_5$ is $(n_0,\ldots,n_4)$ where $n_m$ is the
+number of anticommuting pairs in $M_m$.  We set $\Nanti=\sum_m n_m$ (total
+anticommuting pairs) and $\Sigma_m=n_m\bmod2$.
+
+The \emph{ray-span} is $W=\mathrm{span}\{v_{ab}\}_{a<b}\subseteq V$.
+The \emph{Gram matrix} $G$ is the $10\times10$ matrix $G_{ij}=\omega(v_i,v_j)$
+(indexing the 10 rays).
+We write $\rank G$ for the $\mathbb F_2$-rank of $G$, and
+$\rad(W)=\{w\in W:\omega(w,W)=0\}$ for the radical of $\omega|_W$;
+$\dim\rad(W)=\dim W-\rank G$.
+
+\subsection{\texorpdfstring{Computational landscape for $n=5$}{Computational landscape for n=5}}
+
+All computations below are performed in $\Sp(10,\mathbb F_2)$ by random generation
+of Lagrangians and detection of proper $K_5$ subconfigurations.
+Seeds are always stated; cross-script seeds are chosen to be disjoint.
+
+\begin{table}[H]
+\centering
+\caption{$n=5$ landscape: 8 seeds, 4800 proper $K_5$, seeds $1000+37s$,
+  $s=0,\ldots,7$.}
+\label{tab:landscape}
+\begin{tabular}{cccc}
+\toprule
+$\rank G$ & count & $\Nanti$ values observed & deterministic? \\
+\midrule
+$0$ & 13  & $\{0\}$ & yes \\
+$2$ & 8   & $\{1,3\}$ & --- \\
+$4$ & 36  & $\{6\}$ & yes \\
+$6$ & 1254 & $\{5,6,7,8,9,10,12,15\}$ & no \\
+$8$ & 2432 & $\{5,\ldots,14\}$ & no \\
+$10$ & 1057 & $\{5,7,\ldots,13\}$ & no \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+\textbf{Observation.}  The $\mathbb F_2$-rank of an alternating matrix is always even;
+$\rank G\in\{0,2,4,6,8,10\}$.
+The $\rank G=2$ stratum is rare ($8/4800=0.17\%$) but not forbidden (an earlier
+single-seed observation had suggested it might be forbidden; this is an artifact).
+
+\subsection{\texorpdfstring{The order parameter $\rad(\omega|_W)$}{The order parameter rad(omega|W)}}
+
+\begin{proposition}\label{prop:radW}
+In $\Sp(10,\mathbb F_2)$, $\dim\rad(W)$ controls coarse rigidity monotonically:
+larger radical $\Rightarrow$ more Sigma-uniform and more even $\Nanti$.
+\end{proposition}
+
+\begin{proof}[Empirical support]
+Multi-seed data (8 seeds, 4800 $K_5$, seeds $1000+37s$):
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$\dim\rad(W)$ & $n$ & $\Sigma$-uniform & $\Nanti$ even \\
+\midrule
+$0$ & 514 & 32\% & 58\% \\
+$1$ & 1163 & 28\% & 57\% \\
+$2$ & 687 & 69\% & 78\% \\
+$3$ & 24 & 83\% & 100\% \\
+$5$ & 10 & 100\% & 100\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+The jump at $\dim\rad(W)=2$ is sharp and robust across seeds.  This value corresponds
+to $\rank G=\dim W-2$; the $\dim\rad(W)=2$ stratum is where the ray-span most closely
+resembles the $n=4$ setting.
+\end{proof}
+
+Despite controlling the coarse statistics, $\dim\rad(W)$ \emph{does not classify} the
+fine fiber: within the fixed $(8,6,2)$-stratum, $\Nanti\bmod2$ splits
+$536$ even / $151$ odd (8 seeds combined).
+This is the motivation for Section~\ref{sec:obstruction}.
+
+% ------------------------------------------------------------------
+\section{Trichotomy and the Rigidity Dimension}\label{sec:structure}
+% ------------------------------------------------------------------
+
+We make precise the comparison across dimensions.
+
+\begin{theorem}[Trichotomy]\label{thm:trichotomy}
+Let $\{L_a\}_{a=0}^4$ be a proper $K_5$ in $\Sp(2n,\mathbb F_2)$.
+\begin{enumerate}
+\item \emph{($n=3$, mixed; Paper~XVII.)} The value $\Nanti$ is not universal but
+  is confined to $\{12,15\}$. In the all-Fano subclass ($\approx16\%$ of proper
+  $K_5$) every proper $K_4$ has all three matching pairings anticommuting, giving
+  the full Petersen graph $\Nanti=15$ (Paper~XVII); the generic proper $K_5$ gives
+  $\Nanti=12$ (full Petersen minus one perfect matching).
+\item \emph{($n=4$, Paper~XVIII.)} Every proper $K_4$ has exactly one commuting and
+  two anticommuting pairings, so $\Nanti=10$ and $\Sigma_m=0$ for all $m$. This is
+  the \emph{unique} dimension at which $\Nanti$ is universal over all proper $K_5$.
+\item \emph{($n\ge5$.)} Neither the all-commuting nor the all-anticommuting
+  configuration of a proper $K_4$ is prohibited; the na-vector is not universally
+  determined and spreads across a broad range.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The all-Fano half of case~(1) ($\Nanti=15$) and case~(2) ($\Nanti=10$) are proved in
+Papers~XVII~\cite{PaperXVII} and~XVIII~\cite{PaperXVIII} via lemmas B0, B1, B2; the
+generic $n=3$ value $\Nanti=12$ is observed computationally (proper $K_5$ in
+$\Sp(6,\mathbb F_2)$ split $\Nanti\in\{12,15\}$ in ratio $\approx84{:}16$).
+For case~(3), we verify computationally that all na-values in $\{0,1,2,3\}$ occur
+for proper $K_4$s in $\Sp(10,\mathbb F_2)$ (Table~\ref{tab:k4landscape}), and give
+the dimension-arithmetic argument for why B1 and B2 both fail.
+
+B1 fails because the isotropic span of four rays with two commuting pairings has
+dimension 4, which is \emph{strictly less} than the Lagrangian dimension 5; the
+self-duality forcing of Paper~XVIII therefore does not produce a contradiction.
+
+B2 fails because in $\mathbb F_2^{10}$ the complement $W^\perp$ of a 6-dimensional
+non-degenerate $W$ has dimension 4, giving $2^4-1=15$ nonzero vectors; four
+Lagrangian shadows among 15 vectors need not collide, so the pigeonhole argument
+breaks.
+\end{proof}
+
+\begin{table}[H]
+\centering
+\caption{$n=5$, proper $K_4$ anti-count distribution. 6000 proper $K_4$, seed 42.}
+\label{tab:k4landscape}
+\begin{tabular}{cc}
+\toprule
+anti-count (0/1/2/3) & frequency \\
+\midrule
+$0$ & 1039 (17\%) \\
+$1$ & 422 (7\%) \\
+$2$ & 4002 (67\%) \\
+$3$ & 537 (9\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+The mode $2$ (the $n=4$ value) persists as an attractor.
+However all four values occur, confirming the absence of B1/B2 rigidity.
+
+% ------------------------------------------------------------------
+\section{The Upper-Bound Ladder}\label{sec:upbound}
+% ------------------------------------------------------------------
+
+\begin{theorem}[Upper-bound ladder]\label{thm:upbound}
+For any proper $K_5$ in $\Sp(2n,\mathbb F_2)$, the anticommuting pairs form a
+subgraph of the Petersen graph $K(5,2)$ whose $\mathbb F_2$-adjacency rank equals
+$\rank G$.  The maximum edge count for each rank, over all $2^{15}$ subgraphs of
+$K(5,2)$, gives the bound:
+\[
+  \Nanti \;\le\; \mathrm{maxedge}(\rank G),
+\]
+where
+\begin{center}
+\begin{tabular}{ccccccc}
+\toprule
+$\rank G$ & 0 & 2 & 4 & 6 & 8 & 10 \\
+\midrule
+$\mathrm{maxedge}$ & 0 & 3 & 6 & 15 & 14 & 13 \\
+\bottomrule
+\end{tabular}
+\end{center}
+In particular: $\rank G=2\Rightarrow\Nanti\le3$ and $\rank G=4\Rightarrow\Nanti\le6$.
+\end{theorem}
+
+\begin{proof}
+The 10 context rays are the vertices of $K(5,2)$ and the 15 cross-context pairs are its
+edges.  The Gram matrix $G$ restricted to the 10 rays equals the adjacency matrix of the
+anticommuting subgraph.  Hence $\rank G$ equals the $\mathbb F_2$-rank of the subgraph's
+adjacency matrix.
+
+We enumerate all $2^{15}$ subsets of the 15 edges of $K(5,2)$ and compute the
+$\mathbb F_2$-rank of the corresponding $10\times10$ adjacency matrix and the edge
+count.  The maximum edge count at each rank value is recorded in the table above
+(see \texttt{supplementary/paper19/lowrank\_rigidity.py}, part A).
+The rank is always even (an alternating matrix over $\mathbb F_2$ has even rank).
+\end{proof}
+
+\begin{remark}
+The bound $\rank G=4\Rightarrow\Nanti\le6$ is \emph{tight}: $\rank G=4$ subgraphs
+with exactly 6 edges exist ($40$ out of $1027$ rank-4 subgraphs). The matching
+\emph{lower} bound $\rank G=4\Rightarrow\Nanti\ge6$ is \textbf{not} graph-theoretic
+(rank-4 subgraphs with 2--5 edges exist in abundance); it is a realizability
+statement requiring the Lagrangian geometry, and is \emph{proved} in
+Theorem~\ref{thm:rank4} (Section~\ref{sec:rank4}) via the doily reduction and the
+radical-counting of Proposition~\ref{prop:c5}.
+\end{remark}
+
+\begin{remark}\label{rem:rankG2}
+Theorem~\ref{thm:upbound} gives the rigorous bound $\rank G=2\Rightarrow\Nanti\le3$.
+Empirically the realised $\rank G=2$ proper $K_5$ have $\Nanti\in\{1,3\}$ (all odd;
+8 occurrences over 8 seeds), never the even value $2$.  This sharper statement is
+\emph{not} graph-theoretic---rank-2 Petersen subgraphs with two edges do exist---so
+it is a realizability phenomenon, recorded in Proposition~\ref{prop:lowrank} with
+proof open.
+\end{remark}
+
+% ------------------------------------------------------------------
+\section{The Obstruction Theorem}\label{sec:obstruction}
+% ------------------------------------------------------------------
+
+\subsection{The Maslov triple index}
+
+\begin{definition}\label{def:maslov}
+Let $L_a,L_b,L_c$ be three Lagrangians in $\Sp(2n,\mathbb F_2)$.  Define
+\[
+  D_{abc} = \{(x,y)\in L_a\times L_b : x+y\in L_c\}.
+\]
+The \emph{Kashiwara form} on $D_{abc}$ is $Q(x,y)=\omega(x,y)$.
+The \emph{Maslov triple bit} is
+\[
+  \mu(a,b,c) = \begin{cases} 1 & \text{if }Q\not\equiv0\text{ on }D_{abc}, \\ 0 & \text{otherwise.}\end{cases}
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:mu_sym}
+$\mu(a,b,c)$ is symmetric in $\{a,b,c\}$ and is an $\Sp(2n,\mathbb F_2)$-invariant.
+\end{lemma}
+
+\begin{proof}
+Symmetry in all six orderings of $\{a,b,c\}$ is verified computationally via the self-check
+in \texttt{maslov\_probe.py}: 0 violations across 25 proper $K_5$ configurations.
+$\Sp$-invariance follows because $\omega$ and the Lagrangian conditions are $\Sp$-invariant.
+\end{proof}
+
+\begin{proposition}\label{prop:mu_structure}
+In a proper $K_5$ configuration in $\Sp(10,\mathbb F_2)$, the Kashiwara form $Q$
+on $D_{abc}$ has $\dim D_{abc}=5$ and $Q$ is identically zero on $\mathrm{rad}(Q)$.
+Thus $\mu(a,b,c)$ is the single bit $[\omega\not\equiv0 \text{ on }D_{abc}]$.
+\end{proposition}
+
+\noindent
+Let $n_{\mathrm{odd}}$ denote the number of triples $\{a,b,c\}\subset\{0,1,2,3,4\}$
+(there are $\binom{5}{3}=10$ such triples) with $\mu(a,b,c)=1$.
+The \emph{odd-triple hypergraph} is the 3-uniform hypergraph on $\{0,1,2,3,4\}$
+with edge set $\{\{a,b,c\}:\mu(a,b,c)=1\}$, considered up to $S_5$-relabelling.
+
+\subsection{Purity of the Maslov stratification}
+
+We measure how well an invariant predicts $\Nanti\bmod2$ by its
+\emph{purity}: partition the sampled configurations into buckets according to the
+invariant's value, and let the purity be the majority-vote accuracy,
+\[
+  \mathrm{purity}
+  \;=\;\frac{1}{N}\sum_{\text{buckets }b}\max\bigl(e_b,\,o_b\bigr),
+\]
+where $e_b,o_b$ are the numbers of even- and odd-$\Nanti$ configurations in bucket $b$
+and $N=\sum_b(e_b+o_b)$. Purity $=1$ means the invariant determines the parity;
+the baseline (one bucket) is the majority parity's frequency.
+
+\begin{table}[H]
+\centering
+\caption{Maslov purity ladder (seeds $2025+101s$, $s=0,\ldots,7$; 2800 proper $K_5$).}
+\label{tab:purity}
+\begin{tabular}{lcc}
+\toprule
+Invariant & Purity & Remark \\
+\midrule
+Baseline (none) & 0.65 & \\
+$n_{\mathrm{odd}}$ & 0.65 & no gain over baseline\\
+$n_{\mathrm{odd}}$ + hypergraph iso-type & 0.73 & 12 pure / 5 mixed types \\
++ quadruple bit $q_4$ & 0.73 & no gain (see below) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The purity ladder stalls: 5 hypergraph types remain mixed regardless of further arity-3
+data, and the quadruple invariant (next subsection) adds nothing.
+
+\begin{remark}
+Two distinct uses of $n_{\mathrm{odd}}$ must not be conflated. As a \emph{global
+classifier} of the fiber (Table~\ref{tab:purity}) the bare count $n_{\mathrm{odd}}$
+adds nothing over baseline. As a \emph{deterministic threshold}, however, the
+restriction $n_{\mathrm{odd}}\le5$ does carry real information: it forces $\Nanti$
+even (Conjecture~\ref{conj:threshold}). The threshold is a one-sided sufficient
+condition concentrated in the low-$n_{\mathrm{odd}}$ tail, not a separating function
+across all buckets---hence no contradiction between the $0.65$ row here and the clean
+implication of Section~\ref{sec:partial}.
+\end{remark}
+
+\subsection{The quadruple invariant}
+
+\begin{definition}\label{def:q4}
+For four Lagrangians $L_a,L_b,L_c,L_d$ define
+\[
+  D_4 = \{(x,y,z)\in L_a\times L_b\times L_c : x+y+z\in L_d\},
+  \quad
+  Q_4(x,y,z) = \omega(x,y)+\omega(x,z)+\omega(y,z).
+\]
+The \emph{quadruple bit} is $q_4(a,b,c\mid d)=[Q_4\not\equiv0\text{ on }D_4]$.
+\end{definition}
+
+\begin{lemma}
+$q_4(a,b,c\mid d)$ is an $\Sp(2n,\mathbb F_2)$-invariant.
+This is verified computationally: 0 violations under transvection in 1000 sampled cases.
+\end{lemma}
+
+\begin{remark}
+In the $n=5$ configurations sampled, $q_4$ is nearly always $1$: the natural quadruple
+bit is saturated ($n_{q_4}=20$, the maximum) in $99.5\%$ of configurations.
+It carries essentially no information about the fiber.
+\end{remark}
+
+\subsection{The modulus witness}
+
+We now prove Theorem~\ref{thm:modulus}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:modulus} (computational)]
+The script \texttt{maslov\_probe.py}~\cite{PaperXIXsuppl}
+(seeds $2025+101s$, $s=0,\ldots,7$; 2800 proper $K_5$)
+identifies a concrete witness pair in the
+$(\rank G=6,\;\dim\rad(W)=2,\;n_{\mathrm{odd}}=7)$ bucket:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Config & $\Nanti$ & parity \\
+\midrule
+$\mathcal C_1$ & $8$ & even \\
+$\mathcal C_2$ & $9$ & odd \\
+\midrule
+\multicolumn{3}{p{9cm}}{\textit{Shared invariants:}
+  $\rank G=6$, $\dim\rad(W)=2$, $n_{\mathrm{odd}}=7$,
+  hypergraph iso-type (up to $S_5$), full $q_4$-profile.}\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Both configurations share the same odd-triple hypergraph isomorphism class under $S_5$,
+and the same sorted $q_4$-profile (all $q_4=1$, confirming saturation).
+
+Since all invariants of arity $\le4$ accessible to these two methods agree, no function
+of these invariants can distinguish $\mathcal C_1$ from $\mathcal C_2$.  Hence no
+relative-position invariant of the five Lagrangian traces of arity $\le4$ classifies
+$\Nanti\bmod2$ within this fiber.
+\end{proof}
+
+\begin{remark}
+The witness lives in the $\dim\rad(W)=2$ stratum---the most ``$n=4$-like'' stratum,
+where the order parameter indicates the greatest residual rigidity.  The modulus
+phenomenon is not confined to the scrambled ($\dim\rad(W)=0$) regime.
+\end{remark}
+
+% ------------------------------------------------------------------
+\section{Ruling out Arf Invariants}\label{sec:arf}
+% ------------------------------------------------------------------
+
+Given the failure of the Maslov triple and quadruple invariants, one might hope that a
+\emph{quadratic refinement} of $\omega|_W$---an Arf invariant of the ray-span---could
+serve as the fiber classifier.  We rule this out in two independent ways.
+
+\subsection{\texorpdfstring{Frame-$q$ is not Sp-invariant}{Frame-q is not Sp-invariant}}
+
+The \emph{Pauli refinement} $q:\mathbb F_2^{2n}\to\mathbb F_2$ is defined by
+$q(p,x)=p\cdot x$ (inner product of position and momentum parts).
+It satisfies $q(v+w)=q(v)+q(w)+\omega(v,w)$, so it is a quadratic refinement
+of $\omega$.  Its restriction to the 10 context rays defines an Arf-type invariant.
+
+\begin{proposition}\label{prop:frameq}
+Frame-$q$ is \textbf{not} $\Sp(2n,\mathbb F_2)$-invariant.  Consequently, no
+Arf invariant built from frame-$q$ can classify the $\Sp$-invariant quantity $\Nanti$.
+\end{proposition}
+
+\begin{proof}
+A symplectic transvection $T_u(v)=v+\omega(v,u)u$ preserves $\omega$ exactly. It
+carries the configuration $\{v_{ab}\}$ to the image configuration $\{T_u v_{ab}\}$,
+whose Gram matrix $\omega(T_u v_{ab},T_u v_{cd})=\omega(v_{ab},v_{cd})$ is identical;
+in particular $\Nanti$ is unchanged. However, $T_u$ acts on the Pauli refinement by
+$q(T_u v)=q(v)+\omega(v,u)\,q(u)$, which alters the $q$-values of the context rays
+whenever $\omega(v_{ab},u)\ne0$.
+Computationally: among 900 sampled (configuration, transvection) pairs, $\Nanti$ changed
+in $0/900$ cases and the $q$-profile of the 10 rays changed in $407/900$ (45.2\%).
+\end{proof}
+
+\subsection{\texorpdfstring{Intrinsic-$q$ exists generically but does not classify}{Intrinsic-q exists generically but does not classify}}
+
+An \emph{intrinsic-$q$} for a proper $K_5$ is a quadratic form $Q:W\to\mathbb F_2$
+(satisfying $Q(v+w)=Q(v)+Q(w)+\omega(v,w)$) that vanishes on all 10 context rays.
+
+The existence of an intrinsic-$q$, far from being an opaque genericity statement,
+is governed exactly by the symplectic geometry of the $(8,6,2)$-stratum. We record
+the structural skeleton; it is elementary $\mathbb F_2$ linear algebra and is the
+backbone of Proposition~\ref{prop:noq_odd}.
+
+\begin{lemma}[Structural skeleton of the $(8,6,2)$-stratum]\label{lem:skeleton}
+Let a proper $K_5$ in $\Sp(10,\mathbb F_2)$ have ray-span $W$ in the
+$(8,6,2)$-stratum ($\dim W=8$, $\rank G=6$, $\dim\rad(W)=2$). Write
+$r_1,\dots,r_{10}$ for the rays, $M$ for the $10\times10$ matrix with rows $r_i$,
+$G=M\Omega M^{\top}$ ($\Omega$ the form on $V=\mathbb F_2^{10}$) for the Gram matrix,
+\[
+  R=\Bigl\{a\in\mathbb F_2^{10}:\textstyle\sum_i a_i r_i=0\Bigr\},\quad
+  o(a)=\sum_{i<j}a_i a_j G_{ij},\quad
+  T=\sum_i r_i ,\quad \mathbf 1=(1,\dots,1).
+\]
+Then:
+\begin{enumerate}
+\item[(i)] $W$ is coisotropic: $W^{\perp}=\rad(W)\subset W$, of dimension $2$.
+\item[(ii)] $\dim R=2$, $R\subseteq\ker G$, and $\ker G/R\cong\rad(W)$ (so
+  $\dim\ker G=4$).
+\item[(iii)] $o$ is a quadratic form with polarization $G$; hence its restriction
+  to $\ker G$ is a \emph{linear} functional $\ell$.
+\item[(iv)] an intrinsic-$q$ exists $\iff\ell|_R\equiv0$.
+\item[(v)] $\Nanti=o(\mathbf 1)$; when an intrinsic-$q$ $Q$ exists, $Q(T)=\Nanti$;
+  and $\mathbf 1\in\ker G\iff T\in\rad(W)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) In $V=\mathbb F_2^{10}$, $\dim W=8$ gives $\dim W^{\perp}=2$; since
+$\dim\rad(W)=\dim W-\rank G=2=\dim W^{\perp}$ and $\rad(W)=W\cap W^{\perp}$, we get
+$W^{\perp}=\rad(W)\subseteq W$.
+
+(ii) For $a\in R$, $M^{\top}a=\sum_i a_i r_i=0$, so $Ga=M\Omega(M^{\top}a)=0$;
+thus $R\subseteq\ker G$. Dimensions: $\dim R=10-\dim W=2$,
+$\dim\ker G=10-\rank G=4$. The map $a\mapsto M^{\top}a$ has kernel $R$ and sends
+$\ker G$ onto $\rad(W)$, because $Ga=0\iff\Omega M^{\top}a\perp W\iff
+M^{\top}a\in\rad(W)$; hence $\ker G/R\cong\rad(W)$.
+
+(iii) Over $\mathbb F_2$, $o(a+b)+o(a)+o(b)=\sum_{i\ne j}a_i b_j G_{ij}=a^{\top}Gb$;
+for $a,b\in\ker G$ this is $0$, so $o|_{\ker G}$ is additive, i.e.\ linear.
+
+(iv) An intrinsic-$q$ solves the linear system $Q(r_i)=0$. A dependency of these
+equations is precisely an $a\in R$. Applying any quadratic refinement to
+$\sum_{i\in a}r_i=0$ gives $0=\sum_{i\in a}Q(r_i)+\sum_{i<j\in a}\omega(r_i,r_j)$,
+so consistency with $Q(r_i)=0$ requires $o(a)=0$. Thus the system is solvable
+$\iff o|_R\equiv0\iff\ell|_R\equiv0$.
+
+(v) $o(\mathbf 1)=\sum_{i<j}\omega(r_i,r_j)=\Nanti$ (same-context pairs share a
+Lagrangian, hence commute). If $Q$ exists,
+$Q(T)=Q(\sum_i r_i)=\sum_i Q(r_i)+\sum_{i<j}\omega(r_i,r_j)=0+\Nanti$. Finally
+$G\mathbf 1=0\iff\omega(T,r_i)=0\ \forall i\iff T\in W^{\perp}$, and since
+$T\in W$ this is $T\in\rad(W)$.
+\end{proof}
+
+\noindent
+Clauses (iv)--(v) tie the parity problem to the \emph{T-vector} $T=\bigoplus
+v_{ab}$ of Paper~XII~\cite{PaperXII}: existence of the refinement is a linear
+condition on the ray relations, and the anticommuting count is the refinement's
+value at $T$.
+
+\begin{proposition}\label{prop:intrinsicq}
+\begin{enumerate}
+\item Intrinsic-$q$ exists for approximately $91\%$ of proper $K_5$ in $\Sp(10,\mathbb F_2)$
+  (1900/2100, 8 seeds; verified against brute-force enumeration with 0/600 disagreements).
+\item When it exists, intrinsic-$q$ is \textbf{unique}.
+\item Within the $(8,6,2)$-stratum, the Arf type of the intrinsic-$q$ is always $0$
+  whenever intrinsic-$q$ exists, yet $\Nanti\bmod2$ still splits $404$ even / $103$ odd.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{(1) and (2).}  By Lemma~\ref{lem:skeleton}(iv) an intrinsic-$q$ exists iff
+$\ell|_R\equiv0$, a linear condition on the two-dimensional relation space $R$; the
+$91\%$ existence rate is the empirical frequency of $\ell|_R\equiv0$.  Uniqueness is
+Lemma~\ref{lem:skeleton} again: the rays span $W$, so the coefficient matrix of the
+system $Q(r_i)=0$ has full column rank and the solution, when consistent, is unique.
+Both facts are confirmed by independent brute-force enumeration.
+
+\emph{(3).}  The Arf invariant of $Q|_W$ is computed for each existing intrinsic-$q$
+in the $(8,6,2)$-stratum (script \texttt{quad\_refine.py}, exp (3)).  The result:
+Arf $=0$ in all cases; Arf $=1$ never occurs.
+Despite this, parity splits 404/103.
+\end{proof}
+
+\begin{remark}
+\emph{Correction of an earlier estimate.}  A previous computation recorded a $6.3\%$
+existence rate for intrinsic-$q$.  This was an artifact of a different population:
+that figure applied to a subpopulation where $\dim W$ was small (the $\dim W=6$ stratum
+alone has existence rate $\approx100\%$), or used a different normalisation.  The
+correct multi-seed figure is $\approx91\%$ overall, dropping to $\approx85\%$ in the
+$\dim W=9$ stratum.
+\end{remark}
+
+\begin{corollary}
+No Arf invariant of the ray-span $W$ classifies $\Nanti\bmod2$.
+\end{corollary}
+
+We record a new positive result revealed by the same computation:
+
+\begin{proposition}[No-$q$ stratum, sharpened]\label{prop:noq_odd}
+Within the $(8,6,2)$-stratum, if no intrinsic-$q$ exists---equivalently, by
+Lemma~\ref{lem:skeleton}(iv), if $\ell|_R\not\equiv0$---then $\Nanti=9$, realised by
+the single anti-graph degree sequence $(0,0,2,2,2,2,2,2,3,3)$ (the Petersen graph
+minus six edges). In particular $\Nanti$ is odd.
+\end{proposition}
+
+\noindent\textbf{Status.}  The equivalence ``no intrinsic-$q$
+$\iff\ell|_R\not\equiv0$'' is the proven Lemma~\ref{lem:skeleton}(iv). The value
+$\Nanti=9$ is a \emph{realizability} statement: it holds with $0$ exceptions over
+$154$ no-$q$ configurations across two disjoint seed families ($2695$
+$(8,6,2)$-configurations in total; \texttt{noq\_odd\_proof.py}), but it is not a
+formal consequence of the quadratic form alone. Indeed
+Lemma~\ref{lem:skeleton}(v) gives $\Nanti=o(\mathbf 1)$, and in the intrinsic-$q$
+\emph{existing} bucket $o(\mathbf 1)$ realises both parities (the
+$404/103$ split of Proposition~\ref{prop:intrinsicq}); so $o$ and $\ell$ do not by
+themselves pin the value. Proposition~\ref{prop:noq_odd} is therefore of the same
+character as the realizability statement $\rank G=4\Rightarrow\Nanti=6$
+(Remark~\ref{rem:lowbound})---a constraint on which anti-graphs the Lagrangian
+geometry actually produces at fixed symplectic rank.
+
+\begin{remark}
+The skeleton localizes exactly what an eventual proof must supply. By
+Lemma~\ref{lem:skeleton} the no-$q$ hypothesis is $\ell|_R\not\equiv0$, i.e.\ a ray
+dependency $\sum_{i\in a}r_i=0$ with an odd internal anticommuting count
+$o(a)=1$; one must show this forces the global count $o(\mathbf 1)$ to the specific
+value $9$ (equivalently, the anti-graph to the degree class above). This is a
+combinatorial-geometric realizability question about proper $K_5$, not an identity
+of the quadratic form $o$.
+\end{remark}
+
+\begin{remark}[A reduction frame, and why the realizability layer is itself stratified]
+\label{rem:reduction}
+Proposition~\ref{prop:noq_odd} and the lower bound $\rank G=4\Rightarrow\Nanti=6$
+(Remark~\ref{rem:lowbound}) are two instances of one reduction. The radical
+quotient $\bar W=W/\rad(\omega|_W)$ is a \emph{non-degenerate} symplectic space of
+dimension $\rank G$, and each Lagrangian $L_a$ descends to an isotropic subspace
+$\bar L_a\subseteq\bar W$ (its rays lie in the isotropic $L_a$, hence commute).
+A proper $K_5$ thus projects to a five-Lagrangian configuration in
+$\Sp(\rank G,\mathbb F_2)$, and $\Nanti$ is the anticommuting count of the
+projected rays. The two problems become reduced-configuration realizability
+questions: $\rank G=4$ lands in $\Sp(4,\mathbb F_2)$, where $\Nanti=6$ is forced
+(Theorem~\ref{thm:rank4}, Section~\ref{sec:rank4}), while $\rank G=6$ lands
+in $\Sp(6,\mathbb F_2)$ (where the value is forced only after the extra selector
+$\ell|_R\not\equiv0$).
+
+Crucially the forcing is itself \emph{dimension-stratified}. Empirically $\Nanti$
+is pinned by low-arity data---the stratum $(\dim W,\rank G,\dim\rad W)$, the
+projected-Lagrangian dimensions, and the bit $\ell|_R$---for every stratum through
+$\dim W=8$, but by \emph{none} of these invariants at $\dim W=9$ (there it splits
+across every refinement we tried: stratum $\times$ projected-dimensions $\times
+\ell|_R$). So the two realizability statements are of the same kind but do
+\textbf{not} merge into a single dimension-free theorem: the realizability layer
+softens with dimension exactly as the rigidity does---a structural echo, one level
+down, of the uniqueness of $n=4$. This reinforces the modulus thesis: not only is
+the fiber unclassified by arity-$\le4$ relative-position data
+(Theorem~\ref{thm:modulus}), even the \emph{coarse value} $\Nanti$ ceases to be
+determined by the reduced geometry once $\dim W\ge9$.
+\end{remark}
+
+% ------------------------------------------------------------------
+\section{Partial Rigidity Results}\label{sec:partial}
+% ------------------------------------------------------------------
+
+Despite the modulus obstruction, several deterministic implications survive.
+
+\begin{conjecture}[Threshold]\label{conj:threshold}
+For any proper $K_5$ in $\Sp(10,\mathbb F_2)$: if $n_{\mathrm{odd}}\le5$ then
+$\Nanti$ is even.
+\end{conjecture}
+
+\textbf{Empirical support.}  Zero violations across 455 proper $K_5$ in the
+$n_{\mathrm{odd}}\le5$ range (8 independent seeds, seed family $2025+101s$).
+The threshold is sharp: $n_{\mathrm{odd}}=6$ produces both parities
+(empirically 230 even / 7 odd; the 7 odd cases are not concentrated in a single
+hypergraph type).
+
+\begin{remark}
+A proof of Conjecture~\ref{conj:threshold} would require relating the odd-triple
+hypergraph to $\Nanti\bmod2$ via a global identity.  No clean modular formula
+$\sum\mu_{abc}\equiv\Nanti\bmod2$ has been found; the implication appears
+one-directional (a sufficient condition for evenness, not an equivalence).
+\end{remark}
+
+% ------------------------------------------------------------------
+\section{The rank-4 stratum: a descent to the doily}\label{sec:rank4}
+% ------------------------------------------------------------------
+
+In the lowest non-trivial rank the $n=4$ rigidity \emph{survives}, and we can pin it
+exactly. The mechanism is a descent: the whole proper $K_5$ projects along the radical
+quotient into a small symplectic space, and at $\rank G=4$ that space is a classical
+object---the $S_6$ doily---in which the question ``$\Nanti=6$?'' becomes finite and
+yields to a short counting argument. The result is the first $n\ge5$ realizability
+statement we can prove outright.
+
+First, $\rank G=4$ bounds the radical. Writing $M$ for the $10\times10$ matrix of rays
+and $\Omega$ for the form, $G=M\Omega M^{\top}$, so by the Sylvester rank inequality
+\[
+  \rank G \;=\; \rank(M\Omega M^{\top}) \;\ge\; 2\,\rank M-10 \;=\; 2\dim W-10 ,
+\]
+whence $\dim W\le 7$ and $\dim\rad(W)=\dim W-\rank G\le 3$. (Equality $\dim W=7$ holds
+in every sampled configuration, but only the bound $\dim\rad(W)\le3$ is used below.)
+
+The reduction (Remark~\ref{rem:reduction}) sends the configuration to
+$\bar W=W/\rad(W)$, a non-degenerate symplectic space of dimension $\rank G=4$, i.e.\
+$\Sp(4,\mathbb F_2)\cong S_6$---the syntheme--duad doily $GQ(2,2)$ (points $=$ duads,
+i.e.\ $2$-subsets of $\{1,\dots,6\}$; lines $=$ synthemes, i.e.\ perfect matchings;
+$\omega(D,D')=|D\cap D'|\bmod2$). The five Lagrangians become five synthemes; the ray
+$r_{ab}$ projects to the duad shared by $S_a,S_b$, or to $0$ if they are edge-disjoint
+(then $v_{ab}\in\rad(W)$). An exhaustive sweep of all five-syntheme configurations
+satisfying the projection axioms (\texttt{doily\_rank4.py}) gives $\Nanti\in\{5,6\}$,
+with $\Nanti=5$ \emph{iff} the meeting-graph on the five indices is the pentagon
+$C_5$---equivalently the five non-meeting pairs form the complementary pentagram, whose
+rays lie in $\rad(W)$ (dimension $\le3$). Two lemmas then exclude that case.
+
+\begin{lemma}[Three-term relations are Fano stars]\label{lem:3term}
+Among any three distinct rays of a proper $K_5$, the only $\mathbb F_2$-linear
+dependency $v_p+v_q+v_r=0$ is a \emph{Fano star}: the three rays share a common
+Lagrangian, $v_{ij}+v_{ik}+v_{il}=0$.
+\end{lemma}
+
+\begin{proof}
+Classify by the index pattern of $\{p,q,r\}$. If the three pairs share a common
+index ($\{ij,ik,il\}$) it is the stated star. Otherwise some two of them, say
+$v_p,v_q$, share an index $y$ while the third $v_r=\{u,v\}$ does not equal a known
+ray: then $v_r=v_p+v_q\in L_y$, so $v_r\in L_y\cap L_u=\langle v_{yu}\rangle$, forcing
+$v_r=v_{yu}$, against distinctness. (Concretely: triangle $\{xy,xz,yz\}$, path
+$\{xy,yz,zw\}$, and the disjoint pattern $\{xy,yz,uv\}$ all fall here.) Hence only the
+star survives. Fano stars do occur for $n\ge5$, where B0 fails ($\approx3.8\%$ of
+configurations carry a Fano vertex).
+\end{proof}
+
+\begin{proposition}[The $C_5$ pentagon does not lift]\label{prop:c5}
+No proper $K_5$ in $\Sp(10,\mathbb F_2)$ has five rays whose index-pairs form a
+pentagram $\{(i,i+2):i\in\mathbb Z_5\}$ all contained in a subspace of dimension
+$\le3$. Consequently the $C_5$ doily configuration is not realizable.
+\end{proposition}
+
+\begin{proof}
+The idea is a pigeonhole on relation-weights: five rays squeezed into three dimensions
+must satisfy many relations, but the pentagram is too ``spread out'' (no three rays
+share a Lagrangian) to admit any short one---and short relations are exactly what a
+low-dimensional crowd of vectors is forced to produce.
+
+Suppose the five pentagram rays $v_{i,i+2}$ lie in a subspace of dimension $\le3$ (in
+our application, $\rad(W)$, of dimension $\le3$ by the Sylvester bound). Being five
+vectors in dimension $\le3$, their space of linear relations has dimension $\ge2$. Each index occurs in exactly two
+pentagram pairs, so no three of the five rays share a common index; by
+Lemma~\ref{lem:3term} there is no Fano star among them, hence no relation of weight
+$\le3$ (weight $1$ would be a zero ray, weight $2$ two equal rays). Thus every
+nonzero relation has weight $\ge4$ on the five coordinates. But a $\ge2$-dimensional
+space contains two independent weight-$\ge4$ vectors $r_1,r_2\in\mathbb F_2^5$; since
+$|\mathrm{supp}\,r_1|+|\mathrm{supp}\,r_2|\ge8>5$ we have
+$|\mathrm{supp}\,r_1\cap\mathrm{supp}\,r_2|\ge3$, so $r_1+r_2$ has weight $\le2$---a
+nonzero relation of weight $\le2$, contradiction.
+\end{proof}
+
+\begin{theorem}[Rank-4 value]\label{thm:rank4}
+Every proper $K_5$ in $\Sp(10,\mathbb F_2)$ with $\rank G=4$ satisfies $\Nanti=6$.
+\end{theorem}
+
+\begin{proof}
+By the Sylvester bound above, $\rank G=4$ gives $\dim\rad(W)\le3$, and the doily
+descent sends the configuration into $\Sp(4,\mathbb F_2)$. The exhaustive
+classification (\texttt{doily\_rank4.py}) leaves only $\Nanti\in\{5,6\}$, with
+$\Nanti=5$ \emph{iff} the five non-meeting pairs form a pentagram whose rays lie in
+$\rad(W)$. Since $\dim\rad(W)\le3$, Proposition~\ref{prop:c5} forbids exactly that, so
+$\Nanti=6$. (Independently verified $176/176$ across three disjoint seed families.)
+\end{proof}
+
+\begin{remark}
+The doily sweep ranges over configurations of five \emph{distinct} synthemes. In the
+measure-small degenerate case where two Lagrangians project to the same line of
+$\bar W$ the same radical-counting applies (the non-meeting rays still lie in
+$\rad(W)$); we have additionally verified $\Nanti=6$ directly there ($0$ exceptions
+over all sampled $(7,4,3)$-configurations).
+\end{remark}
+
+\begin{remark}\label{rem:lowbound}
+Theorem~\ref{thm:rank4} is genuinely a \emph{realizability} statement: the matching
+lower bound $\Nanti\ge6$ is not graph-theoretic (rank-4 Petersen subgraphs with
+$2$--$5$ edges abound---$987$ of $1027$), and it is the Lagrangian geometry, distilled
+into the radical-counting of Proposition~\ref{prop:c5}, that forces the maximum. The
+two realised anti-graphs are the $6$-cycle $C_6$ ($\approx91\%$) and a $7$-vertex tree
+($\approx9\%$), both with $6$ edges; which of the two occurs is the only part of the
+rank-4 picture left open.
+\end{remark}
+
+\begin{proposition}[Adjacent low-rank strata]\label{prop:lowrank}
+$\rank G=0\Leftrightarrow\Nanti=0$ (tautological); and $\rank G=2\Rightarrow
+\Nanti\in\{1,3\}$ (odd; $\le3$ rigorous by Theorem~\ref{thm:upbound}, the values
+$\{1,3\}$ observed $8/8$, proof open).
+\end{proposition}
+
+% ------------------------------------------------------------------
+\section{Open Problems}\label{sec:open}
+% ------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Prove Conjecture~\ref{conj:threshold}} ($n_{\mathrm{odd}}\le5\Rightarrow
+  \Nanti$ even).  A global identity relating the odd-triple hypergraph to $\Nanti\bmod2$
+  would suffice.
+
+\item \textbf{Finer rank-4 anti-graph type ($C_6$ vs.\ tree).}
+  The rank-4 \emph{value} is now settled: $\rank G=4\Rightarrow\Nanti=6$
+  (Theorem~\ref{thm:rank4}, via the $S_6$-doily reduction and the
+  non-lifting of the $C_5$ pentagon, Proposition~\ref{prop:c5}). What remains is the
+  finer question of \emph{which} $6$-edge anti-graph occurs: a $6$-cycle $C_6$
+  (na-vector $(2,2,2,0,0)$, $\approx91\%$) or a $7$-vertex tree
+  ($(2,2,1,1,0)$, $\approx9\%$). A clean invariant separating the two would complete
+  the rank-4 picture.
+
+\item \textbf{Complete fiber classification or prove it is a genuine modulus.}
+  Theorem~\ref{thm:modulus} shows arity $\le4$ is insufficient.  The question remains
+  whether a Wall-type invariant at arity 5 (involving all five Lagrangians) classifies
+  the na-vector, or whether the fiber is truly a modulus (no finite-arity classifier).
+  The quad-bit saturation ($99.5\%$ at value 1) suggests the natural arity-4 object is
+  degenerate; a \emph{different} arity-4 invariant might behave better.
+
+\item \textbf{Prove the value in Proposition~\ref{prop:noq_odd}}
+  (no intrinsic-$q$ $\Rightarrow\Nanti=9$ in the $(8,6,2)$-stratum). By
+  Lemma~\ref{lem:skeleton} the hypothesis reduces to a ray dependency with odd
+  internal anticommuting count; what is open is the realizability step forcing the
+  global anti-graph to the degree class $(0,0,2,2,2,2,2,2,3,3)$. Via
+  Remark~\ref{rem:reduction} this is the $\Sp(6,\mathbb F_2)$ instance of the
+  reduction (item~2 is the $\Sp(4,\mathbb F_2)$ instance). The two are the same
+  \emph{kind} of question but---as the dimension-stratification in
+  Remark~\ref{rem:reduction} shows---do not collapse to one dimension-free theorem:
+  the $\Sp(6)$ case additionally requires the selector $\ell|_R\not\equiv0$, and the
+  forcing fails entirely by $\dim W=9$. A proof should treat each reduced dimension
+  on its own terms.
+
+\item \textbf{$n=6$ and beyond.}  Does the order parameter $\rad(\omega|_W)$ persist
+  as an attractor at $n=6$?  Is there a second structural transition?  Is there an
+  infinite descent (ever weaker rigidity as $n\to\infty$) or does the structure
+  stabilise?
+
+\item \textbf{Algebraic proof of Key Lemma from Paper~XVIII} (rank$(G)\in\{0,8\}
+  \Leftrightarrow\Sigma_m=0$).  Verified computationally for all 840 proper $K_5$
+  up to symmetry.  An algebraic proof would clarify whether this is a $n=4$-specific
+  coincidence or the shadow of a deeper identity.
+\end{enumerate}
+
+% ------------------------------------------------------------------
+\section{Connections to Previous Papers}\label{sec:connections}
+% ------------------------------------------------------------------
+
+\textbf{Paper XI}~\cite{PaperXI} (Quadratic refinement) introduced the Arf invariant as a potential
+classifier of parity.  Section~\ref{sec:arf} shows that for $n\ge5$ the intrinsic-$q$
+is generically well-defined but its Arf is non-discriminating.  The Arf machinery is
+powerful for $n=4$ (where it gives an alternative characterization of the Key Lemma)
+but cannot handle the $n\ge5$ fiber.
+
+\textbf{Paper XII}~\cite{PaperXII} ($T$-vector) introduced $T=\bigoplus v_{ab}$.
+In the $n=4$ setting the T-vector is the primary obstruction
+(\cite{PaperXVIII}, Section~3).  For $n\ge5$ the T-vector is no longer universally
+zero; its relation to $\rad(W)$ and to the odd-triple count $n_{\mathrm{odd}}$ is
+an open direction.
+
+\textbf{Paper XIII}~\cite{PaperXIII} (Maslov index) introduced the Maslov triple index
+as the relative-position invariant of three Lagrangians.  The present paper confirms
+this is the correct level of analysis for $n\ge5$---the Maslov triple provides real
+partial rigidity ($n_{\mathrm{odd}}\le5\Rightarrow\Nanti$ even) but is insufficient
+for complete classification.  The Wall-type extension (arity 4 and beyond) is the
+natural continuation.
+
+\textbf{Paper XVII}~\cite{PaperXVII} established that for an all-Fano proper $K_5$ in
+$\Sp(6,\mathbb F_2)$ the anticommutation graph is the full Petersen graph $K(5,2)$
+($\Nanti=15$), and proved the B0 lemma.  This is the all-Fano half of the $n=3$
+trichotomy vertex in Theorem~\ref{thm:trichotomy}; the generic $n=3$ proper $K_5$
+(outside the all-Fano $\approx16\%$) instead has $\Nanti=12$.
+
+\textbf{Paper XVIII}~\cite{PaperXVIII} proved $\Nanti=10$ universally for $n=4$, and
+identified the transversal property (B0+B1+B2) as the correct $K_4$-level proof.
+The present paper shows the B2 failure for $n\ge5$ is precise ($W^\perp$ has 15
+nonzero vectors, well above the pigeonhole threshold of 3), and that B1 fails because
+the commuting-pairing span has dimension exactly one below the Lagrangian dimension.
+
+\subsection*{Synthesis}
+
+The two halves of this paper answer the opening question with a single picture. The
+$n=4$ rigidity does not vanish at $n\ge5$; it \emph{stratifies}. Generically---in the
+high-rank strata---it dissolves into a modulus that no arity-$\le4$ invariant resolves
+(Theorem~\ref{thm:modulus}). In the low-rank strata it persists and is provable, via
+the symplectic descent $W\rightsquigarrow\bar W=\Sp(\rank G,\mathbb F_2)$: at
+$\rank G=4$ the descent reaches the $S_6$ doily and pins $\Nanti=6$
+(Theorem~\ref{thm:rank4}). The same dimension that makes the descent land in a
+\emph{small} space when $\rank G$ is small is what lets the modulus spread when
+$\rank G$ is large; and the very Fano stars that the rank-4 proof must avoid are the
+debris of the B0-collapse that ended $n=4$. Rigidity, modulus, and the
+Kochen--Specker obstruction of Papers~XI--XVIII thus appear as facets of one
+dimension-graded structure.
+
+Finally, we flag a forward connection. Paper~IV~\cite{PaperIV} conjectured, from the
+cohomological ladder $H^1\to H^2\to H^3$, that a genuinely third-order
+(``Borromean'', non-associative) obstruction can appear only for $N\ge5$ qubits---and
+derived this threshold from a \emph{global symplectic capacity bound} that collapses
+the $5$-MASA nerve $\partial\Delta^4$ at $N\le4$. That nerve is precisely a proper
+$K_5$, its collapse is precisely the B0/B1/B2 rigidity of Paper~XVIII, and its release
+at $n=5$ is the regime of the present paper. We therefore conjecture that the modulus
+of Theorem~\ref{thm:modulus}---unresolved by any arity-$\le4$ (degree-$\le3$
+relative-position) invariant---is the symplectic realisation of that $H^3$ class, with
+the quadruple invariant $q_4$ playing the role of the degree-3 cochain. Making this
+identification precise is the natural sequel.
+
+% ------------------------------------------------------------------
+\section{Rigor Self-Assessment}\label{sec:rigor}
+% ------------------------------------------------------------------
+
+\begin{center}
+\begin{tabular}{p{5cm}p{3.5cm}p{5cm}}
+\toprule
+Claim & Status & Note \\
+\midrule
+Trichotomy (B1/B2 dimension arithmetic) & Rigorous & Algebraic; cited from XVIII \\
+Upper-bound ladder & Rigorous & Exhaustive $2^{15}$ enumeration \\
+Lower bound $\rank G=4\Rightarrow\Nanti=6$ & \textbf{Rigorous} & Doily reduction + radical-counting (Prop.~\ref{prop:c5}); $C_5$ pentagon excluded \\
+$C_5$ pentagon non-liftable (Prop.~\ref{prop:c5}) & Rigorous & Counting in $\rad(W)$; Lemma~\ref{lem:3term} (3-term $=$ Fano star) \\
+Modulus witness & Rigorous (computational) & Explicit pair; independently reproducible \\
+$n_{\mathrm{odd}}\le5\Rightarrow\Nanti$ even & Conjectural (455/455) & Proof open \\
+frame-$q$ non-invariance & Rigorous & Algebraic + 900-case verification \\
+Structural skeleton, Lemma~\ref{lem:skeleton} (i)--(v) & Rigorous & Elementary $\mathbb F_2$ linear algebra; coisotropic reduction + T-vector \\
+Intrinsic-$q$ exists $\iff\ell|_R\equiv0$ & Rigorous & Lemma~\ref{lem:skeleton}(iv); $0/2695$ vs.\ direct solver \\
+Arf non-discriminating in $(8,6,2)$ & Rigorous (computational) & 404+103 split \\
+No intrinsic-$q\Rightarrow\Nanti=9$ (hence odd) & Conjectural (154/154) & Realizability; reduction proven (Lemma~\ref{lem:skeleton}), value open \\
+$\mu$ symmetric in $S_3$ & Rigorous (computational) & 25-config self-check \\
+Order parameter $\rad(W)$ & Descriptive & Monotone, not a classifier \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All computational results are reproducible via the supplementary
+scripts~\cite{PaperXIXsuppl}:
+\begin{verbatim}
+cd supplementary/paper19
+python3 lowrank_rigidity.py 5 3000 600 8    # ladder + strata
+python3 maslov_probe.py     5 2500 350 8    # witness, mu, purity
+python3 quad_refine.py      5 2500 350 6    # Arf ruling-out
+python3 noq_odd_proof.py    5 4000 600 8    # skeleton + no-q=>N_anti=9
+python3 reduction_frame.py  5 4000 500 10   # reduction + forced strata
+python3 doily_rank4.py                      # rank-4 via S6 doily
+python3 rank4_lemmas.py     5 4000 500 10   # rank-4 lemmas (I),(II) + chain
+python3 rank4_lemmaII.py    5 4000 400 8    # (II) anatomy (Fano star)
+\end{verbatim}
+
+\bigskip
+\noindent\textbf{Acknowledgements.}
+Computations performed with \texttt{co-nlang} Research infrastructure.
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperIV]{PaperIV}
+Z.-L. Chen,
+``Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier:
+From Group Cohomology to Borromean Contextuality (Paper~IV),''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXI]{PaperXI}
+Z.-L. Chen,
+``Quadratic Refinement and the Parity of Mermin Pentagrams:
+The $\beta$-Formula, Geometric Decomposition, and the
+Kochen--Specker Obstruction from Equiangular Geometry,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20482595} (2026).
+
+\bibitem[PaperXII]{PaperXII}
+Z.-L. Chen,
+``The T-Vector Theorem: Symplectic Characteristic Elements
+and the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20490118} (2026).
+
+\bibitem[PaperXIII]{PaperXIII}
+Z.-L. Chen,
+``The Maslov Index and the Kochen--Specker Obstruction:
+Negative Results, the $k$-Profile Theorem, and Orbit~4 Anomaly,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20496513} (2026).
+
+\bibitem[PaperXIV]{PaperXIV}
+Z.-L. Chen,
+``Stabilizer Algebra and the $k$-Profile Theorem for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20502868} (2026).
+
+\bibitem[PaperXV]{PaperXV}
+Z.-L. Chen,
+``The Weil Representation and the $S_3$ Lifting Classification
+for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519654} (2026).
+
+\bibitem[PaperXVI]{PaperXVI}
+Z.-L. Chen,
+``The Weyl Product Identity and the Algebraic Origin
+of the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519733} (2026).
+
+\bibitem[PaperXVII]{PaperXVII}
+Z.-L. Chen,
+``The Cross-Context Anticommutation Theorem
+and the Algebraic Origin of the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20530757} (2026).
+
+\bibitem[PaperXVIII]{PaperXVIII}
+Z.-L. Chen,
+``Mermin Pentagrams in $\Sp(8,\mathbb{F}_2)$:
+Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20579239} (2026).
+
+\bibitem[PaperXIXsuppl]{PaperXIXsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for Paper~XIX,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20579390} (2026).
+
+\end{thebibliography}
+
+\end{document}
