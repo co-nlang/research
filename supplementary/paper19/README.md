@@ -6,8 +6,6 @@ is negative — no relative-position invariant up to arity 4 classifies the fibe
 The paper also contains a positive theorem: **rankG=4 ⟹ N_anti=6** (rigorous,
 via Sylvester + doily dichotomy + C5 non-lifting argument).
 
-Full graded claim ledger: `../../inner/paper19_data.md`.
-
 ## Scripts
 
 | Script | Establishes |
