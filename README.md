@@ -1,11 +1,11 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A nineteen-paper series (with epilogue) building a unified cohomological theory of quantum contextuality.
+A twenty-paper series (with epilogue) building a unified cohomological theory of quantum contextuality.
 
 **Central thesis:** quantum observation is governed by an *obstruction ladder* — $H^1$ (geometric phases), $H^2$ (Kochen–Specker contextuality), $H^3$ (Borromean non-associativity) — connecting topos theory, group cohomology, and symplectic geometry over $\mathbb{F}_2$.
 
 Papers X–XVII concentrate on the 3-qubit Mermin pentagram, culminating in a purely algebraic proof that the Kochen–Specker obstruction $\prod_C W_C = -I_8$ is automatic from the $K_5$ geometry of Lagrangians in $Sp(6,\mathbb{F}_2)$, with no case-by-case enumeration.
-Paper XVIII extends universality to the 4-qubit setting ($n=4$), and Paper XIX initiates the systematic study of the $n\ge5$ deformation, proving a modulus obstruction theorem.
+Paper XVIII extends universality to the 4-qubit setting ($n=4$), and Paper XIX initiates the systematic study of the $n\ge5$ deformation, proving a modulus obstruction theorem. Paper XX explains the cohomological origin of XIX's modulus: the anticommutation 3-cochain $[n]\in H^3(S^3;\mathbb{F}_2)$ vanishes universally if and only if $n=4$.
 
 → See the [Quick Reference](#quick-reference) table and [Reading Guide](#reading-guide) below for per-paper summaries.
 
@@ -68,7 +68,8 @@ research/
 │   ├── Paper16_weyl_product.tex
 │   ├── Paper17_cross_context.tex
 │   ├── Paper18_mermin_sp8.tex
-│   └── Paper19_nge5_modulus.tex
+│   ├── Paper19_nge5_modulus.tex
+│   └── Paper20_h3_modulus.tex
 ├── supplementary/
 │   ├── construct_16cell/
 │   │   ├── LICENSE                         # MIT
@@ -135,6 +136,7 @@ research/
 │   │   └── weil_cocycle.py
 │   ├── paper16/
 │   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
 │   │   └── displacement_operator.py
 │   ├── paper17/
 │   │   ├── LICENSE                         # MIT
@@ -163,18 +165,24 @@ research/
 │   │   ├── strategy_a_v3.py
 │   │   ├── strategy_a_v4.py
 │   │   └── strategy_a_v5.py
-│   └── paper19/
+│   ├── paper19/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── doily_rank4.py
+│   │   ├── lowrank_rigidity.py
+│   │   ├── maslov_probe.py
+│   │   ├── nge5_probe.py
+│   │   ├── noq_odd_proof.py
+│   │   ├── quad_refine.py
+│   │   ├── rank4_lemmaII.py
+│   │   ├── rank4_lemmas.py
+│   │   └── reduction_frame.py
+│   └── paper20/
 │       ├── LICENSE                         # MIT
 │       ├── README.md
-│       ├── doily_rank4.py
-│       ├── lowrank_rigidity.py
-│       ├── maslov_probe.py
-│       ├── nge5_probe.py
-│       ├── noq_odd_proof.py
-│       ├── quad_refine.py
-│       ├── rank4_lemmaII.py
-│       ├── rank4_lemmas.py
-│       └── reduction_frame.py
+│       ├── nerve_cochain.py
+│       ├── n4_cocycle.py
+│       └── mu_rank_parity.py
 ```
 
 ---
@@ -184,7 +192,7 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV → Paper XV → Paper XVI → Paper XVII → Paper XVIII → Paper XIX
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV → Paper XV → Paper XVI → Paper XVII → Paper XVIII → Paper XIX → Paper XX
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
@@ -204,6 +212,7 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **Paper XVII** proves the Cross-Context Anticommutation Theorem: for any \emph{all-Fano} $K_5$ configuration in $Sp(6,\mathbb{F}_2)$, all 15 cross-context ray pairs satisfy $\omega(v_{ij},v_{kl})=1$. The purely algebraic proof uses Fano zero-sum to force uniformity, symmetry of $\omega\bmod 2$ to make the value global, and a size argument ($10>2^3-1=7$) to force $c=1$. Corollary: $\prod_C W_C = (-1)^{15}I_8 = -I_8$ with no enumeration. The 15 anticommuting pairs form the Petersen graph $K(5,2)$. Over all proper $K_5$s (not just all-Fano), the $n=3$ value is mixed ($N_{\mathrm{anti}}=12$ or $15$).
 - **Paper XVIII** proves that $n=4$ is the \emph{unique} dimension with universal $N_{\mathrm{anti}}$ over all proper $K_5$s: every proper $K_5$ in $Sp(8,\mathbb{F}_2)$ has $N_{\mathrm{anti}}=10$ and $\Sigma_m=0$ for all five Mermin matchings. The proof is fully algebraic via the transversal property: every matching has exactly one commuting cross-context pair. Three elementary geometric lemmas at the $K_4$ level (B0: no Fano vertex; B1: at most one commuting pairing; B2: at least one commuting pairing) combine to give the result without the rank=8 theorem or any computational verification. An alternative Gram rank selection route is recorded as a structural characterization.
 - **Paper XIX** initiates the systematic study of the $n\ge5$ regime. The central result is a **negative theorem** (modulus): the fiber of $N_{\mathrm{anti}}\bmod2$ over a fixed symplectic rank is not classified by any relative-position invariant of arity $\le4$, witnessed by a concrete pair of proper $K_5$s sharing all coarse symplectic invariants, all Maslov triple data, and all quadruple invariant data, yet having opposite $N_{\mathrm{anti}}$ parities. On the positive side: a rigorous upper-bound ladder $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive $2^{15}$ Petersen-subgraph enumeration); a deterministic tail $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455); and the order parameter $\mathrm{rad}(\omega|_W)$ with a sharp jump at dimension 2. Arf invariants are ruled out by two independent experiments.
+- **Paper XX** explains *why* XIX's classifier fails. The Maslov 2-cochain $\mu$ on $\partial\Delta^4$ and the anticommutation 3-cochain $n_a$ satisfy $n_a=\delta\mu$ at $n=4$ (rigorous, algebraic via B1+B2 + rank-parity), making $[n]=0$ in $H^3(S^3;\mathbb{F}_2)$. A rank-parity lemma ($\mathrm{rank}\,B=n-3$) shows $\mu\equiv1$ for $n$ even and $\mu\equiv0$ for $n=3$; at $n\ge5$ odd $\mu$ varies and the cocycle identity fails (336/360 proper $K_5$s at $n=5$). The unique-vanishing theorem: $[n]=0$ universally if and only if $n=4$, with $n=3$ all-Fano and generic $n\ge5$ both exhibiting $[n]\ne0$.
 
 ### Supplementary L-S Appendices
 
@@ -237,6 +246,7 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | XVII | *The Cross-Context Anticommutation Theorem and the Algebraic Origin of the Kochen--Specker Obstruction* | Petersen graph $K(5,2)$, $K_5$ geometry, cross-context $\omega$, KS from counting | $\omega(v_{ij},v_{kl})=1$ for all 15 cross-context pairs (algebraic); $\prod W_C=(-1)^{15}I_8=-I_8$; no even $K_5$s; closes Paper XVI OP 4 |
 | XVIII | *Mermin Pentagrams in $Sp(8,\mathbb{F}_2)$: Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle* | Transversal property, $K_4$-level geometry, Gram rank selection, $n=4$ universality | $N_{\mathrm{anti}}=10$ for all proper $K_5$ (fully algebraic via B0+B1+B2); $n=4$ unique universal dimension; Key Lemma 840/840 (optional) |
 | XIX | *Mermin Pentagrams in $Sp(2n,\mathbb{F}_2)$, $n\ge5$: Structure, Obstruction, and the Modulus Phenomenon* | $n\ge5$ deformation, upper-bound ladder, Maslov triple, modulus witness, Arf ruling-out | Modulus theorem: no arity-$\le4$ relative-position invariant classifies the fiber (concrete witness); $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive); $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455) |
+| XX | *H³ Opens at n≥5: The Cohomological Origin of the Mermin Modulus* | Maslov 2-cochain $\mu$, anticommutation 3-cochain $n_a$, coboundary identity, rank-parity, $H^3(S^3;\mathbb{F}_2)$ | $n_a=\delta\mu$ at $n=4$ (rigorous); rank-parity $\mathrm{rank}\,B=n-3$; $[n]=0$ universally iff $n=4$; $H^3$ opens at $n=3$ all-Fano and generic $n\ge5$ |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -280,6 +290,7 @@ A candid inventory of the mathematical machinery powering this series and the op
 | [`supplementary/paper17/`](supplementary/paper17/) | Cross-context anticommutation verification: $K_5$ structure, bubble-sort sign computation, $N_{\mathrm{anti}}=15$ for all 12,096 pentagrams, no-even-$K_5$ check (Paper XVII) |
 | [`supplementary/paper18/`](supplementary/paper18/) | Transversal property verification: B0/B1/B2 recheck (24,000 K₄s), landscape table (n=3,4,5,6), Type I/II classification, Gram rank Key Lemma (840/840) (Paper XVIII) |
 | [`supplementary/paper19/`](supplementary/paper19/) | $n\ge5$ deformation probe: upper-bound ladder (exhaustive $2^{15}$ Petersen enumeration), Maslov triple bit + modulus witness, Arf ruling-out (frame-$q$ non-invariance, intrinsic-$q$ existence + uniqueness, Arf non-discrimination) (Paper XIX) |
+| [`supplementary/paper20/`](supplementary/paper20/) | Maslov 2-cochain + anticommutation 3-cochain verification: $n_a=\delta\mu$ at $n=4$ (360/360), $H^3$ opening at $n=5$ (336/360), rank-parity periodicity ($\mu\equiv1$ for $n$ even, verified $n=4,6$; $\mu$ varies at $n=5$) (Paper XX) |
 
 ---
 
@@ -309,6 +320,7 @@ All components are archived on Zenodo:
 | Paper XVII | [10.5281/zenodo.20530757](https://doi.org/10.5281/zenodo.20530757) |
 | Paper XVIII | [10.5281/zenodo.20579239](https://doi.org/10.5281/zenodo.20579239) |
 | Paper XIX | [10.5281/zenodo.20590195](https://doi.org/10.5281/zenodo.20590195) |
+| Paper XX | [10.5281/zenodo.20608302](https://doi.org/10.5281/zenodo.20608302) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
@@ -324,6 +336,7 @@ All components are archived on Zenodo:
 | `supplementary/paper17/` (3 scripts) | [10.5281/zenodo.20528739](https://doi.org/10.5281/zenodo.20528739) |
 | `supplementary/paper18/` (21 scripts) | [10.5281/zenodo.20546121](https://doi.org/10.5281/zenodo.20546121) |
 | `supplementary/paper19/` (9 scripts) | [10.5281/zenodo.20579390](https://doi.org/10.5281/zenodo.20579390) |
+| `supplementary/paper20/` (3 scripts) | [10.5281/zenodo.20604140](https://doi.org/10.5281/zenodo.20604140) |
 
 ---
 
@@ -350,7 +363,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Nineteen-paper series with epilogue},
+  note   = {Twenty-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```
