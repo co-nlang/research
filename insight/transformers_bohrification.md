@@ -119,18 +119,77 @@ result.
 
 ---
 
-## 5. What This Means
+## 5. The Mamba/SSM split: fidelity, not page (the missing architecture)
 
-The transformer architecture is not a random engineering invention.
-If even one testable prediction (§4) holds under experiment, it
-would suggest that the transformer is an accidentally discovered
-numerical implementation of the Bohrification functor — projecting
-semantic geometry onto a token sequence, with layer depth computing
-successive $d_r$ differentials.
+The §1 table is attention-only. The most important architectural fork since —
+state-space models (Mamba) and Mamba/attention hybrids (Jamba, Zamba, NVIDIA
+Nemotron-H/3) — both refines the correspondence and exposes a **second axis** that
+the spectral-sequence picture quietly conflates.
+
+Two axes:
+- **Page ($d_r$):** the *order* of consistency — how global the gluing check is.
+  Chain-of-Thought pushes to higher pages (§4.2).
+- **Fidelity:** how *exactly* a given level is represented.
+
+Attention and Mamba differ on the **second**, not the first:
+- **Full attention = exact, full-rank $d_1$.** The transition matrix $T_{ij}$ is
+  computed for all pairs — the entire pairwise-compatibility cochain, explicitly.
+- **Mamba/SSM = a low-rank, fixed-capacity *compression* of $d_1$.** History is
+  squeezed into a fixed-dimension state; pairwise relations pass only through that
+  bottleneck. A constant-size state cannot losslessly hold $O(n)$ distinct pairwise
+  relations, so Mamba does not even reach the *full* $d_1$ (all-pairs), let alone a
+  higher page.
+
+So the correct statement is **not "Mamba is a lower page" but "Mamba is lower
+fidelity at the pairwise ($d_1$) level."** This also sharpens the §3 caution:
+*layer depth ≈ page* is too loose — depth and fidelity are independent axes.
+
+**Already matches reality (a retrodiction, stated honestly).** If Mamba is
+compressed-$d_1$, it should fail specifically where exact long-range all-pairs
+structure is needed — retrieval, copying, associative recall, induction heads.
+This is the well-documented SSM weakness, and is exactly why hybrids exist: a few
+attention layers restore the exact all-pairs (retrieval) capability pure Mamba
+lacks. "Faster but higher error" is real, and *directional*.
+
+**The hybrid = the three steps of observation, in hardware.** A Mamba+attention+MoE
+model (Nemotron 3) decomposes into the observation steps of `why_the_ladder.md` §2:
+- **MoE routing = context (MASA) selection** — which classical context to observe
+  each token in;
+- **Attention = the exact transition matrix** — full-rank $d_1$, all-pairs;
+- **Mamba = compressed observation** — cheap, lossy, bulk sequential structure.
+
+It is a *fractal echo* of the `n/` + LLM division of labour (cheap approximate
+observer vs exact observer), now occurring *inside* one model: the architecture has
+**learned a fidelity-allocation strategy** — spend the expensive exact observation
+(attention) only where the cheap compression (Mamba) breaks. The same observation
+economics drives both: exact observation is costly, so use it only where the
+approximation fails.
+
+**⚠️ Status & new testable predictions.** A connect-the-dots, not a theorem
+(cf. §3). But it carries falsifiable content beyond the retrodiction:
+1. In a hybrid, ablating **attention** layers should damage *retrieval/induction*
+   specifically, while ablating **Mamba** layers should damage
+   *throughput/local modelling* — qualitatively different damage profiles.
+2. If Mamba ≈ compressed $d_1$ and CoT pushes to higher pages, then
+   **pure-Mamba models should depend on CoT *more* than attention models** for
+   multi-step reasoning: lacking even exact $d_1$, they need external scaffolding
+   to externalize consistency.
 
 ---
 
-## 6. Open Questions
+## 6. What This Means
+
+The transformer architecture is not a random engineering invention.
+If even one testable prediction (§4–5) holds under experiment, it
+would suggest that the transformer is an accidentally discovered
+numerical implementation of the Bohrification functor — projecting
+semantic geometry onto a token sequence, with depth and architecture
+(attention vs SSM) computing the spectral sequence at varying *page*
+and *fidelity* (§5).
+
+---
+
+## 7. Open Questions
 
 1. Can the spectral sequence page of a given transformer be empirically
    measured? (e.g., by probing PPL as a function of depth for different

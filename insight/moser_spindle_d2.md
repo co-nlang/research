@@ -1,218 +1,134 @@
-# The $d_2$ Transgression in Moser Spindle
+# Graph Coloring as a Cohomological Obstruction
 
-**A worked example of the LHS spectral sequence applied to a $3$-coloring CSP.**
+**Moser Spindle, Petersen = Kneser, and the distributed bridge.**
 
----
-
-## 1. Why Moser Spindle
-
-Moser Spindle is the smallest unit-distance graph requiring $4$ colors.
-It has $7$ vertices and $11$ edges. We ask: at which page of the LHS
-spectral sequence does the obstruction to $3$-coloring first appear?
-
-The answer: **$E_3$**. The $d_2$ transgression is the first non-zero
-differential, and it kills the last apparent global section.
+> **Revision note (2026-06-14).** This note began (Paper IV–VI era) as an
+> intuition-driven sketch titled *"The $d_2$ Transgression in Moser Spindle."*
+> The combinatorial core was right; the machinery was shoehorned. This revision
+> keeps the worked example, **retracts** the $d_2$/$U(1)$-transgression and
+> "NP-completeness fingerprint" overclaims, and replaces them with the correct
+> cohomological framing — plus the genuinely rigorous coloring/topology theorem
+> (Lovász–Borsuk–Ulam) that the original was groping toward, and the distributed
+> bridge (Herlihy) that actually connects back to `n/`.
 
 ---
 
-## 2. Graph Construction
+## 1. The worked example: why Moser Spindle is not 3-colorable
 
-```
-        x1 -- y1 -- z1
-       /  \  /      \
-      w -- A         B -- ?
-       \  /  \      /
-        x2 -- y2 -- z2
-```
+The Moser spindle is the smallest unit-distance graph requiring 4 colors:
+7 vertices, 11 edges. Vertices $\{w, A, B, C, D, y_1, y_2\}$, built from two
+"rigid diamonds" (each = two triangles sharing an edge) glued at $w$, with a
+cross edge $(y_1, y_2)$.
 
-The structure: two triangles $(w, A, B)$ and $(y_1, A, B)$ share base
-$(A, B)$ forming left "rigid diamond"; two triangles $(w, C, D)$ and
-$(y_2, C, D)$ share $(C, D)$ forming the right rigid diamond; the
-cross edge $(y_1, y_2)$ creates the global contradiction.
+**Local rigidity (the heart).** In a diamond — two triangles sharing edge
+$(A,B)$, apex vertices $w$ and $y_1$ — any 3-coloring forces $w$ and $y_1$ to
+the *same* color (each is the unique third color against $\{c(A),c(B)\}$). So:
 
-Vertices: $\{w, A, B, C, D, y_1, y_2\}$.
+- Left diamond $U_L=\{w,A,B,y_1\}$ forces $c(y_1)=c(w)$.
+- Right diamond $U_R=\{w,C,D,y_2\}$ forces $c(y_2)=c(w)$.
+- Cross edge $U_C=\{y_1,y_2\}$ requires $c(y_1)\ne c(y_2)$.
 
-Contraints (edges): $11$ binary inequality constraints $\neq$.
-Arity: $3$-coloring means $c(v) \in \{0, 1, 2\}$ with $c(u) \neq c(v)$
-for every edge.
+Hence $c(y_1)=c(w)=c(y_2)$ yet $c(y_1)\ne c(y_2)$ — contradiction. No global
+3-coloring. This is the entire proof, and it is correct.
 
----
+## 2. The clean cohomological framing (corrected)
 
-## 3. Good Cover $\mathcal{U}$ with Three MASAs
+Cover the graph by the three contexts $U_L, U_R, U_C$ above (pairwise overlaps
+$\{w\}$ — vacuous, $\{y_1\}$, $\{y_2\}$; empty triple overlap, so the nerve is
+**1-dimensional**). Let $\mathcal{F}$ be the presheaf of locally-consistent
+3-colorings ($\mathcal F(U)$ = colorings of $U$'s vertices satisfying its edges).
 
-We decompose the graph into three overlapping measurement contexts:
+The right statement is **Abramsky's sheaf-theoretic contextuality**
+(Abramsky–Brandenburger; Abramsky–Mansfield–Barbosa, *contextuality, cohomology
+and paradox*): a CSP / coloring problem is an empirical model over this cover;
+**non-colorability = no global section = $\check H^0(\mathcal U,\mathcal F)=\varnothing$**,
+and the **Čech $\check H^1$ obstruction** (with the abelian linearization of
+$\mathcal F$) is a *witness* for it. Here the witness is the cocycle on the cross
+edge: the two diamonds each transport "$c(w)$" to $y_1, y_2$, and the edge
+$(y_1,y_2)$ refuses to glue them — a local-to-global gluing failure on a
+1-dimensional nerve. **This is the same machine as Kochen–Specker** (§6).
 
-| Context | Vertices | Internal structure | Role |
-|---------|----------|-------------------|------|
-| $U_L$ | $\{w, A, B, y_1\}$ | Two triangles on $(A, B)$ | Left rigid diamond |
-| $U_R$ | $\{w, C, D, y_2\}$ | Two triangles on $(C, D)$ | Right rigid diamond |
-| $U_C$ | $\{y_1, y_2\}$ | Single edge | Conflict detection |
+What is *not* right (the retraction): there is no central $U(1)$ extension and no
+LHS $d_2$ transgression here — 3-coloring constraints are $\mathbb Z/3$/set-valued,
+not a group extension. The "$d_2$" language and the "spectral fingerprint of
+NP-completeness" claim were forced analogies. (A single fixed 4-chromatic graph
+is a finite fact; NP-completeness is a worst-case statement over *all* graphs —
+the two are not the same object.)
 
-Pairwise overlaps:
-- $U_L \cap U_R = \{w\}$ (single vertex, no constraint)
-- $U_L \cap U_C = \{y_1\}$
-- $U_R \cap U_C = \{y_2\}$
+## 3. The rigorous coloring/topology theorem — and where Petersen sits
 
-Triple overlap: $U_L \cap U_R \cap U_C = \varnothing$.
+The genuinely rigorous "coloring = cohomology" statement is **Lovász's
+topological lower bound** (his proof of the Kneser conjecture via Borsuk–Ulam):
+$$\chi(G)\ \ge\ \mathrm{conn}\big(N(G)\big)+3 \quad\Longleftrightarrow\quad
+  \chi(G)\ \ge\ \mathrm{ind}_{\mathbb Z/2}\big(B(G)\big)+2,$$
+where $N(G)$ is the neighborhood complex and $B(G)$ the (box) complex. The
+chromatic number is bounded below by a **$\mathbb Z/2$-Borsuk–Ulam obstruction**,
+detected by Stiefel–Whitney classes. This is "the obstruction to $k$-coloring is
+a $\mathbb Z/2$ cohomology class" — rigorously, not by analogy.
 
----
+**The connection to this project:** the bound is *tight* exactly on **Kneser
+graphs**, $\chi(K(n,k))=n-2k+2$ — and **the Petersen graph of Paper XVII is the
+Kneser graph $K(5,2)$** (vertices = 2-subsets of $\{1,\dots,5\}$ = the 10 rays;
+edges = disjoint pairs = the 15 anticommuting cross-context pairs). So XVII's
+anticommutation graph sits precisely in the family where chromatic number *is* a
+Borsuk–Ulam cohomological obstruction. $\chi(K(5,2))=3$.
 
-## 4. Coefficient Sheaf $\mathcal{F}$
+## 4. Correction: Petersen is 3-(vertex)-colorable; it is a snark
 
-The sheaf $\mathcal{F}$ of admissible $3$-colorings assigns to each
-open set $U$ the set of $3$-colorings of its vertices satisfying all
-edges within $U$. For a single vertex, $\mathcal{F}(\{v\}) = \{0,1,2\}$
-(all colors available locally). For an edge, $\mathcal{F}(\{u,v\})$
-contains the $3 \times 2 = 6$ ordered pairs with $c(u) \neq c(v)$.
+RESEARCH_FRONTIER item 16 states "Petersen is non-3-colorable ($\chi=4$)" — this
+is **wrong for vertex coloring**: $\chi(\text{Petersen})=3$ (the Kneser value).
+What is special is that Petersen is the **smallest snark**: bridgeless cubic and
+*not 3-edge-colorable*, $\chi'=4=\Delta+1$. So a precise KS $\leftrightarrow$
+Petersen link must go through either (a) the **snark / edge-coloring** property,
+or (b) the **Borsuk–Ulam / Kneser** structure of §3 — not generic vertex
+non-3-colorability. (Item 16 should be re-posed accordingly.)
 
-**Key local rigidity** (both diamonds): In each triangle
-$(w, A, B)$, the three vertices must use $3$ distinct colors.
-Given $c(A), c(B)$ fixed to two colors, $w$ is forced to the
-third. The same applies to $y_1$ in $(y_1, A, B)$. Hence within
-$U_L$, $c(w) = c(y_1)$ is forced for any consistent $3$-coloring.
-Similarly, $c(w) = c(y_2)$ within $U_R$.
+## 5. The distributed bridge — the part that returns to `n/`
 
----
+The coloring $\to$ topology $\to$ distributed-computing chain is real and
+load-bearing: **Herlihy–Kozlov–Rajsbaum, *Distributed Computing Through
+Combinatorial Topology*** (the asynchronous computability theorem of
+Herlihy–Shavit). Wait-free solvability of a task $\Longleftrightarrow$ existence
+of a **chromatic** simplicial map from a *chromatic subdivision* of the input
+complex to the output complex — where "chromatic" literally means colored by
+process IDs, and unsolvability is a topological obstruction.
 
-## 5. $E_1$ Page: Local Section Space
+This is the version of "coloring = topology" that matters for `n/`: APP_07
+already maps the obstruction ladder onto distributed computing (CAP/FLP/Byzantine).
+Herlihy's chromatic-subdivision topology is the rigorous body that should sit
+behind APP_07's $H^2/H^3$ rows — more relevant than any plane-coloring result.
 
-The Čech cochain groups on $\mathcal{U}$ with coefficients in $\mathcal{F}$:
+## 6. Comparison with Kochen–Specker (refined)
 
-$$C^0(\mathcal{U}, \mathcal{F}) = \mathcal{F}(U_L) \oplus \mathcal{F}(U_R) \oplus \mathcal{F}(U_C)$$
-$$C^1(\mathcal{U}, \mathcal{F}) = \mathcal{F}(U_L \cap U_R) \oplus \mathcal{F}(U_L \cap U_C) \oplus \mathcal{F}(U_R \cap U_C)$$
-$$C^2(\mathcal{U}, \mathcal{F}) = 0 \quad \text{(no triple overlap)}$$
+| Feature | Peres–Mermin (KS) | Moser Spindle (CSP) |
+|---|---|---|
+| Base nerve | $K_{3,3}$ (1-dim) | 3-context cover (1-dim) |
+| Fiber / coefficients | Pauli group (central $\pm1$) | 3-coloring constraint presheaf |
+| Obstruction | $-\mathbf I$ central sign, $H^2$(group) | no global section, $\check H^1$(sheaf) |
+| Common form | **1-dim nerve, gluing failure carried by the fiber/coefficients** | same |
 
-The $d_1$ differential restricts sections to overlaps:
+Both are local-to-global gluing failures on a 1-dimensional nerve — the shared
+"holographic" shape of the whole series (boundary/local data fails to determine
+the global). The honest caveat: the *coefficient systems differ* (a group
+central extension vs a constraint presheaf), so they are siblings under the
+Abramsky sheaf framework, not literally the same class.
 
-$$(d_1 s)_{U_{ij}} = s_i|_{U_{ij}} - s_j|_{U_{ij}}.$$
+## 7. Off-ladder (kept as scenery): Hadwiger–Nelson
 
-At $E_1$, $d_1$ measures **arc consistency**: whether local color
-assignments agree on shared vertices.
-
----
-
-## 6. $E_2$ Page: Apparent Compatibility
-
-Fix $c(w) = 0$ (red). Within $U_L$, the two triangles force
-$c(y_1) = 0$. Within $U_R$, similarly $c(y_2) = 0$.
-
-Pick local sections:
-- $s_L \in \mathcal{F}(U_L)$: $c(w)=0$, $c(A)=1$, $c(B)=2$, $c(y_1)=0$
-- $s_R \in \mathcal{F}(U_R)$: $c(w)=0$, $c(C)=1$, $c(D)=2$, $c(y_2)=0$
-- $s_C \in \mathcal{F}(U_C)$: any pair with $c(y_1) \neq c(y_2)$,
-  e.g. $c(y_1)=1, c(y_2)=2$.
-
-Check $d_1$ on overlaps:
-- $U_L \cap U_R = \{w\}$: $s_L(w)=0$, $s_R(w)=0$ → agree.
-- $U_L \cap U_C = \{y_1\}$: $s_L(y_1)=0$, $s_C(y_1)=1$ → **disagree.**
-- $U_R \cap U_C = \{y_2\}$: $s_R(y_2)=0$, $s_C(y_2)=2$ → **disagree.**
-
-So this triple does not satisfy $d_1(s)=0$. We must search for
-alternatives in $\ker(d_1)$. The question: is there *any* choice
-of local sections in $\ker(d_1)$?
-
-**Attempt 1:** $c(w)=0$, $c(y_1)=0$, $c(y_2)=0$. Then $s_C$ must
-satisfy $c(y_1)\neq c(y_2)$, which fails. ✗
-
-**Attempt 2:** $c(w)=1$, $c(y_1)=1$, $c(y_2)=1$. Same failure. ✗
-
-**Attempt 3:** $c(w)=2$, $c(y_1)=2$, $c(y_2)=2$. Same failure. ✗
-
-At $E_2$, $\check{H}^0(\mathcal{U}, \mathcal{F}) = \ker(d_1) = 0$.
-The chain complex appears to have **no global section** already
-at $E_2$. But this is deceptive — we haven't considered that
-$s_L$, $s_R$, $s_C$ could each have different color permutations
-while still satisfying internal constraints.
-
-**The real $E_2$:** The rigorous computation reveals that
-$\check{H}^1(\mathcal{U}, \mathcal{F})$ is non-trivial at $E_2$,
-containing a class $[\omega]$ generated by the constraint
-mismatch on the cross edge $(y_1, y_2)$.
+Moser Spindle's native home is the **Hadwiger–Nelson problem** (chromatic number
+of the plane): it was the standing lower-bound witness ($\chi(\mathbb R^2)\ge4$)
+until **de Grey (2018)** built a 1581-vertex unit-distance graph with $\chi=5$
+(later reduced to ~509 by Polymath16), giving $\chi(\mathbb R^2)\ge5$. But these
+bounds are *geometric/combinatorial* (exhibit a finite $k$-chromatic
+unit-distance graph); the Lovász–Borsuk–Ulam machinery of §3 does **not** grab
+the plane's chromatic number. Beautiful, but it does not feed the cohomological
+ladder — a genuine rabbit hole, correctly left in the backlog
+(RESEARCH_FRONTIER, alongside item 12).
 
 ---
 
-## 7. $d_2$ Transgression: The Obstruction Appears
-
-The LHS spectral sequence uses coefficients in $U(1)$ (or $\mathbb{Z}$)
-rather than the set-valued sheaf $\mathcal{F}$. The transgression is:
-$$d_2: E_2^{0,1} \longrightarrow E_2^{2,0}.$$
-
-Here $E_2^{0,1}$ contains $H^1(\mathcal{U}, \underline{U(1)})$ —
-the first cohomology of the nerve with constant $U(1)$ coefficients,
-generated by the $1$-cocycle that "wraps" the cross edge $(y_1, y_2)$.
-
-The $d_2$ map evaluates this $1$-cocycle on the constraint mismatch:
-
-$$d_2([\omega]) = \text{the obstruction class } [\mathcal{O}]$$
-where $\mathcal{O}$ is the $2$-cocycle that records the failure
-of the two 4-cycles (diamonds) to agree on the conflict edge.
-
-The explicit computation:
-
-$$d_2([\omega])(y_1, y_2) = \omega(\text{path}_L \circ \text{path}_R^{-1}) \neq 1 \in U(1).$$
-
-This is exactly the **Aharonov-Bohm holonomy** of the CSP —
-traverse the left diamond (fixing $y_1$ from $w$), then traverse
-the right diamond backward (fixing $w$ from $y_2$), and the
-accumulated phase is a $U(1)$ element that must be trivial for
-a global $3$-coloring to exist.
-
-For Moser Spindle, $d_2([\omega]) \neq 0$. Hence the class $[\omega]$
-does not survive to $E_3$. $E_3^{0,1}=0$.
-
----
-
-## 8. $E_3$ Page: Convergence
-
-With $E_2^{0,1}$ annihilated by $d_2$, the only remaining term is
-$E_3^{0,0}$, which is the $E_\infty$ limit:
-
-$$E_3 = E_\infty = \check{H}^0(\mathcal{U}, \mathcal{F}) = 0.$$
-
-**The spectral sequence proves that no global $3$-coloring exists.**
-
-The obstruction manifests not on any $2$-simplex of the base graph
-(the nerve is $1$-dimensional) but in the *classifying space* of the
-coloring constraints. The $d_2$ transgression is the bridge between
-the base geometry (the graph's nerve) and the fiber algebra
-(the $3$-coloring constraint sheaf).
-
----
-
-## 9. Summary Table
-
-| Page | What is computed | CSP analogue | Result |
-|------|-----------------|--------------|--------|
-| $E_1$ | $d_1$ = restriction to overlaps | Arc consistency | Passes (each diamond OK) |
-| $E_2$ | $\ker(d_1)$ = local sections | Path consistency | Looks possible, but... |
-| $d_2$ | Transgression through fiber holonomy | Cross-edge contradiction | **$d_2 \neq 0$** |
-| $E_3$ | $\ker(d_2)$ = survivors | No global section | $= 0$ → No $3$-coloring |
-
-**The $d_2$ transgression is the spectral fingerprint of
-NP-completeness in the $3$-coloring problem.** It appears at the
-first page where the $k$-consistency hierarchy jumps from
-local (per-diamond) to global (cross-edge) reasoning.
-
----
-
-## 10. Comparison with Kochen-Specker (Peres-Mermin)
-
-| Feature | Peres-Mermin (KS) | Moser Spindle (CSP) |
-|---------|-------------------|---------------------|
-| Base nerve | $K_{3,3}$ ($1$D) | $7$-vertex graph ($1$D) |
-| Fiber | Pauli group $\mathcal{P}_2^H$ | $3$-coloring constraints |
-| Obstruction | $-\mathbf{I}$ (central sign) | Cross-edge contradiction |
-| $d_2$ holonomy | $\exp(iq\Phi/\hbar) = -1$ | $d_2([\omega]) \neq 0$ |
-| Cohomology | $H^2(\bar{\mathcal{P}}_2, \{\pm 1\})$ | $\check{H}^2(\mathcal{U}, \mathcal{F})$ |
-
-Both are manifestations of the same phenomenon: a $1$-dimensional
-nerve whose fiber carries a non-trivial constraint that the $d_2$
-transgression exposes as a $2$-dimensional cohomology class.
-
----
-
-*This note is part of the obstruction ladder project and was
-developed through the cohomological lens of CSP complexity
-theory. The $d_2$ computation for Moser Spindle is a worked
-example of how algebraic topology translates constraint
-satisfaction into obstruction theory.*
+*Summary of the revision: the CSP-as-gluing-failure instinct was right and is
+exactly Abramsky's sheaf contextuality; the rigorous coloring-cohomology is
+Lovász/Borsuk–Ulam, sharp on Kneser = Petersen (XVII); the `n/`-relevant bridge
+is Herlihy's distributed topology; the $d_2$/NP framing and the Hadwiger–Nelson
+line are retracted to honest status.*

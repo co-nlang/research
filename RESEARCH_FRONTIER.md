@@ -158,6 +158,44 @@ The prime $7$ in the 3-qubit automorphism group is geometrically significant: $P
 
 ---
 
+### Rank-Parity and Symmetric Forms over $\mathbb{F}_2$
+
+**Role:** The order parameter that governs the Maslov cochain and the entire $n$-dependence of the $H^3$ ladder. For a proper triple of Lagrangians the relative position is encoded by a symmetric bilinear form $B$ on a projected Lagrangian, with $\mathrm{rank}\,B = n-3$. Over $\mathbb{F}_2$ a symmetric form is alternating (its diagonal quadratic refinement vanishes) if and only if its rank is even — so the Maslov bit $\mu\equiv1$ exactly when $n$ is even. This single lemma yields $\mu\equiv0$ at $n=3$, $\mu\equiv1$ for even $n$, and varying $\mu$ for odd $n\ge5$, driving both Paper XX's vanishing theorem and Paper XXI's even/odd carrier dichotomy.
+
+**Where used:** Paper XX (rank-parity lemma); Paper XXI (master theorem, dichotomy); Paper XXII (the $K_4/H^2$ rung).
+
+**Key references:** Wall (1963), Dieudonné (1955).
+
+---
+
+### The Maslov–Wall Relative-Position Complex
+
+**Role:** The correct cochain home of the $H^3$ obstruction — *not* the geometric Čech intersection nerve. For a proper $K_N$ the intersection nerve collapses to the 1-skeleton $K_N$ (triple intersections vanish), with $H^3=0$; the obstruction instead lives in the complex of *relative-position* data on the abstract index simplex $\partial\Delta^{N-1}\cong S^{N-2}$. There the Maslov bit $\mu$ is a 2-cochain and the anticommutation count $\mathbf a$ a 3-cochain, with $\mathbf a=\delta\mu$ at $n=4$; the failure $\delta\mu\ne0$ (odd $n\ge5$) is Wall non-additivity of the signature, and $N_{\mathrm{anti}}\bmod2=\langle\mathbf a,[S^{N-2}]\rangle$.
+
+**Where used:** Paper XX (the cochain complex, $\mathbf a=\delta\mu$); Paper XXII (resonance tower, truncation).
+
+**Key references:** Wall (1969), Lion–Vergne (1980), Kashiwara (Maslov index).
+
+---
+
+### The Arity–Resonance Principle and the Incidence-Clique Criterion
+
+**Role:** Pins the *degree* at which a contextuality obstruction lives. A relative-position datum of arity $a$ is intrinsically an $(a-1)$-cochain; on a proper $K_N$ (nerve $S^{N-2}$) it hits the top cohomology iff $N=a+1$. The family-A cohomological ceiling is the graph invariant $\min(\omega(G)-2,\,3)$, where $\omega(G)$ is the clique number of the incidence graph — saturated uniquely at the pentagram ($\omega=5$). A companion construction, **spread-stabilisation** (appending $5$ pairwise-transverse Lagrangians from a Lagrangian spread of $\mathrm{Sp}(2m,\mathbb{F}_2)$, of which a spread contains $2^m+1$), transports witnesses to every $n\ge5$ while preserving the ray Gram matrix.
+
+**Where used:** Paper XXI (spread-stabilisation); Paper XXII (arity-resonance, truncation, clique criterion).
+
+---
+
+### Steenrod Operations and the Heisenberg LHS Spectral Sequence
+
+**Role:** The candidate machine for unifying the $H^2$ (central-extension) and $H^3$ (anticommutation) families. The cohomology of the symplectic vector space is the polynomial ring $H^*(V;\mathbb{F}_2)=\mathbb{F}_2[x_1,\dots,x_{2n}]$; the LHS transgression of the Heisenberg extension $1\to\mathbb{Z}_2\to P_n\to V\to1$ sends the fiber generator to the symplectic form $\omega=\sum_i x_ix_{i+n}\in H^2(V)$ (the family-B class), and the Steenrod square $\mathrm{Sq}^1\omega=\sum_i(x_i^2x_{i+n}+x_ix_{i+n}^2)\in H^3(V)$ is the candidate family-A source. The nerve-side shortcut (the cup-1 square $\mu\cup_1\mu$) is ruled out, since $\mu$ is not a cocycle off the resonance.
+
+**Where used:** Paper XXII (§Outlook, Direction D); builds on Paper IV (LHS transgression) and Paper XV (Weil/metaplectic).
+
+**Key references:** Steenrod–Epstein (1962), Quillen (1971), Hochschild–Serre (1953).
+
+---
+
 ## Part II: The "Regrets" & Open Questions
 
 *We know exactly where the gaps are. Here they are, unvarnished.*
@@ -303,15 +341,23 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 **What's needed:** Either (a) prove the theorem for all $n$ via a structural argument not relying on the dimension bound, or (b) exhibit an explicit $K_5$ of Lagrangians in $Sp(8,\mathbb{F}_2)$ with $c=0$ (an "even $K_5$"). The latter would imply that the KS obstruction is not universal for $n$-qubit systems with $n\geq 4$.
 
+**Update — RESOLVED (Papers XVIII–XXI):** the theorem does not extend as uniform anticommutation. Paper XVIII proves that at $n=4$ every proper $K_5$ has $N_{\mathrm{anti}}=10$ (not $15$) universally, via three $K_4$-level lemmas (B0/B1/B2); Paper XIX exhibits the $n\ge5$ **modulus** (both parities of $N_{\mathrm{anti}}$ occur, with an explicit witness pair); Paper XXI's master theorem shows universal $N_{\mathrm{anti}}=10$ holds **iff $n=4$**. So "even $K_5$s" abound for $n\ge5$ and the KS count is non-universal beyond $n=4$ — but its $\bmod\,2$ reduction is exactly the $H^3$ class of Paper XX (see items 19–24).
+
 ---
 
-### 16. Petersen Graph Non-3-Colorability and KS No-Coloring (Paper XVII, Open Problem 2)
+### 16. KS No-Coloring and the Petersen = Kneser $K(5,2)$ Structure (Paper XVII, Open Problem 2)
 
-**Status:** The 15 cross-context ray pairs of any Mermin pentagram form the edge set of the Petersen graph $K(5,2)$. The Petersen graph is famously non-3-colorable (chromatic number 4) and is the unique $(3,5)$-cage. The KS theorem asserts that the 10-ray system admits no binary valuation consistent with the commutativity constraints.
+**Status (corrected 2026-06-14):** The 15 cross-context ray pairs of any Mermin pentagram form the edge set of the Petersen graph, which **is the Kneser graph $K(5,2)$** (vertices = 2-subsets of $\{1,\dots,5\}$ = the 10 rays; edges = disjoint pairs). The KS theorem asserts the 10-ray system admits no binary valuation consistent with the commutativity constraints.
 
-**The connection to make precise:** The Petersen graph's non-3-colorability and the KS no-coloring result both assert the impossibility of a consistent global assignment. Is there a direct combinatorial proof that the Petersen structure of the cross-context anticommutation pattern forces the KS obstruction? A direct proof would bypass the Weyl algebra entirely and give a purely graph-theoretic statement of KS contextuality.
+> ⚠️ **Correction.** An earlier version of this item claimed Petersen is "non-3-colorable ($\chi=4$)." That conflates vertex and edge coloring. Petersen is **3-vertex-colorable**: $\chi=3$, exactly the Kneser value $n-2k+2=3$. What is special is that it is the **smallest snark** — bridgeless cubic and *not 3-edge-colorable*, $\chi'=4=\Delta+1$. So the KS link cannot run through generic vertex non-3-colorability.
 
-**What's needed:** Formulate the KS coloring constraint as a graph-coloring problem on the Petersen graph and identify which classical graph-theoretic property (non-3-colorability, odd cycle structure, Petersen's theorem on cubic graphs) is the direct witness.
+**Two rigorous routes to re-pose the connection:**
+1. **Snark / edge-coloring.** The genuine "impossibility" property of Petersen is the snark property ($\chi'=4$). If the KS no-valuation maps to non-3-edge-colorability, that is the precise graph-theoretic witness.
+2. **Borsuk–Ulam / Kneser (the deep one).** Lovász: $\chi(G)\ge \mathrm{ind}_{\mathbb Z/2}(B(G))+2$, tight on Kneser graphs ($\chi(K(n,k))=n-2k+2$). So on $K(5,2)$ the chromatic number *is* a $\mathbb Z/2$ cohomological (Stiefel–Whitney) obstruction. This is "coloring = cohomology" rigorously, sitting exactly on XVII's graph.
+
+**Honest caveat (Abramsky frame).** KS-no-valuation and graph-coloring share a *form* (no global section on a 1-dim nerve, Abramsky sheaf cohomology) but differ in *coefficient system* (Pauli central $\pm1$ vs a coloring constraint sheaf). They are **siblings**, likely not literally the same class — so the goal is the precise relation, not an identification.
+
+**What's needed:** decide which route (snark vs Borsuk–Ulam) actually carries the KS obstruction, or formalize the sibling relation in the Abramsky framework. For the `n/` payoff, connect to **Herlihy–Kozlov–Rajsbaum distributed-computing topology** (chromatic subdivision; colors = process IDs), the rigorous body linking coloring → topology → distributed solvability that should sit behind APP_07's $H^2/H^3$ rows. See `research/insight/moser_spindle_d2.md` (revised).
 
 ---
 
@@ -336,11 +382,59 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 ---
 
+### 19. The Degree Ceiling: Why $H^3$ and Not $H^4$ (RESOLVED, Paper XXII)
+
+**Status: RESOLVED.** A standing worry was whether the ladder continues $H^3\to H^4\to\cdots$. Paper XXII's **arity–resonance principle** answers no: the anticommutation datum is intrinsically a 3-cochain, so on a proper $K_6$ (nerve $S^4$) its degree-4 assembly $\mathbf c$ is the *exact coboundary* $\delta\mathbf a$, and the $H^4$ class vanishes for every proper $K_6$ (which do exist). The pentagram is the unique resonance; the ladder is a two-rung tower ($K_4/H^2$, $K_5/H^3$) with a lid. The sphere $S^4$ carries $H^4$ topologically, but the symplectic data does not climb it.
+
+**Residual:** whether genuinely higher-arity (irreducible 5-Lagrangian) data — not furnished by a bilinear form — could reach $H^4$ on some other configuration (see item 21).
+
+---
+
+### 20. Even-$n$ Equidistribution of the $H^3$ Class (Open, Partial)
+
+**Status:** For even $n\ge6$ the $H^3$ class $N_{\mathrm{anti}}\bmod2$ is empirically a fair coin, carried by $\mathbf a$ alone (Paper XXI). Partial results: the class reduces to a sum of foot-functional bits $\Sigma=b_1\oplus b_2\oplus b_3$, and the **uniform-foot lemma** (the stabiliser of a Lagrangian surjects onto $\mathrm{GL}(L)$, transitive on $L\setminus\{0\}$) gives a single-constraint foot-bit bias of exactly $1/(2^n-1)$. The fair-coin behaviour is then a **piling-up** (XOR of weakly-biased near-independent bits) phenomenon.
+
+**What's needed:** bound the foot-bit bias and correlations under the *simultaneous* constraints (the multi-constraint foot map $L_4\mapsto(v_{14},v_{24},v_{34})$), upgrading the asymptotic fair coin to a theorem. The per-value distribution is *not* uniform (it peaks at $a_m=2$); the statement concerns the parity only.
+
+---
+
+### 21. The Arity-5 Lid (Open)
+
+**Status:** The truncation theorem (item 19) shows the *bilinear* (Maslov/anticommutation) data tops out at arity 4. Paper XIX's quadruple invariant $q_4$ is itself arity-4 and empirically saturated.
+
+**What's needed:** prove there is no *irreducible* arity-5 symplectic $\mathbb{F}_2$ invariant of five Lagrangians — i.e. that the symplectic form generates nothing genuinely 5-ary. This upgrades the truncation from "the natural data does not climb" to "no natural data can," making $H^3$ a provable hard ceiling for Pauli contextuality.
+
+---
+
+### 22. Family-B Resonance and the Contextuality Taxonomy (Open)
+
+**Status:** Paper XXII shows contextuality configurations split (at least) into two cohomological families by the incidence clique number: **family A** (all-pairwise $K_N$, anticommutation, ceiling $H^3$ at the pentagram) and **family B** (bipartite/triangle-free, central-extension sign class — e.g. the Mermin–Peres square, six Lagrangians in $Sp(4,\mathbb{F}_2)$ with $K_{3,3}$ incidence, at $H^2$). The clique criterion governs family A; family B is governed by the quadratic-refinement / $\pm I$ phase.
+
+**What's needed:** a resonance principle for family B — does a larger bipartite $K_{m,n}$ carry a degree-3 central-extension class (the family-B analogue of "why the pentagram")? And a single statement classifying an arbitrary Lagrangian configuration into its family by incidence type.
+
+---
+
+### 23. The $A\leftrightarrow B$ Unification: The Homotopy-Coherent Comparison Map (Open — Capstone)
+
+**Status:** The two families are conjecturally pages of one Lyndon–Hochschild–Serre spectral sequence (the Heisenberg extension), with $\omega\in H^2(V)$ (family B) transgressing and $\mathrm{Sq}^1\omega\in H^3(V)$ the candidate family-A source. The proposed bridge is the pairing $N_{\mathrm{anti}}\bmod2=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$, with the $n=4$ rigidity recast as: pentagram 3-cycles annihilate $\mathrm{Sq}^1\omega$ until $V$ is large enough. The nerve-side cup-1 shortcut $\mu\cup_1\mu$ is **ruled out** (Paper XXII §Outlook): $\mu$ is not a cocycle off the resonance.
+
+**What's needed:** construct the **homotopy-coherent comparison map** $\partial\Delta^4\to BV$ whose coherence obstruction is precisely $\mathbf a$ — the rays fail to compose ($v_{ij}+v_{jk}\ne v_{ik}$ off Fano triangles), so no *strict* simplicial map exists — and verify the pairing; equivalently, prove Paper XV's Weil/metaplectic 2-cocycle is the geometric transgression carrying the $H^2$ class to the $H^3$ class. This is the genuinely $\infty$-categorical heart of the unification.
+
+---
+
+### 24. The Operational Meaning of the $H^3$ Borromean Class (Open — Long Horizon)
+
+**Status:** The class $[\mathbf a]\in H^3$ is a rigorous symplectic-geometric obstruction, but its meaning as a *physical* quantity is unknown. Paper IV anticipated it as **Borromean contextuality** — not witnessable by any $\le4$-context subsystem — and Paper XIX's modulus witness (two configurations agreeing on all arity-$\le4$ data, opposite $H^3$ class) is exactly such a pair.
+
+**What's needed:** connect $[\mathbf a]$ to a measurement-level invariant. The natural bridge is the sheaf-theoretic cohomological contextuality of Abramsky–Mansfield–Barbosa / Raussendorf, where contextuality is a $\mathbb{Z}_2$ cohomology class of the measurement cover; is $[\mathbf a]$ the degree-3 member of that family, and does $[\mathbf a]=1$ certify a genuine 5-party contextuality with an operational (device-independent) signature? This is the question the mathematics has outrun, and the one the series is ultimately *for*.
+
+---
+
 ## How to Contribute
 
 This document is both a guide and an invitation. If you have expertise in any of the areas above — spectral sequences, topos theory, octonions, SAT solving, twistor theory, symplectic finite geometry, or modular forms — the open questions listed here are concrete, well-scoped, and mathematically meaningful.
 
-The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 are from Papers VII–IX. Items 15–18 are from Papers XVI–XVII and form the current research frontier.
+The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 from Papers VII–IX; items 15–18 from Papers XVI–XVII. Items 19–24 are from Papers XVIII–XXII and form the **current research frontier** — item 15 is now resolved (Papers XVIII–XXI) and item 19 records a positive resolution (the arity ceiling); items 20–24 are open, with item 23 (the $A\leftrightarrow B$ unification) the present capstone.
 
 ---
 

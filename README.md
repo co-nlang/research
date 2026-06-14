@@ -1,11 +1,11 @@
 # The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality
 
-A twenty-paper series (with epilogue) building a unified cohomological theory of quantum contextuality.
+A twenty-two-paper series (with epilogue) building a unified cohomological theory of quantum contextuality.
 
 **Central thesis:** quantum observation is governed by an *obstruction ladder* — $H^1$ (geometric phases), $H^2$ (Kochen–Specker contextuality), $H^3$ (Borromean non-associativity) — connecting topos theory, group cohomology, and symplectic geometry over $\mathbb{F}_2$.
 
 Papers X–XVII concentrate on the 3-qubit Mermin pentagram, culminating in a purely algebraic proof that the Kochen–Specker obstruction $\prod_C W_C = -I_8$ is automatic from the $K_5$ geometry of Lagrangians in $Sp(6,\mathbb{F}_2)$, with no case-by-case enumeration.
-Paper XVIII extends universality to the 4-qubit setting ($n=4$), and Paper XIX initiates the systematic study of the $n\ge5$ deformation, proving a modulus obstruction theorem. Paper XX explains the cohomological origin of XIX's modulus: the anticommutation 3-cochain $[n]\in H^3(S^3;\mathbb{F}_2)$ vanishes universally if and only if $n=4$.
+Paper XVIII extends universality to the 4-qubit setting ($n=4$), and Paper XIX initiates the systematic study of the $n\ge5$ deformation, proving a modulus obstruction theorem. Paper XX explains the cohomological origin of XIX's modulus: the anticommutation 3-cochain $[n]\in H^3(S^3;\mathbb{F}_2)$ vanishes universally if and only if $n=4$. Paper XXI completes the master rigidity theorem (universal $N_{\mathrm{anti}}=10$ iff $n=4$) and resolves the even/odd dichotomy of the $H^3$ carrier. Paper XXII establishes the *arity–resonance ceiling*: the obstruction is intrinsically degree-3 and truncates at $H^3$, with the Mermin pentagram as its unique resonant configuration.
 
 → See the [Quick Reference](#quick-reference) table and [Reading Guide](#reading-guide) below for per-paper summaries.
 
@@ -33,7 +33,7 @@ This research project integrated various Large Language Models (LLMs) across mul
 - **Language & Refinement:** Sentences were polished for academic flow and grammatical precision.
 - **Simulated Peer Review:** AI agents were tasked to act as independent reviewers to provide critical feedback and identify logical gaps prior to publication.
 
-*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6/Opus 4.6, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro/Flash.*
+*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6/Opus 4.6&4.8, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro/Flash.*
 
 ---
 
@@ -69,7 +69,9 @@ research/
 │   ├── Paper17_cross_context.tex
 │   ├── Paper18_mermin_sp8.tex
 │   ├── Paper19_nge5_modulus.tex
-│   └── Paper20_h3_modulus.tex
+│   ├── Paper20_h3_modulus.tex
+│   ├── Paper21_h3_master.tex
+│   └── Paper22_resonance_ceiling.tex
 ├── supplementary/
 │   ├── construct_16cell/
 │   │   ├── LICENSE                         # MIT
@@ -177,12 +179,36 @@ research/
 │   │   ├── rank4_lemmaII.py
 │   │   ├── rank4_lemmas.py
 │   │   └── reduction_frame.py
-│   └── paper20/
+│   ├── paper20/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── nerve_cochain.py
+│   │   ├── n4_cocycle.py
+│   │   └── mu_rank_parity.py
+│   ├── paper21/
+│   │   ├── LICENSE                         # MIT
+│   │   ├── README.md
+│   │   ├── nerve_cochain.py
+│   │   ├── partA_exclusivity.py
+│   │   ├── partA_construction.py
+│   │   ├── n6_periodicity.py
+│   │   ├── n8_confirm.py
+│   │   ├── even_n_equidist.py
+│   │   ├── fiber_test.py
+│   │   ├── joint_feet.py
+│   │   ├── transvection_involution.py
+│   │   ├── bias_scaling.py
+│   │   └── k6_truncation.py
+│   └── paper22/
 │       ├── LICENSE                         # MIT
 │       ├── README.md
 │       ├── nerve_cochain.py
-│       ├── n4_cocycle.py
-│       └── mu_rank_parity.py
+│       ├── resonance_tower.py
+│       ├── k6_truncation.py
+│       ├── clique_criterion.py
+│       ├── mermin_square.py
+│       ├── geometric_route.py
+│       └── d_bridge.py
 ```
 
 ---
@@ -192,7 +218,7 @@ research/
 ### Recommended Order
 
 ```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV → Paper XV → Paper XVI → Paper XVII → Paper XVIII → Paper XIX → Paper XX
+Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV → Paper XV → Paper XVI → Paper XVII → Paper XVIII → Paper XIX → Paper XX → Paper XXI → Paper XXII
 ```
 
 - **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
@@ -213,6 +239,8 @@ Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Pap
 - **Paper XVIII** proves that $n=4$ is the \emph{unique} dimension with universal $N_{\mathrm{anti}}$ over all proper $K_5$s: every proper $K_5$ in $Sp(8,\mathbb{F}_2)$ has $N_{\mathrm{anti}}=10$ and $\Sigma_m=0$ for all five Mermin matchings. The proof is fully algebraic via the transversal property: every matching has exactly one commuting cross-context pair. Three elementary geometric lemmas at the $K_4$ level (B0: no Fano vertex; B1: at most one commuting pairing; B2: at least one commuting pairing) combine to give the result without the rank=8 theorem or any computational verification. An alternative Gram rank selection route is recorded as a structural characterization.
 - **Paper XIX** initiates the systematic study of the $n\ge5$ regime. The central result is a **negative theorem** (modulus): the fiber of $N_{\mathrm{anti}}\bmod2$ over a fixed symplectic rank is not classified by any relative-position invariant of arity $\le4$, witnessed by a concrete pair of proper $K_5$s sharing all coarse symplectic invariants, all Maslov triple data, and all quadruple invariant data, yet having opposite $N_{\mathrm{anti}}$ parities. On the positive side: a rigorous upper-bound ladder $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive $2^{15}$ Petersen-subgraph enumeration); a deterministic tail $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455); and the order parameter $\mathrm{rad}(\omega|_W)$ with a sharp jump at dimension 2. Arf invariants are ruled out by two independent experiments.
 - **Paper XX** explains *why* XIX's classifier fails. The Maslov 2-cochain $\mu$ on $\partial\Delta^4$ and the anticommutation 3-cochain $n_a$ satisfy $n_a=\delta\mu$ at $n=4$ (rigorous, algebraic via B1+B2 + rank-parity), making $[n]=0$ in $H^3(S^3;\mathbb{F}_2)$. A rank-parity lemma ($\mathrm{rank}\,B=n-3$) shows $\mu\equiv1$ for $n$ even and $\mu\equiv0$ for $n=3$; at $n\ge5$ odd $\mu$ varies and the cocycle identity fails (336/360 proper $K_5$s at $n=5$). The unique-vanishing theorem: $[n]=0$ universally if and only if $n=4$, with $n=3$ all-Fano and generic $n\ge5$ both exhibiting $[n]\ne0$.
+- **Paper XXI** proves the **master rigidity theorem**: every proper $K_5$ in $Sp(2n,\mathbb{F}_2)$ has $N_{\mathrm{anti}}=10$ (equivalently $[n_a]=0$) universally *if and only if* $n=4$. The new ingredient is **Part A** ($n_a\equiv0$ universally iff $n=4$): Paper XVIII's B1 and B2 each reduce to the single dimension coincidence "$4$-dimensional isotropic $\Leftrightarrow$ Lagrangian", which holds only at $2n=8$; combined with Paper XX's rank-parity (Part B) the two coincide only at $n=4$. A **spread-stabilisation** construction gives explicit $N_{\mathrm{anti}}$-odd witnesses at every $n\ge5$. Structural corollary — the **even/odd carrier dichotomy**: at even $n\ge6$ the $H^3$ class is carried by $n_a$ alone (empirically a fair coin), at odd $n\ge5$ by the Maslov coboundary $\delta\mu$ (Wall non-additivity).
+- **Paper XXII** answers *why the ladder stops at $H^3$* with an **arity–resonance principle**: an arity-$a$ relative-position datum is an $(a-1)$-cochain on the index nerve, hitting the top cohomology of a proper $K_N$ ($\cong S^{N-2}$) iff $N=a+1$. The Pauli data has exactly two natural cochains — Maslov ($a=3$, resonant at $K_4/H^2$) and anticommutation ($a=4$, resonant at $K_5/H^3$) — so the tower has two rungs and a lid: on $K_6$ the degree-4 assembly is the exact coboundary $\delta\mathbf{a}$ and $H^4$ vanishes (**truncation**). The family-$A$ ceiling is the graph invariant $\min(\omega(G)-2,3)$ in the incidence clique number; the **Mermin–Peres square** (bipartite $K_{3,3}$, six Lagrangians in $Sp(4,\mathbb{F}_2)$) carries no family-$A$ class and exhibits a second, central-extension family.
 
 ### Supplementary L-S Appendices
 
@@ -247,6 +275,8 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 | XVIII | *Mermin Pentagrams in $Sp(8,\mathbb{F}_2)$: Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle* | Transversal property, $K_4$-level geometry, Gram rank selection, $n=4$ universality | $N_{\mathrm{anti}}=10$ for all proper $K_5$ (fully algebraic via B0+B1+B2); $n=4$ unique universal dimension; Key Lemma 840/840 (optional) |
 | XIX | *Mermin Pentagrams in $Sp(2n,\mathbb{F}_2)$, $n\ge5$: Structure, Obstruction, and the Modulus Phenomenon* | $n\ge5$ deformation, upper-bound ladder, Maslov triple, modulus witness, Arf ruling-out | Modulus theorem: no arity-$\le4$ relative-position invariant classifies the fiber (concrete witness); $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive); $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455) |
 | XX | *H³ Opens at n≥5: The Cohomological Origin of the Mermin Modulus* | Maslov 2-cochain $\mu$, anticommutation 3-cochain $n_a$, coboundary identity, rank-parity, $H^3(S^3;\mathbb{F}_2)$ | $n_a=\delta\mu$ at $n=4$ (rigorous); rank-parity $\mathrm{rank}\,B=n-3$; $[n]=0$ universally iff $n=4$; $H^3$ opens at $n=3$ all-Fano and generic $n\ge5$ |
+| XXI | *H³ Rigidity is Unique at $n=4$: Master Theorem and the Even/Odd Obstruction Dichotomy* | Master theorem, Part A $n=4$-exclusivity, even/odd carrier, spread-stabilisation | $N_{\mathrm{anti}}=10$ universally $\iff n=4$; Part A $\iff$ the $2n=8$ squeeze (B1/B2); carrier $=n_a$ at even $n$, $=\delta\mu$ at odd $n$; explicit $N_{\mathrm{anti}}$-odd witnesses $\forall n\ge5$ |
+| XXII | *The Arity–Resonance Ceiling: Why Pauli Contextuality Stops at $H^3$* | Arity–resonance, two rungs ($K_4/H^2$, $K_5/H^3$), truncation, clique criterion, two families | arity-$a$ $=(a-1)$-cochain resonant at $K_{a+1}$; $H^4$ truncates ($\mathbf c=\delta\mathbf a$); ceiling $\min(\omega(G)-2,3)$; Mermin square $=$ family B |
 | L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
 | L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
 | L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
@@ -291,6 +321,8 @@ A candid inventory of the mathematical machinery powering this series and the op
 | [`supplementary/paper18/`](supplementary/paper18/) | Transversal property verification: B0/B1/B2 recheck (24,000 K₄s), landscape table (n=3,4,5,6), Type I/II classification, Gram rank Key Lemma (840/840) (Paper XVIII) |
 | [`supplementary/paper19/`](supplementary/paper19/) | $n\ge5$ deformation probe: upper-bound ladder (exhaustive $2^{15}$ Petersen enumeration), Maslov triple bit + modulus witness, Arf ruling-out (frame-$q$ non-invariance, intrinsic-$q$ existence + uniqueness, Arf non-discrimination) (Paper XIX) |
 | [`supplementary/paper20/`](supplementary/paper20/) | Maslov 2-cochain + anticommutation 3-cochain verification: $n_a=\delta\mu$ at $n=4$ (360/360), $H^3$ opening at $n=5$ (336/360), rank-parity periodicity ($\mu\equiv1$ for $n$ even, verified $n=4,6$; $\mu$ varies at $n=5$) (Paper XX) |
+| [`supplementary/paper21/`](supplementary/paper21/) | Master theorem & dichotomy: B1/B2 commuting-pairing counts and the $n=4$-exclusivity hinge, spread-stabilisation $N_{\mathrm{anti}}$-odd witnesses (dims 7–10), rank-parity $K_4/H^2$ resonance, and even-$n$ equidistribution probes (foot-bit / piling-up, transvection involution) (Paper XXI) |
+| [`supplementary/paper22/`](supplementary/paper22/) | Arity–resonance ceiling: $K_4/H^2$ Maslov rung, $K_6$ truncation ($\mathbf c=\delta\mathbf a$, even-weight saturation), incidence clique criterion, Mermin–Peres square (bipartite family B), cup-1 geometric-route test, and the $\mathrm{Sq}^1\omega$ bridge skeleton (Paper XXII) |
 
 ---
 
@@ -321,6 +353,8 @@ All components are archived on Zenodo:
 | Paper XVIII | [10.5281/zenodo.20579239](https://doi.org/10.5281/zenodo.20579239) |
 | Paper XIX | [10.5281/zenodo.20590195](https://doi.org/10.5281/zenodo.20590195) |
 | Paper XX | [10.5281/zenodo.20608302](https://doi.org/10.5281/zenodo.20608302) |
+| Paper XXI | [10.5281/zenodo.20685669](https://doi.org/10.5281/zenodo.20685669) |
+| Paper XXII | [10.5281/zenodo.20685777](https://doi.org/10.5281/zenodo.20685777) |
 | L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
 | L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
 | L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
@@ -337,6 +371,8 @@ All components are archived on Zenodo:
 | `supplementary/paper18/` (21 scripts) | [10.5281/zenodo.20546121](https://doi.org/10.5281/zenodo.20546121) |
 | `supplementary/paper19/` (9 scripts) | [10.5281/zenodo.20579390](https://doi.org/10.5281/zenodo.20579390) |
 | `supplementary/paper20/` (3 scripts) | [10.5281/zenodo.20604140](https://doi.org/10.5281/zenodo.20604140) |
+| `supplementary/paper21/` (4 scripts) | [10.5281/zenodo.20636220](https://doi.org/10.5281/zenodo.20636220) |
+| `supplementary/paper22/` (7 scripts) | [10.5281/zenodo.20685721](https://doi.org/10.5281/zenodo.20685721) |
 
 ---
 
@@ -363,7 +399,7 @@ To cite the series, please reference the individual paper(s) by DOI (see above).
   author = {Chen, Zhou-Li},
   title  = {The Logic of Observation: A Unified Cohomological Theory of Quantum Contextuality},
   year   = {2026},
-  note   = {Twenty-paper series with epilogue},
+  note   = {Twenty-two-paper series with epilogue},
   url    = {https://github.com/co-nlang/research}
 }
 ```
