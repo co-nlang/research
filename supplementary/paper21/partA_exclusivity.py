@@ -9,9 +9,9 @@ on 2n=8:
 This script, over proper K4 (4 symmetric NxN matrices, pairwise sum rank N-1):
  1. tabulates #commuting pairings per matching by N  (expect: N=4 -> always 1;
     N>=5 -> 0,1,2,3 all occur, i.e. B1 AND B2 both fail);
- 2. on an N>=5 witness with >=2 commuting pairings, checks the B1 hinge directly:
-    span(S) is isotropic of dim 4 but NOT Lagrangian, and the escaping rays
-    v_ad,v_bc lie in S^perp \\ S.
+ 2. on an N>=5 witness with EXACTLY 2 commuting pairings (the minimal/clean B1
+    failure), checks the B1 hinge directly: span(S) is isotropic of dim 4 but NOT
+    Lagrangian, and the escaping rays v_ad,v_bc lie in S^perp \\ S.
 """
 import random
 from itertools import combinations
@@ -83,19 +83,21 @@ def tabulate(N, nconfig, seed0=7):
           f"  B2-fail(=0):{comm.get(0,0)}")
 
 def hinge_witness(N, seed0=7):
-    """find a K4 with >=2 commuting pairings and check the B1 hinge."""
+    """find a K4 with EXACTLY 2 commuting pairings (clean B1 failure) and check the
+    B1 hinge.  (Requiring exactly 2 avoids the degenerate all-commuting case, where
+    the six rays acquire an extra dependency and span(S) is not the clean 4-space.)"""
     symp, k4, spandim = make(N)
     rng = random.Random(100 + seed0 + N)
-    for _ in range(20000):
+    for _ in range(40000):
         r = k4(rng)
         if r is None: continue
         _, ray = r
         pairings = [((0,1),(2,3)), ((0,2),(1,3)), ((0,3),(1,2))]
         comm = [(p,q) for (p,q) in pairings if symp(ray[p], ray[q]) == 0]
-        if len(comm) >= 2:
-            # S = the four rays in the two commuting pairings (they coincide on indices)
+        if len(comm) == 2:
+            # S = the four rays in the two commuting pairings
             Svecs = set()
-            for (p,q) in comm[:2]: Svecs |= {ray[p], ray[q]}
+            for (p,q) in comm: Svecs |= {ray[p], ray[q]}
             Svecs = list(Svecs)
             d = spandim(Svecs)
             iso = all(symp(u, w) == 0 for u in Svecs for w in Svecs)
@@ -112,12 +114,12 @@ def hinge_witness(N, seed0=7):
             print(f"    => escaping rays are in S^perp \\ S: "
                   f"{all(p and not s for p, s in zip(in_perp, in_S))}")
             return
-    print(f"  N={N}: no >=2-commuting K4 found in budget")
+    print(f"  N={N}: no exactly-2-commuting K4 found in budget")
 
 if __name__ == "__main__":
     print("=== Part A is n=4-exclusive: #commuting pairings per matching ===")
     for N in (3, 4, 5, 6):
         tabulate(N, nconfig=300 if N <= 5 else 200)
-    print("\n=== B1 hinge on an n>=5 witness (>=2 commuting pairings) ===")
+    print("\n=== B1 hinge on an n>=5 witness (exactly 2 commuting pairings) ===")
     for N in (5, 6):
         hinge_witness(N)

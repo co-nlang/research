@@ -1,0 +1,501 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newcommand{\Nanti}{N_{\mathrm{anti}}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\rad}{\mathrm{rad}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The Arity--Resonance Ceiling:\\
+  Why Pauli Contextuality Stops at $H^3$}\\[4pt]
+\large (Paper XXII)}
+\author{Zhou-Li Chen\\[2pt]\small co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Papers XVIII--XXI located the Mermin obstruction in $H^3$ of the
+$5$-Lagrangian nerve and proved it vanishes universally if and only if $n=4$.
+A natural worry remained: if the obstruction sits in $H^3$, why not $H^4$, $H^5$,
+$\ldots$?  This paper answers it with an \emph{arity--resonance principle}.
+A relative-position datum of arity~$a$ is intrinsically an $(a-1)$-cochain on the
+index nerve; on a proper $K_N$ (nerve $\partial\Delta^{N-1}\cong S^{N-2}$) it lands
+in the top cohomology iff $N=a+1$.  The Pauli data supplies exactly two natural
+cochains---the Maslov bit $\mu$ (arity~$3$) and the anticommutation cochain
+$\mathbf a$ (arity~$4$, with $\mathbf a$ a coboundary $\delta\mu$ at $n=4$)---so the
+tower has two live rungs, $K_4/H^2$ and $K_5/H^3$, and a \emph{lid}.
+We prove the truncation: on $K_6$ the anticommutation cochain is sub-top, its
+degree-$4$ assembly is the exact coboundary $\delta\mathbf a$, and the
+$H^4$ class vanishes for every proper $K_6$ (which we show exist).  We package the
+whole tower into one graph invariant: the family-$A$ cohomological ceiling equals
+$\min(\omega(G)-2,\,3)$, where $\omega(G)$ is the clique number of the incidence
+graph; the pentagram ($\omega=5$) is the unique resonance.  The $n$-dependence of
+each rung is governed by the single rank-parity lemma of Paper~XX.
+Finally, the Mermin--Peres square---six Lagrangians in $\Sp(4,\F_2)$ with bipartite
+($K_{3,3}$) incidence---shows the ceiling is configuration-specific: it carries no
+family-$A$ obstruction and lives instead in the central-extension class, exhibiting
+a second contextuality family.
+\end{abstract}
+
+\section{Introduction}
+
+Quantum contextuality is a local-to-global obstruction: the data of individual
+measurement contexts cannot always be glued into one consistent global assignment,
+and cohomology measures the failure.  Paper~XX~\cite{PaperXX} showed that
+$\Nanti\bmod2$ is the evaluation of a degree-$3$ class on the nerve of a proper
+$K_5$, and Paper~XXI~\cite{PaperXXI} proved it vanishes universally exactly at
+$n=4$.  Both papers live in degree~$3$.
+In an ordinary obstruction ladder one expects the story to continue:
+$H^3\to H^4\to H^5\to\cdots$.  It does not, and the reason is the point of this
+paper.
+
+The degree at which the obstruction lives is not free: it is pinned by the
+\emph{arity} of the algebraic datum that builds it.  Anticommutation
+$\omega(v_{ij},v_{kl})$ involves four indices, so it is a $3$-cochain---no matter how
+many contexts there are.  On the nerve of a proper $K_5$, which is a $3$-sphere,
+degree~$3$ is exactly the top, and the obstruction is genuine.  On a proper $K_6$,
+whose nerve is a $4$-sphere, the same datum is one degree below the top and is
+forced to be a coboundary.  The pentagram is the unique configuration size at which
+arity-$4$ data resonates with the top of the nerve.
+
+\paragraph{Results.}
+\begin{enumerate}
+\item \textbf{The arity--resonance principle} (\S\ref{sec:resonance}): an arity-$a$
+  datum is an $(a-1)$-cochain; it hits the top cohomology of a proper $K_N$
+  ($\cong S^{N-2}$) iff $N=a+1$.
+\item \textbf{Two rungs} (\S\ref{sec:rungs}): the Maslov bit ($a=3$) resonates at
+  $K_4/H^2$; the anticommutation cochain ($a=4$) resonates at $K_5/H^3$.  The
+  $n$-dependence of each follows from the rank-parity lemma of Paper~XX:
+  $H^2$ opens at odd $n\ge5$, $H^3$ at all $n\ge5$.
+\item \textbf{The truncation theorem} (\S\ref{sec:trunc}): proper $K_6$ exist, but
+  the degree-$4$ assembly of the anticommutation cochain is the exact coboundary
+  $\delta\mathbf a$, so the $H^4$ class vanishes universally.  The obstruction
+  truncates at $H^3$.
+\item \textbf{The clique criterion} (\S\ref{sec:clique}): the family-$A$ ceiling is
+  $\min(\omega(G)-2,3)$, with $\omega(G)$ the clique number of the incidence graph.
+\item \textbf{Two families} (\S\ref{sec:square}): the Mermin--Peres square is
+  bipartite ($\omega=2$); it carries no family-$A$ obstruction and realizes the
+  central-extension class, a distinct family.
+\end{enumerate}
+
+\paragraph{Conventions.}
+$V=\F_2^{2n}$ with the standard symplectic form $\omega$.  A \emph{proper $K_N$} is
+an $N$-tuple of Lagrangians $(L_0,\dots,L_{N-1})$ with $\dim(L_i\cap L_j)=1$ for all
+$i\ne j$ and all $\binom N2$ rays $v_{ij}:=L_i\cap L_j$ distinct.
+
+\section{Setup}\label{sec:setup}
+
+\subsection{The nerve and its cochains}
+
+The index set $\{0,\dots,N-1\}$ spans an abstract simplex $\Delta^{N-1}$.  Because a
+proper $K_N$ has no $N$-fold common ray (the configuration is ``hollow''), the
+relevant complex is the boundary $\partial\Delta^{N-1}\cong S^{N-2}$, with
+\[
+  H^k(\partial\Delta^{N-1};\F_2)=\begin{cases}\F_2 & k\in\{0,\,N-2\}\\ 0 &\text{otherwise.}\end{cases}
+\]
+Two relative-position cochains are canonically attached to the configuration.
+
+\begin{definition}[Maslov $2$-cochain]
+For a triple $\{a,b,c\}$, let $\mu(a,b,c)\in\F_2$ be the bit recording whether
+$\omega\not\equiv0$ on the triple data (Paper~XX~\cite{PaperXX}); it is
+$S_3$-symmetric and $\Sp$-invariant.
+\end{definition}
+
+\begin{definition}[Anticommutation $3$-cochain]
+For a $4$-index set $T=\{i,j,k,l\}$ let $\mathbf a_T\in\F_2$ be the parity of the
+number of anticommuting cross-context pairs among the three pairings
+$\{v_{ij},v_{kl}\},\{v_{ik},v_{jl}\},\{v_{il},v_{jk}\}$.  This defines a $3$-cochain
+$\mathbf a$ on the nerve; on a proper $K_5$, $\Nanti\bmod2=\langle\mathbf a,[S^3]\rangle$.
+\end{definition}
+
+\subsection{The incidence graph}
+
+\begin{definition}[Incidence graph]
+The incidence graph $G$ of a Lagrangian configuration has the contexts as vertices
+and an edge $\{i,j\}$ whenever $\dim(L_i\cap L_j)=1$.  Write $\omega(G)$ for its
+clique number.  A proper $K_N$ has complete incidence, $\omega=N$.
+\end{definition}
+
+\section{The arity--resonance principle}\label{sec:resonance}
+
+The degree of a contextuality obstruction is not an abstract label: it counts how
+many contexts must be observed \emph{together} before the obstruction is visible at
+all.  A datum that depends on $a$ contexts can only be recorded on the
+$(a-1)$-faces of the index nerve, so its natural degree is $a-1$.  The obstruction
+becomes genuine precisely when this degree reaches the top of the nerve --- a
+resonance between the arity of what can be jointly observed and the size of the
+configuration.
+
+\begin{proposition}[Arity is degree]\label{prop:arity}
+A relative-position invariant that depends on $a$ contexts is a cochain of degree
+$a-1$ on the index nerve.  On a proper $K_N$ ($\cong S^{N-2}$) its class lies in
+$H^{a-1}(S^{N-2};\F_2)$, which is nonzero (and equals the top) iff $a-1=N-2$, i.e.
+\[
+  N=a+1 .
+\]
+\end{proposition}
+
+\begin{proof}
+An $a$-ary datum is a function of an $a$-element index subset, i.e. of an
+$(a-1)$-face; it is therefore an $(a-1)$-cochain.  By the cohomology of
+$S^{N-2}$ above, the ambient cohomology \emph{group} $H^{a-1}(S^{N-2};\F_2)$ is
+nonzero only for $a-1\in\{0,N-2\}$; the top (and only positive-degree) value is
+$a-1=N-2$.
+\end{proof}
+
+This proposition is about \emph{where the obstruction can live}, i.e. the
+nonvanishing of the ambient group; that the specific class built from the Pauli
+data is in fact nontrivial at the resonant $N$ is the content of
+Papers~XX--XXI~\cite{PaperXX,PaperXXI}, not of this proposition.
+
+Thus each arity has a \emph{resonant configuration} $K_{a+1}$.  Below it
+($N<a+1$) the datum is over-determined; above it ($N>a+1$) it is sub-top and
+cohomologically trivial.  The Pauli data realizes two arities.
+
+\begin{remark}
+The symplectic form is bilinear (arity $2$); the Maslov triple raises this to
+arity $3$ and the anticommutation pairing of rays to arity $4$, each extra index
+supplied by the \emph{configuration} rather than by the form.  That this is the top
+is motivated, though not proved, by two facts: the canonical degree-$4$ assembly of
+the anticommutation data is the \emph{exact} coboundary $\delta\mathbf a$
+(Theorem~\ref{thm:trunc}), carrying no new class; and the natural quadruple bit
+$q_4$ of Paper~XIX~\cite{PaperXIX} is itself arity-$4$ (a $3$-cochain) and
+empirically saturated.  A genuinely new arity-$5$ invariant would have to be a datum
+\emph{not} assembled from the bilinear form; we conjecture none exists, so the
+tower's top rung is $a=4$ (see also the rigor table, where this is the one
+conjectural entry).
+\end{remark}
+
+\section{The two rungs}\label{sec:rungs}
+
+The Pauli data supplies two cochains, and they are one phenomenon seen at two
+configuration sizes: the Maslov bit resonates with the $4$-context nerve $S^2$, the
+anticommutation cochain with the $5$-context nerve $S^3$.  Their $n$-dependence is
+governed by a single lemma --- the rank-parity lemma of Paper~XX --- which we
+recall as each rung is reached.
+
+\subsection{$K_5/H^3$: the anticommutation rung}
+
+On a proper $K_5$ the nerve is $S^3$, whose top cells are the five tetrahedra;
+$\mathbf a$ is automatically a cocycle (no $4$-cells), and
+$\langle\mathbf a,[S^3]\rangle=\Nanti\bmod2$ is the $H^3$ class
+(Papers~XX--XXI).  By the master theorem of Paper~XXI~\cite{PaperXXI} it vanishes
+universally iff $n=4$; at $n=3$ the all-Fano subclass gives $\Nanti=15$, and at
+$n\ge5$ it is generically nontrivial.
+
+\subsection{$K_4/H^2$: the Maslov rung}
+
+On a proper $K_4$ the nerve is $\partial\Delta^3\cong S^2$, whose top cells are the
+four triangles; $\mu$ is a $2$-cocycle and its class is
+$\langle\mu,[S^2]\rangle=\sum_{\{a,b,c\}}\mu(a,b,c)\bmod2$.
+
+\begin{proposition}[The Maslov rung]\label{prop:k4}
+For a proper $K_4$ in $\Sp(2n,\F_2)$ the Maslov $H^2$ class
+$\langle\mu,[S^2]\rangle$ \emph{vanishes} for $n=3$ and for all even $n$.  For odd
+$n\ge5$ it is nontrivial (both values occur), computationally.
+\end{proposition}
+
+\begin{proof}
+By the rank-parity lemma of Paper~XX~\cite{PaperXX} ($\rank B=n-3$ for the symmetric
+form $B$ governing $\mu$): $\mu\equiv0$ at $n=3$ and $\mu\equiv1$ for even $n$.  In
+both cases the four summands are uniformly $0$ or uniformly $1$, so
+$\langle\mu,[S^2]\rangle=\sum_{\text{4 triangles}}\mu=0$ --- this part is rigorous.
+For odd $n\ge5$ the lemma only says $\mu$ varies \emph{per triple}; that the sum
+$\langle\mu,[S^2]\rangle$ then attains \emph{both} values across proper $K_4$ is
+verified computationally (\texttt{resonance\_tower.py}~\cite{PaperXXIIsuppl}: at
+$n=5$, $211$ vs $189$ of $400$ sampled $K_4$).  Rank-parity alone does not exclude
+a uniform value at some odd $n$, so the opening is recorded as a numerical, not
+algebraic, claim.
+\end{proof}
+
+\begin{corollary}[The tower's $n$-dependence]\label{cor:ndep}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+rung & class & opens at \\
+\midrule
+$K_4/H^2$ (Maslov) & $\langle\mu,[S^2]\rangle$ & odd $n\ge5$ \\
+$K_5/H^3$ (anticomm.) & $\Nanti\bmod2$ & all $n\ge5$ \;(and $n=3$ all-Fano)\\
+\bottomrule
+\end{tabular}
+\end{center}
+A single lemma (rank parity) governs both: $H^2$ is a pure-$\mu$ phenomenon and opens
+only where $\mu$ varies; $H^3$, carried by $\mathbf a$, has the additional
+even-$n$ channel of Paper~XXI and opens at every $n\ge5$.
+\end{corollary}
+
+\section{The truncation theorem}\label{sec:trunc}
+
+We now show the obstruction stops at $H^3$.  The mechanism is the arity ceiling:
+anticommutation is a $3$-cochain, top-dimensional on the pentagram's $S^3$ but
+\emph{sub}-top on the next configuration's $S^4$, where it is forced to be exact.
+Concretely, the only degree-$4$ quantity one can assemble from it turns out to be a
+coboundary --- so it carries no class, and proper $K_6$ (which exist) have no
+$H^4$ obstruction.
+
+\begin{proposition}[Proper $K_6$ exist]\label{prop:k6exist}
+For every $n\ge4$ there is a proper $K_6$ in $\Sp(2n,\F_2)$.
+\end{proposition}
+
+\begin{proof}
+In the chart of Lagrangians transverse to a fixed $L_\infty$, $L_S=\{(x,Sx)\}$ for
+symmetric $S$, one has $L_S\cap L_{S'}=\ker(S+S')$; six symmetric $n\times n$
+matrices with pairwise sums of rank $n-1$ and distinct kernels give a proper $K_6$.
+Such sextuples are exhibited computationally for $n=4,5,6$
+(\texttt{k6\_truncation.py}~\cite{PaperXXIIsuppl}); for larger $n$ they persist by
+the spread-stabilisation lemma of Paper~XXI~\cite{PaperXXI} (orthogonal direct sum
+with a trivial $\Sp(2m)$ block, appending pairwise-transverse Lagrangians).
+\end{proof}
+
+\begin{remark}[An explicit sextuple]
+For $n=4$ the six symmetric matrices below have all pairwise sums $S_i+S_j$ of
+rank~$3$ (so each $L_{S_i}\cap L_{S_j}$ is a single ray), with the $15$ rays
+distinct --- hence a proper $K_6$ in $\Sp(8,\F_2)$:
+\[
+S_0=\begin{psmallmatrix}1&1&1&1\\1&0&1&0\\1&1&1&1\\1&0&1&0\end{psmallmatrix}\!,\quad
+S_1=\begin{psmallmatrix}0&0&1&1\\0&1&0&1\\1&0&0&1\\1&1&1&1\end{psmallmatrix}\!,\quad
+S_2=\begin{psmallmatrix}0&1&0&0\\1&1&0&1\\0&0&0&1\\0&1&1&0\end{psmallmatrix},
+\]
+\[
+S_3=\begin{psmallmatrix}1&1&1&1\\1&1&1&0\\1&1&0&0\\1&0&0&0\end{psmallmatrix}\!,\quad
+S_4=\begin{psmallmatrix}0&0&1&1\\0&0&1&0\\1&1&0&1\\1&0&1&0\end{psmallmatrix}\!,\quad
+S_5=\begin{psmallmatrix}0&0&1&0\\0&1&0&0\\1&0&1&1\\0&0&1&1\end{psmallmatrix}.
+\]
+\end{remark}
+
+\begin{theorem}[Truncation at $H^3$]\label{thm:trunc}
+On a proper $K_6$ the nerve is $\partial\Delta^5\cong S^4$.  Define the degree-$4$
+cochain $\mathbf c$ by $\mathbf c_m=\Nanti(\text{face }m)\bmod2$, where face~$m$ is
+the $K_5$ on the five indices $\ne m$.  Then $\mathbf c=\delta\mathbf a$, the
+coboundary of the anticommutation $3$-cochain; hence $[\mathbf c]=0$ in
+$H^4(S^4;\F_2)$, and the anticommutation data carries no $H^4$ obstruction.
+\end{theorem}
+
+\begin{proof}
+Face~$m$ is a $4$-simplex of $\partial\Delta^5$; its five $3$-faces are the
+$4$-index subsets $T\subset\{0,\dots,5\}\setminus\{m\}$.  Each cross-context pair
+$\{v_{ij},v_{kl}\}$ uses exactly four indices $\{i,j,k,l\}$, so the $15$
+cross-context pairs of the $K_5$ face~$m$ are \emph{partitioned} by its five
+$4$-index subfacets $T$ (each pair lies in the unique $T$ equal to its index set);
+hence by definition $\Nanti(\text{face }m)=\sum_{T\subset\text{face }m}\mathbf a_T$, so
+\[
+  \mathbf c_m=\sum_{T:\,T\subset\partial(\text{face }m)}\mathbf a_T
+            =\langle\mathbf a,\partial(\text{face }m)\rangle
+            =(\delta\mathbf a)_m .
+\]
+Thus $\mathbf c=\delta\mathbf a$ is a coboundary and $[\mathbf c]=0$.  Equivalently,
+$\langle\mathbf c,[S^4]\rangle=\langle\mathbf a,\partial[S^4]\rangle=0$ since $[S^4]$
+is a cycle---each cross-context pair lies in exactly two of the six faces.
+\end{proof}
+
+\begin{remark}[Why $K_5$ is the ceiling]
+On $S^3$ ($K_5$) the anticommutation $3$-cochain is top-dimensional, hence a cocycle,
+and represents a genuine $H^3$ class.  On $S^4$ ($K_6$) it is one degree below the
+top: it is no longer forced to be a cocycle, but its class lies in
+$H^3(S^4;\F_2)=0$, and its only degree-$4$ shadow, $\delta\mathbf a$, is exact.
+The same arity-$4$ datum is resonant at $K_5$ and silent at $K_6$.  This is the
+truncation: the obstruction does not climb, because the data does not.
+\end{remark}
+
+\begin{remark}[Live $H^3$, dead $H^4$]
+The vanishing of $[\mathbf c]$ is not a scarcity of structure.  Over $200$ proper
+$K_6$ at $n=6$, the six face-classes $(\mathbf c_m)\in\F_2^6$ realize all $32$
+even-weight patterns---the full kernel of $\Sigma\colon\F_2^6\to\F_2$, the $H^4$
+pairing---so the sub-pentagram $H^3$ classes are maximally free, constrained only by
+$\sum_m\mathbf c_m=0$ (\texttt{k6\_truncation.py}~\cite{PaperXXIIsuppl}).
+\end{remark}
+
+\section{The clique criterion}\label{sec:clique}
+
+The resonance tower compresses into a single graph invariant.
+
+\begin{theorem}[Incidence-clique ceiling]\label{thm:clique}
+Let $G$ be the incidence graph of a Lagrangian configuration.  The family-$A$
+(anticommutation/Maslov) nerve obstruction is supported on the clique complex of
+$G$; a degree-$d$ class requires a hollow $(d+2)$-clique.  Hence the family-$A$
+ceiling is
+\[
+  \min\bigl(\omega(G)-2,\ a_{\max}-1\bigr)=\min(\omega(G)-2,\ 3),
+\]
+nontrivial only for $\omega(G)\ge3$, and saturating the arity-$4$ ceiling at
+$\omega(G)=5$ (the pentagram).
+\end{theorem}
+
+\begin{proof}
+A nerve cochain of degree $d$ is supported on $d$-faces, which in the clique complex
+are $(d+1)$-cliques of $G$; a nonzero hollow class needs the boundary of a
+$(d+2)$-clique (an $S^{d}$).  Thus the maximal achievable degree is $\omega(G)-2$.
+It is further capped by the arity of the available data: the top Pauli cochain has
+arity $a_{\max}=4$, degree $3$ (\S\ref{sec:resonance}).
+\end{proof}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccl}
+\toprule
+configuration & incidence & $\omega(G)$ & family-$A$ ceiling \\
+\midrule
+Mermin square & $K_{3,3}$ (triangle-free) & $2$ & none (family $B$) \\
+proper $K_4$ & complete & $4$ & $H^2$ \\
+proper $K_5$ (pentagram) & complete & $5$ & $H^3$ (resonance) \\
+proper $K_6$ & complete & $6$ & $H^3$ (capped; $H^4$ exact) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent Verified in \texttt{clique\_criterion.py}~\cite{PaperXXIIsuppl}.
+
+\section{A second family: the Mermin--Peres square}\label{sec:square}
+
+The ceiling is configuration-specific.  The Mermin--Peres magic square is, in our
+language, six Lagrangians in $\Sp(4,\F_2)$: three ``rows'' and three ``columns'',
+\[
+\begin{array}{ccc}
+XI & IX & XX\\ IZ & ZI & ZZ\\ XZ & ZX & YY
+\end{array}
+\]
+each row and column an isotropic plane (a context of three commuting observables).
+
+\begin{proposition}[The square is bipartite, family $B$]\label{prop:square}
+The incidence graph of the Mermin--Peres square is the complete bipartite graph
+$K_{3,3}$: rows are pairwise transverse, columns are pairwise transverse, and each
+row meets each column in one ray (the nine observables).  Its clique number is
+$\omega=2$, so by Theorem~\ref{thm:clique} it carries \emph{no} family-$A$
+obstruction; equivalently every triple of contexts contains a transverse pair, so
+$\mu$ and $\mathbf a$ are undefined.  Its contextuality is instead the
+$\pm I$ sign mismatch (one column product is $-I$): the central-extension /
+quadratic-refinement class of Papers~III--VIII.
+\end{proposition}
+
+\begin{proof}
+Direct computation of the six planes and their pairwise intersections gives the
+$K_{3,3}$ incidence and nine distinct rays; all $20$ context-triples
+contain a transverse pair.  Tracking Hermitian-Pauli phases, the six context
+products are $+I$ except the $YY$ row, whose product is $-I$; the global product
+$\prod_{\text{contexts}}(\pm I)=-I$ is the obstruction
+(\texttt{mermin\_square.py}~\cite{PaperXXIIsuppl}).
+\end{proof}
+
+Thus contextuality configurations split, at minimum, into two cohomological
+families: the all-pairwise family ($\omega\ge3$), whose nerve/anticommutation
+obstruction climbs the resonance tower to its ceiling $H^3$ at the pentagram; and
+the bipartite/triangle-free family ($\omega=2$), whose obstruction is the
+central-extension sign class.  The pentagram's $H^3$ is the ceiling of the former,
+not a universal one.
+
+\section{Outlook}
+
+Two natural questions are deferred.  First, whether the bipartite family has its own
+resonance---a larger $K_{m,n}$ whose central-extension class reaches degree~$3$.
+Second, whether the two families are pages of a single spectral sequence: the
+Lyndon--Hochschild--Serre sequence of the Heisenberg extension
+$1\to\Z_2\to P_n\to V\to1$ has the symplectic form $\omega\in H^2(V)$
+(the family-$B$ class) as its transgression, and $\mathrm{Sq}^1\omega\in H^3(V)$ as
+the natural candidate for the family-$A$ source~\cite{PaperIV}.  A direct
+Maslov-side realization fails---the cup-$1$ square $\mu\cup_1\mu$ does not reproduce
+$\Nanti\bmod2$, because $\mu$ is not a cocycle off the resonance
+(\texttt{geometric\_route.py}~\cite{PaperXXIIsuppl})---so the unification requires
+the homotopy-coherent comparison map $\partial\Delta^4\to BV$ whose coherence
+obstruction is precisely $\mathbf a$.  This is the subject of future work.
+
+\section*{Computational reproducibility}
+
+All claims are checked by pure-Python scripts in the supplementary
+archive~\cite{PaperXXIIsuppl}: \texttt{resonance\_tower.py} (the $K_4/H^2$ rung),
+\texttt{k6\_truncation.py} (proper $K_6$, $\mathbf c=\delta\mathbf a$, the
+even-weight saturation), \texttt{clique\_criterion.py} (the ceiling invariant),
+\texttt{mermin\_square.py} (the bipartite family), and
+\texttt{geometric\_route.py} (the negative cup-$1$ test).
+
+\section*{Rigor self-assessment}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{6.6cm}ll}
+\toprule
+Claim & Status & Source \\
+\midrule
+Arity $a$ $=$ degree $a-1$; resonance $N=a+1$ & Rigorous & Prop.~\ref{prop:arity} \\
+$K_4/H^2$ rung: vanishing ($n=3$, even $n$) & Rigorous & Prop.~\ref{prop:k4} (XX rank-parity) \\
+$K_4/H^2$ rung: opening (odd $n\ge5$) & Computational & \texttt{resonance\_tower.py} \\
+$K_5/H^3$ rung & Rigorous & XX, XXI \\
+Proper $K_6$ exist & Rigorous & Prop.~\ref{prop:k6exist} \\
+$\mathbf c=\delta\mathbf a$, $[\mathbf c]=0$ (truncation) & Rigorous & Thm.~\ref{thm:trunc} \\
+Clique ceiling $\min(\omega-2,3)$ & Rigorous & Thm.~\ref{thm:clique} \\
+Mermin square bipartite, family $B$ & Rigorous & Prop.~\ref{prop:square} \\
+No arity-$5$ invariant (the lid) & Conjectural & $q_4$ saturated, XIX \\
+Even-weight saturation at $K_6$ & Empirical & \texttt{k6\_truncation.py} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperIII]{PaperIII}
+Z.-L. Chen, ``Kochen--Specker Contextuality as Central Extension:
+The Peres--Mermin Square and the Pauli Group,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073127} (2026).
+
+\bibitem[PaperIV]{PaperIV}
+Z.-L. Chen, ``The Cohomological Obstruction Ladder:
+Lyndon--Hochschild--Serre Transgression and the $H^3$ Frontier,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184} (2026).
+
+\bibitem[PaperVIII]{PaperVIII}
+Z.-L. Chen, ``The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder:
+Explicit Transgression and Twisted Penrose Transform,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20454120} (2026).
+
+\bibitem[PaperXV]{PaperXV}
+Z.-L. Chen, ``The Weil Representation and the $S_3$ Lifting Classification
+for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519654} (2026).
+
+\bibitem[PaperXVIII]{PaperXVIII}
+Z.-L. Chen, ``Mermin Pentagrams in $\Sp(8,\F_2)$:
+Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20579239} (2026).
+
+\bibitem[PaperXIX]{PaperXIX}
+Z.-L. Chen, ``Mermin Pentagrams in $\Sp(2n,\F_2)$, $n\ge5$:
+Structure, Obstruction, and the Modulus Phenomenon,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20590195} (2026).
+
+\bibitem[PaperXX]{PaperXX}
+Z.-L. Chen, ``$H^3$ Opens at $n\ge5$:
+The Cohomological Origin of the Mermin Modulus,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20608302} (2026).
+
+\bibitem[PaperXXI]{PaperXXI}
+Z.-L. Chen, ``$H^3$ Rigidity is Unique at $n=4$:
+Master Theorem and the Even/Odd Obstruction Dichotomy,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20685669} (2026).
+
+\bibitem[PaperXXIIsuppl]{PaperXXIIsuppl}
+Z.-L. Chen, ``Supplementary computational scripts for Paper~XXII,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20685721} (2026).
+
+\end{thebibliography}
+
+\end{document}

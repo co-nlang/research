@@ -1,0 +1,614 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newcommand{\Nanti}{N_{\mathrm{anti}}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\rad}{\mathrm{rad}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{H\textsuperscript{3} Rigidity is Unique at $n=4$:
+  Master Theorem and the Even/Odd Obstruction Dichotomy}\\[4pt]
+\large (Paper XXI)}
+\author{Zhou-Li Chen\\[2pt]\small co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Paper XX established that the anticommutation 3-cochain $n_a$ satisfies
+$n_a = \delta\mu$ at $n=4$, making the $H^3$ class $[n_a]$ vanish universally,
+and proved a rank-parity lemma describing the Maslov cochain $\mu$ at each $n$.
+This paper completes the arc by proving the converse: $[n_a] = 0$
+universally if and only if $n = 4$.
+\textbf{Part~A} (new): $n_a \equiv 0$ universally holds exclusively at $n=4$;
+the geometric hinges of Lemmas B1 and B2 from Paper~XVIII each reduce to
+``4-dimensional isotropic $\Leftrightarrow$ Lagrangian,'' which holds only
+when $2n = 8$.
+A spread-stabilisation lemma provides explicit $\Nanti$-odd proper-$K_5$
+witnesses at every $n \geq 5$, closing the $n \geq 5$ direction
+constructively.
+\textbf{Part~B} (from XX): $\delta\mu = 0$ universally for all even $n$
+(rank-parity); for odd $n \geq 5$ it fails generically.
+Together, both conditions hold simultaneously only at $n=4$, giving
+the master rigidity theorem: $\Nanti = 10$ universally if and only if $n=4$.
+As a structural corollary, the $H^3$ carrier splits by parity:
+at even $n \geq 6$ the carrier is $n_a$ alone (decoupled from~$\mu$,
+empirically $\approx 50/50$); at odd $n \geq 5$ it is $\delta\mu$
+(Wall non-additivity).
+\end{abstract}
+
+\section{Introduction}
+
+Papers XVIII--XX form an arc centred on $n = 4$.
+Paper~XVIII \cite{PaperXVIII} proved that every proper $K_5$ in $\Sp(8,\F_2)$
+has $\Nanti = 10$, via three geometric lemmas B0, B1, B2 at the $K_4$ level.
+Paper~XIX \cite{PaperXIX} showed this rigidity softens at $n \geq 5$:
+no relative-position invariant of arity $\leq 4$ classifies $\Nanti \bmod 2$
+(the modulus theorem).
+Paper~XX \cite{PaperXX} identified the obstruction cohomologically:
+the anticommutation 3-cochain $n_a$ satisfies $n_a = \delta\mu$ at $n=4$,
+making $[n_a] \in H^3(\partial\Delta^4;\F_2)$ vanish universally, and a
+rank-parity lemma ($\rank B = n-3$) determines $\mu$ at every $n$.
+
+What remained open after XX is whether $n = 4$ is the \emph{only}
+dimension at which $[n_a] = 0$ universally.
+The answer:
+\begin{quote}
+\emph{$\Nanti = 10$ universally over all proper $K_5$ in $\Sp(2n,\F_2)$
+if and only if $n = 4$.}
+\end{quote}
+This paper proves this master rigidity theorem and describes the resulting
+even/odd carrier dichotomy: where $H^3$ lives when $[n_a] \neq 0$.
+
+\paragraph{Structure.}
+Section~\ref{sec:setup} recalls the cochain framework.
+Section~\ref{sec:partA} proves Part~A: $n_a \equiv 0$ universally iff $n=4$,
+including the spread-stabilisation lemma.
+Section~\ref{sec:partB} restates Part~B from XX.
+Section~\ref{sec:master} combines them into the master theorem.
+Section~\ref{sec:dichotomy} describes the even/odd carrier dichotomy.
+Section~\ref{sec:computation} records computational verification.
+Section~\ref{sec:open} lists open problems.
+
+\section{Setup}
+\label{sec:setup}
+
+We work in $V = \F_2^{2n}$ with standard symplectic form $\omega$,
+recalling the framework of Paper~XX \cite{PaperXX}.
+
+A \textbf{proper $K_5$} is a 5-tuple $(L_0,\ldots,L_4)$ of Lagrangians
+in $\Sp(2n,\F_2)$ with $\dim(L_i \cap L_j) = 1$ for all $i \neq j$.
+Write $v_{ij}$ for the unique nonzero vector in $L_i \cap L_j$.
+The \textbf{Mermin matching} indexed by $m \in \{0,\ldots,4\}$ is the set
+\[
+  M_m = \bigl\{\{v_{ij}, v_{kl}\}
+  : \{i,j,k,l\} = \{0,\ldots,4\} \setminus \{m\}\bigr\},
+\]
+three cross-context pairs with $\{i,j\} \cap \{k,l\} = \emptyset$.
+Call $\{v_{ij},v_{kl}\}$ \textbf{anticommuting} if $\omega(v_{ij},v_{kl})=1$
+and \textbf{commuting} otherwise.
+Let $a_m = \#\{\text{anticommuting pairs in }M_m\}$;
+set $(n_a)_m = a_m \bmod 2$ and $\Nanti = \sum_m a_m$.
+
+The \textbf{Maslov 2-cochain} is $\mu(a,b,c) = [\omega \not\equiv 0
+\text{ on }\langle v_{ab},v_{ac},v_{bc}\rangle] \in \F_2$, and its
+coboundary $(\delta\mu)_m = \sum_{\{a,b,c\} \subset [5]\setminus\{m\}} \mu(a,b,c)$
+sums $\mu$ over the four triangular faces of tetrahedron $[5]\setminus\{m\}$.
+
+\section{\texorpdfstring{\boldmath$n_a \equiv 0$ universally iff $n = 4$}{Part A: n\_a≡0 universally iff n=4}}
+\label{sec:partA}
+
+\subsection{\texorpdfstring{The $n = 4$ direction}{The n=4 direction}}
+
+The following two lemmas are B1 and B2 of Paper~XVIII \cite{PaperXVIII}.
+
+\begin{lemma}[B1, XVIII]\label{lem:B1}
+In any proper $K_5$ in $\Sp(8,\F_2)$, every matching $M_m$ has at most
+one commuting cross-context pair.
+\end{lemma}
+
+\begin{lemma}[B2, XVIII]\label{lem:B2}
+In any proper $K_5$ in $\Sp(8,\F_2)$, every matching $M_m$ has at least
+one commuting cross-context pair.
+\end{lemma}
+
+\begin{corollary}\label{cor:n4}
+At $n = 4$: every $M_m$ has exactly one commuting pair,
+so $a_m = 2$, hence $(n_a)_m = a_m \bmod 2 = 0$ for all $m$
+and all proper $K_5$.
+Thus $n_a \equiv 0$ universally at $n = 4$.
+\end{corollary}
+
+\subsection{\texorpdfstring{The $n \geq 5$ direction: B1 and B2 both fail}{The n≥5 direction: B1 and B2 both fail}}
+
+We show that for each $n \geq 5$ there exist proper $K_5$ configurations
+where $n_a \not\equiv 0$.
+The key observation is that both B1 and B2 rely on the same
+dimensional identity, which holds only at $n = 4$.
+
+\begin{lemma}[B1-failure at $n \geq 5$]\label{lem:B1fail}
+For $n \geq 5$, there exist a proper $K_5$ and a matching $M_m$ with at
+least two commuting cross-context pairs.
+\end{lemma}
+
+\begin{proof}
+The proof of B1 shows: if two pairs $\{v_{ab},v_{cd}\}$ and
+$\{v_{ac},v_{bd}\}$ in $M_m$ both commute, then
+\[
+  S = \langle v_{ab}, v_{ac}, v_{bd}, v_{cd} \rangle
+\]
+is isotropic of dimension~4.
+At $n = 4$, every isotropic 4-dimensional subspace is Lagrangian
+($S^\perp = S$), forcing the remaining rays $v_{ad}, v_{bc}$
+into $S^\perp = S$; all six rays would lie in one Lagrangian,
+contradicting properness.
+At $n \geq 5$, $\dim S^\perp = 2n - 4 \geq 6 > \dim S$,
+so $S$ is \emph{not} Lagrangian.
+The rays $v_{ad}$ and $v_{bc}$ may lie in
+$S^\perp \setminus S$ without contradiction.
+Computational search confirms: at $n = 5$, 75 out of 300 sampled
+proper $K_4$-matchings have two or more commuting pairs.
+\end{proof}
+
+\begin{lemma}[B2-failure at $n \geq 5$]\label{lem:B2fail}
+For $n \geq 5$, there exist a proper $K_5$ and a matching $M_m$ in which
+all three cross-context pairs anticommute.
+\end{lemma}
+
+\begin{proof}
+The proof of B2 shows: if all three pairs in $M_m$ anticommute, then
+\[
+  W = \langle v_{ab}, v_{ac}, v_{ad}, v_{bc}, v_{bd}, v_{cd} \rangle
+\]
+is non-degenerate of dimension~6, so $\dim W^\perp = 2n - 6$.
+At $n = 4$, $\dim W^\perp = 2$ and $|W^\perp \setminus \{0\}| = 3$,
+too small to accommodate the four 1-dimensional subspaces
+$L_a \cap W^\perp$, $L_b \cap W^\perp$, $L_c \cap W^\perp$,
+$L_d \cap W^\perp$ — a pigeonhole contradiction.
+At $n \geq 5$, $\dim W^\perp = 2n - 6 \geq 4$ and
+$|W^\perp \setminus \{0\}| \geq 15$;
+the four intersections can be distinct, and no contradiction arises.
+Computational search confirms: at $n = 5$, 39 out of 300 sampled
+proper $K_4$-matchings have all three pairs anticommuting.
+\end{proof}
+
+\begin{remark}
+Both failures trace to the same dimensional coincidence $2n = 8$, through dual
+identities: B1 to ``a 4-dimensional isotropic subspace is Lagrangian''
+($\dim S = n$), and B2 to ``the perp of a non-degenerate 6-dimensional subspace
+has only three nonzero vectors'' ($\dim W^\perp = 2n-6 = 2$). Each holds if and
+only if $2n = 8$. This single coincidence is what makes $n = 4$ rigid.
+\end{remark}
+
+\subsection{Spread-stabilisation}
+
+B1- and B2-failure witnesses at $n = 5$ and $n = 6$ extend to all
+$n \geq 5$ via the following constructive lemma.
+
+\begin{lemma}[Spread-stabilisation]\label{lem:spread}
+Equip $\F_2^{2(n+m)}$ with the block-diagonal form
+$\omega = \omega_n \oplus \omega_m$.
+Let $(L_i)$ be a proper $K_5$ in the first block and
+$(U_i)$ five pairwise-transverse Lagrangians in the second
+($U_i \cap U_j = \{0\}$ for $i \neq j$).
+Then $(L_i \oplus U_i)_{i=0}^4$ is a proper $K_5$
+with the same ray Gram matrix as $(L_i)$,
+hence the same $\Nanti$ and $(n_a)_m$.
+\end{lemma}
+
+\begin{proof}
+For $i \neq j$:
+\[
+  (L_i \oplus U_i) \cap (L_j \oplus U_j)
+  = (L_i \cap L_j) \oplus (U_i \cap U_j)
+  = \langle v_{ij} \rangle \oplus \{0\}
+  = \langle v_{ij} \rangle.
+\]
+Every ray $v_{ij}$ lies in the $\Sp(2n,\F_2)$ block, so $\omega(v_{ij}, v_{kl})$
+is unaffected by the $U$-summand.
+Properness and the ray Gram matrix are preserved.
+\end{proof}
+
+Five pairwise-transverse Lagrangians exist in $\Sp(2m,\F_2)$ for every
+$m \geq 2$: a Lagrangian spread of $\Sp(4,\F_2)$ provides exactly five
+(spread size $2^2 + 1 = 5$); for $m \geq 3$ take any five members
+of a spread of size $2^m + 1 \geq 9$.
+
+\begin{corollary}\label{cor:nge5}
+For every $n \geq 5$, there exist proper $K_5$ configurations
+in $\Sp(2n,\F_2)$ with $(n_a)_m \equiv 1$ for some $m$.
+In particular $n_a \not\equiv 0$ universally for any $n \geq 5$.
+\end{corollary}
+
+\begin{proof}
+For $n = 5$: a B2-failure witness has some $(n_a)_m = 3 \equiv 1$.
+For $n = 6$: direct computational witness (Table~\ref{tab:rigor}).
+For $n \geq 7$: apply Lemma~\ref{lem:spread} with $m = n - 5 \geq 2$
+to the $n = 5$ B2-failure witness, using any five pairwise-transverse
+Lagrangians in $\Sp(2(n-5),\F_2)$.
+The spread-stabilisation lemma preserves $(n_a)_m \equiv 1$.
+\end{proof}
+
+\subsection{\texorpdfstring{The $n = 3$ direction}{The n=3 direction}}
+
+\begin{lemma}\label{lem:n3}
+At $n = 3$, every all-Fano proper $K_5$ in $\Sp(6,\F_2)$ has
+$(n_a)_m = 3 \equiv 1$ for all $m \in \{0,\ldots,4\}$.
+\end{lemma}
+
+\begin{proof}
+In an all-Fano $K_5$, every context triple $\{v_{ab},v_{ac},v_{bc}\}$
+satisfies $v_{ab}+v_{ac}+v_{bc}=0$ and $\omega \equiv 0$ on the triple.
+By Paper~XVII \cite{PaperXVII}, all 15 cross-context pairs satisfy
+$\omega(v_{ij},v_{kl}) = 1$.
+Each $M_m$ contains 3 cross-context pairs, all anticommuting,
+so $(n_a)_m = 3 \equiv 1 \pmod{2}$.
+\end{proof}
+
+\begin{theorem}[Part~A]\label{thm:partA}
+$n_a \equiv 0$ universally over all proper $K_5$ in $\Sp(2n,\F_2)$
+if and only if $n = 4$.
+\end{theorem}
+
+\begin{proof}
+$n = 4$: Corollary~\ref{cor:n4}.
+$n \geq 5$: Corollary~\ref{cor:nge5}.
+$n = 3$: Lemma~\ref{lem:n3}.
+\end{proof}
+
+\section{\texorpdfstring{\boldmath$\delta\mu = 0$ universally (rank-parity, XX)}{Part B: delta-mu = 0 universally (rank-parity, XX)}}
+\label{sec:partB}
+
+\begin{theorem}[Rank-parity, XX \cite{PaperXX}]\label{thm:rankparity}
+Let $\{a,b,c\}$ be a proper triple in a proper $K_5$ in $\Sp(2n,\F_2)$.
+Set $W = L_a + L_b$; then $W^\perp = \langle v_{ab}\rangle$ and
+$W/W^\perp$ is a $(2n{-}2)$-dimensional symplectic space.
+The projected image $\bar{L}_c$ of $L_c \cap W$ carries a natural
+symmetric $\F_2$-form $B$ (see Paper~XX \cite{PaperXX}, \S4).
+Its radical is $\langle \bar{v}_{ac}, \bar{v}_{bc}\rangle$,
+giving $\rank B = n - 3$.
+The three cases are:
+\begin{itemize}
+  \item $n$ even $\Rightarrow$ $\rank B$ odd $\Rightarrow$
+        $B$ not alternating $\Rightarrow$ $\mu(a,b,c) = 1$.
+  \item $n = 3$ $\Rightarrow$ $\rank B = 0$ $\Rightarrow$
+        $B$ trivially alternating $\Rightarrow$ $\mu(a,b,c) = 0$.
+  \item $n \geq 5$ odd $\Rightarrow$ $\rank B \geq 2$ even
+        $\Rightarrow$ $B$ may or may not be alternating
+        $\Rightarrow$ $\mu$ varies.
+\end{itemize}
+\end{theorem}
+
+\begin{corollary}[Part~B]\label{cor:partB}
+\begin{itemize}
+  \item Every even $n$: $\mu \equiv 1$, so
+        $(\delta\mu)_m = \sum_{\text{4 faces}} 1 = 4 \equiv 0$,
+        hence $\delta\mu = 0$ universally.
+  \item $n = 3$: $\mu \equiv 0$, so $\delta\mu = 0$ universally.
+  \item Odd $n \geq 5$: $\mu$ varies and $\delta\mu \neq 0$ generically.
+\end{itemize}
+\end{corollary}
+
+\begin{remark}\label{rem:n3partB}
+At $n = 3$, $\delta\mu = 0$ universally (via $\mu \equiv 0$) so
+Part~B holds — but for the opposite reason from even $n$.
+Part~A nevertheless fails at $n = 3$ (Lemma~\ref{lem:n3}),
+so $n = 3$ does not achieve universal $n_a \equiv 0$.
+\end{remark}
+
+\section{The Master Theorem}
+\label{sec:master}
+
+\begin{theorem}[Master rigidity]\label{thm:master}
+The following are equivalent for $n \geq 3$:
+\begin{enumerate}
+  \item[(1)] $\Nanti = 10$ universally over all proper $K_5$
+             in $\Sp(2n,\F_2)$.
+  \item[(2)] $n_a \equiv 0$ universally.
+  \item[(3)] $n = 4$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+We route through (3); a direct $(1)\Leftrightarrow(2)$ argument fails, because
+neither $\Nanti=10$ nor $n_a\equiv0$ implies the other for a \emph{single}
+configuration (e.g.\ $(a_m)=(3,1,3,1,2)$ has $\Nanti=10$ but $n_a\not\equiv0$,
+while $(a_m)=(2,2,2,2,0)$ has $n_a\equiv0$ but $\Nanti=8$). The two are equivalent
+only as universal statements, both pinning $n=4$.
+
+$(2)\Leftrightarrow(3)$: Theorem~\ref{thm:partA} (Part~A).
+
+$(3)\Rightarrow(1)$: at $n=4$, Corollary~\ref{cor:n4} gives $a_m=2$ for every
+matching of every proper $K_5$, so $\Nanti=\sum_m a_m=10$ universally.
+
+$(1)\Rightarrow(3)$: by contraposition, for each $n\neq4$ we exhibit a proper $K_5$
+with $\Nanti\neq10$. At $n=3$ an all-Fano configuration has $\Nanti=15$
+(Lemma~\ref{lem:n3}). At $n\geq5$ the witnesses of Corollary~\ref{cor:nge5} have
+$\Nanti$ odd ($\Nanti=9$ at $n=5$, $\Nanti=11$ at $n=6$, preserved under
+spread-stabilisation), in particular $\neq10$. Hence $\Nanti=10$ fails universally
+whenever $n\neq4$.
+
+Combining, $(1)\Leftrightarrow(3)\Leftrightarrow(2)$.
+\end{proof}
+
+\begin{corollary}\label{cor:h3}
+The $H^3$ class $[n_a] \in H^3(\partial\Delta^4;\F_2)$ vanishes universally
+over all proper $K_5$ in $\Sp(2n,\F_2)$ if and only if $n = 4$.
+\end{corollary}
+
+\begin{proof}
+$n = 4$: $n_a \equiv 0$ by the master theorem, so $[n_a] = 0$.
+$n = 3$ (all-Fano): $(n_a)_m \equiv 1$ for all $m$, so
+$\sum_m (n_a)_m = 5 \equiv 1$; the generator $[n_a] \neq 0$ in $H^3
+\cong \F_2$ (since the $H^3$ class is the parity of $\sum_m (n_a)_m$
+via the isomorphism $H^3(\partial\Delta^4;\F_2) \cong \F_2$).
+$n \geq 5$: the B2-failure witness has some $(n_a)_m = 3 \equiv 1$
+and the spread-stabilisation preserves this; one checks that these
+witnesses have $\Nanti$ odd (e.g.\ $\Nanti = 9$ at $n = 5$,
+$\Nanti = 11$ at $n = 6$), so $[n_a] \neq 0$.
+\end{proof}
+
+\begin{remark}
+The master theorem and Corollary~\ref{cor:h3} together complete
+the series arc.
+Paper~XVIII identified $n = 4$ as the unique dimension with
+universal $N_{\mathrm{anti}} = 10$.
+Paper~XX showed $[n_a] = 0$ at $n = 4$.
+This paper shows both are equivalent, and that no other $n$ shares
+this property.
+The two legs — Part~A ($n_a$ cocycle) and Part~B ($\delta\mu$ coboundary)
+— are both necessary: Part~A alone gives the master theorem;
+Part~B explains \emph{why} $n_a$ is a coboundary at $n = 4$
+($n_a = \delta\mu$ with $\mu \equiv 1$).
+\end{remark}
+
+\section{The Even/Odd Carrier Dichotomy}
+\label{sec:dichotomy}
+
+When $[n_a] \neq 0$ generically, the $H^3$ obstruction is carried by
+different cochains depending on the parity of $n$.
+
+\begin{table}[H]
+\centering
+\caption{$H^3$ carrier by dimension.}
+\label{tab:dichotomy}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccccc}
+\toprule
+$n$ & Part~A ($n_a\equiv0$) & Part~B ($\delta\mu=0$)
+    & $H^3$ carrier & $\Nanti$ \\
+\midrule
+$4$ (even) & \checkmark & \checkmark\ ($\mu\equiv1$)
+  & none — rigid, $[n_a]=0$ & $=10$ \\
+even $\geq 6$ & $\times$ & \checkmark\ ($\mu\equiv1$)
+  & $n_a$ alone & $\approx 50/50$ parity \\
+odd $\geq 5$  & $\times$ & $\times$\ ($\mu$ varies)
+  & $\delta\mu$ (Wall non-additivity) & varies \\
+$3$ (odd) & $\times$\ (all-Fano) & \checkmark\ ($\mu\equiv0$)
+  & $n_a$ (all-Fano only) & $12$ or $15$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{\texorpdfstring{Even $n \geq 6$: $n_a$ is the sole carrier.}{Even n≥6: n\_a is the sole carrier.}}
+Since $\mu \equiv 1$ (Part~B), we have $\delta\mu \equiv 0$ universally,
+so whenever $n_a \neq 0$ the entire $H^3$ obstruction lies in $n_a$ itself.
+Empirically the class $[n_a] = \Nanti \bmod 2$ is an unbiased bit (a fair coin)
+for even $n \geq 6$, over the uniform ensemble of proper $K_5$; the per-value
+distribution of $a_m$ is \emph{not} uniform (it peaks at $a_m = 2$), so the
+balance is a statement about the parity, not the values. Open Problem~1
+(\S\ref{sec:open}) records the mechanism and the partial result.
+
+\paragraph{\texorpdfstring{Odd $n \geq 5$: $\delta\mu$ is the carrier.}{Odd n>=5: delta-mu is the carrier.}}
+Here $\mu$ varies by Theorem~\ref{thm:rankparity} (rank $B$ is even
+but not forced to be alternating), so $\delta\mu \neq 0$ generically.
+The Wall non-additivity of the Maslov 2-cochain drives the $H^3$
+obstruction; this is the metaplectic/Wall-signature regime.
+
+\paragraph{\texorpdfstring{$n = 4$: unique total collapse.}{n=4: unique total collapse.}}
+At $n = 4$ both carriers vanish simultaneously:
+$n_a \equiv 0$ (Part~A) and $\delta\mu \equiv 0$ via $\mu \equiv 1$ (Part~B).
+No other dimension achieves this.
+
+\section{Computational Verification}
+\label{sec:computation}
+
+\paragraph{Script \texttt{partA\_exclusivity.py}.}
+Samples proper $K_4$-matchings and counts commuting pairs per matching.
+Results (300 samples at $n = 3,4,5$; 200 at $n = 6$):
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cll}
+\toprule
+$n$ & \#commuting per matching: count & Part~A \\
+\midrule
+$3$ & $\{0{:}226,\ 3{:}74\}$ &
+      fails (bimodal $\{0,3\}$) \\
+$4$ & $\{1{:}300\}$ &
+      holds (universal) \\
+$5$ & $\{0{:}39,\ 1{:}186,\ 2{:}35,\ 3{:}40\}$ &
+      fails (B1-fail 75, B2-fail 39) \\
+$6$ & $\{0{:}31,\ 1{:}90,\ 2{:}58,\ 3{:}21\}$ &
+      fails (B1-fail 79, B2-fail 31) \\
+\bottomrule
+\end{tabular}
+\end{center}
+An explicit $n = 5$ B1-failure witness (two commuting pairings,
+$S$ isotropic of dimension~4, $S^\perp \supsetneq S$,
+escaping rays verified in $S^\perp \setminus S$) is extracted and
+confirmed.
+
+\paragraph{Script \texttt{partA\_construction.py}.}
+Verifies the spread-stabilisation lemma at dimensions $n = 7,8,9,10$.
+Starting from $\Nanti$-odd witnesses at $n = 5$ ($\Nanti = 9$) and
+$n = 6$ ($\Nanti = 11$), stabilisation by $m = 2$ yields proper $K_5$
+configurations at $n = 7, 8$ with identical $\Nanti$ values,
+confirming that properness and $\Nanti$ are preserved.
+
+\paragraph{Scripts \texttt{n6\_periodicity.py} and \texttt{n8\_confirm.py}.}
+Sample proper $K_5$ configurations at $n = 6$ and $n = 8$.
+Per-matching $n_a$ distribution at $n = 6$:
+$\approx 9\%/32\%/45\%/14\%$ for contributions $0,1,2,3$.
+At $n = 8$: $\approx 12\%/33\%/43\%/12\%$.
+The near-identical distributions suggest $n_a$ is $n$-independent
+for even $n \geq 6$ (see Open Problem~1 below).
+
+\begin{table}[H]
+\centering
+\caption{Rigour summary.}
+\label{tab:rigor}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{p{6.5cm}ll}
+\toprule
+Claim & Status & Source \\
+\midrule
+Part~A: $n=4$ ($n_a \equiv 0$) &
+  Rigorous & XVIII B1+B2 \\
+Part~A: $n=3$ failure (all-Fano) &
+  Rigorous & XVII + Lem.~\ref{lem:n3} \\
+Part~A: $n \geq 5$ B1/B2 failure &
+  Rigorous & Lems.~\ref{lem:B1fail}--\ref{lem:B2fail} \\
+Part~A: $n \geq 5$ constructive (spread-stab.) &
+  Rigorous & Lem.~\ref{lem:spread} \\
+Part~B: rank-parity (all $n$) &
+  Rigorous & XX Thm.~3.1 \\
+Master theorem &
+  Rigorous & Thm.~\ref{thm:master} \\
+$n=5$ B1-fail witness ($S^\perp \supsetneq S$) &
+  Verified & \texttt{partA\_exclusivity.py} \\
+Spread-stab.\ dims $7,8,9,10$ ($\Nanti$ preserved) &
+  Verified & \texttt{partA\_construction.py} \\
+Even-$n$ equidistribution ($n=6$) &
+  Conjectural & \texttt{n6\_periodicity.py} \\
+Even-$n$ equidistribution ($n=8$) &
+  Conjectural & \texttt{n8\_confirm.py} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Open Problems}
+\label{sec:open}
+
+\begin{enumerate}
+\item \textbf{Even-$n$ equidistribution of the $H^3$ class (partially resolved).}
+  The relevant object is not the per-value law of $a_m$ --- which is \emph{not}
+  uniform, peaking at $a_m=2$ --- but its parity, the $H^3$ class
+  $\Nanti \bmod 2$. Over the \emph{uniform} ensemble of proper $K_5$ this is
+  empirically an unbiased bit for even $n \geq 6$. (Caution: the symmetric-matrix
+  chart sampler is \emph{biased} for this parity; only the uniform
+  random-Lagrangian ensemble gives $1/2$.)
+
+  \emph{Mechanism.} Fix $L_1,L_2,L_3$ and let $L_4$ vary. The matching parity
+  $\Sigma = \omega(v_{12},v_{34}) \oplus \omega(v_{13},v_{24}) \oplus
+  \omega(v_{14},v_{23})$ is \emph{linear in the feet of $L_4$}:
+  $\Sigma = b_1 \oplus b_2 \oplus b_3$ with $b_i = \omega(v_{i4}, r_{jk})$,
+  where $r_{jk}=L_j\cap L_k$ and $\{i,j,k\}=\{1,2,3\}$. Each $b_i$ is a
+  \emph{nonzero} functional on $L_i$ (nonzero because $r_{jk}\notin L_i$, else
+  $r_{jk}=v_{ij}$, contradicting distinct rays). The foot-bits are individually
+  biased but weakly correlated, so their XOR is balanced (the piling-up
+  phenomenon), and $\Nanti\bmod2=\bigoplus_m\Sigma_m$ is crushed to a fair coin.
+
+  \emph{Leading order (proved).} \textbf{Uniform-foot lemma:} over Lagrangians $M$
+  with $\dim(L_1\cap M)=1$, the foot $L_1\cap M$ is uniform over
+  $L_1\setminus\{0\}$, since $\mathrm{Stab}(L_1)\le\Sp(2n,\F_2)$ surjects onto the
+  Levi $\mathrm{GL}(L_1)$, which is transitive on $L_1\setminus\{0\}$, and the foot
+  map is equivariant. Hence a single foot-bit has bias exactly
+  $1/(2^n-1)=O(2^{-n})$. No single transvection flips $\Sigma$ while fixing the
+  $L_2,L_3$ feet (the only ones fixing both act by $\langle r_{23}\rangle$, which
+  preserves $\omega(\cdot,r_{23})$), so the balance is a counting fact, not a
+  symmetry; the equidistribution is asymptotic, not exact.
+
+  \emph{Open:} bound the bias and correlations of $b_1,b_2,b_3$ under the
+  simultaneous $L_2,L_3$ (and $K_5$) constraints, upgrading the asymptotic fair
+  coin to a theorem.
+
+\item \textbf{Geometric home of the even-$n$ carrier.}
+  At even $n \geq 6$, the $H^3$ obstruction lives in $n_a$ alone.
+  At odd $n \geq 5$, it lives in $\delta\mu$ (Wall non-additivity of the
+  Maslov index, related to the metaplectic rung of Paper~XV).
+  What is the geometric home of $n_a$ as a carrier for even $n \geq 6$?
+  Is it the Dixmier--Douady class of a $\mathrm{U}(1)$-gerbe, as Paper~IV
+  anticipated for the $H^3$ Borromean obstruction?
+
+\item \textbf{Arity-5 classifier.}
+  Paper~XIX showed no arity-$\leq 4$ invariant classifies
+  $\Nanti \bmod 2$ at $n \geq 5$.
+  The master theorem explains why: the carrier $n_a$ is a
+  cochain on 5 Lagrangians, so any classifier must use all five.
+  Is there a natural arity-5 invariant (a function of the five
+  Lagrangians and their pairwise rays) that computes
+  $\Nanti \bmod 2$ for even $n \geq 6$?
+
+\item \textbf{Physical interpretation.}
+  The class $[n_a]$ is a concrete obstruction in a finite quantum system.
+  Its operational meaning — in terms of measurement incompatibility,
+  contextuality witnesses, or quantum advantage — remains unknown
+  for $n \geq 5$.
+\end{enumerate}
+
+\begin{thebibliography}{99}
+
+\bibitem[PaperIV]{PaperIV}
+Z.-L. Chen,
+``The Cohomological Obstruction Ladder: 
+Lyndon–Hochschild–Serre Transgression and the $H^3$ Frontier,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20073184} (2026).
+
+\bibitem[PaperXV]{PaperXV}
+Z.-L. Chen,
+``The Weil Representation and the $S_3$ Lifting Classification
+for Mermin Pentagrams,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20519654} (2026).
+
+\bibitem[PaperXVII]{PaperXVII}
+Z.-L. Chen,
+``The Cross-Context Anticommutation Theorem
+and the Algebraic Origin of the Kochen--Specker Obstruction,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20530757} (2026).
+
+\bibitem[PaperXVIII]{PaperXVIII}
+Z.-L. Chen,
+``Mermin Pentagrams in $\Sp(8,\F_2)$:
+Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20579239} (2026).
+
+\bibitem[PaperXIX]{PaperXIX}
+Z.-L. Chen,
+``Mermin Pentagrams in $\Sp(2n,\F_2)$, $n\ge5$:
+Structure, Obstruction, and the Modulus Phenomenon,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20590195} (2026).
+
+\bibitem[PaperXX]{PaperXX}
+Z.-L. Chen,
+``$\mathrm{H}^3$ Opens at $n\ge5$: 
+The Cohomological Origin of the Mermin Modulus,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20608302} (2026).
+
+\bibitem[PaperXXIsuppl]{PaperXXIsuppl}
+Z.-L. Chen,
+``Supplementary computational scripts for XXI,''
+\textit{Zenodo, DOI: 10.5281/zenodo.20636220} (2026).
+
+\end{thebibliography}
+
+\end{document}
