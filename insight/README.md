@@ -51,10 +51,35 @@ sharpen*, not to delete.
 - `quantum_applications.md` — the one application note that is *not* connect-the-dots:
   QEC's stabilizer formalism **is** the framework's objects (stabilizer state =
   Lagrangian = MASA; syndrome = anticommutation; MUB = Lagrangian spread). §1 is
-  identity, not analogy; §2 onward (contextuality-as-resource; the $H^3$ modulus as a
-  hidden multipartite resource) is the same open problem as `open_problems.md` item 24,
-  approached from quantum information. The thing Paper VI wanted to write but couldn't
-  until the symplectic substrate (X–XXII) existed.
+  identity, not analogy; §2 is its **Gottesman–Knill** corollary (also rigorous): the
+  Bohrified MASA-local CAID *is* the stabilizer representation, so `n/`'s forced
+  quantization stayed polynomial because it lives on the efficiently-simulable Clifford
+  island — and advantage ⟺ leaving it ⟺ the obstruction ladder. §3 onward
+  (contextuality-as-resource; the $H^3$ modulus as a hidden multipartite resource) is
+  the same open problem as `open_problems.md` item 24, approached from quantum
+  information. The thing Paper VI wanted to write but couldn't until the symplectic
+  substrate (X–XXII) existed.
+
+**Shared substrate (rigorous home, with a citation action item)**
+- `bhqc_shared_substrate.md` — the black-hole/qubit correspondence + the finite-geometry-
+  of-the-Pauli-group program (Saniga, Lévay, Holweck, de Boutray, Borsten–Duff) is the
+  framework's *home*, not an analogy: same $\mathbb F_2$, $\mathrm{Sp}(2n,2)$, doily,
+  Fano, Mermin pentagram — closer than QEC. Lit check (2026-06-14) found a sibling scalar
+  measure, **"contextuality degree," already computed at n=4,5,6** → real citation /
+  novelty action item. The framework's genuinely novel layer is sharply located: the
+  **cohomological** reading ($n_a=\delta\mu$, Maslov–Wall) + the **structural
+  $n$-dependence theorems** (neither is in the degree literature). The framework is the
+  *bridge* between finite-geometry contextuality degree and symplectic signature cocycles.
+  Also the **third door** on item 24 (black-hole entropy).
+
+**Assessed and parked** *(deep analogy, recorded answer, not a research line)*
+- `amplituhedron_duality.md` — the amplituhedron is the same observation-primary,
+  emergent-global instinct, and is a near-*dual* of the ladder (positivity makes
+  gluing *succeed*; the ladder measures how it *fails*) — so it serves as the
+  **positive control** for the APP_07 §6 holographic framing. One well-posed but
+  XXIII++-distant hook: Paper VIII's $\Phi$ and the amplituhedron both map into
+  twistor $\mathbb{CP}^3$. Killed as a research line by the positivity / $\mathbb F_2$
+  wall; **chase QEC instead**. Kept so the recurring question has a recorded answer.
 
 **Live thought experiments** *(❌ as physics — kept as framework stress-tests)*
 - `time_arrow_obstruction.md`, `higgs_gravity_obstruction.md`,

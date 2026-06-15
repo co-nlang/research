@@ -41,7 +41,52 @@ partition of the nonzero points into pairwise-transverse Lagrangians). Paper XXI
 spread-stabilization manipulated exactly these. So the quantum-cryptography side
 also lands on machinery we already operate.
 
-## 2. The disciplined "but": identity ≠ new tool (⚠️)
+## 2. Gottesman–Knill: why the *forced* quantization stayed tractable (✓ corollary)
+
+This is the complexity-theoretic face of §1, and it answers a worry APP_06 states
+out loud. The `n/` evolution chain (APP_06 §1–4) is: LADD smell-search needs phase
+→ EML demands $\mathbb C$ → Solèr **forces** quantization → non-commutativity →
+Bohrification rescues local readability (each context a MASA = Heyting algebra,
+$\mathrm{CAID}=P_A$ spectral fingerprint). APP_06 §4 worries: *"quantization brings
+non-commutativity, which seems to make code unreadable."* Naïvely, forced
+quantization means $2^n$ amplitudes — exponential. Why didn't it blow up?
+
+> **Gottesman–Knill theorem.** A computation using only (i) stabilizer-state prep,
+> (ii) Clifford gates, (iii) Pauli / computational-basis measurement is
+> **classically simulable in polynomial time** — by tracking the stabilizer group
+> (a Lagrangian in $\mathrm{Sp}(2n,\mathbb F_2)$) instead of the $2^n$ amplitudes.
+
+Lay it on the chain. By §1's *identity*, every Bohrified context is a
+**MASA = stabilizer state = Lagrangian**, and the CAID is the spectral fingerprint
+of the projector $P_A$ — i.e. *the stabilizer description itself*. Tracking the
+system by its MASA / Lagrangian / stabilizer rather than by a full state vector
+**is exactly the Gottesman–Knill efficient representation.** So `CAID_exact` being
+polynomial is not an engineering trick — it is the framework living, by
+construction, on the efficiently-simulable Clifford/stabilizer island. Gottesman–Knill
+is the *theorem-level answer* to APP_06 §4's worry: the forced quantization didn't
+explode because the Bohrified local view lands precisely in the simulable fragment.
+
+**But — the same theorem's other edge (a rigorous corollary, not a hope).**
+Gottesman–Knill also says: a computation that *stays* in this fragment yields
+**no quantum speedup** (it is classically simulable). So `n/`'s stabilizer substrate
+is *by design* the efficient-classical island. Any genuine quantum advantage must
+come from **leaving** it — from non-Clifford "magic" / contextuality, which is
+exactly the Howard et al. resource of §3 and exactly what the obstruction ladder
+($H^2/H^3$) measures. The substrate identity (§1) and the resource question (§3)
+are thus two sides of one complexity boundary, and Gottesman–Knill is the line
+between them.
+
+**Aligns with $\hbar_{n/}$ (APP_06 §6.5).** This gives $\hbar_{n/}$ a
+complexity reading:
+- $\hbar_{n/}=0$ (single MASA, `CAID_exact`) = on the Gottesman–Knill island = efficiently classical;
+- $\hbar_{n/}>0$ (cross-context) = off the island = where the obstruction — and any hardness or advantage — lives.
+
+So $\hbar_{n/}$ is, read this way, *a measure of distance from the Gottesman–Knill
+island.* It upgrades §1's identity of **objects** into a statement about `n/`'s
+**computational cost**: cheap exactly as far as it stays Clifford, and the price of
+leaving is denominated in the obstruction ladder.
+
+## 3. The disciplined "but": identity ≠ new tool (⚠️)
 
 QEC is a mature field; it knows this symplectic algebra cold. The framework earns
 its keep only if its *specific* results say something QEC has not already named.
@@ -60,7 +105,7 @@ The framework's possible contribution is to **grade** that resource:
 Whether this graded resource is *operationally useful* — whether the $H^3$ modulus
 powers any magic / advantage / protocol — is open. (⚠️ conjecture, not result.)
 
-## 3. Convergence with the operational-meaning question (the north star)
+## 4. Convergence with the operational-meaning question (the north star)
 
 The honest reduction: **"does the framework help QEC / quantum crypto?" sharpens to
 "does the $H^3$ obstruction class have operational meaning?"** — which is exactly
@@ -78,33 +123,59 @@ Same question, two doors. And both doors are gated by the same wall as everythin
 else (Direction D — the comparison map that ties the framework's $H^3$ to the
 operational/measurement-level cohomology).
 
-## 4. Honest tiering (per `README.md` discipline)
+## 5. Honest tiering (per `README.md` discipline)
 
 | Claim | Status |
 |---|---|
 | stabilizer = isotropic; stabilizer state = Lagrangian = MASA; syndrome = anticommutation | ✓ identity (rigorous) |
 | MUB = Lagrangian spread (QKD touchpoint) | ✓ known identity |
+| MASA-local CAID ($P_A$ fingerprint) = Gottesman–Knill efficient (stabilizer) representation → `CAID_exact` polynomial | ✓ corollary of §1 identity + theorem |
+| quantum advantage ⟺ leaving the stabilizer fragment (contextuality / magic) | ✓ corollary (Gottesman–Knill + Howard et al.) |
+| $\hbar_{n/}$ = distance from the Gottesman–Knill island | [~] reading, not a new tool |
 | obstruction ladder = graded contextuality resource | ⚠️ conjecture |
-| $H^3$ modulus = a hidden multipartite resource | ⚠️ conjecture (rests on XIX–XXII) |
+| $H^3$ modulus = a beyond-Gottesman–Knill resource (state-independent contextuality at $H^3$, glue of five stabilizer contexts, uncertifiable below five) | ⚠️ conjecture (rests on XIX–XXII + §6) |
 | framework yields a *new* QEC code / QKD protocol | ❌ unproven — do not claim |
 | security of QKD = obstruction-class nonvanishing | [~] restatement, not a new tool |
 
-## 5. The one sharp question to pursue
+## 6. The one sharp question to pursue
 
-> **Does the $n\ge5$ $H^3$ modulus correspond to an operationally meaningful
-> quantum resource — e.g. a form of magic / contextual advantage invisible to any
-> 4-context certification?**
+> **Is the $n\ge5$ $H^3$ modulus a beyond-Gottesman–Knill resource — a form of
+> "magic" that no $\le4$-context (stabilizer) certification can witness, but that
+> five stabilizer contexts (the $K_5$ pentagram) make manifest?**
+
+This is §6's earlier "operationally meaningful?" question, re-pinned to a *theorem*
+(§2): "useful" sharpens to "beyond the efficiently-simulable Clifford island," and
+"invisible to 4-context certification" is now literally the **modulus theorem**
+(arity $\le4$ cannot see the class; five Lagrangians are required to witness it).
+That is a much harder, much sharper claim — which is the point.
+
+**One honesty refinement so it doesn't overclaim.** Every piece here is itself a
+stabilizer object (each context is a MASA/Lagrangian, individually
+Gottesman–Knill-simulable). So "beyond-GK" cannot mean "the states are magic" — it
+must mean *the glue is*: the $H^3$ class of how five stabilizer contexts fail to
+agree. There is precedent that this is not empty — the **Mermin square** is built
+entirely from Pauli (stabilizer) measurements yet witnesses state-independent
+contextuality at $H^2$. The reformulated question asks whether the pentagram does
+the analogous thing one rung up, at $H^3$, with the extra teeth that the modulus
+theorem certifies the resource is *invisible below five contexts*. So the precise
+form is: **does the $H^3$ pentagram realize a state-independent contextuality
+resource that is (a) carried by the gluing of five stabilizer contexts and (b)
+provably uncertifiable by any $\le4$-context stabilizer protocol — and does that gap
+buy any computational / cryptographic advantage?**
 
 If yes, the framework graduates from "shares QEC's map" to "supplies a coordinate
 QEC did not have": a *degree* on the contextuality resource, with the pentagram's
-$H^3$ as its first genuinely multipartite rung. If no, the substrate identity still
-stands — the framework simply remains a faithful re-description, not a new tool.
+$H^3$ as its first genuinely multipartite rung *above* the Mermin-square $H^2$ one.
+If no, the substrate identity (§1) and its Gottesman–Knill corollary (§2) still
+stand — the framework simply remains a faithful, efficiently-classical
+re-description, not a new tool.
 
 ---
 
 *This note is the strongest-grounded of the application sketches: its §1 is identity,
-not analogy. Everything above §2 is rigorous; everything from §2 on is the same
-open problem (item 24) seen from quantum information. See `why_the_ladder.md`
+not analogy, and §2 is that identity's Gottesman–Knill complexity corollary (also
+rigorous). Everything from §3 on is the same open problem (item 24) seen from
+quantum information. See `why_the_ladder.md`
 (observation core), `transformers_bohrification.md` (the other application),
 `open_problems.md` item 24, and Papers XVII (anticommutation/Petersen),
 XIX (modulus), XX–XXII (H³ arc, spreads).*
