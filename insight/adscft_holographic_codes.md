@@ -1,8 +1,34 @@
 # AdS/CFT, holographic codes, and the modulus: a *computable* line off the QEC door
 
-*Status: ⚠️ candidate **research line** (not a parked dot) — speculative bridge, but with a
-concrete, finite, **computable** test. Better-grounded than at Paper IX. Do after the
-citation fixes; ahead of the parked items.*
+*Status: ✅ **RESOLVED at shape-level** (2026-06-16, steps 1–3 in
+`supplementary/adscft/`). The correspondence is real but shape-level (shared objects +
+boundary↛bulk + complementarity + wedge nesting, all rigorous in F2); it is **not** an
+obstruction-measure identity (reconstruction = erasure/support; framework $H^3$ =
+contextuality — proven independent). The computable test paid off: a clean, definite
+demarcation rather than an open hope.*
+
+## Resolution (2026-06-16)
+
+Built the HaPPY codes in framework-native $\mathrm{Sp}(2n,\mathbb F_2)$ and ran the
+bridge test end to end (`supplementary/adscft/`):
+- **step 1** single [[5,1,3]] tile: sharp wall $|A|\ge3$ + exact wedge complementarity.
+- **step 2** 2-tile [[8,2]]: tile-local wedges + nesting through the bond; finding that
+  $m$ bulk qubits = $m$-qubit geometry, so $H^3$ needs 3 tiles.
+- **step 3** 3-tile [[11,3]]: bulk is a *faithful* $W(5,2)$ (so it genuinely carries
+  $H^3$), yet the minimal reconstruction wedge depends **only** on tile-support / chain
+  geometry — the operator's contextual role is invisible to reconstruction.
+
+**Conclusion:** reconstruction is a *support* property, contextuality a *sign* property
+— different functions of the same logical operators, so **no holographic stabilizer code
+can make them coincide** (structural, not chain-specific). Same $W(5,2)$, two independent
+obstructions. The AdS/CFT link is **shape-level**, not an obstruction identity.
+
+Everything below was the pre-computation case for the line; kept for the record.
+
+---
+
+*Status (historical): ⚠️ candidate **research line** — speculative bridge, but with a
+concrete, finite, **computable** test. Better-grounded than at Paper IX.*
 
 ## History (why this was shelved once)
 

@@ -72,16 +72,17 @@ sharpen*, not to delete.
   *bridge* between finite-geometry contextuality degree and symplectic signature cocycles.
   Also the **third door** on item 24 (black-hole entropy).
 
-**Candidate research line (computable, not parked)**
-- `adscft_holographic_codes.md` — the QEC door reaches AdS/CFT, because holographic codes
-  (HaPPY) are *finite stabilizer codes* = framework objects, and the XIX modulus
-  (boundary↛bulk) mirrors **entanglement-wedge reconstruction** (subregion↛bulk operator).
-  Shelved as "too loose" at Paper IX; no longer, because both ends are now sharp. Unlike the
-  amplituhedron, the bridge is a **finite computation** (run $N_{\text{anti}}$ / obstruction
-  on a HaPPY code; does the arity ceiling match the wedge threshold?). Cautions: geometry
-  doesn't transfer (only the code); contextuality-obstruction vs erasure-threshold may not
-  coincide — which is what the computation settles. Do *after* citation fixes. Fourth angle
-  on item 24.
+**Resolved by computation (shape-level correspondence)**
+- `adscft_holographic_codes.md` (+ `supplementary/adscft/`) — the QEC door reaches AdS/CFT
+  because holographic codes (HaPPY) are *finite stabilizer codes* = framework objects. The
+  computable test ran end to end (steps 1–3: [[5,1,3]] → [[8,2]] → [[11,3]]): the bulk of a
+  3-tile network is a **faithful $W(5,2)$** (genuinely carries $H^3$), yet reconstruction
+  wedges depend only on support/geometry — contextuality is **invisible** to reconstruction.
+  **Verdict:** real but **shape-level** correspondence (shared objects + boundary↛bulk +
+  complementarity + wedge nesting), **not** an obstruction-measure identity (reconstruction =
+  erasure/support; framework $H^3$ = contextuality; structurally independent). A clean,
+  definite demarcation — the computable line paid off. The 4th angle on item 24 (and unlike
+  BHQC, it comes with a finished computation).
 
 **Assessed and parked** *(deep analogy, recorded answer, not a research line)*
 - `amplituhedron_duality.md` — the amplituhedron is the same observation-primary,
