@@ -74,6 +74,31 @@ Both sides are computable on the *same* finite code. This is an experiment, not 
   the *same* obstruction on holographic codes is exactly the open question — an honest
   *maybe*, and the computation above is what would settle it.
 
+## Step 1 result (2026-06-16) — building block computed
+
+`supplementary/adscft/happy_513.py`: the [[5,1,3]] perfect tensor in
+$\mathrm{Sp}(10,\mathbb F_2)$ ($S$ isotropic, logical $=S^\perp/S$). Over all 32
+boundary regions:
+- **sharp reconstruction threshold: bulk recoverable $\iff |A|\ge3$**;
+- **entanglement-wedge complementarity exact** (exactly one of $A,\bar A$ owns the
+  bulk; 0 violations).
+
+So the *shape* (sharp threshold + complementarity + same objects) transfers
+rigorously. But the threshold is $|A|\ge3$ of **5 qubits** — a *distance/erasure*
+number — not the framework's arity-5 / $H^3$ among *contexts*. The naive "arity
+ceiling = wedge threshold" identification **fails at face value**: same shape, same
+objects, but contextuality/$H^3$ and erasure/distance are **different faces** of
+"local data insufficient" (the caution above, now demonstrated).
+
+A structural consequence pins down step 2: **a single tile is one commuting
+stabilizer group = one context, hence trivially non-contextual.** The framework's
+contextuality is multipartite, so any genuine obstruction-measure correspondence must
+be an **emergent network property** (multiple tiles → multiple bulk qubits / overlapping
+contexts), not a tile property. The bridge test therefore *requires* the small-network
+build (step 2); the tile alone cannot decide it. A legitimate possible endpoint: the
+correspondence is **shape-level** (boundary↛bulk + complementarity), strong but not an
+obstruction identity — recorded as such if the network shows no cross-context tracking.
+
 ## Disposition
 
 A genuine research line, ahead of the parked items, **behind the citation fixes**. It is the
