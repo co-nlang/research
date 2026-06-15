@@ -55,5 +55,34 @@ property. Candidate next probes:
    *shape*-level correspondence (boundary-underdetermines-bulk + complementarity),
    strong but not an obstruction-measure identity — and the line is recorded as such.
 
+## Step 2 — the minimal network (`network_min.py`)
+
+A general stabilizer-tensor-network contractor in F2 (each perfect tensor = the
+6-leg encoder state of [[5,1,3]]; gluing a leg = exact Bell contraction). Two tiles
+glued on one edge → an **[[8,2]]** holographic code (8 boundary, 2 bulk). Sanity:
+the contractor reproduces the single-tile threshold $|A|\ge3$.
+
+**Results (reproducible — `python3 network_min.py`):**
+- **Entanglement wedges are tile-local:** bulk `AB` reconstructs from any 3 of tile
+  A's legs `{A0,A1,A2,A3}`; bulk `BB` from any 3 of tile B's legs `{B1,B2,B3,B4}`.
+- **Wedge nesting through the bond:** reconstructing *both* bulk qubits needs only
+  $|A|\ge5$ (e.g. 3 legs of A + 2 of B), not 6 — the glued bond carries one side's
+  information into the other's wedge. Correct holographic behavior, in F2.
+
+**The structural finding that sharpens the whole line.** The bulk of an $m$-tile
+network is an $m$-logical-qubit system, so its contextuality lives in the $m$-qubit
+Pauli geometry:
+- $m=1$: one context → non-contextual (step 1).
+- $m=2$: 2-qubit doily $\mathrm{Sp}(4,2)$ → home of the **Mermin square = family B /
+  $H^2$**. So a 2-tile network can *only* probe the $H^2$ bridge.
+- $m=3$: 3-qubit $W(5,2)$ → home of the **Mermin pentagram = family A / $H^3$** — the
+  framework's distinctive modulus.
+
+⟹ **The minimal object that can test the framework's distinctive $H^3$ bridge is a
+THREE-tile network** (3 bulk qubits). The 2-tile case lands in $H^2$/family-B
+territory by construction. This precisely locates where holography could meet the
+$H^3$ modulus, and is the concrete next step.
+
 ## Files
-- `happy_513.py` — the building-block computation (pure F2, no deps).
+- `happy_513.py` — the building-block computation (step 1; pure F2, no deps).
+- `network_min.py` — the stabilizer-network contractor + the 2-tile [[8,2]] network (step 2).
