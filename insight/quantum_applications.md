@@ -137,38 +137,61 @@ operational/measurement-level cohomology).
 | framework yields a *new* QEC code / QKD protocol | ❌ unproven — do not claim |
 | security of QKD = obstruction-class nonvanishing | [~] restatement, not a new tool |
 
-## 6. The one sharp question to pursue
+## 6. The sharp question — relocated to where qubit contextuality is actually a resource
 
-> **Is the $n\ge5$ $H^3$ modulus a beyond-Gottesman–Knill resource — a form of
-> "magic" that no $\le4$-context (stabilizer) certification can witness, but that
-> five stabilizer contexts (the $K_5$ pentagram) make manifest?**
+The earlier framing ("beyond-Gottesman–Knill *magic*?") has a partial answer, and it
+is **No, in the circuit / distillation sense.** The framework's $H^3$ is contextuality
+among **qubit stabilizer** objects, and the qubit stabilizer subtheory is the known
+anomaly: *contextual yet efficiently classically simulable* (the Mermin square is
+all-Pauli and contextual, but Gottesman–Knill still applies). So qubit contextuality
+alone buys **no circuit speedup and no magic-state distillation** [Raussendorf–Browne–
+Delfosse–Okay–Bermejo-Vega, arXiv:1511.08506]. Reading $H^3$ as distillation-magic is
+the wrong axis — and this dovetails with the AdS/CFT result (`adscft_holographic_codes.md`):
+contextuality is one of *two orthogonal softwares* on the stabilizer hardware, and it is
+**not** the hardness/advantage axis in the circuit model.
 
-This is §6's earlier "operationally meaningful?" question, re-pinned to a *theorem*
-(§2): "useful" sharpens to "beyond the efficiently-simulable Clifford island," and
-"invisible to 4-context certification" is now literally the **modulus theorem**
-(arity $\le4$ cannot see the class; five Lagrangians are required to witness it).
-That is a much harder, much sharper claim — which is the point.
+The **right** axis is **measurement-based** computation, where qubit contextuality
+genuinely *is* the resource:
+- **Anders–Browne (PRL 102, 050502, 2009):** Mermin/GHZ contextuality lets a *linear*
+  (parity) classical control computer evaluate a **nonlinear** gate (NAND) — promoting
+  it to universal. Contextuality is the fuel.
+- **Raussendorf (Contextuality in MBQC, arXiv:0907.5449):** non-contextual l2-MBQC
+  computes *exactly the linear* Boolean functions; any **nonlinear** function forces
+  strongly contextual correlations.
+- **Okay–Roberts–Bartlett–Raussendorf (arXiv:2005.00213):** the Boolean function an
+  MBQC computes is *literally a class in $H^2$* of the MBQC chain complex — and that
+  class is *simultaneously the contextuality witness*. Cohomological degree already
+  meets computational content, at degree 2.
 
-**One honesty refinement so it doesn't overclaim.** Every piece here is itself a
-stabilizer object (each context is a MASA/Lagrangian, individually
-Gottesman–Knill-simulable). So "beyond-GK" cannot mean "the states are magic" — it
-must mean *the glue is*: the $H^3$ class of how five stabilizer contexts fail to
-agree. There is precedent that this is not empty — the **Mermin square** is built
-entirely from Pauli (stabilizer) measurements yet witnesses state-independent
-contextuality at $H^2$. The reformulated question asks whether the pentagram does
-the analogous thing one rung up, at $H^3$, with the extra teeth that the modulus
-theorem certifies the resource is *invisible below five contexts*. So the precise
-form is: **does the $H^3$ pentagram realize a state-independent contextuality
-resource that is (a) carried by the gluing of five stabilizer contexts and (b)
-provably uncertifiable by any $\le4$-context stabilizer protocol — and does that gap
-buy any computational / cryptographic advantage?**
+That last result is the launching point: it puts a *computational meaning on $H^2$*,
+and the framework's distinctive object is the rung above.
 
-If yes, the framework graduates from "shares QEC's map" to "supplies a coordinate
-QEC did not have": a *degree* on the contextuality resource, with the pentagram's
-$H^3$ as its first genuinely multipartite rung *above* the Mermin-square $H^2$ one.
-If no, the substrate identity (§1) and its Gottesman–Knill corollary (§2) still
-stand — the framework simply remains a faithful, efficiently-classical
-re-description, not a new tool.
+> **Sharp conjecture (cohomological degree $=$ computational degree).** Non-contextual
+> $=$ linear (Raussendorf); $H^2$ (Mermin square / Anders–Browne) $=$ the first
+> nonlinear rung; the **$H^3$ pentagram modulus** $=$ a strictly higher primitive — a
+> degree-3 (cubic) Boolean capability — that **no $H^2$ / $\le4$-context resource can
+> compute.** The modulus theorem (the class is invisible below five contexts) becomes
+> its computational form: *the cubic primitive is uncomputable by any $\le4$-context
+> MBQC resource.*
+
+This is sharp and **falsifiable by small simulation** — does a pentagram resource
+state, under linear classical control, deterministically compute a cubic function that
+a Mermin-square resource provably cannot? Same pattern as the HaPPY arc: a pose a
+computation can settle.
+
+**The honest gap (the standing wall).** It rests on identifying the framework's $H^3$
+(group cohomology of $\mathrm{Sp}(2n,\mathbb F_2)$, the Maslov/Wall class
+$n_a=\delta\mu$) with degree-3 of the *MBQC chain complex* of Okay–Raussendorf — two
+different cohomologies. That identification is a **comparison map**, exactly the kind
+that is the project's open wall (Direction D; cf. the Veldkamp / Abramsky-sheaf
+distinctions of §3). So the conjecture is well-posed and testable in the *computational*
+direction even while the *comparison map* stays open: a simulation can confirm a degree-3
+separation empirically before the map is built.
+
+If the separation holds, the framework graduates from "shares QEC's map" to "supplies a
+coordinate QEC did not have": a computational *degree* on the contextuality resource,
+with the pentagram as its first cubic rung above the Mermin-square quadratic one. If it
+fails, §1–§2 stand — a faithful, efficiently-classical re-description.
 
 ---
 

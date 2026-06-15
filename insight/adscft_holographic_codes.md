@@ -23,6 +23,17 @@ bridge test end to end (`supplementary/adscft/`):
 can make them coincide** (structural, not chain-specific). Same $W(5,2)$, two independent
 obstructions. The AdS/CFT link is **shape-level**, not an obstruction identity.
 
+**Physical image (the prize).** On the one $\mathrm{Sp}(2n,\mathbb F_2)$ hardware, the
+universe runs **two orthogonal pieces of software**: a *spatial / reconstruction* layer
+(support, erasure, entanglement wedges — how data is stored and glued) and a *logical /
+contextual* layer (signs, $H^3$ — what cannot be globally assigned). The HaPPY
+computation proves they are independent: the same logical operators, two functions that
+never lock together. (And by `quantum_applications.md` §6, *both* of these layers are, for
+qubits, classically tractable — reconstruction is poly, stabilizer contextuality is
+Gottesman–Knill-simulable; quantum *advantage* is a third axis the stabilizer hardware
+doesn't carry at all. The contextual layer's computational bite shows up only in the
+measurement-based setting, §6.)
+
 Everything below was the pre-computation case for the line; kept for the record.
 
 ---
