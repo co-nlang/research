@@ -203,7 +203,7 @@ non-adaptively the pentagram ($H^3$) is degree-2 just like the square ($H^2$); (
 Computational function-degree is set by **adaptive depth**, not by the cohomological rung.
 $H^3$ gives **no** computational-degree separation over $H^2$. See §7.
 
-## 7. The orthogonality verdict — what $H^3$ operationally *is* (item 24, answered)
+## 7. Item 24 was mistyped — $H^3$ is structural by nature (the orthogonality verdict)
 
 Three independent operational axes have now been tested against the framework's $H^3$
 contextuality, and on every one it comes back **orthogonal**:
@@ -216,25 +216,47 @@ contextuality, and on every one it comes back **orthogonal**:
 
 In each case the $H^3$ class is genuinely *present* in the substrate (the bulk of a
 3-tile holographic code is a faithful $W(5,2)$; the pentagram really is contextual), yet
-it is **not the carrier** of the operational resource. That convergence is the answer to
-**item 24**:
+it is **not the carrier** of the operational resource. But the deeper reading is not
+"tested three axes, found it orthogonal three times" — it is that **item 24 was mistyped.**
 
-> **The operational meaning of $H^3$ is structural, not a power.** It is a *coordinate*
-> — a classifying invariant, and a *certification depth* (the modulus theorem: the class
-> cannot be witnessed below five contexts) — orthogonal to spatial reconstruction, circuit
-> advantage, and MBQC function-degree alike.
+**Item 24 asked an operational question of a structural quantity.** $H^3$ is an
+obstruction class; obstruction classes are *classifying invariants by construction* — they
+measure the failure of local-to-global. Expecting one to be a resource imported a type
+(contextuality-as-resource, an odd-qudit phenomenon) that qubit $H^3$ doesn't have; the
+GK-simulability of qubit stabilizer contextuality (§2) was the first symptom.
 
-This is not a defeat; it is the framework's own thesis earned rather than asserted —
-**"framework = coordinates, cartographer not competitor"** (cf. `open_problems.md` §A′).
-$H^3$ locates and classifies; it does not "do work" on any operational axis we tested.
-The honest residue: other operational settings (communication complexity, other resource
-theories) remain logically open, but three orthogonality results from independent
-directions make a structural-not-operational reading the robust bet.
+**The one correction that keeps this honest** (or it proves too much): $H^2$, the Mermin
+square, is *also* a cohomology class, and it **is** operational — Anders–Browne, it powers
+nonlinear MBQC. So cohomology is not non-operational by nature. The precise statement is
+about **resolution and saturation**:
 
-What the framework *does* still uniquely supply is the structural coordinate itself: the
-rigidity ($N_{\text{anti}}=10\iff n=4$), the even/odd dichotomy, the arity-resonance
-ceiling — a map of *where* contextuality sits, which the operational literatures (QEC,
-holography, MBQC) do not draw because they are asking what it *does*, not what it *is*.
+> Operational axes resolve only the **threshold** — *is there contextuality / nonlinearity
+> / non-classicality at all?* — which sits at the **first** nontrivial rung ($\approx H^2$),
+> and they **saturate** there: one $H^2$ resource already gives MBQC universality, one bit
+> of Wigner-negativity already crosses the magic line, one erasure already breaks
+> reconstruction. **No operational axis grades by cohomological degree.** So $H^3$ and above
+> are structural refinements *finer than operational resolution* — not non-operational by
+> nature, but below the operational sampling rate. That is exactly why the MBQC test
+> saturated at degree 2.
+
+So item 24 conflated two questions: *"does contextuality matter operationally?"* (yes — at
+the threshold, $H^2$) and *"does cohomological degree matter operationally?"* (no —
+operations don't grade by degree). $H^3$ lives in the second, and that is **structural**:
+a classifying coordinate + a certification depth (the modulus: unwitnessable below five
+contexts). This is the framework's own nature — the ladder ($H^1$–$H^4$ = CAP/FLP/
+Byzantine/Sybil) was always a *taxonomy of types of failure*, not a stack of resources;
+item 24 briefly asked a type to be a power. **"Framework = coordinates, cartographer not
+competitor"** (cf. `open_problems.md` §A′), now precise.
+
+The computations were not wasted by the question being mistyped — they are what
+*established the saturation empirically* (rather than assuming it), and they threw off real
+positive structure on the way: the AdS/CFT shape-correspondence, the degree-2 ceiling, the
+faithful-$W(5,2)$ bulk. Honest residue: other operational axes (communication complexity,
+other resource theories) remain logically open, but the saturation reading predicts
+orthogonality there too. What the framework uniquely supplies is the structural coordinate
+itself — the rigidity ($N_{\text{anti}}=10\iff n=4$), the even/odd dichotomy, the arity
+ceiling — the map of *where* contextuality sits, which the operational literatures do not
+draw because they ask what it *does*, not what it *is*.
 
 ---
 

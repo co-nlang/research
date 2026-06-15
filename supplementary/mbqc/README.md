@@ -56,11 +56,16 @@ contextuality turns out to be **orthogonal** to the operational quantity:
 | MBQC computational degree | adaptive depth (composition) | none (this) |
 
 In all three, the $H^3$ class is **real and present** in the substrate, but it is **not
-the carrier** of the operational resource. The robust meaning of $H^3$ is therefore
-**structural / classifying** — a coordinate, and a *certification depth* (the modulus
-theorem: the class needs five contexts to witness) — **not an operational-power resource.**
-This is exactly the project's "framework = coordinates, cartographer not competitor"
-stance, now earned for $H^3$ by three computations rather than asserted.
+the carrier** of the operational resource. The deeper reading: **item 24 was mistyped** —
+it asked an operational question of a structural quantity. The precise reason is *not*
+"cohomology is non-operational" ($H^2$ / the Mermin square **is** operational, Anders–
+Browne) — it is **saturation**: operational axes resolve only the *threshold* (contextual
+at all? $\approx H^2$) and max out there; **none grades by cohomological degree**. So $H^3$
+is a structural refinement *finer than operational resolution* (which is exactly why this
+test saturated at degree 2). $H^3$'s meaning is therefore **structural / classifying** — a
+coordinate + a certification depth (modulus: needs five contexts to witness) — the
+project's "framework = coordinates, cartographer not competitor," now precise. See
+`quantum_applications.md` §7.
 
 ## Files
 - `mbqc_degree.py` — non-adaptive sign-function degree (anchor + ceiling). Needs numpy.
