@@ -72,6 +72,17 @@ sharpen*, not to delete.
   *bridge* between finite-geometry contextuality degree and symplectic signature cocycles.
   Also the **third door** on item 24 (black-hole entropy).
 
+**Candidate research line (computable, not parked)**
+- `adscft_holographic_codes.md` — the QEC door reaches AdS/CFT, because holographic codes
+  (HaPPY) are *finite stabilizer codes* = framework objects, and the XIX modulus
+  (boundary↛bulk) mirrors **entanglement-wedge reconstruction** (subregion↛bulk operator).
+  Shelved as "too loose" at Paper IX; no longer, because both ends are now sharp. Unlike the
+  amplituhedron, the bridge is a **finite computation** (run $N_{\text{anti}}$ / obstruction
+  on a HaPPY code; does the arity ceiling match the wedge threshold?). Cautions: geometry
+  doesn't transfer (only the code); contextuality-obstruction vs erasure-threshold may not
+  coincide — which is what the computation settles. Do *after* citation fixes. Fourth angle
+  on item 24.
+
 **Assessed and parked** *(deep analogy, recorded answer, not a research line)*
 - `amplituhedron_duality.md` — the amplituhedron is the same observation-primary,
   emergent-global instinct, and is a near-*dual* of the ladder (positivity makes

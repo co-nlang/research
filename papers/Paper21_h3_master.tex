@@ -90,6 +90,20 @@ Section~\ref{sec:dichotomy} describes the even/odd carrier dichotomy.
 Section~\ref{sec:computation} records computational verification.
 Section~\ref{sec:open} lists open problems.
 
+\subsection*{Relation to prior work}
+
+The finite-geometric substrate---the $n$-qubit Pauli group as the symplectic polar
+space $W(2n-1,\mathbb{F}_2)$---is due to Saniga and Planat~\cite{SanigaPlanat}, and
+the quantitative study of contextuality on these spaces (the \emph{contextuality
+degree}, a sibling of $N_{\mathrm{anti}}$) to de Boutray \emph{et al.}~\cite{deBoutray}
+and Muller \emph{et al.}~\cite{Muller}; the latter compute degrees configuration-by-
+configuration through $n=6$. The master theorem below is of a different type: it is a
+\emph{rigidity} statement ($N_{\mathrm{anti}}=10$ universally $\iff n=4$) and a
+structural \emph{$n$-dependence} (the even/odd carrier dichotomy), expressed through
+the $H^3$ class $n_a=\delta\mu$---group cohomology of $\mathrm{Sp}(2n,\mathbb{F}_2)$
+via the Maslov/Wall machinery, distinct from the Veldkamp space of the finite-geometry
+program and from measurement-level sheaf cohomology.
+
 \section{Setup}
 \label{sec:setup}
 
@@ -603,6 +617,23 @@ Z.-L. Chen,
 ``$\mathrm{H}^3$ Opens at $n\ge5$: 
 The Cohomological Origin of the Mermin Modulus,''
 \textit{Zenodo, DOI: 10.5281/zenodo.20608302} (2026).
+
+\bibitem[SanigaPlanat]{SanigaPlanat}
+M. Saniga and M. Planat,
+``Multiple Qubits as Symplectic Polar Spaces of Order Two,''
+\textit{Adv. Stud. Theor. Phys.} \textbf{1} (2007), 1--4;
+arXiv:quant-ph/0612179.
+
+\bibitem[deBoutray]{deBoutray}
+H. de Boutray, F. Holweck, A. Giorgetti, P.-A. Masson, and M. Saniga,
+``Contextuality degree of quadrics in multi-qubit symplectic polar spaces,''
+\textit{J. Phys. A: Math. Theor.} \textbf{55} (2022), 475301;
+arXiv:2105.13798.
+
+\bibitem[Muller]{Muller}
+A. Muller, M. Saniga, A. Giorgetti, H. de Boutray, and F. Holweck,
+``New and improved bounds on the contextuality degree of multi-qubit configurations,''
+arXiv:2305.10225 (2023).
 
 \bibitem[PaperXXIsuppl]{PaperXXIsuppl}
 Z.-L. Chen,
