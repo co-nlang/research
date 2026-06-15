@@ -193,12 +193,55 @@ coordinate QEC did not have": a computational *degree* on the contextuality reso
 with the pentagram as its first cubic rung above the Mermin-square quadratic one. If it
 fails, §1–§2 stand — a faithful, efficiently-classical re-description.
 
+**Result (2026-06-16, `supplementary/mbqc/`): it fails — the conjecture is refuted in
+l2-MBQC.** Computed bulletproof (explicit matrices): (a) the deterministic sign function
+of *every* stabilizer resource caps at algebraic **degree 2** (GHZ reproduces the
+Anders–Browne degree-2 gate; 1200 random stabilizer states never exceed it) — so
+non-adaptively the pentagram ($H^3$) is degree-2 just like the square ($H^2$); (b)
+**degree 3 (and any degree) is reached by adaptively composing $H^2$ (GHZ) gates alone**
+— the pentagram is not needed (a single $H^2$ resource already makes l2-MBQC universal).
+Computational function-degree is set by **adaptive depth**, not by the cohomological rung.
+$H^3$ gives **no** computational-degree separation over $H^2$. See §7.
+
+## 7. The orthogonality verdict — what $H^3$ operationally *is* (item 24, answered)
+
+Three independent operational axes have now been tested against the framework's $H^3$
+contextuality, and on every one it comes back **orthogonal**:
+
+| operational axis | what actually governs it | role of $H^3$ |
+|---|---|---|
+| circuit hardness / magic | non-stabilizer magic states (Gottesman–Knill, §2) | none — qubit stabilizer is simulable |
+| holographic reconstruction | support / erasure (entanglement wedge) | none — `adscft_holographic_codes.md` |
+| MBQC computational degree | adaptive depth (composition) | none — §6 / `supplementary/mbqc/` |
+
+In each case the $H^3$ class is genuinely *present* in the substrate (the bulk of a
+3-tile holographic code is a faithful $W(5,2)$; the pentagram really is contextual), yet
+it is **not the carrier** of the operational resource. That convergence is the answer to
+**item 24**:
+
+> **The operational meaning of $H^3$ is structural, not a power.** It is a *coordinate*
+> — a classifying invariant, and a *certification depth* (the modulus theorem: the class
+> cannot be witnessed below five contexts) — orthogonal to spatial reconstruction, circuit
+> advantage, and MBQC function-degree alike.
+
+This is not a defeat; it is the framework's own thesis earned rather than asserted —
+**"framework = coordinates, cartographer not competitor"** (cf. `open_problems.md` §A′).
+$H^3$ locates and classifies; it does not "do work" on any operational axis we tested.
+The honest residue: other operational settings (communication complexity, other resource
+theories) remain logically open, but three orthogonality results from independent
+directions make a structural-not-operational reading the robust bet.
+
+What the framework *does* still uniquely supply is the structural coordinate itself: the
+rigidity ($N_{\text{anti}}=10\iff n=4$), the even/odd dichotomy, the arity-resonance
+ceiling — a map of *where* contextuality sits, which the operational literatures (QEC,
+holography, MBQC) do not draw because they are asking what it *does*, not what it *is*.
+
 ---
 
 *This note is the strongest-grounded of the application sketches: its §1 is identity,
 not analogy, and §2 is that identity's Gottesman–Knill complexity corollary (also
-rigorous). Everything from §3 on is the same open problem (item 24) seen from
-quantum information. See `why_the_ladder.md`
+rigorous). §3–§5 framed the resource question; §6 tested it (refuted in l2-MBQC); §7 is
+the orthogonality verdict answering item 24. See `why_the_ladder.md`
 (observation core), `transformers_bohrification.md` (the other application),
 `open_problems.md` item 24, and Papers XVII (anticommutation/Petersen),
 XIX (modulus), XX–XXII (H³ arc, spreads).*

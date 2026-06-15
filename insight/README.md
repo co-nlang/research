@@ -47,6 +47,16 @@ sharpen*, not to delete.
   number *is* a $\mathbb{Z}/2$ cohomological obstruction); and the Herlihy
   distributed-topology bridge back to `n/`. Revised 2026-06-14.
 
+**The orthogonality verdict (item 24, answered by computation)**
+- `quantum_applications.md` §7 + `supplementary/mbqc/` — the framework's $H^3$ contextuality,
+  tested against three operational axes (circuit-magic / Gottesman–Knill, holographic
+  reconstruction / AdS/CFT, MBQC computational-degree), is **orthogonal to all three**: real
+  and present in the substrate, never the carrier of the operational resource. The MBQC test
+  refuted "cohomological degree = computational degree" (non-adaptive stabilizer caps at
+  degree 2; degree 3 comes from composing $H^2$ gates, not the pentagram). **Verdict:** $H^3$
+  is a **structural** coordinate + certification depth, not an operational power —
+  "framework = coordinates, cartographer not competitor," earned, not asserted.
+
 **Substrate identity (rigorous base, application open)**
 - `quantum_applications.md` — the one application note that is *not* connect-the-dots:
   QEC's stabilizer formalism **is** the framework's objects (stabilizer state =
