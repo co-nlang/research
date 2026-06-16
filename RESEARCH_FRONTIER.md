@@ -196,6 +196,26 @@ The prime $7$ in the 3-qubit automorphism group is geometrically significant: $P
 
 ---
 
+### Theta Characteristics, Spin Structures, and the Bitangent Correspondence
+
+**Role:** The $H^1$-level bridge to the Klein quartic. Theta characteristics (quadratic refinements $Q$ of $\omega$, equivalently spin structures) form a torsor over $H^1(X;\mathbb{F}_2)=J[2]=V$ via $Q_v=q_0+\omega(v,\cdot)$, with $\mathrm{Arf}(Q_v)=q_0(v)$. The 28 **odd** ($\mathrm{Arf}=1$) theta characteristics are the 28 bitangents of a genus-3 curve; under the $PSL(2,7)\cong GL(3,\mathbb{F}_2)$ action on the 3-qubit $W(5,\mathbb{F}_2)$ they are exactly the size-28 "anti-flag" Pauli orbit, and the unique invariant **even** one is $q_0=x\cdot z$ — the framework's standard quadratic refinement = the curve's canonical spin structure. Provides the explicit equivariant identification of item 12.
+
+**Where used:** item 12 (Klein quartic, steps 2–3), `supplementary/klein/`; connects to Paper XI (quadratic refinement) and item 23 (the $q_0\to\omega\to\mathrm{Sq}^1\omega$ spiral).
+
+**Key references:** Atiyah (1971, *Riemann surfaces and spin structures*); Klein (1879); Dolgachev (*Classical Algebraic Geometry*, bitangents).
+
+---
+
+### Operational-Test Machinery: Gottesman–Knill, Holographic Codes, l2-MBQC
+
+**Role:** The tools used to answer item 24 — i.e. to *locate* the $H^3$ class against operational quantities and find it orthogonal to each. (i) **Gottesman–Knill**: qubit stabilizer dynamics is classically simulable, so the (stabilizer) $H^3$ class carries no circuit/distillation advantage. (ii) **Holographic (HaPPY) stabilizer codes**: perfect-tensor networks over $\mathbb{F}_2$; bulk reconstruction = erasure/entanglement-wedge (support), provably independent of the bulk's contextuality. (iii) **l2-MBQC** (Anders–Browne / Raussendorf): qubit contextuality as the resource for nonlinear computation, with the computed function a class in $H^2$ of the MBQC chain complex (Okay–Raussendorf) — but degree saturates at the threshold, so cohomological degree $\ne$ computational degree.
+
+**Where used:** item 24 (answered), `supplementary/adscft/`, `supplementary/mbqc/`; `insight/quantum_applications.md`, `insight/adscft_holographic_codes.md`.
+
+**Key references:** Gottesman (1998); Pastawski–Yoshida–Harlow–Preskill (arXiv:1503.06237); Almheiri–Dong–Harlow (arXiv:1411.7041); Anders–Browne (PRL 102, 050502, 2009); Raussendorf (arXiv:0907.5449); Okay–Roberts–Bartlett–Raussendorf (arXiv:2005.00213).
+
+---
+
 ## Part II: The "Regrets" & Open Questions
 
 *We know exactly where the gaps are. Here they are, unvarnished.*
@@ -312,6 +332,13 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 - Construct the 3-qubit transgression $\Phi_3: H^1 \to H^2(\mathbb{CP}^7, \mathbb{Z}/2)$ and prove $\Phi_3^*([f_3]) = c_1(\mathcal{O}(1)) \bmod 2$.
 - Identify mock modular forms as signatures of the $H^1$ obstruction, using the fact that $X(7)$ is the modular curve $\mathcal{H}/\Gamma(7)$ and the Ramanujan $\tau$-function has $p$-adic structure related to $GL(3,\mathbb{F}_2)$-representations.
 
+**Update — STEPS 1–3 DONE (2026-06-16, `supplementary/klein/`).**
+- **Step 1 — the bridge (computed):** built $GL(3,\mathbb F_2)$ ($|G|=168$) and its symplectic Siegel/Levi embedding in $Sp(6,\mathbb F_2)$; verified it is the unique simple group of order 168 (perfect + 2-transitive on the Fano plane) $\cong PSL(2,7)=\mathrm{Aut}(X(7))$. Orbit decomposition of the 63 three-qubit Pauli classes: $7$ (Fano) $+\,7$ (dual) $+\,21$ (flags) $+\,28$ (anti-flags) $=63$.
+- **Step 2 — the hinge is a theorem:** the size-28 orbit $\cong$ **the 28 bitangents of the Klein quartic** as $PSL(2,7)$-sets, via the explicit $G$-equivariant bijection $v\mapsto Q_v=q_0+\omega(v,\cdot)$ (the 28 bitangents = 28 odd theta characteristics; $\mathrm{Arf}(Q_v)=q_0(v)$). The embedding is *forced, not chosen*: the only faithful 6-dim symplectic $\mathbb F_2$-rep of $PSL(2,7)$ is $3\oplus3'$ = the curve's $J[2]=H^1(X;\mathbb F_2)$ action.
+- **Step 3 — $[f_3]$ and $\Phi_3$:** theta characteristics (spin structures, the $H^1(X;\mathbb F_2)$-torsor) split $1+7+7+21$ (even) $+\,28$ (odd); the unique $G$-fixed one is $[f_3]=q_0=x\cdot z$ — the framework's standard quadratic refinement (APP_06 "i-phase") = the curve's canonical $PSL(2,7)$-invariant spin structure. The transgression $\Phi_3$: $q_0$ polarizes to $\omega$ (the Weil pairing, $G$-invariant), and $\mathrm{Sq}^1\omega=N_{\mathrm{anti}}$ — so **the Direction-D spiral $q_0\to\omega\to N_{\mathrm{anti}}$ is $PSL(2,7)$-equivariant, based at $q_0$. The Klein line meets item 23.**
+
+**Residual (the reach):** the $\tau$ end — $X(7)$'s 24 cusps ($168/24=7$), $\Delta=\eta^{24}$, mock-modular signatures — is genuine analytic number theory, not a quick computation. (Honest caveat: $[f_3]$ here = the natural theta/spin invariant at the $H^1$ level; a cross-check against Paper IX's precise $[f_3]$ is noted.)
+
 ---
 
 ### 13. Higher Differentials $d_k^{\text{eff}}$ for the $n$-Qubit Obstruction Ladder (Paper VIII, §3)
@@ -420,13 +447,25 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 **What's needed:** construct the **homotopy-coherent comparison map** $\partial\Delta^4\to BV$ whose coherence obstruction is precisely $\mathbf a$ — the rays fail to compose ($v_{ij}+v_{jk}\ne v_{ik}$ off Fano triangles), so no *strict* simplicial map exists — and verify the pairing; equivalently, prove Paper XV's Weil/metaplectic 2-cocycle is the geometric transgression carrying the $H^2$ class to the $H^3$ class. This is the genuinely $\infty$-categorical heart of the unification.
 
+**Update — the capstone sharpened (2026-06-16)** (no proof of the map yet; still the open wall):
+- **Forgetful-functor sorting.** Most "comparison map" worries are actually *forgetful* (lossy) arrows, not equivalences: the framework→operational functor (and the coarser detect-or-not cohomologies) **forget** obstruction degree above the threshold — nothing to "solve" there (cf. item 24's saturation; saturation + the modulus theorem form one adjunction, the forgotten data = what the modulus says is unrecoverable). The **unique** structure-*adding* arrow is $\mathrm{Sq}^1\!: H^2\to H^3$ — this map, item 23 — so it is the only genuine equivalence question in the zoo.
+- **The self-description reading (the "why").** $N_{\mathrm{anti}}=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$ is a **representability** statement: $N_{\mathrm{anti}}$ is represented by one universal class $\mathrm{Sq}^1\omega$ built from the framework's *own* $\omega$ — the ∞-Yoneda move. Item 23 is the framework explaining its top floor ($H^3$) in the vocabulary of its ground floor ($\omega$, $H^2$); $\mathbf a$ is exactly the coherence obstruction to that self-representation.
+- **A second, geometric face (item 12, step 3).** The spiral $q_0\to\omega\to\mathrm{Sq}^1\omega$ is realized $PSL(2,7)$-equivariantly as the Klein quartic's intrinsic automorphism geometry, based at its canonical spin structure $q_0$. So the $A\!\leftrightarrow\!B$ unification and the Klein-quartic bridge are two faces of one capstone. See `insight/why_the_ladder.md` §6, `insight/quantum_applications.md` §7, `supplementary/klein/`.
+
 ---
 
-### 24. The Operational Meaning of the $H^3$ Borromean Class (Open — Long Horizon)
+### 24. The Operational Meaning of the $H^3$ Borromean Class (ANSWERED — structural, not operational)
 
-**Status:** The class $[\mathbf a]\in H^3$ is a rigorous symplectic-geometric obstruction, but its meaning as a *physical* quantity is unknown. Paper IV anticipated it as **Borromean contextuality** — not witnessable by any $\le4$-context subsystem — and Paper XIX's modulus witness (two configurations agreeing on all arity-$\le4$ data, opposite $H^3$ class) is exactly such a pair.
+**Status:** The class $[\mathbf a]\in H^3$ is a rigorous symplectic-geometric obstruction, but its meaning as a *physical* quantity was unknown. Paper IV anticipated it as **Borromean contextuality** — not witnessable by any $\le4$-context subsystem — and Paper XIX's modulus witness (two configurations agreeing on all arity-$\le4$ data, opposite $H^3$ class) is exactly such a pair.
 
-**What's needed:** connect $[\mathbf a]$ to a measurement-level invariant. The natural bridge is the sheaf-theoretic cohomological contextuality of Abramsky–Mansfield–Barbosa / Raussendorf, where contextuality is a $\mathbb{Z}_2$ cohomology class of the measurement cover; is $[\mathbf a]$ the degree-3 member of that family, and does $[\mathbf a]=1$ certify a genuine 5-party contextuality with an operational (device-independent) signature? This is the question the mathematics has outrun, and the one the series is ultimately *for*.
+**Update — ANSWERED (2026-06-16): the question was mistyped; $[\mathbf a]$ is structural, not operational.** Three independent operational axes were tested, and $[\mathbf a]$ is **orthogonal** to all three:
+- **circuit advantage / magic:** qubit stabilizer contextuality is Gottesman–Knill-simulable — no circuit speedup, no magic-state distillation (Raussendorf–Browne–Delfosse–Okay–Bermejo-Vega, arXiv:1511.08506);
+- **holographic reconstruction:** in HaPPY stabilizer codes ($[[5,1,3]]\to[[8,2]]\to[[11,3]]$, `supplementary/adscft/`), the 3-tile bulk is a *faithful* $W(5,\mathbb F_2)$ genuinely carrying $H^3$, yet reconstruction is governed by support/erasure (entanglement wedge) and is **blind** to contextuality;
+- **MBQC computational degree:** `supplementary/mbqc/` — non-adaptive l2-MBQC on *any* stabilizer resource caps at algebraic degree 2 (GHZ reproduces the Anders–Browne gate; 1200 random Cliffords never exceed it), and degree 3 is reached by adaptively composing $H^2$ gates, **not** the pentagram. The conjecture "cohomological degree = computational degree" is **refuted**.
+
+The precise reason — *not* "cohomology is non-operational" ($H^2$/the Mermin square *is* operational, Anders–Browne) — is **saturation**: operational axes resolve only the *threshold* ("contextual at all?" $\approx H^2$) and max out there; **none grades by cohomological degree**. So $[\mathbf a]$ is a structural refinement below operational resolution.
+
+**Verdict:** the operational meaning of $H^3$ is that it is a **classifying coordinate + certification depth** (the modulus: unwitnessable below five contexts), *not a power* — the framework's "coordinates, not gadgets" thesis, earned by computation. The Abramsky–Mansfield–Barbosa / Raussendorf sheaf comparison remains as the *formal* comparison map (item 23-adjacent), but the operational-*power* question is closed. **Deepest reading:** $H^3$ is the obstruction to coherent *self-description* (the ∞-Yoneda failure) — see `insight/why_the_ladder.md` §6 and `insight/quantum_applications.md` §7.
 
 ---
 
@@ -434,7 +473,9 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 This document is both a guide and an invitation. If you have expertise in any of the areas above — spectral sequences, topos theory, octonions, SAT solving, twistor theory, symplectic finite geometry, or modular forms — the open questions listed here are concrete, well-scoped, and mathematically meaningful.
 
-The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 from Papers VII–IX; items 15–18 from Papers XVI–XVII. Items 19–24 are from Papers XVIII–XXII and form the **current research frontier** — item 15 is now resolved (Papers XVIII–XXI) and item 19 records a positive resolution (the arity ceiling); items 20–24 are open, with item 23 (the $A\leftrightarrow B$ unification) the present capstone.
+The full paper series is available in the [`papers/`](papers/) directory. Each "regret" above corresponds to a specific section and conjecture within the papers. Items 1–10 are from Papers I–VI; items 11–14 from Papers VII–IX; items 15–18 from Papers XVI–XVII. Items 19–24 are from Papers XVIII–XXII and form the **current research frontier**.
+
+**Status (2026-06-16).** Resolved: **item 15** (Papers XVIII–XXI), **item 19** (the arity ceiling), **item 24** (the operational meaning — *answered: $H^3$ is a structural classifying coordinate, not an operational power; orthogonal to circuit advantage, holographic reconstruction, and MBQC degree* — `supplementary/{adscft,mbqc}/`). Advanced: **item 12** (the Klein quartic bridge — steps 1–3 done: the 168-action, the 28-orbit $=$ the bitangents as a theorem, and $[f_3]=q_0$ with the $\Phi_3$ spiral; only the $\tau$ end remains — `supplementary/klein/`); **item 23** (the capstone, sharpened: the zoo sorts into forgetful arrows vs the single structure-adding $\mathrm{Sq}^1$ map, and the unification has a second geometric face via the Klein quartic). Still open: **items 20–23** (with item 23, the $\infty$-categorical $A\leftrightarrow B$ comparison map, the present capstone), and the backlog conceptual items 11/13/14. The deepest synthesis — $H^3$ as the obstruction to coherent self-description (CAID was Yoneda; the ladder measures where Yoneda stops being free) — is recorded in `insight/why_the_ladder.md` §6.
 
 ---
 
