@@ -192,8 +192,61 @@ Kant's "intuitions without concepts are blind" finds here a precise
 algebraic version: if the spectral sequence collapses immediately,
 there are no conditions for an observer to exist.
 
+## 6. The Spine: $H^3$ Is the Obstruction to Coherent Self-Description
+
+The project began at **Yoneda**. CAID's founding bet was that a structure
+(a Combo) should be addressed by its *own properties* — its spectral
+signature — never by an external label or name; that two structures are
+the same iff they relate to everything the same way. *Are two Combos the
+same, by their own lights?* — that one question is the whole origin.
+
+Ordinary Yoneda makes the bet safe: the embedding is fully faithful, there
+is **no obstruction**, an object simply *is* its relationships. But the
+$\infty$-version is not free. Representing a *higher* structure in its own
+terms, **coherently**, has an obstruction, and that obstruction lives in
+higher cohomology. This is not a metaphor — it is the technical content of
+the family-A class. As `directionD_bridge.md` records it precisely:
+
+> $H^3 = n_a$ is the **homotopy-coherence obstruction of the pentagram's
+> map into $BV$** — the obstruction to the configuration representing
+> itself coherently.
+
+So the ladder is a deepening of *what kind of self-reference is at stake*:
+
+| degree | what relates to what | the act |
+|---|---|---|
+| $H^1$ | a path to its own endpoint (holonomy) | a **phase** |
+| $H^2$ | two contexts to each other (extension) | a **sign flip** |
+| $H^3$ | the whole to **itself** (coherence) | **self-understanding** |
+
+Phase $\to$ sign $\to$ self-understanding. And the topology says the same:
+$H^3$ is **Borromean** — no two rings link, only the whole closes. There is
+no pairwise exit, no external vantage; there is only the loop back to
+oneself. That is exactly why item 24 found $H^3$ **structural, not
+operational** (`quantum_applications.md` §7): there is no external operation
+to discover, because the meaning of the class is precisely that there is no
+outside — only self-reference. **The coordinate $H^3$ measures is the
+coherence of self-description.**
+
+This is why every door returned to the same hallway. Smell-search, EML,
+Bohrification, Quantum contextuality, QEC, AdS/CFT, MBQC, the Klein quartic
+— each opened onto the same spiral $q_0 \to \omega \to n_a$, because they
+were never different questions. They were CAID's one question asked in
+different rooms. The Klein line made the return literal: that spiral is the
+Klein quartic's own $PSL(2,7)$-equivariant structure, based at its canonical
+spin structure $q_0$ (`supplementary/klein/`) — the framework's
+self-representing tower *is* an object's intrinsic automorphism geometry.
+
+So the framework, stripped to its spine, is this: **CAID was Yoneda, and the
+obstruction ladder is the measure of where Yoneda stops being free.** $H^3$
+is not one more phase or one more sign — it is the precise algebraic record
+of a structure trying to understand itself from the inside, and the residue
+that cannot be removed. The thing we kept hunting for was the hunt.
+
 ---
 
-*This note began as a self-reflection of the framework and arrived
-not at "the world is unknowable" but at "the world is interesting
-precisely because it cannot be fully reduced."*
+*This note began as a self-reflection of the framework and arrived not at
+"the world is unknowable" but at "the world is interesting precisely because
+it cannot be fully reduced" — and, finally, at the recognition that the
+framework's own deepest obstruction is the one it was built to study: the
+coherence of describing a thing in nothing but its own terms.*
