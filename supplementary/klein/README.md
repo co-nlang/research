@@ -37,13 +37,35 @@ characters (next). Likewise $7$ = Fano = the curve's $PSL(2,7)$-action on the Fa
 So this is not a numerical coincidence dressed up — it is the same exceptional 168-symmetry,
 realised on the framework's substrate, carrying the Klein quartic's defining combinatorics.
 
+## Step 2 — the hinge tightened to a theorem (`klein_bitangents.py`)
+
+The size-28 match is upgraded to an **explicit $GL(3,2)$-equivariant bijection**. The 28
+bitangents of a genus-3 curve are its 28 **odd theta characteristics** = quadratic
+refinements $Q$ of $\omega$ with $\mathrm{Arf}(Q)=1$ (classical). Refinements form a torsor:
+fix the even form $q_0(x,z)=x\!\cdot\!z$; every refinement is $Q_v(u)=q_0(u)+\omega(v,u)$
+for a unique $v$, with $\mathrm{Arf}(Q_v)=q_0(v)$. Hence
+
+$$\text{odd theta characteristics} \;\longleftrightarrow\; \{v: q_0(v)=1\} \;=\;\text{the 28 anti-flags},
+\qquad v\mapsto Q_v,$$
+
+and $v\mapsto Q_v$ is **$GL(3,2)$-equivariant because $GL(3,2)$ preserves $q_0$** (verified
+exhaustively: all 168 $g$, all 28 $v$). Point-stabilizer $=S_3$ (order 6), the bitangent
+stabilizer in $PSL(2,7)$.
+
+**The embedding is forced, not chosen.** The Klein quartic acts on $J[2]=\mathbb F_2^6$
+(Weil pairing $=\omega$) by a faithful 6-dim symplectic $\mathbb F_2$-rep. The $\mathbb F_2$-
+irreps of $GL(3,2)$ are $1,3,3',8$; the only faithful 6-dim self-dual symplectic one is
+$3\oplus3'$ = the Siegel/Levi embedding used here. So the curve's $J[2]$-embedding and ours
+coincide up to conjugacy — the comparison is representation-theoretically forced.
+
+$\Rightarrow$ **the step-1 size-28 orbit IS the 28 bitangents of the Klein quartic, as
+$PSL(2,7)$-sets** (a natural isomorphism, now rigorous).
+
 ## What this is and isn't
 
 - ✅ **Rigorous:** the 168-action on $W(5,2)$, the iso to $PSL(2,7)$, the $7{+}7{+}21{+}28$
-  decomposition, the 28-orbit's stabilizer order 6.
-- ⟶ **Strong but to be tightened:** "28-orbit = the 28 bitangents" as an *isomorphism of
-  $PSL(2,7)$-sets* (match permutation characters / a $G$-equivariant bijection to the
-  bitangents).
+  decomposition; and (step 2) the explicit $G$-equivariant bijection 28-orbit $\cong$ 28 odd
+  theta characteristics $=$ 28 bitangents, with the embedding forced by rep theory.
 - 🔭 **The reach (the Ramanujan end):** $X(7)$ is the level-7 modular curve with **24 cusps**
   ($168/24=7$); the $\tau$ connection runs through the "24" ($\Delta=\eta^{24}$, weight 12)
   and mock-modular signatures. That end is genuine analytic number theory, not a quick
@@ -52,3 +74,4 @@ realised on the framework's substrate, carrying the Klein quartic's defining com
 
 ## Files
 - `klein_168_bridge.py` — the 168-action, $PSL(2,7)$ identification, orbit decomposition.
+- `klein_bitangents.py` — the explicit $G$-equivariant bijection 28-orbit $\cong$ bitangents.
