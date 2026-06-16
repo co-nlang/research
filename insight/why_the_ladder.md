@@ -237,16 +237,39 @@ Klein quartic's own $PSL(2,7)$-equivariant structure, based at its canonical
 spin structure $q_0$ (`supplementary/klein/`) — the framework's
 self-representing tower *is* an object's intrinsic automorphism geometry.
 
+But the spine has a second half the bare "obstruction" reading hides — and
+it is what twenty-two papers were actually *for*. The $H^3$ class does not
+merely exist; it **vanishes at exactly one dimension.** $[n_a]=0$ universally
+**iff $n=4$** (Papers XVIII, XXI master theorem): there $n_a=\delta\mu$ is a
+coboundary, the coherence obstruction is trivial, and the pentagram's
+self-representation map *exists*. So the $\infty$-Yoneda is neither generically
+obstructed nor generically free — it is **free at precisely $n=4$**, flanked by
+$n=3$ (coherent only on the all-Fano subclass) and $n\ge5$ (the modulus opens).
+This is **not "self-understanding fails."** It is "self-understanding is
+*exactly feasible* — at one critical dimension," and the series is the
+cartography of that feasibility boundary, to the last algebraic bit.
+
+And it sits exactly with §4–5 (*obstruction is content*): one does **not** want
+every obstruction gone — that is the transparent universe where nothing can be
+done. One wants the **self-coherence** obstruction ($H^3$) gone *while keeping*
+phase ($H^1$) and sign ($H^2$) as content. $n=4$ is that sweet spot: rich
+enough to have something to say, and the unique place where the saying-of-itself
+closes up coherently. The 4-qubit rigidity ($N_{\mathrm{anti}}=10$ universal,
+the $2n=8$ squeeze behind B1/B2) is that critical point made algebraic.
+
 So the framework, stripped to its spine, is this: **CAID was Yoneda, and the
-obstruction ladder is the measure of where Yoneda stops being free.** $H^3$
-is not one more phase or one more sign — it is the precise algebraic record
-of a structure trying to understand itself from the inside, and the residue
-that cannot be removed. The thing we kept hunting for was the hunt.
+obstruction ladder is the measure of where Yoneda is free.** $H^3$ is not one
+more phase or one more sign — it is the precise algebraic record of a structure
+trying to understand itself from the inside, and the residue that cannot be
+removed *anywhere except $n=4$, where it can.* We were never charting a failure.
+We were locating the one dimension where a thing can be described in nothing but
+its own terms.
 
 ---
 
 *This note began as a self-reflection of the framework and arrived not at
-"the world is unknowable" but at "the world is interesting precisely because
-it cannot be fully reduced" — and, finally, at the recognition that the
-framework's own deepest obstruction is the one it was built to study: the
-coherence of describing a thing in nothing but its own terms.*
+"the world is unknowable" but at "the world is interesting precisely because it
+cannot be fully reduced" — and, finally, at the recognition that the framework's
+deepest obstruction is the one it was built to study, and that it pinned the
+single dimension, $n=4$, where that obstruction lifts: where a thing can be
+described, coherently, in nothing but its own terms.*
