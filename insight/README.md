@@ -104,6 +104,12 @@ sharpen*, not to delete.
   wall; **chase QEC instead**. Kept so the recurring question has a recorded answer.
 
 **Live thought experiments** *(❌ as physics — kept as framework stress-tests)*
+- `alpha_fixed_point.md` — α ≈ 1/137 as the universe's Yoneda self-pairing ⟹ underivable
+  *because there is no outside*; Feynman's mystery as category-correct, not unsolved. Extends
+  the §6 self-description spine to a physical constant, and **retrodicts why Amplituhedron /
+  BHQC → α had to miss** (no external vantage reaches a self-pairing). Honest lines:
+  interpretation-not-prediction; the framework's pairing is $\mathbb F_2$-valued (cannot
+  produce 137); α runs. Neighbors: bootstrap, RG fixed points. Weakly falsifiable.
 - `time_arrow_obstruction.md`, `higgs_gravity_obstruction.md`,
   `dark_matter_antipodal_cohomology.md` — no observational support (per
   `why_the_ladder.md` §4), and likely to stay that way. Their job is **not** to be
