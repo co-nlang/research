@@ -415,6 +415,8 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 
 **Residual:** whether genuinely higher-arity (irreducible 5-Lagrangian) data — not furnished by a bilinear form — could reach $H^4$ on some other configuration (see item 21).
 
+**Update — the $\mathbb Z/4$-Bockstein route is also closed (2026-06-16, `supplementary/bockstein/`).** Objection: the Pauli phase is $\mathbb Z/4$ (not $\mathbb F_2$), so the Bockstein of $0\to\mathbb Z/2\to\mathbb Z/4\to\mathbb Z/2\to0$, $\beta:H^3(\cdot;\mathbb F_2)\to H^4(\cdot;\mathbb F_2)$, might leak the $H^3$ class to $H^4$. Resolution: $\beta=\mathrm{Sq}^1$, and the family-A source is itself a Bockstein, $n_a=\mathrm{Sq}^1\omega$, so $\beta(n_a)=\mathrm{Sq}^1\mathrm{Sq}^1\omega=0$ ($\beta^2=0$, Adem) — *verified* on $V=(\mathbb Z/2)^8$. Moreover $H^*(V;\mathbb Z)$ has exponent 2 (no $\mathbb Z/4$ torsion), so $H^*(V;\mathbb F_2)$ is $\mathrm{Sq}^1$-acyclic in positive degrees ($\mathrm{Sq}^1$-cohomology $H^3=H^4=0$, verified) — the Bockstein has no room to make a new obstruction. So the ceiling is **not** an $\mathbb F_2$ artifact; it is controlled by $\beta^2=0$, a fact about the $\mathbb Z/4$ structure itself. (Contingent on $n_a$ being $\mathrm{Sq}^1$-closed = item 23; the exotic non-bilinear route = item 21.)
+
 ---
 
 ### 20. Even-$n$ Equidistribution of the $H^3$ Class (Open, Partial)
