@@ -314,6 +314,8 @@ The prime $7$ in the 3-qubit automorphism group is geometrically significant: $P
 
 The ambitwistor approach is the most physically motivated; Mason–Skinner (2014) construct a string theory on $\mathbb{PA}$ that naturally produces both helicities.
 
+**Update (2026-06-19) — the $\mathbb{F}_2$-linear route (option 3) is now the main line.** Direction D identifies the mod-2 gerbe class with the framework's family-A class: gerbe non-vanishing over $\mathbb{F}_2$ *is* $[n_a]=\mathrm{Sq}^1\omega\neq0$, governed completely by the master theorem (non-vanishing iff $n\neq4$). So option 3 is **subsumed**, not open. The two genuinely open routes (1 derived-category, 2 ambitwistor) are the **holomorphic / characteristic-0** mechanisms — i.e. the part of this item that lies *across the same $\mathbb{F}_2\to$ char-0 wall* that parks the Amplituhedron line (`insight/amplituhedron_duality.md`). Crossing it is a new program (lifting the framework off $\mathbb{F}_2$), not a backlog cleanup.
+
 ---
 
 ### 12. The $PSL(2,7) \leq PSp(6, \mathbb{F}_2)$ Bridge: Klein Quartic and Paper IX (Paper VIII §7, Paper IX)
@@ -338,6 +340,8 @@ $$W(5,\mathbb{F}_2) \xrightarrow{\text{Aut}} PSp(6,\mathbb{F}_2) \supset GL(3,\m
 - **Step 3 — $[f_3]$ and $\Phi_3$:** theta characteristics (spin structures, the $H^1(X;\mathbb F_2)$-torsor) split $1+7+7+21$ (even) $+\,28$ (odd); the unique $G$-fixed one is $[f_3]=q_0=x\cdot z$ — the framework's standard quadratic refinement (APP_06 "i-phase") = the curve's canonical $PSL(2,7)$-invariant spin structure. The transgression $\Phi_3$: $q_0$ polarizes to $\omega$ (the Weil pairing, $G$-invariant), and $\mathrm{Sq}^1\omega=N_{\mathrm{anti}}$ — so **the Direction-D spiral $q_0\to\omega\to N_{\mathrm{anti}}$ is $PSL(2,7)$-equivariant, based at $q_0$. The Klein line meets item 23.**
 
 **Residual (the reach):** the $\tau$ end — $X(7)$'s 24 cusps ($168/24=7$), $\Delta=\eta^{24}$, mock-modular signatures — is genuine analytic number theory, not a quick computation. (Honest caveat: $[f_3]$ here = the natural theta/spin invariant at the $H^1$ level; a cross-check against Paper IX's precise $[f_3]$ is noted.)
+
+**Update (2026-06-19) — the seam is now sharp.** The $\mathbb{F}_2$ / finite-geometry core of this bridge is **harvested**: steps 1–3 take it all the way ($W(5,2)\to$ 28 bitangents $\to q_0=[f_3]\to$ the $PSL(2,7)$-equivariant spiral $q_0\to\omega\to\mathrm{Sq}^1\omega$), landing *inside* the Direction-D capstone (item 23). What remains — the $\tau$ end — is the **characteristic-0** half, behind the same wall as item 11 and the Amplituhedron line. Tell: the "24" (cusps of $X(7)$ over $\mathbb{C}$) never appears in the finite picture (Pauli orbits $7{+}7{+}21{+}28{=}63$; theta characteristics $64$), confirming it is across the seam, not a quick extension of the finite work.
 
 ---
 

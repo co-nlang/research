@@ -2,284 +2,52 @@
 
 A twenty-two-paper series (with epilogue) building a unified cohomological theory of quantum contextuality.
 
-**Central thesis:** quantum observation is governed by an *obstruction ladder* — $H^1$ (geometric phases), $H^2$ (Kochen–Specker contextuality), $H^3$ (Borromean non-associativity) — connecting topos theory, group cohomology, and symplectic geometry over $\mathbb{F}_2$.
-
-Papers X–XVII concentrate on the 3-qubit Mermin pentagram, culminating in a purely algebraic proof that the Kochen–Specker obstruction $\prod_C W_C = -I_8$ is automatic from the $K_5$ geometry of Lagrangians in $Sp(6,\mathbb{F}_2)$, with no case-by-case enumeration.
-Paper XVIII extends universality to the 4-qubit setting ($n=4$), and Paper XIX initiates the systematic study of the $n\ge5$ deformation, proving a modulus obstruction theorem. Paper XX explains the cohomological origin of XIX's modulus: the anticommutation 3-cochain $[n]\in H^3(S^3;\mathbb{F}_2)$ vanishes universally if and only if $n=4$. Paper XXI completes the master rigidity theorem (universal $N_{\mathrm{anti}}=10$ iff $n=4$) and resolves the even/odd dichotomy of the $H^3$ carrier. Paper XXII establishes the *arity–resonance ceiling*: the obstruction is intrinsically degree-3 and truncates at $H^3$, with the Mermin pentagram as its unique resonant configuration.
-
-→ See the [Quick Reference](#quick-reference) table and [Reading Guide](#reading-guide) below for per-paper summaries.
-
 **Author:** Zhou-Li Chen (co-nlang Research)
 
 ---
 
-## Overview
+## The Series at a Glance
 
-Why does quantum mechanics require complex numbers? Why do geometric phases and Kochen–Specker contextuality arise from the same underlying structure? This series proposes a unified answer: quantum observation is governed by a **cohomological obstruction ladder**, where each rung corresponds to a deeper level of algebraic failure—from consistent phase patching ($H^1$), through non-commutativity ($H^2$), to non-associativity ($H^3$).
+Quantum observation forces an observer to view a system through incompatible contexts — complementary measurement setups, each locally classical, that refuse to glue into a global picture. This series builds the algebraic machinery that measures that refusal: an **obstruction ladder** graded by group cohomology, where $H^1$ captures geometric phases, $H^2$ captures Kochen–Specker contextuality, and $H^3$ captures a Borromean, genuinely multipartite obstruction visible only when five contexts interact.
 
-The series builds a bridge between three mathematical domains:
-- **Quantum logic** (Bohrification topos, MASA posets)
-- **Group cohomology** (Lyndon–Hochschild–Serre spectral sequence)
-- **Higher geometry** (line bundles, bundle gerbes, Dixmier–Douady class)
+The series has three arcs. **Papers I–VI** construct the ladder from scratch — Bohrification, spectral sequences, and the necessity of $\mathbb{C}$ from the logic of observation alone. **Papers VII–IX** bridge to twistor geometry, resolving the Penrose googly problem as an $H^2$ obstruction. **Papers X–XXII** descend into the finite symplectic world $\mathrm{Sp}(2n, \mathbb{F}_2)$: the Mermin pentagram's 12,096 configurations in the 3-qubit setting are anatomised computationally (X–XVI), then re-derived from pure algebra (XVII–XVIII), before the $n \ge 5$ deformation opens $H^3$ as a genuine cohomology class (XIX–XX) and the **master rigidity theorem** closes the circle: *$N_{\mathrm{anti}} = 10$ universally if and only if $n = 4$* (XXI). Paper XXII establishes the **arity–resonance ceiling** — the obstruction is intrinsically degree-3 and truncates at $H^3$, with the pentagram as its unique resonant configuration.
 
----
+The endpoint: the framework's deepest invariant ($H^3$) is conjecturally $\mathrm{Sq}^1\omega$ — a canonical operation applied to the symplectic form that defines the framework itself (the comparison map establishing this is the series' open capstone). The obstruction ladder measures the coherence of self-description, and $n = 4$ is the unique dimension where that coherence is unobstructed.
 
-## AI Collaboration Disclosure
-
-This research project integrated various Large Language Models (LLMs) across multiple stages to enhance rigor and clarity. The author(s) maintain full accountability for the final content.
-
-- **Theoretical Derivation:** AI was used to assist in symbolic manipulation, cross-verifying mathematical proofs, and identifying potential edge cases in formulas.
-- **Development & Typesetting:** Code implementation and LaTeX structural optimization were supported by AI-assisted pair programming.
-- **Language & Refinement:** Sentences were polished for academic flow and grammatical precision.
-- **Simulated Peer Review:** AI agents were tasked to act as independent reviewers to provide critical feedback and identify logical gaps prior to publication.
-
-*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6/Opus 4.6&4.8, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro/Flash.*
+→ **[READING_GUIDE.md](READING_GUIDE.md)** — per-paper summaries and recommended reading orders.
+→ **[RESEARCH_FRONTIER.md](RESEARCH_FRONTIER.md)** — mathematical toolbox and open problems.
+→ **[insight/](insight/)** — post-series exploration notes (QEC substrate identity, BHQC, AdS/CFT holographic codes, Klein quartic, and others).
 
 ---
 
-## Repository Structure
+## Quick Reference
 
-```
-research/
-├── README.md
-├── LICENSE                             # CC BY 4.0
-├── RESEARCH_FRONTIER.md                # Toolbox & open problems
-├── insight/                            # Insight Notes | Speculative thought experiment
-├── papers/
-│   ├── Paper1_contextuality_phase.tex
-│   ├── Paper2_riemann_bohrification.tex
-│   ├── Paper3_ks_central_extension.tex
-│   ├── Paper4_lhs_borromean.tex
-│   ├── Paper5_homological_bridge.tex
-│   ├── Paper6_necessity_complex.tex
-│   ├── Epilogue_algebraic_logic.tex
-│   ├── LsNote_geometric_phase.tex          # L-S contraction & H¹ (Appendix to Paper I)
-│   ├── LsNote_noncommutativity.tex         # L-S contraction & H² (Appendix to Paper III)
-│   ├── LsNote_associativity.tex            # L-S contraction & H³ + octonionic boundary
-│   ├── Paper7_twistor_googly.tex
-│   ├── Paper8_explicit_construction.tex
-│   ├── Paper9_obstruction_ladder.tex
-│   ├── Paper10_equiangular_characterization.tex
-│   ├── Paper11_quadratic_refinement.tex
-│   ├── Paper12_T_vector_theorem.tex
-│   ├── Paper13_maslov_index.tex
-│   ├── Paper14_stabilizer_kprofile.tex
-│   ├── Paper15_weil_metaplectic.tex
-│   ├── Paper16_weyl_product.tex
-│   ├── Paper17_cross_context.tex
-│   ├── Paper18_mermin_sp8.tex
-│   ├── Paper19_nge5_modulus.tex
-│   ├── Paper20_h3_modulus.tex
-│   ├── Paper21_h3_master.tex
-│   └── Paper22_resonance_ceiling.tex
-├── supplementary/
-│   ├── construct_16cell/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   └── construct_16cell.py
-│   ├── paper7_conj42/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── paper7_conj42.py
-│   │   └── paper7_conj42_layer2.py
-│   ├── paper10/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── p0_enumerate_contexts.py
-│   │   ├── p1_orbit_check.py
-│   │   ├── p2_typeB_analysis.py
-│   │   ├── p3_sign_patterns.py
-│   │   ├── p4_typeF4_analysis.py
-│   │   ├── p5_ghost_pentagon.py
-│   │   ├── p6_equiangular_check.py
-│   │   ├── p7_ray_cap.py
-│   │   ├── p8_sufficiency_check.py
-│   │   ├── g2_orbits.py
-│   │   └── orbit_type_lagrangian.py
-│   ├── paper11/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── quadratic_refinement_v2.py
-│   │   ├── decompose_omega.py
-│   │   ├── prove_disjoint_omega.py
-│   │   ├── verify_quadratic_identity.py
-│   │   ├── omega_integer_values.py
-│   │   ├── analyze_T_structure.py
-│   │   ├── check_T.py
-│   │   ├── check_full_identity.py
-│   │   ├── check_sum_q_plus_c.py
-│   │   ├── verify_conditions.py
-│   │   ├── class2_characterization.py
-│   │   ├── quadratic_refinement.py
-│   │   └── verify_identity.py
-│   ├── paper12/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── arf_candidate_search.py
-│   │   ├── g2_preserves_q.py
-│   │   └── t_vector_analysis.py
-│   ├── paper13/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── maslov_index.py
-│   │   ├── maslov_candidates.py
-│   │   ├── path_a_half_symplectic_sample.py
-│   │   ├── analyze_h_structure.py
-│   │   └── analyze_h_correlation.py
-│   ├── paper14/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── stabilizer_algebra.py
-│   │   └── beta_distribution.py
-│   ├── paper15/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── metaplectic_lift.py
-│   │   └── weil_cocycle.py
-│   ├── paper16/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   └── displacement_operator.py
-│   ├── paper17/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── pentagram_holonomy.py
-│   │   ├── check_all_k5.py
-│   │   └── t_vector_holonomy.py
-│   ├── paper18/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── recheck_paper18.py
-│   │   ├── verify_sigma.py
-│   │   ├── check_k5_random_n.py
-│   │   ├── study_fano_count.py
-│   │   ├── study_type_correspondence.py
-│   │   ├── verify_graph_structure.py
-│   │   ├── explore_solution_space.py
-│   │   ├── check_3term.py
-│   │   ├── check_lower_bound.py
-│   │   ├── compute_relations.py
-│   │   ├── check_k5_4qubit.py
-│   │   ├── check_k5_5qubit.py
-│   │   ├── check_k5_5qubit_random.py
-│   │   ├── study_wvectors.py
-│   │   ├── strategy_a_v2.py
-│   │   ├── strategy_a_v3.py
-│   │   ├── strategy_a_v4.py
-│   │   └── strategy_a_v5.py
-│   ├── paper19/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── doily_rank4.py
-│   │   ├── lowrank_rigidity.py
-│   │   ├── maslov_probe.py
-│   │   ├── nge5_probe.py
-│   │   ├── noq_odd_proof.py
-│   │   ├── quad_refine.py
-│   │   ├── rank4_lemmaII.py
-│   │   ├── rank4_lemmas.py
-│   │   └── reduction_frame.py
-│   ├── paper20/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── nerve_cochain.py
-│   │   ├── n4_cocycle.py
-│   │   └── mu_rank_parity.py
-│   ├── paper21/
-│   │   ├── LICENSE                         # MIT
-│   │   ├── README.md
-│   │   ├── nerve_cochain.py
-│   │   ├── partA_exclusivity.py
-│   │   ├── partA_construction.py
-│   │   ├── n6_periodicity.py
-│   │   ├── n8_confirm.py
-│   │   ├── even_n_equidist.py
-│   │   ├── fiber_test.py
-│   │   ├── joint_feet.py
-│   │   ├── transvection_involution.py
-│   │   ├── bias_scaling.py
-│   │   └── k6_truncation.py
-│   └── paper22/
-│       ├── LICENSE                         # MIT
-│       ├── README.md
-│       ├── nerve_cochain.py
-│       ├── resonance_tower.py
-│       ├── k6_truncation.py
-│       ├── clique_criterion.py
-│       ├── mermin_square.py
-│       ├── geometric_route.py
-│       └── d_bridge.py
-```
-
----
-
-## Reading Guide
-
-### Recommended Order
-
-```
-Paper I → Paper II → Paper III → Paper IV → Epilogue → Paper V → Paper VI → Paper VII → Paper VIII → Paper IX → Paper X → Paper XI → Paper XII → Paper XIII → Paper XIV → Paper XV → Paper XVI → Paper XVII → Paper XVIII → Paper XIX → Paper XX → Paper XXI → Paper XXII
-```
-
-- **Papers I–III** establish the concrete foundation: geometric phases, Riemann surfaces, and the Kochen–Specker obstruction.
-- **Paper IV** introduces the $H^3$ frontier (Borromean contextuality) and the Lyndon–Hochschild–Serre transgression.
-- **The Epilogue** provides the unifying vision (EML system, Solèr's theorem, obstruction ladder).
-- **Papers V–VI** ascend to the categorical abstraction and prove the necessity of $\mathbb{C}$.
-- **Paper VII** resolves the Penrose googly problem (twistor theory's 59-year open question) as an $H^2$ obstruction, with $\Phi^*([f]) = c_1(\mathcal{O}(1)) \bmod 2$ verified computationally.
-- **Paper VIII** completes the explicit construction of the $\Phi$ functor, identifies the PM nerve as $K_{3,3}$ (not a 2-simplex), decomposes $\Phi$ as a transgression $\ell \circ \tau \circ \iota^*$, and formulates the twisted Penrose transform via $\Z/2$-gerbe as an open problem.
-- **Paper IX** steps up to 3 qubits: the hyperbolic embedding $GL(3,\mathbb{F}_2) \hookrightarrow PSp(6,\mathbb{F}_2)$ realizes the Fano plane as an isotropic subgeometry of $W(5,\mathbb{F}_2)$, and reveals two non-conjugate $PSL(2,7)$ subgroups (hyperbolic vs.\ $G_2(2)$ path) — two distinct Klein quartic bridges in $PSp(6,\mathbb{F}_2)$.
-- **Paper X** proves that every Mermin pentagram has equiangular Lagrangian configuration ($\dim(L_i \cap L_j) = 1$ for all 10 pairs), and conversely every equiangular $K_5$ is a Mermin pentagram. The 10 shared operators form a 10-point cap in $PG(5,\mathbb{F}_2)$. Collinearity in the Fano plane is shown to be a shadow, not the obstruction. $G_2(2)$ acts with 4 orbits revealing a 2-class geometric structure.
-- **Paper XI** provides the $\beta$-formula for context signs ($s(C) = (-1)^{\beta(C)/2}$ where $\beta$ is the integer symplectic form sum) and a geometric proof of the parity theorem. The 45 ray pairs decompose into 30 sharing ($\omega=0$, Lagrangian) and 15 disjoint ($\omega=1$, proven algebraically via cap property + Lagrangian self-orthogonality). The parity theorem $\beta_{\text{sum}} \equiv 2 \pmod{4}$ is verified computationally for all 12,096 pentagrams.
-- **Paper XII** proves the T-vector theorem: for any equiangular pentagram, $T = \sum r_{ij}$ satisfies $\omega(T, r) = 1$ for all rays (algebraic, $G_2(2)$-equivariant). $T$ is interpreted as a symplectic characteristic element, analogous to the Wu class in algebraic topology. The Arf invariant framework for the KS obstruction is shown to be incompatible with $G_2(2)$ symmetry: $G_2(2)$ acts transitively on $\mathbb{F}_2^6 \setminus \{0\}$ and no $G_2(2)$-invariant quadratic form exists. The mod 4 lifting from $\omega(T,r)=1$ to $\beta_{\text{sum}} \equiv 2 \pmod{4}$ remains open.
-- **Paper XIII** investigates the Maslov index as a potential geometric explanation for the parity theorem. The Kashiwara triple index is shown to $\emph{not}$ match $\beta_{\text{sum}}/2$ (range mismatch: $\{-2,\ldots,+2\}$ vs.\ $\{-13,\ldots,+9\}$). The $k$-profile theorem is established: the parity $\sum h_i \pmod{2}$ is completely determined by the Lagrangian $V$-intersection profile, with all 7 occurring profiles giving odd parity. The $V$-contribution to $\beta_{\text{sum}}$ is shown to be individually unconstrained mod 4, establishing that parity is holistic. $G_2(2)$-equivariant invariants cannot distinguish the two orbit classes, and Orbit 4 exhibits a distinct parity anomaly.
-- **Paper XIV** completes the computational foundations: the $k$-profile theorem is verified for all 12,096 pentagrams (7 types, 100\% odd parity). The stabilizer classification reveals $O_1=\mathbb{Z}_2$ and $O_{2,3,4}=S_3$ — no cyclic $\mathbb{Z}_6$ stabilizer exists. The $h$-pattern structure is remarkably constrained: only 3 of 16 theoretically possible patterns occur. The 5-minus exclusion is proven algebraically for $(7,1,1,1,1)$ and computationally for $(3,3,3,0,0)$. The Orbit 4 anomaly is shown $\emph{not}$ to be explained by stabilizer algebra type, pointing to non-conjugate $S_3$ embeddings in $G_2(2)$ as the true source. Full $\beta_{\text{sum}}$ statistics: range $[-34,30]$, mean $-2.5$ (negative bias).
-- **Paper XV** applies the Weil representation of $Sp(6,\mathbb{F}_2)$ on $\mathbb{C}^8$ to the metaplectic lifting problem. The three non-conjugate $S_3$ stabilizers lift differently: $O_3$ splits ($\widetilde{S}_3 \cong S_3$), $O_2$ is non-split symmetric (both order-3 elements acquire metaplectic order 6), and $O_4$ is non-split asymmetric (mixed orders 6 and 3). The $O_3$ split correlates with its unique 25\%/25\%/25\% $k$-profile uniformity. The $O_4$ asymmetric lift is the first structural difference at the group-theoretic level that may explain the Orbit 4 parity anomaly. $G_2(2)$ acts on the 135 Lagrangians in two orbits (72+63). The Lagrangian-level $\beta$-cocycle conjecture is refuted (48.8\% match); 81/135 Lagrangians have varying $h$-values across contexts, proving $\beta(C)$ is a context-level invariant.
-- **Paper XVI** resolves the context-level $\beta$ identification problem via the Weyl Product Identity: $W_C = W(v_1)W(v_2)W(v_3)W(v_4) = s(C)\cdot I_8$ for all 945 contexts, where $s(C) = (-1)^{\beta(C)/2}$. The proof combines the exact Weyl commutation relation $W(v)W(w) = (-i)^{\omega_{\mathrm{int}}(v,w)}W(v+w)$ (integer, not mod 2) with the Fano zero-sum property $v_1\oplus v_2\oplus v_3\oplus v_4 = 0$. The KS obstruction follows: $\prod_C W_C = -I_8$ for all 12,096 pentagrams, recovering $\beta_{\mathrm{sum}} \equiv 2 \pmod 4$ as a Weyl-algebra identity. The mod 4 structure is intrinsic to the Weyl algebra, not a lift of any mod-2 phenomenon.
-- **Paper XVII** proves the Cross-Context Anticommutation Theorem: for any \emph{all-Fano} $K_5$ configuration in $Sp(6,\mathbb{F}_2)$, all 15 cross-context ray pairs satisfy $\omega(v_{ij},v_{kl})=1$. The purely algebraic proof uses Fano zero-sum to force uniformity, symmetry of $\omega\bmod 2$ to make the value global, and a size argument ($10>2^3-1=7$) to force $c=1$. Corollary: $\prod_C W_C = (-1)^{15}I_8 = -I_8$ with no enumeration. The 15 anticommuting pairs form the Petersen graph $K(5,2)$. Over all proper $K_5$s (not just all-Fano), the $n=3$ value is mixed ($N_{\mathrm{anti}}=12$ or $15$).
-- **Paper XVIII** proves that $n=4$ is the \emph{unique} dimension with universal $N_{\mathrm{anti}}$ over all proper $K_5$s: every proper $K_5$ in $Sp(8,\mathbb{F}_2)$ has $N_{\mathrm{anti}}=10$ and $\Sigma_m=0$ for all five Mermin matchings. The proof is fully algebraic via the transversal property: every matching has exactly one commuting cross-context pair. Three elementary geometric lemmas at the $K_4$ level (B0: no Fano vertex; B1: at most one commuting pairing; B2: at least one commuting pairing) combine to give the result without the rank=8 theorem or any computational verification. An alternative Gram rank selection route is recorded as a structural characterization.
-- **Paper XIX** initiates the systematic study of the $n\ge5$ regime. The central result is a **negative theorem** (modulus): the fiber of $N_{\mathrm{anti}}\bmod2$ over a fixed symplectic rank is not classified by any relative-position invariant of arity $\le4$, witnessed by a concrete pair of proper $K_5$s sharing all coarse symplectic invariants, all Maslov triple data, and all quadruple invariant data, yet having opposite $N_{\mathrm{anti}}$ parities. On the positive side: a rigorous upper-bound ladder $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive $2^{15}$ Petersen-subgraph enumeration); a deterministic tail $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455); and the order parameter $\mathrm{rad}(\omega|_W)$ with a sharp jump at dimension 2. Arf invariants are ruled out by two independent experiments.
-- **Paper XX** explains *why* XIX's classifier fails. The Maslov 2-cochain $\mu$ on $\partial\Delta^4$ and the anticommutation 3-cochain $n_a$ satisfy $n_a=\delta\mu$ at $n=4$ (rigorous, algebraic via B1+B2 + rank-parity), making $[n]=0$ in $H^3(S^3;\mathbb{F}_2)$. A rank-parity lemma ($\mathrm{rank}\,B=n-3$) shows $\mu\equiv1$ for $n$ even and $\mu\equiv0$ for $n=3$; at $n\ge5$ odd $\mu$ varies and the cocycle identity fails (336/360 proper $K_5$s at $n=5$). The unique-vanishing theorem: $[n]=0$ universally if and only if $n=4$, with $n=3$ all-Fano and generic $n\ge5$ both exhibiting $[n]\ne0$.
-- **Paper XXI** proves the **master rigidity theorem**: every proper $K_5$ in $Sp(2n,\mathbb{F}_2)$ has $N_{\mathrm{anti}}=10$ (equivalently $[n_a]=0$) universally *if and only if* $n=4$. The new ingredient is **Part A** ($n_a\equiv0$ universally iff $n=4$): Paper XVIII's B1 and B2 each reduce to the single dimension coincidence "$4$-dimensional isotropic $\Leftrightarrow$ Lagrangian", which holds only at $2n=8$; combined with Paper XX's rank-parity (Part B) the two coincide only at $n=4$. A **spread-stabilisation** construction gives explicit $N_{\mathrm{anti}}$-odd witnesses at every $n\ge5$. Structural corollary — the **even/odd carrier dichotomy**: at even $n\ge6$ the $H^3$ class is carried by $n_a$ alone (empirically a fair coin), at odd $n\ge5$ by the Maslov coboundary $\delta\mu$ (Wall non-additivity).
-- **Paper XXII** answers *why the ladder stops at $H^3$* with an **arity–resonance principle**: an arity-$a$ relative-position datum is an $(a-1)$-cochain on the index nerve, hitting the top cohomology of a proper $K_N$ ($\cong S^{N-2}$) iff $N=a+1$. The Pauli data has exactly two natural cochains — Maslov ($a=3$, resonant at $K_4/H^2$) and anticommutation ($a=4$, resonant at $K_5/H^3$) — so the tower has two rungs and a lid: on $K_6$ the degree-4 assembly is the exact coboundary $\delta\mathbf{a}$ and $H^4$ vanishes (**truncation**). The family-$A$ ceiling is the graph invariant $\min(\omega(G)-2,3)$ in the incidence clique number; the **Mermin–Peres square** (bipartite $K_{3,3}$, six Lagrangians in $Sp(4,\mathbb{F}_2)$) carries no family-$A$ class and exhibits a second, central-extension family.
-
-### Supplementary L-S Appendices
-
-Three companion notes connect Lohmiller–Slotine contraction theory to the obstruction ladder. Each provides a dynamical reinterpretation of a cohomological level, framed as a companion appendix to the relevant paper:
-
-- **LsNote\_geometric\_phase** (companion to Paper I): Liouville's theorem proves no global contraction metric exists for the Aharonov–Bohm system; the gauge mismatch Čech 1-cocycle equals the geometric phase.
-- **LsNote\_noncommutativity** (companion to Paper III): The Peres–Mermin $K_{3,3}$ nerve carries a flat $SU(2)$ connection whose 4-cycle holonomy is $-\mathbf{I}$, proving the Kochen–Specker obstruction equals the central extension class.
-- **LsNote\_associativity** (companion to Paper IV): The 16-cell $S^3$ nerve carries a global Čech 3-cocycle (conjectured pairing $-1$); octonionic dynamics break the chain rule, proving L-S theory inapplicable for $\mathbb{O}$.
-
-### Quick Reference
-
-| # | Title | Focus | Key Result |
-|---|-------|-------|------------|
-| I | *From Contextuality to Phase Cohomology: A Computable Bridge Between Bohrification and Geometric Quantization* | Bohrification ↔ geometric quantization | $\check{H}^1(M, U(1))$ classifies geometric phases |
-| II | *Semiclassical Reconstruction of Riemann Surfaces from Bohrification* | Riemann surface state spaces | Bohr-Sommerfeld orbits as divisors on spectral curves |
-| III | *Kochen–Specker Contextuality as Central Extension: The Peres-Mermin Square and the Pauli Group* | Peres–Mermin square & Pauli group | KS obstruction = non-split central extension $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$ |
-| IV | *The Cohomological Obstruction Ladder: Lyndon–Hochschild–Serre Transgression and the $H^3$ Frontier* | Borromean contextuality & bundle gerbes | $N \geq 5$ qubit threshold; $d_2$ transgression = KS obstruction |
-| Epilogue | *The Algebraic Logic of Geometry* | EML system & Solèr's theorem | $\mathcal{Q} \dashv \mathcal{B}$ adjunction and the obstruction ladder |
-| V | *Observation as Functor: The Adjunction of Quantum and Classical* | LHS spectral sequence as computational engine | Conditionally unifies all obstructions via a single algebraic machine |
-| VI | *The Ultimate Axiom: Deriving Quantum Mechanics from the Logic of Observation* | Solèr-Cohomology Theorem | $\mathbb{C}$ is the unique division ring permitting non-trivial continuous observation |
-| VII | *Twistor Theory from the Obstruction Ladder: The Googly Problem as an H2 Obstruction* | Peres–Mermin → $\mathbb{CP}^3$ | Googly problem = $H^2$ obstruction; $\Phi^*([f]) = c_1(\mathcal{O}(1)) \bmod 2$ verified |
-| VIII | *The $\Phi$ Functor and the $n$-Qubit Obstruction Ladder: Explicit Transgression and Twisted Penrose Transform* | $K_{3,3}$ nerve, transgression, gerbe | $\Phi = \ell \circ \tau \circ \iota^*$; MASA count $(4^n-1)(4^{n-1}-1)/3$; $\Z/2$-gerbe classified by $[e] \in H^2(\mathbb{CP}^3,\Z/2)$ |
-| IX | *The 3-Qubit Obstruction Ladder: Hyperbolic Embedding, Mermin Pentagram, and Two Klein Quartic Bridges* | $W(5,\mathbb{F}_2)$, Fano isotropic subgeometry, $G_2(2)$ | $GL(3,\mathbb{F}_2) \hookrightarrow PSp(6,\mathbb{F}_2)$; two non-conjugate $PSL(2,7)$ paths; $[f_3] \in H^1(K_5,\mathcal{F})$ |
-| X | *The Equiangular Characterization of Mermin Pentagrams: Symplectic Embedding, 10-Ray Cap, and the Failure of the Collinearity–Obstruction Dictionary* | Equiangular Lagrangian config, 10-ray cap, $G_2(2)$ orbits | $K_5 \Leftrightarrow$ equiangular $\Leftrightarrow$ Mermin; collinearity is shadow; 4 orbits, 2-class structure |
-| XI | *Quadratic Refinement and the Parity of Mermin Pentagrams: The $\beta$-Formula, Geometric Decomposition, and the Kochen–Specker Obstruction from Equiangular Geometry* | $\beta$-formula, $\omega$ decomposition, parity theorem | $s(C)=(-1)^{\beta/2}$ (0/945); $\omega_{\text{disjoint}}=1$ (algebraic); $\beta_{\text{sum}}\equiv 2\pmod{4}$ (computational) |
-| XII | *The T-Vector Theorem: Symplectic Characteristic Elements and the Kochen–Specker Obstruction* | T-vector theorem, symplectic characteristic element, Arf incompatibility | $\omega(T,r)=1$ (algebraic); Wu class analogy; no $G_2(2)$-invariant quadratic form; mod 4 lifting open |
-| XIII | *The Maslov Index and the Kochen–Specker Obstruction: Negative Results, the $k$-Profile Theorem, and Orbit 4 Anomaly* | Maslov index, Kashiwara triple index, $k$-profile theorem, orbit structure | Kashiwara $\neq$ $\beta_{\text{sum}}/2$; $\beta_{\text{sum}} \equiv 2\pmod{4}$ ordering-invariant; 7 $k$-profiles all give odd parity; $G_2(2)$-equivariant invariants cannot distinguish orbit classes; Orbit 4 parity anomaly |
-| XIV | *Stabilizer Algebra and the $k$-Profile Theorem for Mermin Pentagrams* | Stabilizer classification, $k$-profile theorem, $h$-pattern structure, $\beta_{\text{sum}}$ statistics | $O_1=\mathbb{Z}_2$, $O_{2,3,4}=S_3$ (no $\mathbb{Z}_6$); 7 $k$-profiles, 100\% odd (12{,}096); only 3 $h$-patterns; 5-minus exclusion; $\beta_{\text{sum}}\in[-34,30]$ |
-| XV | *The Weil Representation and the $S_3$ Lifting Classification for Mermin Pentagrams* | Weil representation, metaplectic cocycle, $S_3$ lifting, Lagrangian orbits | $O_3$ split, $O_2$ non-split symmetric, $O_4$ non-split asymmetric; $G_2(2)$ Lagrangian orbits: 72+63; $\beta$-cocycle refuted (context-level invariant) |
-| XVI | *The Weyl Product Identity and the Algebraic Origin of the Kochen--Specker Obstruction* | Weyl algebra, Fano zero-sum, context-level $\beta$, KS as Weyl identity | $W_C = s(C)\cdot I_8$ (945/945); $\prod_C W_C = -I_8$ (12,096/12,096); mod 4 from Weyl algebra, not mod-2 lift |
-| XVII | *The Cross-Context Anticommutation Theorem and the Algebraic Origin of the Kochen--Specker Obstruction* | Petersen graph $K(5,2)$, $K_5$ geometry, cross-context $\omega$, KS from counting | $\omega(v_{ij},v_{kl})=1$ for all 15 cross-context pairs (algebraic); $\prod W_C=(-1)^{15}I_8=-I_8$; no even $K_5$s; closes Paper XVI OP 4 |
-| XVIII | *Mermin Pentagrams in $Sp(8,\mathbb{F}_2)$: Universal $N_{\mathrm{anti}}=10$ and the Gram Rank Selection Principle* | Transversal property, $K_4$-level geometry, Gram rank selection, $n=4$ universality | $N_{\mathrm{anti}}=10$ for all proper $K_5$ (fully algebraic via B0+B1+B2); $n=4$ unique universal dimension; Key Lemma 840/840 (optional) |
-| XIX | *Mermin Pentagrams in $Sp(2n,\mathbb{F}_2)$, $n\ge5$: Structure, Obstruction, and the Modulus Phenomenon* | $n\ge5$ deformation, upper-bound ladder, Maslov triple, modulus witness, Arf ruling-out | Modulus theorem: no arity-$\le4$ relative-position invariant classifies the fiber (concrete witness); $N_{\mathrm{anti}}\le\mathrm{maxedge}(\mathrm{rank}\,G)$ (exhaustive); $n_{\mathrm{odd}}\le5\Rightarrow N_{\mathrm{anti}}$ even (455/455) |
-| XX | *H³ Opens at n≥5: The Cohomological Origin of the Mermin Modulus* | Maslov 2-cochain $\mu$, anticommutation 3-cochain $n_a$, coboundary identity, rank-parity, $H^3(S^3;\mathbb{F}_2)$ | $n_a=\delta\mu$ at $n=4$ (rigorous); rank-parity $\mathrm{rank}\,B=n-3$; $[n]=0$ universally iff $n=4$; $H^3$ opens at $n=3$ all-Fano and generic $n\ge5$ |
-| XXI | *H³ Rigidity is Unique at $n=4$: Master Theorem and the Even/Odd Obstruction Dichotomy* | Master theorem, Part A $n=4$-exclusivity, even/odd carrier, spread-stabilisation | $N_{\mathrm{anti}}=10$ universally $\iff n=4$; Part A $\iff$ the $2n=8$ squeeze (B1/B2); carrier $=n_a$ at even $n$, $=\delta\mu$ at odd $n$; explicit $N_{\mathrm{anti}}$-odd witnesses $\forall n\ge5$ |
-| XXII | *The Arity–Resonance Ceiling: Why Pauli Contextuality Stops at $H^3$* | Arity–resonance, two rungs ($K_4/H^2$, $K_5/H^3$), truncation, clique criterion, two families | arity-$a$ $=(a-1)$-cochain resonant at $K_{a+1}$; $H^4$ truncates ($\mathbf c=\delta\mathbf a$); ceiling $\min(\omega(G)-2,3)$; Mermin square $=$ family B |
-| L-S I | *L-S Contraction and the Cohomological Origin of Geometric Phases* | Liouville vs contraction (A-B effect) | $\check{H}^1$ 1-cocycle = geometric phase holonomy |
-| L-S II | *L-S Contraction and the Cohomological Origin of Non-Commutativity* | 4-cycle holonomy in PM square | $-\mathbf{I}$ = central extension class $[f]$ |
-| L-S III | *L-S Contraction and the Boundary of Applicability: $H^3$, the 16-Cell, and Non-Associative Algebra* | 16-cell $S^3$ nerve + $\mathbb{O}$ chain rule failure | $H^3$ pairing conjecture; $\mathbb{O}$-dynamics incompatible with L-S |
+| # | Title | Key Result |
+|---|-------|------------|
+| I | *From Contextuality to Phase Cohomology* | $\check{H}^1(M, U(1))$ classifies geometric phases |
+| II | *Semiclassical Reconstruction of Riemann Surfaces from Bohrification* | Bohr-Sommerfeld orbits as divisors on spectral curves |
+| III | *Kochen–Specker Contextuality as Central Extension* | KS obstruction = $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$ |
+| IV | *LHS Transgression and the $H^3$ Frontier* | $d_2$ transgression = KS; Borromean $H^3$ predicted |
+| Epilogue | *The Algebraic Logic of Geometry* | $\mathcal{Q} \dashv \mathcal{B}$ adjunction; EML; Solèr |
+| V | *Observation as Functor* | LHS spectral sequence unifies all obstructions |
+| VI | *Deriving QM from the Logic of Observation* | $\mathbb{C}$ is the unique division ring for non-trivial observation |
+| VII | *Twistor Theory from the Obstruction Ladder* | Googly problem = $H^2$ obstruction |
+| VIII | *The $\Phi$ Functor* | $\Phi = \ell \circ \tau \circ \iota^*$; $\mathbb{Z}/2$-gerbe on $\mathbb{CP}^3$ |
+| IX | *The 3-Qubit Obstruction Ladder* | $GL(3,\mathbb{F}_2) \hookrightarrow PSp(6,\mathbb{F}_2)$; two Klein quartic bridges |
+| X | *Equiangular Characterization of Mermin Pentagrams* | $K_5 \Leftrightarrow$ equiangular $\Leftrightarrow$ Mermin; 10-ray cap |
+| XI | *Quadratic Refinement and Parity* | $\beta$-formula; $\beta_{\mathrm{sum}} \equiv 2 \pmod{4}$ (12,096/12,096) |
+| XII | *The T-Vector Theorem* | $\omega(T,r)=1$ (algebraic); Wu class analogy |
+| XIII | *Maslov Index and the KS Obstruction* | Kashiwara ≠ $\beta/2$; $k$-profile theorem |
+| XIV | *Stabilizer Algebra and $k$-Profile* | $O_{2,3,4} = S_3$; 7 profiles, 100% odd |
+| XV | *Weil Representation and $S_3$ Lifting* | Split / non-split classification; $\beta$-cocycle refuted |
+| XVI | *The Weyl Product Identity* | $\prod_C W_C = -I_8$ as Weyl algebra identity |
+| XVII | *Cross-Context Anticommutation Theorem* | $\omega(v_{ij},v_{kl})=1$ for all 15 pairs (algebraic) |
+| XVIII | *Mermin Pentagrams in $\mathrm{Sp}(8,\mathbb{F}_2)$* | $N_{\mathrm{anti}}=10$ universal at $n=4$ (algebraic, B0+B1+B2) |
+| XIX | *$n \ge 5$: Modulus Phenomenon* | No arity-$\le 4$ invariant classifies the fiber |
+| XX | *$H^3$ Opens at $n \ge 5$* | $[n_a]=0$ universally $\iff n=4$ |
+| XXI | *Master Theorem* | $N_{\mathrm{anti}}=10$ universally $\iff n=4$; even/odd dichotomy |
+| XXII | *Arity–Resonance Ceiling* | $H^4$ truncates; ceiling $= \min(\omega(G)-2,3)$; two families |
+| L-S I–III | *Contraction Appendices* | Dynamical reinterpretation of $H^1$, $H^2$, $H^3$ |
 
 ---
 
@@ -289,40 +57,66 @@ Three companion notes connect Lohmiller–Slotine contraction theory to the obst
 Level 0 (Foundation):  H¹  —  E_∞^{1,0} survivors     —  Geometric phases (Aharonov–Bohm, Berry)
 Level 1 (Obstruction): H²  —  d₂ transgression         —  Kochen–Specker contextuality
 Level 2 (Obstruction): H³  —  d₃ higher differential   —  Borromean non-associativity
+                                                            (truncates: H⁴ = 0, Paper XXII)
 ```
 
-The distinction is crucial: **geometric phases are stable features** that survive the entire spectral sequence filtration ($E_\infty$ page). **Quantum anomalies are obstructions** measured by the differentials ($d_2, d_3$) that measure the cost of forcing classical logic onto quantum systems.
+Geometric phases are stable features surviving the entire spectral sequence ($E_\infty$). Quantum anomalies are obstructions measured by the differentials ($d_2, d_3$) — the cost of forcing classical logic onto quantum systems.
 
 ---
 
-## [`RESEARCH_FRONTIER.md`](RESEARCH_FRONTIER.md)
+## Repository Structure
 
-A candid inventory of the mathematical machinery powering this series and the open problems that remain. Includes:
-
-- **Part I: The Mathematical Toolbox** — 11 core tools (Topos Theory, LHS Spectral Sequence, Group Cohomology, Solèr's Theorem, EML, Sheaf/Čech Cohomology, Bundle Gerbes, 16-Cell Geometry, MASA Logic, Albert Algebra, Z3 SAT)
-- **Part II: The "Regrets" & Open Questions** — 10 unsolved problems, including the $H^3$ numerical invariant for the 5-qubit 16-cell, the $\mathcal{Q} \dashv \mathcal{B}$ adjunction proof, non-abelian EML impossibility, the octonionic frontier, and experimental realization.
+```
+research/
+├── README.md
+├── READING_GUIDE.md                    # Per-paper summaries & reading orders
+├── RESEARCH_FRONTIER.md                # Toolbox & open problems
+├── LICENSE                             # CC BY 4.0
+├── insight/                            # Post-series exploration notes
+├── papers/
+│   ├── Paper1_contextuality_phase.tex
+│   ├── ...
+│   ├── Paper22_resonance_ceiling.tex
+│   ├── Epilogue_algebraic_logic.tex
+│   ├── LsNote_*.tex                    # L-S contraction appendices (3)
+│   └── timescape_cross_validation.tex  # SN × void-fraction empirical test
+└── supplementary/
+    ├── construct_16cell/               # Z3 SAT, 16-cell nerve (Paper IV)
+    ├── paper7_conj42/                  # Φ* pullback verification (Paper VII)
+    ├── paper10/ – paper22/             # Per-paper computational scripts
+    ├── klein/                          # Klein quartic / PSL(2,7) bridge
+    ├── adscft/                         # HaPPY holographic codes (insight)
+    ├── mbqc/                           # l2-MBQC computational degree (insight)
+    ├── bockstein/                      # Z/4-Bockstein / Sq¹-acyclicity (insight)
+    └── timescape/                      # SN × void-fraction cross-validation
+```
 
 ---
 
 ## Supplementary Materials
 
-| Directory | Description |
-|-----------|-------------|
-| [`supplementary/construct_16cell/`](supplementary/construct_16cell/) | Z3 SAT solver construction of the 16-cell nerve for $S^3$-type Borromean contextuality (Paper IV) |
-| [`supplementary/paper7_conj42/`](supplementary/paper7_conj42/) | Verification scripts for Conjecture 4.2: Peres-Mermin obstruction class and $\Phi^*$ pullback computation (Paper VII) |
-| [`supplementary/paper10/`](supplementary/paper10/) | Computational enumeration of Mermin pentagrams: 135 Lagrangians, 945 proper contexts, 12,096 pentagrams, equiangular characterization, $G_2(2)$ orbit decomposition (Paper X) |
-| [`supplementary/paper11/`](supplementary/paper11/) | Quadratic refinement scripts: $\beta$-formula verification, $\omega$ decomposition, geometric proof of disjoint pair $\omega=1$, parity theorem verification (Paper XI) |
-| [`supplementary/paper12/`](supplementary/paper12/) | T-vector analysis: Arf candidate search, $G_2(2)$ transitivity on $\mathbb{F}_2^6$, $G_2(2)$-invariant quadratic form search, T-vector statistics (Paper XII) |
-| [`supplementary/paper13/`](supplementary/paper13/) | Maslov index computation: Kashiwara triple index, $k$-profile theorem verification, $h$-structure analysis, $G_2(2)$ orbit invariant enumeration (Paper XIII) |
-| [`supplementary/paper14/`](supplementary/paper14/) | Stabilizer algebra computation: $G_2(2)$ orbit stabilizers ($\mathbb{Z}_2$ vs $S_3$), full 12,096 $k$-profile verification, $\beta_{\text{sum}}$ distribution, $h$-pattern analysis (Paper XIV) |
-| [`supplementary/paper15/`](supplementary/paper15/) | Weil representation scripts: metaplectic lifting classification of $S_3$ stabilizers, $\beta$-cocycle verification, $G_2(2)$ Lagrangian orbit enumeration (Paper XV) |
-| [`supplementary/paper16/`](supplementary/paper16/) | Weyl product identity verification: Fano zero-sum, $W_C = s(C)\cdot I_8$, pentagram product $\prod W_C = -I_8$, $G_2(2)$ equivariance (Paper XVI) |
-| [`supplementary/paper17/`](supplementary/paper17/) | Cross-context anticommutation verification: $K_5$ structure, bubble-sort sign computation, $N_{\mathrm{anti}}=15$ for all 12,096 pentagrams, no-even-$K_5$ check (Paper XVII) |
-| [`supplementary/paper18/`](supplementary/paper18/) | Transversal property verification: B0/B1/B2 recheck (24,000 K₄s), landscape table (n=3,4,5,6), Type I/II classification, Gram rank Key Lemma (840/840) (Paper XVIII) |
-| [`supplementary/paper19/`](supplementary/paper19/) | $n\ge5$ deformation probe: upper-bound ladder (exhaustive $2^{15}$ Petersen enumeration), Maslov triple bit + modulus witness, Arf ruling-out (frame-$q$ non-invariance, intrinsic-$q$ existence + uniqueness, Arf non-discrimination) (Paper XIX) |
-| [`supplementary/paper20/`](supplementary/paper20/) | Maslov 2-cochain + anticommutation 3-cochain verification: $n_a=\delta\mu$ at $n=4$ (360/360), $H^3$ opening at $n=5$ (336/360), rank-parity periodicity ($\mu\equiv1$ for $n$ even, verified $n=4,6$; $\mu$ varies at $n=5$) (Paper XX) |
-| [`supplementary/paper21/`](supplementary/paper21/) | Master theorem & dichotomy: B1/B2 commuting-pairing counts and the $n=4$-exclusivity hinge, spread-stabilisation $N_{\mathrm{anti}}$-odd witnesses (dims 7–10), rank-parity $K_4/H^2$ resonance, and even-$n$ equidistribution probes (foot-bit / piling-up, transvection involution) (Paper XXI) |
-| [`supplementary/paper22/`](supplementary/paper22/) | Arity–resonance ceiling: $K_4/H^2$ Maslov rung, $K_6$ truncation ($\mathbf c=\delta\mathbf a$, even-weight saturation), incidence clique criterion, Mermin–Peres square (bipartite family B), cup-1 geometric-route test, and the $\mathrm{Sq}^1\omega$ bridge skeleton (Paper XXII) |
+| Directory | Paper | Description |
+|-----------|-------|-------------|
+| [`construct_16cell/`](supplementary/construct_16cell/) | IV | Z3 SAT construction of the 16-cell nerve |
+| [`paper7_conj42/`](supplementary/paper7_conj42/) | VII | $\Phi^*$ pullback verification |
+| [`paper10/`](supplementary/paper10/) | X | 12,096 pentagrams, equiangular characterization, $G_2(2)$ orbits |
+| [`paper11/`](supplementary/paper11/) | XI | $\beta$-formula, $\omega$ decomposition, parity theorem |
+| [`paper12/`](supplementary/paper12/) | XII | T-vector, Arf search, $G_2(2)$ transitivity |
+| [`paper13/`](supplementary/paper13/) | XIII | Kashiwara index, $k$-profile theorem |
+| [`paper14/`](supplementary/paper14/) | XIV | Stabilizer classification, $\beta_{\mathrm{sum}}$ statistics |
+| [`paper15/`](supplementary/paper15/) | XV | Metaplectic lifting, $\beta$-cocycle test |
+| [`paper16/`](supplementary/paper16/) | XVI | Weyl product identity verification |
+| [`paper17/`](supplementary/paper17/) | XVII | Cross-context anticommutation (12,096) |
+| [`paper18/`](supplementary/paper18/) | XVIII | B0/B1/B2 recheck, landscape table, Key Lemma |
+| [`paper19/`](supplementary/paper19/) | XIX | Upper-bound ladder, modulus witness, Arf ruling-out |
+| [`paper20/`](supplementary/paper20/) | XX | $n_a = \delta\mu$ verification, rank-parity |
+| [`paper21/`](supplementary/paper21/) | XXI | Master theorem, spread-stabilisation witnesses |
+| [`paper22/`](supplementary/paper22/) | XXII | Arity–resonance, truncation, clique criterion, $\mathrm{Sq}^1\omega$ bridge |
+| [`klein/`](supplementary/klein/) | IX | 168-action, bitangent bijection, theta/spin spiral |
+| [`adscft/`](supplementary/adscft/) | insight | HaPPY holographic codes; reconstruction is blind to contextuality |
+| [`mbqc/`](supplementary/mbqc/) | insight | l2-MBQC: computational degree $\ne$ cohomological degree |
+| [`bockstein/`](supplementary/bockstein/) | insight | $\mathbb{Z}/4$-Bockstein / $\mathrm{Sq}^1$-acyclicity: the $H^3$ ceiling is not an $\mathbb{F}_2$ artifact |
+| [`timescape/`](supplementary/timescape/) | — | SN Hubble-residual $\times$ void-fraction cross-validation |
 
 ---
 
@@ -355,24 +149,37 @@ All components are archived on Zenodo:
 | Paper XX | [10.5281/zenodo.20608302](https://doi.org/10.5281/zenodo.20608302) |
 | Paper XXI | [10.5281/zenodo.20685669](https://doi.org/10.5281/zenodo.20685669) |
 | Paper XXII | [10.5281/zenodo.20685777](https://doi.org/10.5281/zenodo.20685777) |
-| L-S Note I (geometric phase) | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
-| L-S Note II (non-commutativity) | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
-| L-S Note III (associativity / $\mathbb{O}$) | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
+| L-S Note I | [10.5281/zenodo.20102566](https://doi.org/10.5281/zenodo.20102566) |
+| L-S Note II | [10.5281/zenodo.20102587](https://doi.org/10.5281/zenodo.20102587) |
+| L-S Note III | [10.5281/zenodo.20102638](https://doi.org/10.5281/zenodo.20102638) |
 | `construct_16cell.py` | [10.5281/zenodo.20070954](https://doi.org/10.5281/zenodo.20070954) |
-| `paper7_conj42.py`/`paper7_conj42_layer2.py` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
-| `supplementary/paper10/` (12 scripts) | [10.5281/zenodo.20472357](https://doi.org/10.5281/zenodo.20472357) |
-| `supplementary/paper11/` (13 scripts) | [10.5281/zenodo.20482283](https://doi.org/10.5281/zenodo.20482283) |
-| `supplementary/paper12/` (3 scripts) | [10.5281/zenodo.20488394](https://doi.org/10.5281/zenodo.20488394) |
-| `supplementary/paper13/` (5 scripts) | [10.5281/zenodo.20495857](https://doi.org/10.5281/zenodo.20495857) |
-| `supplementary/paper14/` (2 scripts) | [10.5281/zenodo.20501961](https://doi.org/10.5281/zenodo.20501961) |
-| `supplementary/paper15/` (2 scripts) | [10.5281/zenodo.20509690](https://doi.org/10.5281/zenodo.20509690) |
-| `supplementary/paper16/` (1 script) | [10.5281/zenodo.20519672](https://doi.org/10.5281/zenodo.20519672) |
-| `supplementary/paper17/` (3 scripts) | [10.5281/zenodo.20528739](https://doi.org/10.5281/zenodo.20528739) |
-| `supplementary/paper18/` (21 scripts) | [10.5281/zenodo.20546121](https://doi.org/10.5281/zenodo.20546121) |
-| `supplementary/paper19/` (9 scripts) | [10.5281/zenodo.20579390](https://doi.org/10.5281/zenodo.20579390) |
-| `supplementary/paper20/` (3 scripts) | [10.5281/zenodo.20604140](https://doi.org/10.5281/zenodo.20604140) |
-| `supplementary/paper21/` (4 scripts) | [10.5281/zenodo.20636220](https://doi.org/10.5281/zenodo.20636220) |
-| `supplementary/paper22/` (7 scripts) | [10.5281/zenodo.20685721](https://doi.org/10.5281/zenodo.20685721) |
+| `paper7_conj42/` | [10.5281/zenodo.20437675](https://doi.org/10.5281/zenodo.20437675) |
+| `paper10/` | [10.5281/zenodo.20472357](https://doi.org/10.5281/zenodo.20472357) |
+| `paper11/` | [10.5281/zenodo.20482283](https://doi.org/10.5281/zenodo.20482283) |
+| `paper12/` | [10.5281/zenodo.20488394](https://doi.org/10.5281/zenodo.20488394) |
+| `paper13/` | [10.5281/zenodo.20495857](https://doi.org/10.5281/zenodo.20495857) |
+| `paper14/` | [10.5281/zenodo.20501961](https://doi.org/10.5281/zenodo.20501961) |
+| `paper15/` | [10.5281/zenodo.20509690](https://doi.org/10.5281/zenodo.20509690) |
+| `paper16/` | [10.5281/zenodo.20519672](https://doi.org/10.5281/zenodo.20519672) |
+| `paper17/` | [10.5281/zenodo.20528739](https://doi.org/10.5281/zenodo.20528739) |
+| `paper18/` | [10.5281/zenodo.20546121](https://doi.org/10.5281/zenodo.20546121) |
+| `paper19/` | [10.5281/zenodo.20579390](https://doi.org/10.5281/zenodo.20579390) |
+| `paper20/` | [10.5281/zenodo.20604140](https://doi.org/10.5281/zenodo.20604140) |
+| `paper21/` | [10.5281/zenodo.20636220](https://doi.org/10.5281/zenodo.20636220) |
+| `paper22/` | [10.5281/zenodo.20685721](https://doi.org/10.5281/zenodo.20685721) |
+
+---
+
+## AI Collaboration Disclosure
+
+This research project integrated various Large Language Models (LLMs) across multiple stages to enhance rigor and clarity. The author(s) maintain full accountability for the final content.
+
+- **Theoretical Derivation:** AI was used to assist in symbolic manipulation, cross-verifying mathematical proofs, and identifying potential edge cases in formulas.
+- **Development & Typesetting:** Code implementation and LaTeX structural optimization were supported by AI-assisted pair programming.
+- **Language & Refinement:** Sentences were polished for academic flow and grammatical precision.
+- **Simulated Peer Review:** AI agents were tasked to act as independent reviewers to provide critical feedback and identify logical gaps prior to publication.
+
+*Models used: Gemini 3 Pro/3.1 Pro, GPT-5.3, Claude Sonnet 4.6/Opus 4.6&4.8, Kimi K2.5/K2.6, GLM-5.0, QWen 3.5 Plus, DeepSeek V4 Pro/Flash.*
 
 ---
 
