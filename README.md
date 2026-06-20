@@ -89,6 +89,7 @@ research/
     ├── mbqc/                           # l2-MBQC computational degree (insight)
     ├── bockstein/                      # Z/4-Bockstein / Sq¹-acyclicity (insight)
     ├── twistor_cp/                     # item 13: CP^{2^n-1} realization is family-B only
+    ├── familyB_resonance/              # item 22: family B is family A's omega=2 floor
     └── timescape/                      # SN × void-fraction cross-validation
 ```
 
@@ -118,6 +119,7 @@ research/
 | [`mbqc/`](supplementary/mbqc/) | insight | l2-MBQC: computational degree $\ne$ cohomological degree |
 | [`bockstein/`](supplementary/bockstein/) | insight | $\mathbb{Z}/4$-Bockstein / $\mathrm{Sq}^1$-acyclicity: the $H^3$ ceiling is not an $\mathbb{F}_2$ artifact |
 | [`twistor_cp/`](supplementary/twistor_cp/) | VIII | item 13: the $\mathbb{CP}^{2^n-1}$ realization is family-B only ($\mathrm{Sq}^1$-blind to family A) |
+| [`familyB_resonance/`](supplementary/familyB_resonance/) | XXII | item 22: no family-B resonance — it is the $\omega=2$ floor of family A's clique tower |
 | [`timescape/`](supplementary/timescape/) | — | SN Hubble-residual $\times$ void-fraction cross-validation |
 
 ---
