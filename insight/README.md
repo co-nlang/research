@@ -39,6 +39,13 @@ sharpen*, not to delete.
   $n_a=\mathrm{Sq}^1\omega$ is the residue none can host. The universality of the wall *is* the
   proof of irreducibility; the lone non-forgetful gear is the item-23 comparison map. Point
   newcomers here.
+- `the_adjunction.md` — item 14, the categorical form of the one wall. The transgression
+  adjunction $\mathcal Q\dashv\mathcal B$ (quantization $\dashv$ Bohrification) **exists** in
+  $D^b$ — the one gap Paper VIII left ($\tau$) closes because $\tau$ is suspension
+  ($\Sigma\dashv\Omega$); the degree shift *is* the adjunction. It is free $\dashv$ forgetful
+  (with $\mathcal B$ = the one-wall functor) and an **adjoint equivalence iff $n=4$**, the counit
+  defect being $n_a$. The wall ($\mathcal B$), its free adjoint ($\mathcal Q$), and the
+  obstruction to inverse ($n_a$, item 23) are one picture, three ways.
 
 **Promoted to the main line**
 - `transformers_bohrification.md` — transformer = learned Bohrification functor
