@@ -32,6 +32,13 @@ sharpen*, not to delete.
 - `why_the_ladder.md` — *why* the ladder is universal at all. Answer: **observation**
   (choose context → record section → compare = Čech coboundary). The spine of the
   whole project; SPEC_00 §1 ("execution is observation") is its engineering form.
+- `the_one_wall.md` — **the single-document answer** to "what is the operational/geometric
+  meaning of $H^3$, and why does every attempt to find one fail?" Six independent doors
+  (Gottesman–Knill, AdS/CFT, MBQC, twistor $\mathbb{CP}$, the cup-1 shortcut, the $\mathbb Z/4$
+  Bockstein) are one wall: each is $\mathrm{Sq}^1$-trivial / forgetful, and
+  $n_a=\mathrm{Sq}^1\omega$ is the residue none can host. The universality of the wall *is* the
+  proof of irreducibility; the lone non-forgetful gear is the item-23 comparison map. Point
+  newcomers here.
 
 **Promoted to the main line**
 - `transformers_bohrification.md` — transformer = learned Bohrification functor
