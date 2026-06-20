@@ -46,6 +46,14 @@ sharpen*, not to delete.
   (with $\mathcal B$ = the one-wall functor) and an **adjoint equivalence iff $n=4$**, the counit
   defect being $n_a$. The wall ($\mathcal B$), its free adjoint ($\mathcal Q$), and the
   obstruction to inverse ($n_a$, item 23) are one picture, three ways.
+- `langlands_shape.md` — ❓ *analogy, not a result.* Why item 23 keeps reminding readers of the
+  Langlands program: a Yoneda-shaped correspondence between two incompatible descriptions (family
+  A $\leftrightarrow$ B), with **local** ($V$-side, Kudo, theorem) vs **global** (configuration,
+  modulus, open) = local–global compatibility, a **trace-formula-shaped** pairing
+  $N_{\mathrm{anti}}=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$, *geometric*-Langlands flavour
+  (the $D^b$ adjunction, lax maps), and one **literal** thread — the Klein face lands on
+  $X(7)=\mathbb H/\Gamma(7)$ — sitting across the $\mathbb F_2\to$char-0 wall. Caveats attached
+  (scale; no L-functions; one correspondence not a web).
 
 **Promoted to the main line**
 - `transformers_bohrification.md` — transformer = learned Bohrification functor
