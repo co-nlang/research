@@ -90,6 +90,7 @@ research/
     ├── bockstein/                      # Z/4-Bockstein / Sq¹-acyclicity (insight)
     ├── twistor_cp/                     # item 13: CP^{2^n-1} realization is family-B only
     ├── familyB_resonance/              # item 22: family B is family A's omega=2 floor
+    ├── k4_h2_opening/                  # K4/H2 Maslov rung: opening witnesses + flip reduction
     └── timescape/                      # SN × void-fraction cross-validation
 ```
 
@@ -120,6 +121,7 @@ research/
 | [`bockstein/`](supplementary/bockstein/) | insight | $\mathbb{Z}/4$-Bockstein / $\mathrm{Sq}^1$-acyclicity: the $H^3$ ceiling is not an $\mathbb{F}_2$ artifact |
 | [`twistor_cp/`](supplementary/twistor_cp/) | VIII | item 13: the $\mathbb{CP}^{2^n-1}$ realization is family-B only ($\mathrm{Sq}^1$-blind to family A) |
 | [`familyB_resonance/`](supplementary/familyB_resonance/) | XXII | item 22: no family-B resonance — it is the $\omega=2$ floor of family A's clique tower |
+| [`k4_h2_opening/`](supplementary/k4_h2_opening/) | XXII | the $K_4/H^2$ Maslov rung: exact opening witnesses (n=5,7) + the flip reduction |
 | [`timescape/`](supplementary/timescape/) | — | SN Hubble-residual $\times$ void-fraction cross-validation |
 
 ---
