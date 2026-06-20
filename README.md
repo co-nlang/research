@@ -88,6 +88,7 @@ research/
     ├── adscft/                         # HaPPY holographic codes (insight)
     ├── mbqc/                           # l2-MBQC computational degree (insight)
     ├── bockstein/                      # Z/4-Bockstein / Sq¹-acyclicity (insight)
+    ├── twistor_cp/                     # item 13: CP^{2^n-1} realization is family-B only
     └── timescape/                      # SN × void-fraction cross-validation
 ```
 
@@ -116,6 +117,7 @@ research/
 | [`adscft/`](supplementary/adscft/) | insight | HaPPY holographic codes; reconstruction is blind to contextuality |
 | [`mbqc/`](supplementary/mbqc/) | insight | l2-MBQC: computational degree $\ne$ cohomological degree |
 | [`bockstein/`](supplementary/bockstein/) | insight | $\mathbb{Z}/4$-Bockstein / $\mathrm{Sq}^1$-acyclicity: the $H^3$ ceiling is not an $\mathbb{F}_2$ artifact |
+| [`twistor_cp/`](supplementary/twistor_cp/) | VIII | item 13: the $\mathbb{CP}^{2^n-1}$ realization is family-B only ($\mathrm{Sq}^1$-blind to family A) |
 | [`timescape/`](supplementary/timescape/) | — | SN Hubble-residual $\times$ void-fraction cross-validation |
 
 ---
