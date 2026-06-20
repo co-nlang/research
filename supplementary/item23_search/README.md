@@ -66,7 +66,32 @@ provably circular over symplectic data; the bridge content lives in the $\mathbb
 refinement / Bockstein (the lax coherence assembling the defects into $\mathrm{Sq}^1\omega$), which
 is the genuine $\infty$-categorical / topological work, not algebra over the pairings.
 
+## The ladder of failures: no cochain-level summary determines $a$ (`q_determinacy.py`)
+
+Is the last segment ($\beta_{\mathbb Z/4}(q)$) computable or handwork? We tested whether $a$ is
+determined by the **quadratic-refinement / $\mathbb Z/4$ data** $q$ (the polarized $f$ on
+composable rays — *non-circular*, nonzero where $\omega$ vanishes, and far finer than $(\mu,F)$).
+**Verdict: $a$ is not a function of $q$ either** — witnessed, though narrowly: at $n=5$, 20000
+configs give 19896 distinct $q$-keys ($q$ is *nearly injective*) yet **32** keys split (same $q$,
+different $a$); $n=6$: 5394 keys, 2 splits. So the three natural cochain-level data layers **all**
+fail to determine $a$:
+
+| layer | arity | verdict |
+|---|---|---|
+| symplectic pairings | 2 | **circular** ($\phi^*\omega\equiv0$; only nonzero pairings $=a$ itself) |
+| Maslov + Fano $(\mu,F)$ | 3 | determines-not, **coarsely** (430 keys, 123 split — the arity gap) |
+| quadratic refinement $q$ | — | determines-not, **finely** ($q$ nearly injective, still 32 split) |
+
+**Answer to "computable or handwork?":** *verification* is always computable (any fully-specified
+candidate, microseconds); but **no cochain-level summary statistic determines $a$**, so there is no
+shortcut formula to search for — the bridge is irreducibly the **lax-map construction** (the
+defects $w_{ijk}$ assembling into $\mathrm{Sq}^1\omega$ with higher coherence), which is symbolic
+$\infty$-categorical **handwork**. The computer is a fast *verification oracle*, not a constructor:
+it can instantly test a guessed formula and has now *ruled out* every natural summary, but the
+formula itself must come from the coherence construction.
+
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
 - `collision_test.py` — the decisive "is $a$ any function of $(\mu,F)$?" test (no, at all degrees).
-- `phi_omega_zero.py` — the terminus: composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular; the bridge needs the $\mathbb Z/4$-Bockstein of $q$.
+- `phi_omega_zero.py` — composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular.
+- `q_determinacy.py` — $a$ is not determined by the $\mathbb Z/4$/quadratic-refinement data either (nearly-injective $q$, still splits) — the failure ladder is complete.
