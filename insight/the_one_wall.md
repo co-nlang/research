@@ -85,11 +85,20 @@ classifying coordinate exactly because no operational, geometric, or algebraic s
 
 ## 4. The unique gear, by exhaustion
 
-So item 23 (the homotopy-coherent comparison map; $n_a=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$)
+So item 23 (the **self-representation map**; $n_a=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$)
 gets upgraded, not abandoned. Its uniqueness used to read as "we haven't solved it yet." It
 now reads as **"the only non-forgetful door, confirmed by exhaustion of the natural ones."**
 Every other approach has been tried and shown to factor through the forgetful functor; the
-comparison map is the irreducible residue.
+self-representation map is the irreducible residue.
+
+**A name for the gear.** What the drafts called the "comparison map" is better named the
+**self-representation map**: it is not a comparison of two objects but a structure represented
+in its own terms, with $n_a$ the obstruction to that being *coherent*. One gear, three faces:
+*as an operation* it is $\mathrm{Sq}^1\!:H^2\to H^3$ (the unique structure-adding arrow);
+*as a functor* it is the quantization $\mathcal Q$ (item 14, the free left adjoint, $n_a$ the
+counit defect); *as a pairing* it is the $\infty$-Yoneda self-pairing (§5 below). **"The one
+wall" is this seen from outside — six doors hit it; "the self-representation map" is the same
+seen from inside — the structure in its own mirror.**
 
 **Honest residue.** "By exhaustion of the natural doors" is not "proven impossible." The six
 results each *establish* their door is $\mathrm{Sq}^1$-trivial; what they do not do is prove
