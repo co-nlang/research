@@ -36,6 +36,37 @@ Maslov/Fano triangle summaries — i.e. the "nullhomotopy $\beta$" the lax map n
 than $\mu$. The naive $\mu\cup_1\mu$ failure (`paper22/geometric_route.py`, ~57% at $n=5$) is now
 explained and generalized: not the wrong combination of $\mu$, but $\mu$ is the wrong altitude.
 
+## The chase's terminus: the symplectic formula-search is *circular* (`phi_omega_zero.py`)
+
+Pursuing the sharpened target ("use ray-pairing / arity-4 data, not $\mu,F$") hits a structural
+floor. A **composable** pairing $\omega(v_{ij},v_{jk})$ pairs two rays both lying in the shared
+Lagrangian $L_j$ — they **commute**, so it vanishes. Verified: every composable pairing is $0$
+(**0/933000** across $n=4,5,6$). Hence:
+
+1. **$\phi^*\omega\equiv0$ at the cochain level** (not just the class) — so $a=\mathrm{Sq}^1\omega$
+   pulled back has **no primary part**: it is a *purely* secondary operation (the strongest form
+   of "the bridge is secondary/lax").
+2. **The only nonzero symplectic pairings on the nerve are the disjoint ones** $\omega(v_{ij},v_{kl})$
+   ($\{i,j\}\cap\{k,l\}=\varnothing$) — and their matched sum **is $a$**. Defect pairings reduce to
+   these too ($\omega(w_{ijk},v_{il})=\omega(v_{jk},v_{il})$, same-Lagrangian terms drop). So every
+   symplectic expression in the rays/defects is a linear combination of the disjoint pairings $=a$
+   itself ⟹ **any "formula for $a$ in the symplectic data" is circular.**
+
+So the parametrized-search program cannot produce a non-trivial bridge over symplectic data —
+there is no "lower" symplectic datum to build $a$ from. (The earlier "$b_\omega\cup_1 b_\omega$
+matches $a$" run was *confounded*: $b_\omega\equiv0$, so its match% is exactly the $a{=}0$
+frequency $100\%/76.6\%/50.5\%$.) The one nonzero *non-symplectic* lower datum is the polarized
+cocycle $f$ / quadratic refinement $q$ ($\mathbb Z/4$ structure), nonzero even on commuting pairs;
+but $\mathrm{cup}_1$ of it matches only $\sim74\%/61\%$ — so the correct object is the
+**$\mathbb Z/4$-Bockstein of $q$** ($\mathrm{Sq}^1\omega=\beta_{\mathbb Z/4}$), not a cup-1, a
+convention-heavy chain-level computation = the identified next step.
+
+**Net of the chase:** confirmed *insight-bound at a structural level* — the formula-search is
+provably circular over symplectic data; the bridge content lives in the $\mathbb Z/4$ quadratic-
+refinement / Bockstein (the lax coherence assembling the defects into $\mathrm{Sq}^1\omega$), which
+is the genuine $\infty$-categorical / topological work, not algebra over the pairings.
+
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
 - `collision_test.py` — the decisive "is $a$ any function of $(\mu,F)$?" test (no, at all degrees).
+- `phi_omega_zero.py` — the terminus: composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular; the bridge needs the $\mathbb Z/4$-Bockstein of $q$.
