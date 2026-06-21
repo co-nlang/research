@@ -100,6 +100,14 @@ gives $q(T)=\bigoplus_i q(v_i)\oplus\bigoplus_{i<j}\omega(v_i,v_j)$; composable 
 ($\phi^*\omega\equiv0$) so $\bigoplus_{i<j}\omega=N_{\mathrm{anti}}$. Verified **24,600/24,600**
 exact at $n=4,5,6$.
 
+**Cochain-level (per-tetrahedron) form** — what item 23's pairing actually needs
+($\langle\mathrm{Sq}^1\omega,[K_5]\rangle=\bigoplus_m(n_a)_m$): the same polarization applied to
+each tetrahedron's 6 rays gives
+$$(n_a)_m\bmod2 \;=\; q(S_m)\;\oplus\;\bigoplus_{\text{6 rays of tetra }m} q(v),\qquad
+  S_m=\bigoplus_{\text{6 rays}} v,$$
+**verified 123,000/123,000 per-tetra checks exact at $n=4,5,6$.** So the family-A *cochain*
+$n_a$ — not just the total — is closed-form in $q$.
+
 So the corrected statement: **no *local/low-arity* summary determines $a$, but a *global*
 quadratic-refinement closed form does** — the $q$-collision tests missed it only because their keys
 had the per-ray $q(v_i)$ but not the global $q(T)$ (no contradiction with the modulus: $q(T)$ is an

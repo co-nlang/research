@@ -6,6 +6,15 @@ A CLOSED FORM for the family-A class, found by following the collaborator's lead
   N_anti mod 2  ==  q(T)  XOR  XOR_i q(v_i),     T = XOR of the 10 rays,
   q(v) = parity(X_v . Z_v)   (any quadratic refinement of omega does).
 
+And the COCHAIN-level (per-tetrahedron) form, which is what item 23's pairing needs
+(<Sq^1 omega,[K5]> = XOR_m (n_a)_m):
+
+  (n_a)_m mod 2  ==  q(S_m)  XOR  XOR_{6 rays of tetra m} q(v),   S_m = XOR of those 6 rays.
+
+Same proof per tetrahedron (polarization of q on the 6 rays among the 4 vertices != m; their
+3 disjoint pairs = (n_a)_m, the 12 adjacent pairs vanish).  Verified 123,000/123,000 per-tetra
+checks EXACT at n=4,5,6.  Summing over m recovers the total (T = XOR_m S_m up to ray multiplicity).
+
 This is EXACT and provable for ALL n (elementary):
   (1) q is a quadratic refinement: q(u+v) = q(u) + q(v) + omega(u,v)
       [parity((Xu+Xv)(Zu+Zv)) = q(u)+q(v) + f(u,v)+f(v,u), and f(u,v)+f(v,u)=omega(u,v)].
@@ -48,7 +57,7 @@ def make_q(N):
 
 def run(N, n_lag, seeds, cap, budget):
     symp, gen, k5s, mu_triple = build(N); q = make_q(N)
-    res = Counter(); t0 = time.time()
+    res = Counter(); per = Counter(); t0 = time.time()
     for s in range(seeds):
         if time.time() - t0 > budget: break
         lags, adj = gen(21000 + 11*s, n_lag)
@@ -65,10 +74,24 @@ def run(N, n_lag, seeds, cap, budget):
             rhs = q(T)
             for r in rays: rhs ^= q(r)
             res[(Na & 1) == rhs] += 1
+            # per-tetrahedron (cochain) form
+            for m in range(5):
+                verts = [x for x in range(5) if x != m]
+                r6 = [R(i, j) for i, j in combinations(verts, 2)]
+                S = 0
+                for r in r6: S ^= r
+                pr = q(S)
+                for r in r6: pr ^= q(r)
+                a, b, c, d = verts
+                prs = [((a, b), (c, d)), ((a, c), (b, d)), ((a, d), (b, c))]
+                lhs = sum(1 for (p, qq) in prs if symp(R(*p), R(*qq))) & 1
+                per[lhs == pr] += 1
         if time.time() - t0 > budget: break
-    tot = res[True] + res[False]
-    print(f"  n={N}: configs={tot}, N_anti == q(T) XOR XOR_i q(v_i): {res[True]}/{tot} "
-          f"({'EXACT' if res[False] == 0 else 'FAILS ' + str(res[False])})", flush=True)
+    tot = res[True] + res[False]; ptot = per[True] + per[False]
+    print(f"  n={N}: configs={tot}, TOTAL N_anti==q(T)^XORq(v_i): {res[True]}/{tot} "
+          f"({'EXACT' if res[False] == 0 else 'FAILS ' + str(res[False])}); "
+          f"PER-TETRA (n_a)_m==q(S_m)^XORq(6): {per[True]}/{ptot} "
+          f"({'EXACT' if per[False] == 0 else 'FAILS ' + str(per[False])})", flush=True)
 
 if __name__ == "__main__":
     print(__doc__, flush=True)
