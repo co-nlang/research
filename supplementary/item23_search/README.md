@@ -137,10 +137,30 @@ not a blind search). *Net revision of the verdict:* item 23 is more computable t
 terminus suggested — the family-A class has a clean closed form; what remains genuinely symbolic is
 the *intrinsic* identification, not the existence of a formula.
 
+## The last step — the bridge closes (`closing_note.md`, `sq1_bar.py`)
+
+The "intrinsic identification" above is now done, modulo one cited classical theorem. The three-link
+chain $(n_a)_m = q(S_m)\oplus\bigoplus q \;=\; (c\cup_1 c)|_m \;=\; \mathrm{Sq}^1\omega|_m$:
+- **(A)** $(n_a)_m =$ polarization defect of $q$ — **new, proven all $n$** (`closed_form.py`).
+- **(C)** that defect $= \mathrm{Sq}^1\omega$ — standard Steenrod, **convention pinned by direct
+  bar-complex computation**: $c(g_1,g_2)=X_{g_1}\!\cdot\!Z_{g_2}$ is the Heisenberg extension
+  cocycle, $q=c(v,v)$ its diagonal, and `sq1_bar.py` verifies $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ in
+  $H^3(BV;\mathbb F_2)$ ($n=1$: 11/16 pivots; $n=2$: 234/256; $\delta r=c\cup_1 c+\mathrm{Sq}^1\omega$
+  consistent). The "symbolic, convention-heavy handwork" is now a finished check.
+- **(B)** the join is the **Kudo transgression** $\tau(t^2)=d_3(t^2)=\mathrm{Sq}^1\omega$ of the
+  Heisenberg LHS spectral sequence, with $q$ the chain-level trivialization $t$ ($\delta q=\omega$)
+  — classical (Quillen/Kudo), cited not re-derived; the Paper XXII outlook backbone.
+
+See `closing_note.md` for the full statement, proof of (A), and the honest ledger of what is new
+(A), pinned (C), and cited (B). Bridge closed modulo the cited transgression; the previously-open
+symbolic step is resolved.
+
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
 - `collision_test.py` — the decisive "is $a$ any function of $(\mu,F)$?" test (no, at all degrees).
 - `phi_omega_zero.py` — composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular.
 - `q_determinacy.py` — no *local* $q$-key determines $a$ (nearly-injective $q$, still splits) — but it was missing the global $q(T)$ (see `closed_form.py`).
 - `closed_form.py` — the closed form (total + per-tetra cochain), exact all-$n$ (24,600 + 123,000 verified). *Total = Paper XI Prop (Quadratic form identity), rediscovered; new = the cochain refinement + item-23 framing.*
-- `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete.
+- `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete (and consistent with $q$ being a chain-level trivialization $t$, not an intrinsic class).
+- `sq1_bar.py` — **the last step (V side):** $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ in the bar complex of $V$ ($n=1,2$) — the quadratic-refinement defect IS the standard $\mathrm{Sq}^1\omega$, convention pinned by computation.
+- `closing_note.md` — **the bridge, closed:** statement + proof of (A) + the honest ledger (A new/proven, C pinned, B cited Kudo transgression).
