@@ -32,9 +32,16 @@ WHAT IT IS / IS NOT (honest):
     collaborator's wording caution was right: the failures were "every LOCAL/low-arity
     candidate tested fails", not a universal impossibility. (No contradiction with the
     Paper XIX modulus: q(T) is a GLOBAL/arity-10 functional, not a low-arity invariant.)
-  - It is the AMBIENT/unconditional form of Paper XIX's intrinsic Q(T)=N_anti (noq_odd_proof
-    S5): with the intrinsic Q, Q(rays)=0 so Q(T)=N_anti directly; with the ambient q the
-    correction XOR_i q(v_i) appears, and no "intrinsic-q exists" hypothesis is needed.
+  - ATTRIBUTION: the TOTAL formula is NOT new -- it is Paper XI's Proposition (Quadratic form
+    identity), q(T) = sum_a q(r_a) + omega_total (mod 2), over the SAME 10 rays r_a = v_{ij}
+    (rediscovered here). (It is also the ambient form of Paper XIX's intrinsic Q(T)=N_anti, S5:
+    intrinsic Q has Q(rays)=0 so no correction; ambient q needs the XOR_i q(v_i) term.) The
+    genuinely NEW parts are (i) the PER-TETRAHEDRON cochain refinement below, and (ii) the
+    item-23 framing (this q-form as the explicit handle for <Sq^1 omega,[K5]>).
+  - Coordinate, not intrinsic (collaborator's basis-change test, basis_invariance.py): q is not
+    Sp-invariant -- under a symplectic change of basis the individual q(v_i), q(T) change (~97%
+    of configs) but the net XOR stays = N_anti (900/900). So the formula is Sp-invariant though
+    its summands are not -- the precise meaning of "coordinate closed form, not intrinsic bridge".
   - It does NOT by itself close item 23 (the cohomological bridge N_anti=<Sq^1 omega,[K5]>):
     the q's are frame-dependent (q is not Sp-invariant; only the net combination is), so this
     is a COORDINATE closed form, not the intrinsic Steenrod identity. But q is exactly the Z/4

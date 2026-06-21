@@ -111,8 +111,20 @@ $n_a$ — not just the total — is closed-form in $q$.
 So the corrected statement: **no *local/low-arity* summary determines $a$, but a *global*
 quadratic-refinement closed form does** — the $q$-collision tests missed it only because their keys
 had the per-ray $q(v_i)$ but not the global $q(T)$ (no contradiction with the modulus: $q(T)$ is an
-arity-10 functional, not a low-arity invariant). This is the **ambient/unconditional** form of
-Paper XIX's intrinsic $Q(T)=N_{\mathrm{anti}}$ (`noq_odd_proof.py` S5).
+arity-10 functional, not a low-arity invariant).
+
+**Attribution (honest):** the *total* formula is **not new** — it is **Paper XI's Proposition
+(Quadratic form identity)**, $q(T)=\sum_a q(r_a)+\omega_{\text{total}}\pmod2$, over the *same* 10
+rays $r_a=v_{ij}$ (rediscovered here; the "5 representatives" reading was a misread — it is the
+10-ray cap in both). It is also the ambient form of Paper XIX's intrinsic $Q(T)=N_{\mathrm{anti}}$
+(S5). The genuinely **new** parts are (i) the **per-tetrahedron cochain** refinement above, and
+(ii) the **item-23 framing** ($q$-form as the explicit handle for $\langle\mathrm{Sq}^1\omega,[K_5]\rangle$).
+
+**Coordinate, not intrinsic — verified (`basis_invariance.py`).** $q$ is not $\mathrm{Sp}$-invariant:
+under a symplectic change of basis (transvections) the individual $q(v_i),q(T)$ change ($\sim97\%$
+of configs) but the net XOR stays $=N_{\mathrm{anti}}$ ($900/900$). So the formula is
+$\mathrm{Sp}$-invariant though its summands are not — the precise content of "coordinate closed
+form, not intrinsic bridge."
 
 **What it does and doesn't do for item 23.** It is a *coordinate* closed form: $q$ is not
 $\mathrm{Sp}$-invariant (only the net combination is), so it is not yet the *intrinsic*
@@ -130,4 +142,5 @@ the *intrinsic* identification, not the existence of a formula.
 - `collision_test.py` — the decisive "is $a$ any function of $(\mu,F)$?" test (no, at all degrees).
 - `phi_omega_zero.py` — composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular.
 - `q_determinacy.py` — no *local* $q$-key determines $a$ (nearly-injective $q$, still splits) — but it was missing the global $q(T)$ (see `closed_form.py`).
-- `closed_form.py` — **the closed form** $N_{\mathrm{anti}}\bmod2=q(T)\oplus\bigoplus_i q(v_i)$, exact all-$n$ (24,600/24,600 verified); corrects the overstated "no summary determines $a$".
+- `closed_form.py` — the closed form (total + per-tetra cochain), exact all-$n$ (24,600 + 123,000 verified). *Total = Paper XI Prop (Quadratic form identity), rediscovered; new = the cochain refinement + item-23 framing.*
+- `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete.
