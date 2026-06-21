@@ -142,11 +142,14 @@ the *intrinsic* identification, not the existence of a formula.
 The "intrinsic identification" above is now done, modulo one cited classical theorem. The three-link
 chain $(n_a)_m = q(S_m)\oplus\bigoplus q \;=\; (c\cup_1 c)|_m \;=\; \mathrm{Sq}^1\omega|_m$:
 - **(A)** $(n_a)_m =$ polarization defect of $q$ — **new, proven all $n$** (`closed_form.py`).
-- **(C)** that defect $= \mathrm{Sq}^1\omega$ — standard Steenrod, **convention pinned by direct
-  bar-complex computation**: $c(g_1,g_2)=X_{g_1}\!\cdot\!Z_{g_2}$ is the Heisenberg extension
-  cocycle, $q=c(v,v)$ its diagonal, and `sq1_bar.py` verifies $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ in
-  $H^3(BV;\mathbb F_2)$ ($n=1$: 11/16 pivots; $n=2$: 234/256; $\delta r=c\cup_1 c+\mathrm{Sq}^1\omega$
-  consistent). The "symbolic, convention-heavy handwork" is now a finished check.
+- **(C)** that defect $= \mathrm{Sq}^1\omega$ — **all $n$, by Steenrod's definition + Cartan**
+  (not an empirical small-$n$ fact): $c=\sum_i a_i\!\cup b_i$ ($c(g_1,g_2)=X_{g_1}\!\cdot\!Z_{g_2}$)
+  is a cup of 1-cocycles, so a 2-cocycle with $[c]=\omega$; $\mathrm{Sq}^1[c]:=[c\cup_1 c]$ is the
+  definition; $\mathrm{Sq}^1\omega=\sum_i a_ib_i(a_i+b_i)$ by Cartan. `sq1_bar.py` is the
+  **convention unit-test** of the coded $\cup_1$ formula (an $n$-independent expression): it confirms
+  the formula yields the *nonzero* $\mathrm{Sq}^1\omega$ — $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ ($n=1$:
+  11/16 pivots; $n=2$: 234/256; $\delta r$ consistent) — and $c$ is a 2-cocycle at $n=1,2,3,4$ (into
+  the $K_5$-rigidity regime). The previously "symbolic, convention-heavy handwork" is resolved.
 - **(B)** the join is the **Kudo transgression** $\tau(t^2)=d_3(t^2)=\mathrm{Sq}^1\omega$ of the
   Heisenberg LHS spectral sequence, with $q$ the chain-level trivialization $t$ ($\delta q=\omega$)
   — classical (Quillen/Kudo), cited not re-derived; the Paper XXII outlook backbone.
@@ -162,5 +165,5 @@ symbolic step is resolved.
 - `q_determinacy.py` — no *local* $q$-key determines $a$ (nearly-injective $q$, still splits) — but it was missing the global $q(T)$ (see `closed_form.py`).
 - `closed_form.py` — the closed form (total + per-tetra cochain), exact all-$n$ (24,600 + 123,000 verified). *Total = Paper XI Prop (Quadratic form identity), rediscovered; new = the cochain refinement + item-23 framing.*
 - `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete (and consistent with $q$ being a chain-level trivialization $t$, not an intrinsic class).
-- `sq1_bar.py` — **the last step (V side):** $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ in the bar complex of $V$ ($n=1,2$) — the quadratic-refinement defect IS the standard $\mathrm{Sq}^1\omega$, convention pinned by computation.
+- `sq1_bar.py` — **the last step (V side):** $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ — all $n$ by Steenrod's definition + Cartan; the bar-complex runs ($n=1,2$, plus $c$-cocycle at $n=3,4$) are the convention unit-test of the coded $\cup_1$ formula.
 - `closing_note.md` — **the bridge, closed:** statement + proof of (A) + the honest ledger (A new/proven, C pinned, B cited Kudo transgression).

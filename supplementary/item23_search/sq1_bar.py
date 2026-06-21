@@ -14,7 +14,26 @@ quadratic-refinement object we use IS the standard lowest Steenrod square, with 
     as an Alexander-Whitney 3-cochain:
         P(g1,g2,g3) = sum_i X_{g1}[i] (X_{g2}[i] + Z_{g2}[i]) Z_{g3}[i]
 
+WHY THIS IS ALL-n (and what the numbers do / do NOT buy):
+  (C) [c cup_1 c] = Sq^1 omega = sum_i a_i b_i (a_i + b_i) is ALL-n by *definition + Cartan*, with
+  zero numerical input:
+    * c = sum_i a_i (cup) b_i  is a cup product of 1-cocycles (the coordinate maps a_i,b_i: V->F_2),
+      hence a 2-cocycle with [c] = sum_i a_i b_i = omega.                          [all n]
+    * Sq^1[c] := [c cup_1 c]  is STEENROD'S DEFINITION (Sq^{n-i}x=[x cup_i x]); cup_1 is well-defined
+      on cohomology independent of the diagonal-approximation choice.              [all n]
+    * Sq^1(sum a_i b_i) = sum (a_i^2 b_i + a_i b_i^2)  by Cartan + Sq^1(deg 1)=square, an identity in
+      F_2[a_i,b_i].                                                                [all n]
+  So the only thing that can be n-INDEPENDENTLY wrong is whether the concrete cup_1 FORMULA coded
+  below is the standard simplicial cup_1 (vs. a mistranscription that is a cocycle but represents 0
+  or the wrong class). The n=1,2 runs are UNIT TESTS of that transcription: they confirm the coded
+  formula yields the NONZERO Sq^1 omega. Since the formula is a fixed n-independent combinatorial
+  expression, transcription-correct at n=1,2 => correct for all n. (The delta-r witness need NOT
+  generalize; its existence only certifies two representatives of a definitionally-equal class are
+  cohomologous.) The genuine n-dependence of the phenomenon ([n_a]=0 iff n=4) lives NOT here but in
+  link (A) -- (n_a)_m = q-defect, verified in-regime at n=4,5,6 -- and the master theorem.
+
 We verify:
+  (0) c is a 2-COCYCLE (delta c = 0)              -- bilinear form / cup of 1-cocycles, all n.
   (1) c cup_1 c is a 3-COCYCLE (delta = 0)        -- it represents a class in H^3.
   (2) P is a 3-cocycle and is NONZERO              -- Sq^1 omega != 0.
   (3) [c cup_1 c] = [P] in H^3(V;F_2)             -- i.e. (c cup_1 c) + P = delta(r) is solvable.
@@ -45,6 +64,13 @@ def run(n):
         x1, x2, z2, z3 = X(g1), X(g2), Z(g2), Z(g3)
         return bin(x1 & (x2 ^ z2) & z3).count('1') & 1
 
+    # delta of a 2-cochain c -> 3-cochain (should be 0 for a cocycle), all n / cheap
+    def is_cocycle2(f):
+        for g1, g2, g3 in product(range(SZ), repeat=3):
+            if f(g2, g3) ^ f(g1 ^ g2, g3) ^ f(g1, g2 ^ g3) ^ f(g1, g2):
+                return False
+        return True
+
     # delta of a 3-cochain f -> 4-cochain (should be 0 for a cocycle)
     def is_cocycle3(f):
         for g1, g2, g3, g4 in product(range(SZ), repeat=4):
@@ -53,6 +79,7 @@ def run(n):
             if v: return False
         return True
 
+    cocy_c = is_cocycle2(c)
     cocy_cup1 = is_cocycle3(cup1)
     cocy_P = is_cocycle3(P)
     nz_P = any(P(g1, g2, g3) for g1, g2, g3 in product(range(SZ), repeat=3))
@@ -93,12 +120,28 @@ def run(n):
                 pivots[pc] ^= cur
         pivots[col] = cur
     cohomologous = True  # no inconsistent row found
-    print(f"  n={n}: cup1 cocycle={cocy_cup1}, P cocycle={cocy_P}, "
+    print(f"  n={n}: c cocycle={cocy_c}, cup1 cocycle={cocy_cup1}, P cocycle={cocy_P}, "
           f"P!=0={nz_P}, cup1!=0={nz_cup1}, "
           f"[cup1]==[Sq^1 omega]: {'YES' if cohomologous else 'NO'} "
           f"(solved delta r = cup1+P, {len(pivots)} pivots / {NV2} unknowns)", flush=True)
 
+def check_c_cocycle_only(n):
+    """Cheap in-/above-regime confirmation that c is a 2-cocycle (the load-bearing cocycle), all n.
+    The full [cup1]==[Sq^1 omega] coboundary solve is all-n by definition+Cartan (see docstring);
+    here we just extend the c-cocycle unit-test to n=3,4 where the full O(|V|^5) solve is infeasible."""
+    N = 2 * n; SZ = 1 << N
+    def X(g): return g & ((1 << n) - 1)
+    def Z(g): return (g >> n) & ((1 << n) - 1)
+    def c(g1, g2): return bin(X(g1) & Z(g2)).count('1') & 1
+    for g1, g2, g3 in product(range(SZ), repeat=3):
+        if c(g2, g3) ^ c(g1 ^ g2, g3) ^ c(g1, g2 ^ g3) ^ c(g1, g2):
+            print(f"  n={n}: c is NOT a 2-cocycle (!!)"); return
+    print(f"  n={n}: c is a 2-cocycle (delta c = 0)  [in-regime: K5 rigidity lives here]", flush=True)
+
 if __name__ == "__main__":
     print(__doc__, flush=True)
-    run(1)   # V = F_2^2, |V|=4
-    run(2)   # V = F_2^4, |V|=16
+    run(1)   # V = F_2^2, |V|=4   -- full check incl. coboundary solve
+    run(2)   # V = F_2^4, |V|=16  -- full check incl. coboundary solve
+    print("c-cocycle confirmation in/above the K5-rigidity regime (cheap):")
+    check_c_cocycle_only(3)  # V = F_2^6,  |V|=64
+    check_c_cocycle_only(4)  # V = F_2^8,  |V|=256  (n=4: where [n_a]=0 first holds)

@@ -29,18 +29,38 @@ Verified $123{,}000/123{,}000$ per-tetrahedron at $n=4,5,6$ (`closed_form.py`). 
 content: it makes the configuration-side obstruction an **explicit, elementary, all-$n$ cochain in
 the quadratic refinement** — the handle nothing earlier supplied.
 
-## (C) $V$ side — standard Steenrod, convention PINNED (`sq1_bar.py`)
+## (C) $V$ side — standard Steenrod, ALL $n$ (`sq1_bar.py` = convention unit-test)
 
-The symplectic class is $\omega=[c]\in H^2(BV;\mathbb F_2)=\bigoplus_i a_ib_i$, where
-$c(g_1,g_2)=X_{g_1}\!\cdot\!Z_{g_2}$ is the cup/extension cocycle of the Heisenberg
-(extra-special) $2$-group, and $q(v)=c(v,v)$ is its diagonal. The lowest Steenrod square of a
-$2$-cocycle is its cup-1 self-product, so $\mathrm{Sq}^1\omega=[c\cup_1 c]$. We verified **directly
-in the bar complex of $V$**, with no configuration and no appeal to a table, that
-$$ c\cup_1 c \ \text{is a 3-cocycle},\quad \mathrm{Sq}^1\omega=\textstyle\sum_i a_ib_i(a_i+b_i)\ \text{a nonzero 3-cocycle},\quad
-   [c\cup_1 c]=[\mathrm{Sq}^1\omega] $$
-($n=1$: $11/16$ pivots; $n=2$: $234/256$; the coboundary equation $\delta r=c\cup_1 c+\mathrm{Sq}^1\omega$
-is consistent). So the object built from $q$ **is** the textbook $\mathrm{Sq}^1\omega$ — the
-convention match the chase had flagged as the open symbolic step is now a computation, not a claim.
+This link is **all-$n$ by definition + Cartan, with zero numerical input** — not an empirical
+small-$n$ fact. Let $a_i,b_i:V\to\mathbb F_2$ be the coordinate homomorphisms (1-cocycles).
+
+1. $c=\sum_i a_i\!\cup b_i$, i.e. $c(g_1,g_2)=X_{g_1}\!\cdot\!Z_{g_2}$, is a cup product of
+   1-cocycles, hence a **2-cocycle** with $[c]=\sum_i a_ib_i=\omega$ (equivalently: any bilinear
+   form is a 2-cocycle for trivial action, $\delta c\equiv0$ — verified directly at $n=1,2,3,4$).
+   $q(v)=c(v,v)$ is its diagonal. *[all $n$]*
+2. $\mathrm{Sq}^1[c]:=[c\cup_1 c]$ is **Steenrod's definition** ($\mathrm{Sq}^{n-i}x=[x\cup_i x]$),
+   and $\cup_1$ is well-defined on cohomology independent of the diagonal-approximation choice. *[all $n$]*
+3. $\mathrm{Sq}^1\omega=\mathrm{Sq}^1(\sum_i a_ib_i)=\sum_i(a_i^2b_i+a_ib_i^2)=\sum_i a_ib_i(a_i+b_i)$
+   by Cartan + $\mathrm{Sq}^1(\deg 1)=$ square — an identity in $\mathbb F_2[a_i,b_i]$. *[all $n$]*
+
+So $[c\cup_1 c]=\sum_i a_ib_i(a_i+b_i)$ for **every** $n$. The only thing that could be
+$n$-*independently* wrong is whether the concrete formula coded for $\cup_1$,
+$(c\cup_1 c)(g_1,g_2,g_3)=c(g_1,g_2{+}g_3)c(g_2,g_3)+c(g_1{+}g_2,g_3)c(g_1,g_2)$, is the standard
+simplicial cup-1 (vs. a mistranscription that is a cocycle but represents $0$ or the wrong class).
+The bar-complex runs are a **unit-test of exactly that transcription**: they confirm the coded
+formula yields the *nonzero* $\mathrm{Sq}^1\omega$ — $c\cup_1 c$ a 3-cocycle, $[c\cup_1 c]=[\mathrm{Sq}^1\omega]\neq0$
+(the coboundary $\delta r=c\cup_1 c+\mathrm{Sq}^1\omega$ is solvable; $n=1$: $11/16$ pivots,
+$n=2$: $234/256$). Since that $\cup_1$ formula is a *fixed $n$-independent combinatorial expression*,
+transcription-correctness at $n=1,2$ is correctness for all $n$ (and the $\delta r$ witness need
+**not** generalize — it only certifies two representatives of a definitionally-equal class are
+cohomologous). The load-bearing cocycle $c$ is separately confirmed a 2-cocycle at $n=1,2,3,4$,
+i.e. into and past the $K_5$-rigidity regime.
+
+**Where the $n$-dependence actually lives** (so nothing is smuggled past small $n$): *not here* —
+$\mathrm{Sq}^1\omega$ is computed identically for all $n$. The $[n_a]=0\iff n=4$ phenomenon lives in
+link (A) — $(n_a)_m=q$-defect, verified **in-regime** at $n=4,5,6$ ($123{,}000/123{,}000$) — and in
+the vanishing of the pairing $\langle\mathrm{Sq}^1\omega,[K_5]\rangle$, which is the master theorem
+(Papers XX/XXI). (C) being $n$-flat is correct, not a gap.
 
 ## (B) The join — Kudo transgression of the Heisenberg LHS spectral sequence
 
@@ -60,7 +80,7 @@ new theorem.
 | link | content | status |
 |---|---|---|
 | (A) | $n_a=$ polarization defect of $q$ | **NEW, proven all $n$** (polarization + adjacency vanishing; $123{,}000/123{,}000$) |
-| (C) | $q$'s cup-1 $=\mathrm{Sq}^1\omega$ | standard Steenrod; **convention pinned by direct bar-complex check** ($n=1,2$) |
+| (C) | $q$'s cup-1 $=\mathrm{Sq}^1\omega$ | **all $n$**, by Steenrod's definition + Cartan; $n=1,2$ bar-complex runs = convention unit-test of the coded $\cup_1$ formula ($n$-independent expression) |
 | (B) | the two $q$'s coincide $=\tau(t^2)$ | **classical** (Kudo transgression / Quillen extra-special $2$-groups) — cited, not re-derived |
 
 **What is genuinely closed:** the bridge no longer needs a from-scratch "construct the lax
