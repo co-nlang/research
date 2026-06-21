@@ -62,39 +62,71 @@ link (A) — $(n_a)_m=q$-defect, verified **in-regime** at $n=4,5,6$ ($123{,}000
 the vanishing of the pairing $\langle\mathrm{Sq}^1\omega,[K_5]\rangle$, which is the master theorem
 (Papers XX/XXI). (C) being $n$-flat is correct, not a gap.
 
-## (B) The join — Kudo transgression of the Heisenberg LHS spectral sequence
+## (B) The join — a SECONDARY operation, with TWO cited classical inputs
 
-(A) and (C) share the *same* $q$: in (A) $q$ is the quadratic refinement whose polarization defect
-is $n_a$; in (C) $q=c(v,v)$ is the diagonal of the cocycle whose cup-1 is $\mathrm{Sq}^1\omega$.
-The precise identity of these two roles is the **Kudo transgression theorem** for the central
-extension $1\to\mathbb Z/2\to H\to V\to 1$: in its LHS spectral sequence
-$E_2=H^*(V)[t]$, the transgressive generator satisfies $d_2(t)=\omega$, and
-$$\tau(t^2)=d_3(t^2)=\mathrm{Sq}^1\omega .$$
-At chain level $q$ **is** the trivialization $t$ ($\delta q=\omega$), and the polarization defect
-$q(S_m)\oplus\bigoplus q$ is exactly the chain realization of $\tau(t^2)$. This is the one classical
-input; it is the Paper XXII outlook backbone (Quillen's $H^*$ of extra-special $2$-groups), not a
-new theorem.
+The join is the subtle link, and it must be stated as a *secondary* operation — because the primary
+pullback is **zero**. The self-representation map is (at most) $f:\partial\Delta^4=S^3\to BV$; since
+$H^2(S^3)=0$ we have $f^*\omega=0$, so by naturality $f^*\mathrm{Sq}^1\omega=\mathrm{Sq}^1(f^*\omega)=0$.
+Hence $\langle\mathrm{Sq}^1\omega,[K_5]\rangle=N_{\mathrm{anti}}\neq0$ **cannot** be a primary
+operation; it is a secondary (functional) operation whose nullhomotopy datum is $q$. (This is the
+same fact that forced $\phi^*\omega\equiv0$ and zero indeterminacy, $H^1(S^3)=0$ — `phi_omega_zero.py`.)
+
+**The nullhomotopy is automatic.** $q$ serves as the cochain trivialization because its
+quadratic-refinement identity $q(u{+}w)=q(u)+q(w)+\omega(u,w)$ *is* the nullhomotopy condition
+$\delta(q)=\omega$ written in coordinates — no extra verification: being a quadratic refinement is
+*exactly* what makes $q$ a nullhomotopy of $\omega$ on the nerve. So (A)'s polarization defect
+$q(S_m)\oplus\bigoplus q$ is, by construction, the cochain value of the secondary operation
+associated to this nullhomotopy.
+
+Two *distinct* classical inputs identify that secondary operation with $\mathrm{Sq}^1\omega$ — the
+join does two different things, and "modulo a cited theorem" means **two** named citations of the
+same magnitude:
+
+1. **Steenrod–Epstein functional/secondary-operation formula** (*Cohomology Operations*, the
+   explicit functional-$\mathrm{Sq}^i$ cochain): given a nullhomotopy $r$, the secondary operation
+   has the explicit form $c\cup_1 c$ plus correction terms in $r$. With $r=q$ this is the *explicit
+   cochain shape* of the operation — it is what should expand, term-by-term, to (A). This supplies
+   *"what the secondary operation looks like in coordinates."*
+2. **Kudo transgression theorem** for the central extension $1\to\mathbb Z/2\to H\to V\to1$: in its
+   LHS spectral sequence $E_2=H^*(V)[t]$, $d_2(t)=\omega$ and
+   $$\tau(t^2)=d_3(t^2)=\mathrm{Sq}^1\omega,$$
+   with $q$ the chain trivialization $t$. This supplies *"what the secondary operation equals"* —
+   the Paper XXII outlook backbone (Quillen's $H^*$ of extra-special $2$-groups).
+
+**The final, smallest remaining piece (honest).** Substituting $c$ and the nullhomotopy $q$ into the
+Steenrod–Epstein functional formula (input 1) *should* expand exactly to (A)'s polarization defect,
+with no leftover term. This expansion is **not** done term-by-term here. Its difficulty class is
+"*expand a known formula and check the algebra*" — identical to the already-closed links, **not** a
+search for an unknown formula; it is the one minimal step between "structurally closed" and
+"closed with every correction term checked." The structural identification (A = the $q$-secondary
+operation; its value = $\mathrm{Sq}^1\omega$ by inputs 1–2) stands; what is uncertified is only the
+exact match of Steenrod–Epstein's correction terms to the defect.
 
 ## Honest ledger
 
 | link | content | status |
 |---|---|---|
 | (A) | $n_a=$ polarization defect of $q$ | **NEW, proven all $n$** (polarization + adjacency vanishing; $123{,}000/123{,}000$) |
-| (C) | $q$'s cup-1 $=\mathrm{Sq}^1\omega$ | **all $n$**, by Steenrod's definition + Cartan; $n=1,2$ bar-complex runs = convention unit-test of the coded $\cup_1$ formula ($n$-independent expression) |
-| (B) | the two $q$'s coincide $=\tau(t^2)$ | **classical** (Kudo transgression / Quillen extra-special $2$-groups) — cited, not re-derived |
+| (C) | $q$'s cup-1 $=\mathrm{Sq}^1\omega$ | **all $n$**, Steenrod's definition + Cartan; $n=1,2$ bar runs = convention unit-test of the coded $\cup_1$ formula ($n$-independent) |
+| (B1) | (A) $=$ the $q$-secondary operation's cochain | **classical, cited** (Steenrod–Epstein functional-operation formula); nullhomotopy $\delta q=\omega$ automatic. *Term-by-term expansion to (A): the final smallest open step.* |
+| (B2) | that operation's value $=\mathrm{Sq}^1\omega$ | **classical, cited** (Kudo transgression $\tau(t^2)=\mathrm{Sq}^1\omega$ / Quillen extra-special $2$-groups) |
 
 **What is genuinely closed:** the bridge no longer needs a from-scratch "construct the lax
 coherence map." The configuration-side obstruction has an explicit elementary cochain (A); that
-cochain is provably the standard $\mathrm{Sq}^1\omega$ on the $V$ side (C); and they meet at the
-Kudo transgression (B). The earlier verdict "remaining step is symbolic, convention-heavy
-handwork" is resolved into (C), now a finished computation.
+cochain is provably the standard $\mathrm{Sq}^1\omega$ on the $V$ side (C); and they meet as a
+*secondary operation* whose explicit shape is Steenrod–Epstein (B1) and whose value is the Kudo
+transgression (B2). The earlier verdict "remaining step is symbolic, convention-heavy handwork" is
+now resolved into (C) [done] plus the single minimal expansion-check inside (B1).
 
-**What is *not* claimed:** we do not re-derive Quillen/Kudo (B). A fully self-contained proof would
-construct the self-representation map $\partial\Delta^4\to BH$ through the extension and recompute
-$d_3$ by hand — which only reproduces the cited theorem. The honest flag from `phi_omega_zero.py`
-stands: $\phi^*\omega\equiv0$, so the bridge is genuinely a *secondary* operation (zero
-indeterminacy, $H^1(S^3)=0$); $q$ is its nullhomotopy datum, and that is precisely why a primary
-(symplectic-pairing) formula was provably circular.
+**What is *not* claimed:** (i) we do not re-derive Steenrod–Epstein (B1) or Quillen/Kudo (B2) — a
+fully self-contained proof would construct $\partial\Delta^4\to BH$ through the extension and
+recompute $d_3$ by hand, only reproducing the cited theorems; (ii) we do not (yet) carry out the
+term-by-term expansion of the Steenrod–Epstein functional formula on $(c,q)$ to match (A) exactly —
+that is the single minimal "expand-and-check" step flagged in (B1). The honest flag from
+`phi_omega_zero.py` stands and is now *explained*: $\phi^*\omega\equiv0$, so the bridge is genuinely
+a *secondary* operation (zero indeterminacy, $H^1(S^3)=0$, and $f^*\mathrm{Sq}^1\omega=0$ as a
+primary class); $q$ is its nullhomotopy datum, which is precisely why a primary (symplectic-pairing)
+formula was provably circular.
 
 ## Files
 - `closed_form.py` — link (A): $(n_a)_m=q(S_m)\oplus\bigoplus q$, $123{,}000/123{,}000$ all $n$.

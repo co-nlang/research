@@ -150,13 +150,18 @@ chain $(n_a)_m = q(S_m)\oplus\bigoplus q \;=\; (c\cup_1 c)|_m \;=\; \mathrm{Sq}^
   the formula yields the *nonzero* $\mathrm{Sq}^1\omega$ — $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ ($n=1$:
   11/16 pivots; $n=2$: 234/256; $\delta r$ consistent) — and $c$ is a 2-cocycle at $n=1,2,3,4$ (into
   the $K_5$-rigidity regime). The previously "symbolic, convention-heavy handwork" is resolved.
-- **(B)** the join is the **Kudo transgression** $\tau(t^2)=d_3(t^2)=\mathrm{Sq}^1\omega$ of the
-  Heisenberg LHS spectral sequence, with $q$ the chain-level trivialization $t$ ($\delta q=\omega$)
-  — classical (Quillen/Kudo), cited not re-derived; the Paper XXII outlook backbone.
+- **(B)** the join is a **secondary operation** (it must be: $f^*\mathrm{Sq}^1\omega=0$ as a primary
+  class since $H^2(S^3)=0$, so $f^*\omega=0$ — this is why $\phi^*\omega\equiv0$), with $q$ the
+  nullhomotopy ($q$'s quadratic-refinement identity *is* $\delta q=\omega$, automatic). It needs
+  **two** cited classical inputs, not one: **(B1) Steenrod–Epstein's functional-operation formula**
+  (the explicit cochain shape, $c\cup_1 c$ + corrections in the nullhomotopy $q$ — what the operation
+  *looks like*) and **(B2) Kudo's transgression** $\tau(t^2)=\mathrm{Sq}^1\omega$ (what it *equals*).
 
-See `closing_note.md` for the full statement, proof of (A), and the honest ledger of what is new
-(A), pinned (C), and cited (B). Bridge closed modulo the cited transgression; the previously-open
-symbolic step is resolved.
+The **final smallest open step**: expand the Steenrod–Epstein formula on $(c,q)$ and check it equals
+(A) term-by-term — "expand a known formula and check the algebra," same difficulty class as the
+closed links, not yet done here. See `closing_note.md` for the full statement, proof of (A), the
+two-citation join, and the honest ledger (A new/proven, C all-$n$, B1/B2 cited). Bridge structurally
+closed modulo two cited classical results + that one expansion-check.
 
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
