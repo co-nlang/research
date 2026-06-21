@@ -82,16 +82,44 @@ fail to determine $a$:
 | Maslov + Fano $(\mu,F)$ | 3 | determines-not, **coarsely** (430 keys, 123 split — the arity gap) |
 | quadratic refinement $q$ | — | determines-not, **finely** ($q$ nearly injective, still 32 split) |
 
-**Answer to "computable or handwork?":** *verification* is always computable (any fully-specified
-candidate, microseconds); but **no cochain-level summary statistic determines $a$**, so there is no
-shortcut formula to search for — the bridge is irreducibly the **lax-map construction** (the
-defects $w_{ijk}$ assembling into $\mathrm{Sq}^1\omega$ with higher coherence), which is symbolic
-$\infty$-categorical **handwork**. The computer is a fast *verification oracle*, not a constructor:
-it can instantly test a guessed formula and has now *ruled out* every natural summary, but the
-formula itself must come from the coherence construction.
+**Answer to "computable or handwork?" (CORRECTED below).** *Verification* is always computable;
+and the three layers above show no **local / low-arity** summary determines $a$. The earlier
+phrasing "no cochain-level summary statistic determines $a$" was **overstated** (a universal claim
+from a finite set of tested families — the collaborator flagged exactly this): see the next
+section — a **global** quadratic-refinement closed form *does* exist.
+
+## CORRECTION + the closed form: $a$ does have a formula in $q$ (`closed_form.py`)
+
+Following the collaborator's lead — "$q$ *almost* determines $a$ (the Bockstein signature)" + the
+cheap stratum test (resolved 15/32 of the $n=5$ $q$-collisions) — the missing ingredient turned
+out to be a single **global** term. There is an exact, all-$n$, elementary closed form:
+$$N_{\mathrm{anti}}\bmod2 \;=\; q(T)\;\oplus\;\bigoplus_i q(v_i),\qquad
+  T=\bigoplus_i v_i,\quad q(v)=\mathrm{parity}(X_v\!\cdot\!Z_v).$$
+*Proof (all $n$):* $q$ is a quadratic refinement ($q(u{+}v)=q(u)+q(v)+\omega(u,v)$); polarization
+gives $q(T)=\bigoplus_i q(v_i)\oplus\bigoplus_{i<j}\omega(v_i,v_j)$; composable pairs vanish
+($\phi^*\omega\equiv0$) so $\bigoplus_{i<j}\omega=N_{\mathrm{anti}}$. Verified **24,600/24,600**
+exact at $n=4,5,6$.
+
+So the corrected statement: **no *local/low-arity* summary determines $a$, but a *global*
+quadratic-refinement closed form does** — the $q$-collision tests missed it only because their keys
+had the per-ray $q(v_i)$ but not the global $q(T)$ (no contradiction with the modulus: $q(T)$ is an
+arity-10 functional, not a low-arity invariant). This is the **ambient/unconditional** form of
+Paper XIX's intrinsic $Q(T)=N_{\mathrm{anti}}$ (`noq_odd_proof.py` S5).
+
+**What it does and doesn't do for item 23.** It is a *coordinate* closed form: $q$ is not
+$\mathrm{Sp}$-invariant (only the net combination is), so it is not yet the *intrinsic*
+cohomological bridge $N_{\mathrm{anti}}=\langle\mathrm{Sq}^1\omega,[K_5]\rangle$. But $q$ is exactly
+the $\mathbb Z/4$ lift of $\omega$ and $\mathrm{Sq}^1\omega=\beta_{\mathbb Z/4}(\omega)$, so this is
+the explicit $q$-handle the $\beta_{\mathbb Z/4}(q)$ direction predicted — the remaining open step
+is to identify $q(T)\oplus\bigoplus_i q(v_i)$ with the chain-level
+$\langle\mathrm{Sq}^1\omega,[K_5]\rangle$, **with both sides now explicit** (a checkable identity,
+not a blind search). *Net revision of the verdict:* item 23 is more computable than the chase's
+terminus suggested — the family-A class has a clean closed form; what remains genuinely symbolic is
+the *intrinsic* identification, not the existence of a formula.
 
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
 - `collision_test.py` — the decisive "is $a$ any function of $(\mu,F)$?" test (no, at all degrees).
 - `phi_omega_zero.py` — composable pairings vanish ($\phi^*\omega\equiv0$), so a symplectic-pairing formula for $a$ is circular.
-- `q_determinacy.py` — $a$ is not determined by the $\mathbb Z/4$/quadratic-refinement data either (nearly-injective $q$, still splits) — the failure ladder is complete.
+- `q_determinacy.py` — no *local* $q$-key determines $a$ (nearly-injective $q$, still splits) — but it was missing the global $q(T)$ (see `closed_form.py`).
+- `closed_form.py` — **the closed form** $N_{\mathrm{anti}}\bmod2=q(T)\oplus\bigoplus_i q(v_i)$, exact all-$n$ (24,600/24,600 verified); corrects the overstated "no summary determines $a$".
