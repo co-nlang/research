@@ -10,10 +10,15 @@ of f#c) expressed as an F_2-linear combination of NON-circular defect terms -- t
 2-cell defects w (pure-ray symplectic terms are circular: they ARE n_a, phi_omega_zero.py). Basis:
   const, q(r_e) [6 edges], q(w_f) [4 faces], c(w_f,w_g) ordered [12], omega(w_f,w_g) [6].
 Solve CORR_m = sum_i coeff_i * B_i(rays,defects) over (config x 5 tetra) by F_2 Gaussian elimination.
-  consistent  -> explicit secondary formula FOUND & VERIFIED (the Steenrod-Epstein expansion, in
-                 the only data that can carry it: the coherent-lift defects);
-  inconsistent-> the correction is NOT a function of these defect data => the bridge content lives
-                 in higher coherence (genuinely the cited d_3 transgression), not a finite formula.
+  consistent  -> explicit secondary formula FOUND & VERIFIED (the expansion, in the coherent-lift
+                 defect data);
+  inconsistent-> the correction is NOT in the SPAN OF THIS TESTED FAMILY. NB (scoping, same caution
+                 as the earlier "no summary statistic determines a" overstatement): a bounded-family
+                 search failing is EVIDENCE, NOT a proof of nonexistence -- the space of possible
+                 finite formulas is unparametrized. It indicates (consistent with phi_omega_zero's
+                 secondary/circular structure) that the content lives in the higher-coherence d_3,
+                 whose rigorous value is the CITED Kudo transgression -- it does not prove no finite
+                 local formula exists.
 
 Either way is a real, honest result. Pure Python; reuses paper22/nerve_cochain.build.
 """

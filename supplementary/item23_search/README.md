@@ -155,17 +155,20 @@ chain $(n_a)_m = q(S_m)\oplus\bigoplus q \;=\; (c\cup_1 c)|_m \;=\; \mathrm{Sq}^
   $\mathrm{Sq}^1\omega$ by **Kudo's transgression** $\tau(t^2)=\mathrm{Sq}^1\omega$ (cited; Quillen
   extra-special $2$-groups).
 
-**The expansion attempted — decisive NEGATIVE (`se_expand.py`, `se_search.py`).** We *ran* the
-hoped-for "expand Steenrod–Epstein on $(c,q)$ and check." It cannot be done as a finite cochain
-formula: the self-rep map is **never simplicial** ($w_{ijk}=r_{ij}+r_{jk}+r_{ik}\neq0$, 100%), so
-$f^\#c$ is **never closed** (no nullhomotopy to plug in), and the needed secondary correction is
-**not** in the $\mathbb F_2$-span of the local defect data ($q(w),c(w,w),\omega(w,w)$, even
-ray–defect cross terms — inconsistent, $\sim$50% contradictory at $n=4,5$). So the join is
-*irreducibly* the higher-coherence $d_3$ transgression — the same "purely secondary / circular"
-wall, now at the finest resolution. The earlier "+ one expansion-check, same difficulty class" was
-too optimistic; the attempt shows that check does not exist. See `closing_note.md`. **Final status:
-closed modulo the cited Kudo/Quillen transgression — and we now *know* that transgression is the
-irreducible floor, not assume it.**
+**The expansion attempted — negative, scoped honestly (`se_expand.py`, `se_search.py`).** We *ran*
+the hoped-for "expand Steenrod–Epstein on $(c,q)$ and check." Two robust findings + one
+bounded-family negative: (i) the self-rep map is **not simplicial** ($w_{ijk}=r_{ij}+r_{jk}+r_{ik}\neq0$
+in all $175$k samples), so (ii) $f^\#c$ is **not closed** — and the functional-$\mathrm{Sq}^1$ route
+*requires* a nullhomotopy of $f^\#c$, so that route is **inapplicable** here (primary cup-1 $\neq
+N_{\mathrm{anti}}$, chance). (iii) The correction is **not in the $\mathbb F_2$-span of the bounded
+defect family tested** ($q(w),c(w,w),\omega(w,w)$, ray–defect cross terms — inconsistent, $\sim$50%
+contradictory at $n=4,5$). **Scoping (the same caution as the earlier "no summary statistic
+determines $a$" overstatement): (iii) is a definite negative about *that family*, evidence — not a
+proof — that no finite local formula exists** (the space of possible formulas is unparametrized).
+Together this is strong evidence the join is the higher-coherence $d_3$, consistent with
+`phi_omega_zero.py`. See `closing_note.md`. **Final status: closed modulo the cited Kudo/Quillen
+transgression; no finite reduction of (B) in hand, and good evidence (not proof) the obvious local
+forms are blocked.**
 
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
@@ -175,6 +178,6 @@ irreducible floor, not assume it.**
 - `closed_form.py` — the closed form (total + per-tetra cochain), exact all-$n$ (24,600 + 123,000 verified). *Total = Paper XI Prop (Quadratic form identity), rediscovered; new = the cochain refinement + item-23 framing.*
 - `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete (and consistent with $q$ being a chain-level trivialization $t$, not an intrinsic class).
 - `sq1_bar.py` — **the last step (V side):** $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ — all $n$ by Steenrod's definition + Cartan; the bar-complex runs ($n=1,2$, plus $c$-cocycle at $n=3,4$) are the convention unit-test of the coded $\cup_1$ formula.
-- `se_expand.py` — the expansion attempt: self-rep map never simplicial ($w_{ijk}\neq0$, 100%), $f^\#c$ never closed, primary cup-1 $\neq N_{\mathrm{anti}}$ (chance) — the join is genuinely secondary.
-- `se_search.py` — **decisive negative:** the secondary correction is not in the span of local defect terms (inconsistent at $n=4,5$); no finite expansion-check exists, the join IS the $d_3$ transgression.
-- `closing_note.md` — **the bridge, closed modulo cited Kudo transgression:** statement + proof of (A) + the expansion attempt's negative result + the honest ledger (A new/proven, C all-$n$, B1 irreducibly higher-coherence, B2 cited).
+- `se_expand.py` — the expansion attempt: self-rep map not simplicial ($w_{ijk}\neq0$, all samples), $f^\#c$ not closed (functional-$\mathrm{Sq}^1$ route inapplicable), primary cup-1 $\neq N_{\mathrm{anti}}$ (chance).
+- `se_search.py` — **bounded-family negative:** the secondary correction is not in the span of the tested defect terms (inconsistent at $n=4,5$) — evidence, not proof, that no finite local formula exists.
+- `closing_note.md` — **the bridge, closed modulo cited Kudo transgression:** statement + proof of (A) + the scoped expansion-attempt result + the honest ledger (A new/proven, C all-$n$, B1 no finite reduction in hand, B2 cited).
