@@ -151,17 +151,21 @@ chain $(n_a)_m = q(S_m)\oplus\bigoplus q \;=\; (c\cup_1 c)|_m \;=\; \mathrm{Sq}^
   11/16 pivots; $n=2$: 234/256; $\delta r$ consistent) — and $c$ is a 2-cocycle at $n=1,2,3,4$ (into
   the $K_5$-rigidity regime). The previously "symbolic, convention-heavy handwork" is resolved.
 - **(B)** the join is a **secondary operation** (it must be: $f^*\mathrm{Sq}^1\omega=0$ as a primary
-  class since $H^2(S^3)=0$, so $f^*\omega=0$ — this is why $\phi^*\omega\equiv0$), with $q$ the
-  nullhomotopy ($q$'s quadratic-refinement identity *is* $\delta q=\omega$, automatic). It needs
-  **two** cited classical inputs, not one: **(B1) Steenrod–Epstein's functional-operation formula**
-  (the explicit cochain shape, $c\cup_1 c$ + corrections in the nullhomotopy $q$ — what the operation
-  *looks like*) and **(B2) Kudo's transgression** $\tau(t^2)=\mathrm{Sq}^1\omega$ (what it *equals*).
+  class since $H^2(S^3)=0$, so $f^*\omega=0$ — this is why $\phi^*\omega\equiv0$), and its value is
+  $\mathrm{Sq}^1\omega$ by **Kudo's transgression** $\tau(t^2)=\mathrm{Sq}^1\omega$ (cited; Quillen
+  extra-special $2$-groups).
 
-The **final smallest open step**: expand the Steenrod–Epstein formula on $(c,q)$ and check it equals
-(A) term-by-term — "expand a known formula and check the algebra," same difficulty class as the
-closed links, not yet done here. See `closing_note.md` for the full statement, proof of (A), the
-two-citation join, and the honest ledger (A new/proven, C all-$n$, B1/B2 cited). Bridge structurally
-closed modulo two cited classical results + that one expansion-check.
+**The expansion attempted — decisive NEGATIVE (`se_expand.py`, `se_search.py`).** We *ran* the
+hoped-for "expand Steenrod–Epstein on $(c,q)$ and check." It cannot be done as a finite cochain
+formula: the self-rep map is **never simplicial** ($w_{ijk}=r_{ij}+r_{jk}+r_{ik}\neq0$, 100%), so
+$f^\#c$ is **never closed** (no nullhomotopy to plug in), and the needed secondary correction is
+**not** in the $\mathbb F_2$-span of the local defect data ($q(w),c(w,w),\omega(w,w)$, even
+ray–defect cross terms — inconsistent, $\sim$50% contradictory at $n=4,5$). So the join is
+*irreducibly* the higher-coherence $d_3$ transgression — the same "purely secondary / circular"
+wall, now at the finest resolution. The earlier "+ one expansion-check, same difficulty class" was
+too optimistic; the attempt shows that check does not exist. See `closing_note.md`. **Final status:
+closed modulo the cited Kudo/Quillen transgression — and we now *know* that transgression is the
+irreducible floor, not assume it.**
 
 ## Files
 - `quad_search.py` — the degree-$\le2$ $(\mu,F)$ linear system (cochain + class level), with the $n=4$ validation.
@@ -171,4 +175,6 @@ closed modulo two cited classical results + that one expansion-check.
 - `closed_form.py` — the closed form (total + per-tetra cochain), exact all-$n$ (24,600 + 123,000 verified). *Total = Paper XI Prop (Quadratic form identity), rediscovered; new = the cochain refinement + item-23 framing.*
 - `basis_invariance.py` — the closed form is $\mathrm{Sp}$-invariant though $q$ is not (summands change under basis change, net XOR $=N_{\mathrm{anti}}$, 900/900) — "coordinate, not intrinsic" made concrete (and consistent with $q$ being a chain-level trivialization $t$, not an intrinsic class).
 - `sq1_bar.py` — **the last step (V side):** $[c\cup_1 c]=[\mathrm{Sq}^1\omega]$ — all $n$ by Steenrod's definition + Cartan; the bar-complex runs ($n=1,2$, plus $c$-cocycle at $n=3,4$) are the convention unit-test of the coded $\cup_1$ formula.
-- `closing_note.md` — **the bridge, closed:** statement + proof of (A) + the honest ledger (A new/proven, C pinned, B cited Kudo transgression).
+- `se_expand.py` — the expansion attempt: self-rep map never simplicial ($w_{ijk}\neq0$, 100%), $f^\#c$ never closed, primary cup-1 $\neq N_{\mathrm{anti}}$ (chance) — the join is genuinely secondary.
+- `se_search.py` — **decisive negative:** the secondary correction is not in the span of local defect terms (inconsistent at $n=4,5$); no finite expansion-check exists, the join IS the $d_3$ transgression.
+- `closing_note.md` — **the bridge, closed modulo cited Kudo transgression:** statement + proof of (A) + the expansion attempt's negative result + the honest ledger (A new/proven, C all-$n$, B1 irreducibly higher-coherence, B2 cited).
