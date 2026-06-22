@@ -74,6 +74,17 @@ content moves into the cohomological obstruction. That regime is genuinely *not*
   (the Pfaffian/continuant identities), reduce mod 2, and check what the framework's `n_a` / exotic
   question becomes. That is the grounded route to M5, and a real prior-art bridge for M4.
 
+## Adjacent / checked, low relevance (bank the negatives)
+
+- **Vinroot, "Real representations of finite symplectic groups over fields of characteristic two"**
+  (arXiv:1708.07176) — *complex character theory* of the abstract group `Sp(2n,2^k)` (all irreps real,
+  Frobenius–Schur `+1`; unipotent character-degree generating function). **Not** about Lagrangian
+  configurations / invariant theory / cohomology, so **low direct relevance to item 21.** One thematic
+  echo only: FS `= +1` (every irrep orthogonal) is the rep-theoretic face of the same char-2
+  "symplectic-becomes-quadratic" phenomenon that makes the cross-ratio degenerate and pushes content
+  into the quadratic refinement (`q₀`/Arf/`Sq¹ω`) — a cousin, not a tool. *Checked 2026-06-22; do not
+  re-chase for item 21.*
+
 ## References
 - P. Magyar, J. Weyman, A. Zelevinsky, *Symplectic multiple flag varieties of finite type*,
   arXiv:math/9807061.
