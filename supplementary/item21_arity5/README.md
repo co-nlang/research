@@ -36,13 +36,16 @@ one — **the absorption pattern persists (even strengthens) at arity 5.**
   escape, just as at arity 4 (where Paper XIX needed a dedicated Arf-exclusion argument, not $q_4$'s
   saturation). The Steenrod-module route's real gap — "$\omega$-generated over $\mathcal A$" — is
   untouched by this probe; the probe only confirms the *$\omega$-generated* part behaves.
-- **Calibration caveat (unit test only *qualitatively* passed).** Our $q_4$ config-saturation at
-  $n=5$ is $80\%$, not Paper XIX's reported $99.5\%$. The machinery is validated by the clean $n=6$
-  result (both $q_4,q_5$ exactly $100\%$ — a kernel/$Q$ bug could not produce that) and sampling-miss
-  is excluded (the $n=5$ $q_4{=}0$ cases are genuine $Q_4\equiv0$, not missed detections). So the gap
-  is a **population/stratum difference** (our generator vs XIX's sampled set) or a definitional
-  nuance — to be reconciled before any *absolute* $q_5$ saturation figure is quoted. The $q_5\ge q_4$
-  **ordering** is immune (identical code and configs).
+- **Calibration RECONCILED (`calib_q4.py`).** The $80\%$-vs-$99.5\%$ gap is *not* a bug and *not* a
+  discrepancy in the invariant — it is a denominator/population difference. Decisive check: our
+  kernel-sampled $q_k$ ($k=4$) vs Paper XIX's *exhaustive* `q4_bit` on the **same** configs agree
+  **64000/64000 (perfect)** — identical per-instance and per-config. On our *raw* proper-$K_5$
+  population, *both* methods give only $\approx65$–$87\%$ saturation (and it shifts $65\%\to80\%$ just
+  by changing sampling params — i.e. population-sensitive). Paper XIX's $99\%$ (`maslov_probe.py`:
+  $202/204$) is over $\approx204$ **deduplicated invariant-buckets** $(\mathrm{rank}\,G,\dim\rad W,
+  n_{\mathrm{odd}},\mathrm{hg})$, *not* raw $K_5$s — a different (coarser) denominator. So: machinery
+  validated exactly against XIX; absolute saturation is population/metric-dependent; the $q_5\ge q_4$
+  **ordering** (same validated code, same configs) is the robust takeaway, with both $\to100\%$ at $n=6$.
 
 **Net:** a first, scoped data point *for* the absorption hypothesis — the natural arity-5 invariant
 is as absorbed as arity-4 — with the exotic arity-5 escape and the XIX calibration both explicitly
@@ -50,3 +53,4 @@ left open.
 
 ## Files
 - `qk_saturation.py` — general arity-$k$ Maslov bit $q_k$; unit-tests $q_4$, probes $q_5$ ($n=5,6$).
+- `calib_q4.py` — calibration: our sampled $q_k$ vs XIX's exhaustive `q4_bit` on the same configs (**64000/64000 perfect agreement**) — reconciles the $80\%$-vs-$99\%$ gap as a deduplicated-bucket vs raw-config denominator difference, not a bug.
