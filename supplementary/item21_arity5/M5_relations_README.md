@@ -93,8 +93,35 @@ natural candidates — not the abstract complex. This is the **third route the `
 out** (after C-O reduction `co_reduce.py` and arity-reduction above). The discipline holds again: run
 `n=4` as a control; if a proposed model gives the wrong answer there, it is the wrong model.
 
+## Descent: rays determine the Lagrangians **exactly at `n=4`** (`descent_gap.py`)
+
+The completeness lemma is at the **ray** level; M5's actual target is **Lagrangian-tuple** invariants.
+These coincide only if the rays determine the Lagrangians — and a verification (correcting an
+over-optimistic "`n≤5` faithful" guess) shows the descent is faithful **exactly at the universal
+dimension `n=4`**:
+
+- Each ray `r_{ij}∈L_i∩L_j`, so `L_i` gets exactly `N−1=5` isotropic rays; `K_i=span{r_{ij}:j}` has
+  `dim ≤ min(5,n)` and pins `L_i` only when `dim K_i=n`. The Lagrangians containing `K_i` number
+  `∏_{t=1}^{n−dim K_i}(2^t+1)` (Lagrangians of `K_i^⊥/K_i`).
+
+| `n` | `dim K_i` | rays determine `L_i`? |
+|----|----|----|
+| 4 | `4` always (1200/1200) | **yes, every config** |
+| 5 | `{3,4,5}`, `=5` only 556/1200 | **mostly no** (~46%) — the 5 rays are usually *dependent* |
+| 6 | `{3,4,5}`, never `6` (0/720) | **never** (multiplicity `{3,15,135}` confirmed) |
+
+So the ray↔Lagrangian descent is faithful **exactly at `n=4`** (where `H³` is exact and everything is
+"free"), partial at `n=5`, never at `n≥6` — resonating with the series' "`n=4` is special." 
+
+**Consequence (scoping, not a threat):** the ray-level completeness lemma is *strictly weaker* than a
+Lagrangian-tuple FFT for `n≥5`; M5's descent step is genuinely lossy except at `n=4`. **But** the
+framework's contextuality obstruction (`ω`, anticommutation, `n_a=Sq¹ω`) is **ray-level data**, so
+item 21 is properly a **ray-level** statement — Lagrangian-invariants beyond the rays are a different
+object and do not enter the `H⁴` obstruction. This sharpens M5's descent step; it opens no escape.
+
 ## Files
 - `m5_relations.py` — this probe (completeness-lemma validation + global-relation defect).
+- `descent_gap.py` — ray↔Lagrangian descent: faithful exactly at `n=4`, partial `n=5`, never `n≥6`.
 - `h4_cohomology.py` — the abstract-`H⁴` route, ruled out by the `n=4` control (`δ²=0` machinery sound).
 - `m4_intrinsic.py` / `M4_intrinsic_README.md` — the M4 result this generalizes (and bounds).
 - `co_reduce.py` / `LITERATURE.md` — the other ruled-out shortcut (C-O reduction).

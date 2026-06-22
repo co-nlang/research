@@ -200,7 +200,13 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    `n=4` has no `H⁴` escape yet a fully-global `R`, arity-irreducibility ≠ item 21 (see §1 CORRECTION).
    The genuinely-open M5 is then: the *second* fundamental theorem (relations among `(G,R)`), the
    descent ray-invariants → Lagrangian-tuple invariants, and the cohomological truncation — none
-   shortcut by reduction.
+   shortcut by reduction. **Descent verified (`descent_gap.py`):** the rays determine the Lagrangians
+   **exactly at `n=4`** (always), partially at `n=5` (~46% of `L_i` pinned — the 5 rays are usually
+   dependent), and **never at `n≥6`** (only 5 rays for an `n`-dim `L_i`; underdetermination multiplicity
+   `∏(2^t+1)`). So the ray-level FFT is *strictly weaker* than a Lagrangian-tuple FFT for `n≥5` — but
+   item 21's obstruction is **ray-level** (`ω`/anticommutation/`n_a`), so it is properly a ray-level
+   statement and the descent gap opens no escape (it sharpens M5's scope). *(Corrects an earlier
+   over-optimistic "`n≤5` faithful" guess; the faithful regime is the universal dimension `n=4` only.)*
 
    **Third route ruled out — abstract-complex `H⁴` does NOT model item 21 (2026-06-23,
    `h4_cohomology.py`).** Completeness makes the abstract `Sp`-invariant cochain complex computable
@@ -290,6 +296,8 @@ data point). The honest bar for *closing* item 21 is M5.
   the ruled-out abstract-`H⁴` route (`n=4` control: abstract `H⁴=1≠0`, over-counts).
 - `h4_cohomology.py` — the abstract `Sp`-invariant cochain-complex `H⁴` (`δ²=0` sound); ruled out as a
   model of item 21 by the `n=4` control. Signpost: do not re-attempt the abstract-cohomology route.
+- `descent_gap.py` — ray↔Lagrangian descent: faithful **exactly at `n=4`**, partial `n=5`, never `n≥6`
+  (so the ray-level FFT is strictly weaker than a Lagrangian-tuple FFT for `n≥5`; item 21 is ray-level).
 - `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
   stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
   reduction shortcut for M5).
