@@ -42,14 +42,21 @@ not the unparametrized space (O3).
 
 ## 1. The target (precise)
 
-> **Conjecture (item 21).** For all `n≥5`, every `Sp(2n,F₂)`-invariant `F₂`-valued function of five
-> Lagrangians in proper position is *reducible* — a polynomial in invariants of arity `≤4`. Hence the
-> arity-5 (4-cochain) datum on the `K₆` nerve is exact (`c=δa`), no new `H⁴` class arises, and `H³`
-> is the ceiling.
+> **Conjecture (item 21), operative (cohomological) form.** For all `n≥5`, the arity-5 (4-cochain)
+> datum on the `K₆` nerve is **exact** (`c=δa`): no arity-5 invariant assembles into a nonzero `H⁴`
+> class, so `H³` is the ceiling. Equivalently: **no exotic arity-5 invariant classifies a putative
+> `H⁴` fiber at `K₆`** — the direct analog of XIX's "no Arf of the ray-span classifies `N_anti`" at
+> `K₅`/`H³`. This is the form to attack computationally (M4, M1).
 
-Equivalent operational form (the one to attack computationally first): **no exotic arity-5 invariant
-classifies a putative `H⁴` fiber at `K₆`** — the direct analog of XIX's "no Arf of the ray-span
-classifies `N_anti`" at `K₅`/`H³`.
+> **CORRECTION (2026-06-23, `m5_relations.py`, `M5_relations_README.md`).** An earlier wording stated
+> item 21 as "*every* `Sp`-invariant of five Lagrangians is a polynomial in arity-≤4 invariants." **That
+> is too strong and is false even at the settled `n=4`:** the ray relation space `R` carries genuine
+> ≥5-index ("global") relations — at `n=4` *all* of `R` is global (`dim R=7`, `dim R₄=0`) — so arity-5
+> invariants exist there, yet `n=4` has **no `H⁴` escape** (master theorem). So arity-irreducibility is
+> *not* equivalent to the `H⁴` question; the `n=4` control disproves the equivalence. Item 21 is the
+> **cohomological** statement above (the 4-cochain is exact), *not* "no arity-5 invariant exists." Any
+> proposed reduction "item 21 ⟺ X" must be checked at `n=4`: if `X` also holds at `n=4`, it cannot be
+> the deciding content.
 
 ## 2. What is already done (the reduction — do not redo)
 
@@ -183,6 +190,18 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    char-2-specific. C-O gives the template + the `μ`-dictionary but NOT the obstruction; M5 still needs
    the genuinely char-2 route via M4. The reduction shortcut is ruled out.)*
 
+   **Partial M5 obtained — a ray-level FFT (2026-06-23, `m5_relations.py`, `M5_relations_README.md`).**
+   **Completeness lemma:** on the generic stratum `(2n,2n,0)` the pair `(G,R)` — the ray-Gram `G` and
+   the relation space `R` — is a **complete `Sp`-invariant** of the 15 rays (same `G`+`R`+spanning ⟹
+   the relabeling map is in `Sp`); validated `Sp`-invariant 140/140. So every ray-invariant is a
+   function of `(G,R)` — a first-fundamental-theorem at ray level. **But a second reduction shortcut is
+   ruled out (same doc):** `R` is **not** arity-≤4-generated — the global-relation defect
+   `dim R − dim R₄ > 0` almost everywhere, and is *maximal* (7/7) at the **settled `n=4` control**. Since
+   `n=4` has no `H⁴` escape yet a fully-global `R`, arity-irreducibility ≠ item 21 (see §1 CORRECTION).
+   The genuinely-open M5 is then: the *second* fundamental theorem (relations among `(G,R)`), the
+   descent ray-invariants → Lagrangian-tuple invariants, and the cohomological truncation — none
+   shortcut by reduction.
+
 ## 6. The genuine obstacles (from item 21 §"Why it is genuinely hard", L449)
 
 - **(O1) "Built from `ω`" does not bound arity.** Products of pairwise terms span `≥5` indices
@@ -202,9 +221,11 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 (`k6_skeleton.py` — generic stratum `(2n,2n,0)`, structural facts verified), **M3 DONE-IN-SPIRIT**
 (XIX `Prop frameq`, arity-agnostic), **M4 DONE for the Arf/P2 candidate** (`m4_intrinsic.py` — outcome
 (a): intrinsic Arf absorbed at `n≥5`, nonexistent at `n=4`; mechanism shift constant→reducible),
-**M5 OPEN** (the general theorem). So the genuinely-open content is now **M5 alone**; the
-`ω`-generated front, the structural scaffold, *and* the natural P2 exotic candidate are settled. M4
-absorbed one candidate, not all (O3); M5 is the uniform no-exotic theorem.
+**M5 PARTIAL** (ray-level FFT = completeness lemma done; cohomological core + 2nd FFT open; two
+reduction shortcuts ruled out). So the genuinely-open content is the **cohomological core of M5**; the
+`ω`-generated front, the structural scaffold, the natural P2 exotic candidate, *and* the ray-level
+generation theorem are settled. M4 absorbed one candidate, not all (O3); M5's open core is the uniform
+cohomological-truncation theorem (no finite arity-reduction — `n=4` control).
 
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
   4-index cochain-indexing argument — *cochain-level, stratum-agnostic*; verified `k6_truncation.py`,
@@ -222,12 +243,15 @@ absorbed one candidate, not all (O3); M5 is the uniform no-exotic theorem.
   escape from this object; the `(c)`-falsification branch did not occur. Discovery: the absorption
   *mechanism shifts* from constancy (`n=5`) to reducibility (`n=6`). Scope: absorbs *one* candidate,
   not all exotica (O3) — does **not** close item 21.
-- **M5 (FFT/generation)**: the actual theorem. The `ℝ,ℂ` invariant theory is known (C-O), but **the
-  reduction shortcut is now known NOT to work** (`co_reduce.py`, `LITERATURE.md`): C-O's cross-ratio
-  reduces to a tautology and its Pfaffian to a coarse stratum indicator — only the discrete *sign*
-  reduces (to the Maslov bit `μ`). **So M5's difficulty is as originally estimated** (paper-scale,
-  XXIII); C-O serves only as a *dictionary for the bottom rung (`μ`)*, not a route to the `H³`/exotic
-  content. M1–M4 are scaffold; M5 is the genuinely char-2 proof.
+- **M5 (FFT/generation)**: the actual theorem. **Partial result obtained** — the **completeness
+  lemma** (`m5_relations.py`): on the generic stratum `(G,R)` is a *complete* ray-invariant
+  (ray-level first fundamental theorem; validated 140/140). **Two reduction shortcuts now ruled out:**
+  (i) char-2-reduce C-O (`co_reduce.py`) — cross-ratio→tautology, Pfaffian→coarse stratum, only the
+  sign→`μ`; (ii) "`R` is arity-≤4-generated" (`m5_relations.py`) — false even at the **`n=4` control**
+  (defect 7/7, no `H⁴` escape), so arity-irreducibility ≠ item 21. **So M5's difficulty is as
+  originally estimated** (paper-scale, XXIII): the genuinely-open part is the *second* fundamental
+  theorem, the descent to Lagrangian-tuple invariants, and the cohomological truncation. M1–M4 +
+  the ray-level FFT are scaffold; M5's cohomological core is the genuinely char-2 proof.
 
 **What counts as progress short of M5:** any of M1–M4 cleanly done is a real contribution (it either
 finds an escape — falsifying item 21, very interesting — or adds a validated `H⁴`-level "absorbed"
@@ -251,6 +275,8 @@ data point). The honest bar for *closing* item 21 is M5.
 - `k6_skeleton.py` + `M2_skeleton_README.md` — M2: the `K₆` skeleton; generic stratum `(2n,2n,0)`.
 - `m4_intrinsic.py` + `M4_intrinsic_README.md` — M4: the intrinsic exotic `Q₆` + its Arf; outcome (a)
   (absorbed at `n≥5`, mechanism shift constant→reducible; structural reducibility proof).
+- `m5_relations.py` + `M5_relations_README.md` — M5 partial: completeness lemma (ray-level FFT,
+  `(G,R)` complete) + the ruled-out "`R` arity-≤4-generated" shortcut (`n=4` control, defect 7/7).
 - `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
   stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
   reduction shortcut for M5).
