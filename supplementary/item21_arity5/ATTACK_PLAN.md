@@ -117,9 +117,13 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    would escape the partition argument and could be a true 4-cochain (non-exact). M4 = exactly that
    non-decomposable remainder. *(Milestone M1: DONE by Paper XXII; it isolates, but does not touch, M4.)*
 2. **Build the `K₆` skeleton lemma** (extend `lem:skeleton`): the 15-ray Gram `G₆`, relation space
-   `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. *(Milestone M2 —
-   confirmed genuinely OPEN: grep of XIX/XXII + all scripts finds no `K₆` Gram/relation-skeleton work;
-   XIX's `lem:skeleton` is `K₅`/10-ray only. This is real new scaffolding.)*
+   `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. **DONE
+   (2026-06-22, `k6_skeleton.py`, `M2_skeleton_README.md`).** Key findings: (i) the generic stratum is
+   **`(2n,2n,0)` — full-span, NONDEGENERATE** (rays span all of `F₂^{2n}`, `rad W₆=0`), structurally
+   *different* from XIX's degenerate `K₅` `(8,6,2)`; (ii) all structural facts (`R₆⊆ker G₆`, `o₆|_{ker
+   G₆}` linear, `ker G₆/R₆≅rad W₆`, coisotropy) verified 100%; at the generic stratum `ker G₆=R₆`;
+   (iii) **M4 hand-off:** intrinsic-`q` existence (`o₆|_{R₆}≡0`) is **0% at n=4** (branch (b) is real —
+   P2 won't lift verbatim), 40% (n=5), 31% (n=6).
 3. **Frame-`q` exclusion at arity 5 (P1) — DONE-IN-SPIRIT (Paper XIX `Prop frameq`).** *Correction
    (2026-06-22): also not open.* XIX's proof uses *only* that a transvection fixes the Gram (hence
    `N_anti` and every `ω`-invariant) while shifting `q` by `ω(v,u)q(u)` — it is **arity/dimension-
@@ -171,17 +175,18 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 ## 7. Difficulty assessment + milestones
 
-**Grounded ladder status (2026-06-22, after cross-checking every milestone against XIX/XXII + scripts
-— the plan originally over-labelled several as "open"):** **M1 DONE** (XXII `thm:trunc`), **M3
-DONE-IN-SPIRIT** (XIX `Prop frameq`, arity-agnostic), **M2 OPEN** (scaffold — no `K₆` skeleton
-exists), **M4 OPEN** (the crux — no `K₆` intrinsic-`q`/Arf exists), **M5 OPEN** (the theorem). So the
-genuinely-open content is **M2 + M4 + M5**; the entire `ω`-generated front (M1, M3) is already settled.
+**Grounded ladder status (updated 2026-06-22):** **M1 DONE** (XXII `thm:trunc`), **M2 DONE**
+(`k6_skeleton.py` — generic stratum `(2n,2n,0)`, structural facts verified), **M3 DONE-IN-SPIRIT**
+(XIX `Prop frameq`, arity-agnostic), **M4 OPEN** (the crux — intrinsic exotic at `K₆`, with a real
+branch (b) at n=4 from M2), **M5 OPEN** (the theorem). So the genuinely-open content is now **M4 + M5**;
+the `ω`-generated front *and* the structural scaffold are settled.
 
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
   4-index partition argument; verified `k6_truncation.py`, `Σc_m≡0` at n=4,5,6). Closes the
   `ω`-generated / 4-index-decomposable arity-5 route; *not* re-derived here. It isolates M4.
-- **M2 (`K₆` skeleton)**: **OPEN** (confirmed new). Linear algebra, tractable; bookkeeping + stratum
-  identification — the genuine first *new* computational step.
+- **M2 (`K₆` skeleton)**: **DONE** (`k6_skeleton.py`) — generic stratum `(2n,2n,0)` (full-span,
+  nondegenerate, *unlike* `K₅`'s `(8,6,2)`); structural facts verified; intrinsic-`q` existence
+  0%/40%/31% at n=4/5/6 (hands M4 a real branch (b) at n=4).
 - **M3 (frame-`q` P1)**: **DONE-IN-SPIRIT** — XIX `Prop frameq` is arity-agnostic and lifts verbatim
   to 15 rays; cite, don't re-derive.
 - **M4 (intrinsic exotic P2)**: the crux of the *computational* evidence; build the `K₆` intrinsic
