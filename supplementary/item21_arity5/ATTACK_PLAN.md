@@ -117,10 +117,18 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    would escape the partition argument and could be a true 4-cochain (non-exact). M4 = exactly that
    non-decomposable remainder. *(Milestone M1: DONE by Paper XXII; it isolates, but does not touch, M4.)*
 2. **Build the `K₆` skeleton lemma** (extend `lem:skeleton`): the 15-ray Gram `G₆`, relation space
-   `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. *(Milestone M2.)*
-3. **Frame-`q` exclusion at arity 5 (P1).** Verify (should be immediate) that frame-`q` non-invariance
-   kills coordinate Arf-type arity-5 invariants. *(Milestone M3 — likely cheap.)*
-4. **Intrinsic exotic at arity 5 (P2) — the crux, with a genuinely OPEN outcome space.** Build the
+   `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. *(Milestone M2 —
+   confirmed genuinely OPEN: grep of XIX/XXII + all scripts finds no `K₆` Gram/relation-skeleton work;
+   XIX's `lem:skeleton` is `K₅`/10-ray only. This is real new scaffolding.)*
+3. **Frame-`q` exclusion at arity 5 (P1) — DONE-IN-SPIRIT (Paper XIX `Prop frameq`).** *Correction
+   (2026-06-22): also not open.* XIX's proof uses *only* that a transvection fixes the Gram (hence
+   `N_anti` and every `ω`-invariant) while shifting `q` by `ω(v,u)q(u)` — it is **arity/dimension-
+   agnostic**, so it lifts verbatim to 15 rays / arity 5 (the ray count never enters the argument). No
+   new content; coordinate Arf-type arity-5 invariants are excluded by the same proposition.
+   *(Milestone M3: DONE-IN-SPIRIT — cite XIX `Prop frameq`, do not re-derive.)*
+4. **Intrinsic exotic at arity 5 (P2) — the crux, with a genuinely OPEN outcome space.** *(Confirmed
+   open 2026-06-22: no `K₆` intrinsic-`q`/Arf work exists in XIX/XXII or any script — all such
+   machinery is `K₅`-only.)* Build the
    `K₆` intrinsic exotic (a Dickson/Arf-type quadratic refinement of `W₆` vanishing on the 15 rays) and
    test its correlation with the `H⁴`-fiber (the analog of `N_anti`'s parity at `K₅`). **Do not
    presuppose the arity-4 replay.** There are (at least) three structurally distinct outcomes; the plan
@@ -163,11 +171,19 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 ## 7. Difficulty assessment + milestones
 
+**Grounded ladder status (2026-06-22, after cross-checking every milestone against XIX/XXII + scripts
+— the plan originally over-labelled several as "open"):** **M1 DONE** (XXII `thm:trunc`), **M3
+DONE-IN-SPIRIT** (XIX `Prop frameq`, arity-agnostic), **M2 OPEN** (scaffold — no `K₆` skeleton
+exists), **M4 OPEN** (the crux — no `K₆` intrinsic-`q`/Arf exists), **M5 OPEN** (the theorem). So the
+genuinely-open content is **M2 + M4 + M5**; the entire `ω`-generated front (M1, M3) is already settled.
+
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
   4-index partition argument; verified `k6_truncation.py`, `Σc_m≡0` at n=4,5,6). Closes the
   `ω`-generated / 4-index-decomposable arity-5 route; *not* re-derived here. It isolates M4.
-- **M2 (`K₆` skeleton)**: linear algebra, tractable; mostly bookkeeping + stratum identification.
-- **M3 (frame-`q` P1)**: cheap, likely immediate.
+- **M2 (`K₆` skeleton)**: **OPEN** (confirmed new). Linear algebra, tractable; bookkeeping + stratum
+  identification — the genuine first *new* computational step.
+- **M3 (frame-`q` P1)**: **DONE-IN-SPIRIT** — XIX `Prop frameq` is arity-agnostic and lifts verbatim
+  to 15 rays; cite, don't re-derive.
 - **M4 (intrinsic exotic P2)**: the crux of the *computational* evidence; build the `K₆` intrinsic
   exotic and test fiber-correlation. Moderate effort, **but the outcome is genuinely open** — (a)
   replay/blind (supports 21), (b) none-exists (re-plan, P2 inapplicable), or (c) tracks-the-fiber
