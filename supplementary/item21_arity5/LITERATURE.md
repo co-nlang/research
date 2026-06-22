@@ -74,6 +74,33 @@ content moves into the cohomological obstruction. That regime is genuinely *not*
   (the Pfaffian/continuant identities), reduce mod 2, and check what the framework's `n_a` / exotic
   question becomes. That is the grounded route to M5, and a real prior-art bridge for M4.
 
+## Reduction ATTEMPTED — result tempers the "char-2-reduce C-O" optimism (`co_reduce.py`)
+
+The concrete move ("reduce C-O's cross-ratio relations mod 2") was carried out. **Both naive mod-2
+reductions fail to recover the framework's obstruction:**
+
+1. **Cross-ratio relation → VACUOUS.** The cross-ratio is a *ratio of `ω`-values*; over `F₂` every
+   defined one `= 1`, so the relation (e.g. hexagon `1/c₀+1/c₁+1/c₂=1`) becomes `1+1+1=1` (`3≡1 mod 2`)
+   — a tautology. No `F₂` content. (By hand.)
+2. **Pfaffian (the polynomial form C-O cite) → NON-vacuous but COARSE.** `Pf(ray-Gram) mod 2 =
+   [rank G = 10]` = indicator of the *full-span nondegenerate stratum*. Computed (`co_reduce.py`):
+   `0` always at n=4 (dimension-forced — 10 rays can't be nondegenerate in `2n=8` dims), `≈21%/17%`
+   ones at n=5/6. It is a *stratum indicator*, **not** the `H³` obstruction, and a *different*
+   invariant from `N_anti` (Pfaffian sums perfect *matchings*; `N_anti` sums *pairs*). (The n=5
+   ray-Gram rank spread `{6:1662, 8:2951, 10:1290,…}` is population-dependent — consistent with the
+   `calib_q4.py` finding — and need not match XIX's deduplicated-bucket `(8,6,2)` focus.)
+
+**Honest revision (corrects the previous turn's framing).** "M5 = char-2-reduce C-O, plausibly more
+tractable" was too optimistic. Concretely, C-O's *continuous* invariants degenerate to vacuous
+(cross-ratio) or coarse-stratum (Pfaffian) data over `F₂`; the framework's `N_anti`/`n_a=Sq¹ω`/`H³`
+obstruction is **orthogonal to them, not a reduction of them**. What *does* reduce is only the
+bottom rung — C-O's discrete *sign* invariant char-2-reduces to the Maslov bit `μ` (the framework's
+arity-3 datum). So the reduction recovers `μ`, **not** the `H³` class or the exotic arity-5 content.
+*Consequence:* C-O gives the `ℝ,ℂ` template and the `μ`-level dictionary, but item 21's M4/M5 are
+**not** shortcut by reduction — the original M4 route (intrinsic exotic at `K₆`) remains the genuine
+path, and the char-2 obstruction is confirmed (concretely, not by assertion) to be the irreducibly
+char-2 residue C-O do not see.
+
 ## Adjacent / checked, low relevance (bank the negatives)
 
 - **Vinroot, "Real representations of finite symplectic groups over fields of characteristic two"**

@@ -160,13 +160,14 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    (`1812.04271`) give a generation theorem for `Sp(2n,K)`-invariants of Lagrangian configurations
    (continuous **cross-ratios** + discrete **signs**, with explicit Pfaffian relations), and **MWZ**
    (`math/9807061`) give the finite-type boundary (`≤3` Lagrangians finite, `≥4` infinite type). So M5
-   is **not** "invent invariant theory from scratch" — it is **"characteristic-2-reduce
-   Conley–Ovsienko"**: their cross-ratio is a *ratio of `ω`-values*, which **degenerates to `1` over
-   `F₂`**, so the continuous modulus collapses and M5 = identify the surviving *discrete/cohomological*
-   residue (`n_a=Sq¹ω` and any char-2 exotic, the `q₄`/Arf siblings with no `ℝ,ℂ` analog). *(Milestone
-   M5 — the full item 21; now a char-2 reduction of a known `ℝ,ℂ` theorem, plausibly more tractable.
-   Concrete first move: get C-O's explicit cross-ratio relations, reduce mod 2, see what `n_a`/M4
-   becomes.)*
+   is **not** "invent invariant theory from scratch" — there is a known `ℝ,ℂ` template (C-O). **BUT
+   the reduction was attempted (`co_reduce.py`) and does NOT shortcut M5** (corrects an earlier
+   optimistic framing): the cross-ratio relation reduces to a tautology (`3≡1`, vacuous); the Pfaffian
+   reduces to a coarse *stratum indicator* (`[rank G=10]`), not the obstruction; only C-O's discrete
+   *sign* invariant reduces to the Maslov bit `μ` (the bottom rung). The `H³`/exotic content is
+   **orthogonal to C-O's invariants, not a reduction of them.** *(Milestone M5 — the full item 21;
+   char-2-specific. C-O gives the template + the `μ`-dictionary but NOT the obstruction; M5 still needs
+   the genuinely char-2 route via M4. The reduction shortcut is ruled out.)*
 
 ## 6. The genuine obstacles (from item 21 §"Why it is genuinely hard", L449)
 
@@ -226,4 +227,7 @@ data point). The honest bar for *closing* item 21 is M5.
 - `qk_saturation.py` — `q_k` saturation, `q₅≥q₄` (the arity-5 `ω`-Maslov evidence).
 - `calib_q4.py` — machinery validated against XIX's exhaustive `q4_bit` (64000/64000).
 - `k6_skeleton.py` + `M2_skeleton_README.md` — M2: the `K₆` skeleton; generic stratum `(2n,2n,0)`.
+- `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
+  stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
+  reduction shortcut for M5).
 - M1 is Paper XXII `thm:trunc` (verified `../paper22/k6_truncation.py`) — not re-implemented here.
