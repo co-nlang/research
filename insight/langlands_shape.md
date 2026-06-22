@@ -66,6 +66,43 @@ and where it breaks.
 - **One correspondence**, plus its $n$-family / resonance tower — not a functorial web over all
   reductive groups.
 
+## A tool-lead for the τ-end: étale cohomology (across the wall)
+
+*❓ Tool-lead, confidence mixed (flagged per item below). Seeded by a "does the τ-end need étale
+cohomology?" question (2026-06-22). Recorded because it converts a vague feeling into a concrete,
+falsifiable first tool for the parked char-0 program.*
+
+The τ-end of the Klein face (item 12: `η²⁴`, mock modular, `X(7)=ℍ/Γ(7)`, 24 cusps) is a
+**char-`p`↔char-0 seam-crossing**. Étale cohomology is the canonical bridge across that seam (the
+one theory with both a finite-field realization and, via comparison with Betti over `ℂ`, a char-0
+realization, with a compatible Galois/`π₁` action). So the instinct is sound — but the role splits:
+
+- **Destination vs crossing (the key distinction).** The τ-end *itself* — `η²⁴=Δ`, the analytic
+  uniformization `ℍ/Γ(7)` — is **geometric-Langlands / Hodge / D-module** territory (Betti–de Rham
+  over `ℂ`), and does *not* intrinsically need étale. Étale is the right spine for the **crossing**:
+  relating that char-0 structure *back* to the framework's `F₂` Steenrod data (the whole point of
+  item 12 as a *bridge*). `Sq¹ω=β(ω)` has a literal étale analog (mod-`ℓ` Steenrod + Bockstein); the
+  mod-2 reduction of an `ℓ`-adic étale class is the seam object. *(Confidence: high — structural.)*
+- **The literal thread.** `η²⁴=Δ` is weight 12, and the **mod-2 Galois representation of `Δ`**
+  (Deligne, via the étale cohomology of a Kuga–Sato variety over the modular curve) is the
+  archetypal étale output. *If* the τ-end is "`Δ` mod 2 ↔ the framework's `Sq¹`", étale is not just
+  analogous but the *literal* machine, and the framework's mod-2 Bockstein = the mod-2 reduction of
+  Deligne's rep. *(Confidence: medium — a real lead; needs the identification to be genuine, not the
+  two "24"s — 24 cusps of `X(7)` vs the 24 in `η²⁴` — merely rhyming. Whether they are the same 24
+  is itself part of the question, not an assumption.)*
+- **The structural reason étale is the meeting ground.** Both sides are *cohomology of a group*:
+  `X(7)` is a curve hence an étale `K(π,1)`, so `H*_ét(X(7))=H*_cont(π₁^ét)` with `PSL(2,7)` a
+  quotient; the framework is `H*(`Heisenberg/Pauli`;F₂)`. Étale cohomology is exactly where
+  *profinite-group cohomology* and *variety cohomology* coincide — the natural common home for a
+  group-cohomology framework meeting a modular curve. *(Confidence: high as a statement; its
+  relevance depends on the literal thread above.)*
+
+**Net.** Crossing the seam: étale (or crystalline for the `p=2` part) is the right spine.
+Destination alone: Hodge/D-module/automorphic suffices. All of it is **across the `F₂`→char-0
+wall** (`open_problems.md` §B0) — a lift-off program, not backlog cleanup. The value of the lead is
+a concrete first test object: **`Δ` mod 2 vs the framework's `Sq¹`** — falsifiable, with the
+confidence flags bolted on.
+
 ## Why keep it
 
 It costs one file, and it earns its place the way the folder asks: it is *sharpenable in
