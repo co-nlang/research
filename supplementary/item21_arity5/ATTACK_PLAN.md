@@ -155,10 +155,18 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
    *(Milestone M4 — the crux; the outcome decides whether item 21 is supported (a), needs re-planning
    (b), or is false (c). Design the computation to distinguish all three, not just to confirm (a).)*
-5. **Reducibility / FFT-style generation theorem (the real theorem).** Prove every arity-5
-   `Sp(2n,F₂)`-invariant of 5 Lagrangians is a polynomial in arity-`≤4` invariants — a *first/second
-   fundamental theorem* for `Sp(2n,F₂)` on Lagrangian tuples. *(Milestone M5 — the full item 21; route
-   1 of the disposition. M1–M4 are evidence/structure feeding M5.)*
+5. **Reducibility / FFT-style generation theorem (the real theorem) — RECAST via prior art
+   (`LITERATURE.md`).** This subfield is *already developed over `ℝ,ℂ`*: **Conley–Ovsienko**
+   (`1812.04271`) give a generation theorem for `Sp(2n,K)`-invariants of Lagrangian configurations
+   (continuous **cross-ratios** + discrete **signs**, with explicit Pfaffian relations), and **MWZ**
+   (`math/9807061`) give the finite-type boundary (`≤3` Lagrangians finite, `≥4` infinite type). So M5
+   is **not** "invent invariant theory from scratch" — it is **"characteristic-2-reduce
+   Conley–Ovsienko"**: their cross-ratio is a *ratio of `ω`-values*, which **degenerates to `1` over
+   `F₂`**, so the continuous modulus collapses and M5 = identify the surviving *discrete/cohomological*
+   residue (`n_a=Sq¹ω` and any char-2 exotic, the `q₄`/Arf siblings with no `ℝ,ℂ` analog). *(Milestone
+   M5 — the full item 21; now a char-2 reduction of a known `ℝ,ℂ` theorem, plausibly more tractable.
+   Concrete first move: get C-O's explicit cross-ratio relations, reduce mod 2, see what `n_a`/M4
+   becomes.)*
 
 ## 6. The genuine obstacles (from item 21 §"Why it is genuinely hard", L449)
 
@@ -193,9 +201,10 @@ the `ω`-generated front *and* the structural scaffold are settled.
   exotic and test fiber-correlation. Moderate effort, **but the outcome is genuinely open** — (a)
   replay/blind (supports 21), (b) none-exists (re-plan, P2 inapplicable), or (c) tracks-the-fiber
   (**falsifies 21** — the only "interesting" branch; check it, don't assume it away).
-- **M5 (FFT/generation)**: the actual theorem; modular invariant theory of `Sp(2n,F₂)` on Lagrangian
-  tuples — a paper-scale (XXIII) project, not a session. M1–M4 are the empirical scaffold; M5 is the
-  proof.
+- **M5 (FFT/generation)**: the actual theorem — but **recast as a char-2 reduction of Conley–Ovsienko**
+  (`LITERATURE.md`), not a from-scratch invariant theory. The `ℝ,ℂ` generation is *known* (C-O); M5 =
+  reduce mod 2 and find the surviving discrete/exotic residue. Still paper-scale (XXIII), plausibly
+  more tractable than feared. M1–M4 are scaffold; M5 is the proof.
 
 **What counts as progress short of M5:** any of M1–M4 cleanly done is a real contribution (it either
 finds an escape — falsifying item 21, very interesting — or adds a validated `H⁴`-level "absorbed"
@@ -212,7 +221,9 @@ data point). The honest bar for *closing* item 21 is M5.
 - Item 21 is `n≥5`; `n=4` is already settled (master theorem). Keep `n` explicit.
 
 ## 9. Files (this sub-project)
+- `LITERATURE.md` — **prior art** (Conley–Ovsienko, MWZ, Carlisle–Kropholler/Quillen); the char-2
+  reframing of M4/M5. *Read this first.*
 - `qk_saturation.py` — `q_k` saturation, `q₅≥q₄` (the arity-5 `ω`-Maslov evidence).
 - `calib_q4.py` — machinery validated against XIX's exhaustive `q4_bit` (64000/64000).
-- *(to add)* `c5_exactness.py` — M1: `⟨c₅,[K₆]⟩` over `K₆` configs.
-- *(to add)* `k6_skeleton.py` — M2: the `K₆` Gram/relation skeleton + stratum.
+- `k6_skeleton.py` + `M2_skeleton_README.md` — M2: the `K₆` skeleton; generic stratum `(2n,2n,0)`.
+- M1 is Paper XXII `thm:trunc` (verified `../paper22/k6_truncation.py`) — not re-implemented here.
