@@ -1,8 +1,9 @@
 # Item 21 (b) — The Arity-5 Exotic Escape: Attack Plan / Handover
 
-*Status: open, XXIII-level. This is a research-program handover, not a result. It localizes the one
-genuine remaining front of item 21 and lays out the concrete route, the template to extend, the
-obstacles, and milestones that count as partial progress.*
+*Status: open, XXIII-level. Research-program handover. Scaffold M1–M4 now done (M4 = the intrinsic-Arf
+P2 candidate, absorbed — outcome (a), 2026-06-23); the one genuine remaining front is **M5**, the
+uniform no-exotic generation theorem. This doc localizes it, the template, the obstacles, and the
+milestones.*
 
 ## 0. Orientation (one paragraph)
 
@@ -12,10 +13,12 @@ closure (mod Kudo) caps the **Steenrod-generated** ascent (`Sq¹ω` unique, `Sq�
 decomposable), and the arity-4 base case is **absorbed**: the natural `ω`-Maslov bit `q₄` is saturated
 and Paper XIX rules out the exotic **Arf** invariant as an `H³` classifier. The probe `qk_saturation.py`
 shows the natural arity-5 `q₅` also saturates (`q₅≥q₄`, validated). So the **lone hard core** is: does
-a *genuinely-exotic* (non-`ω`, Arf/Dickson-type) **arity-5** invariant exist and escape to `H⁴`? (b)
-= **test whether** XIX's arity-4 Arf-exclusion extends to arity 5 — which may *support* item 21, may
-need *re-planning*, or may *falsify* it (see M4's three outcomes); the program is built to distinguish
-these, not to confirm a foregone conclusion.
+a *genuinely-exotic* (non-`ω`, Arf/Dickson-type) **arity-5** invariant exist and escape to `H⁴`? The
+natural such candidate — the intrinsic Arf at `K₆` — has now been **tested and absorbed (M4, outcome
+(a), 2026-06-23):** it is reducible to arity-≤4 at `n≥5` and nonexistent at `n=4`, no `H⁴` escape (the
+program was built to distinguish support/re-plan/falsify, and what occurred was *support*). What
+remains (M5) is the *uniform* theorem: no exotic of **any** type escapes — M4 closes one candidate,
+not the unparametrized space (O3).
 
 ## 0.5 Terminology (precise — do not leave these vague; this is a handover)
 
@@ -139,31 +142,33 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    agnostic**, so it lifts verbatim to 15 rays / arity 5 (the ray count never enters the argument). No
    new content; coordinate Arf-type arity-5 invariants are excluded by the same proposition.
    *(Milestone M3: DONE-IN-SPIRIT — cite XIX `Prop frameq`, do not re-derive.)*
-4. **Intrinsic exotic at arity 5 (P2) — the crux, with a genuinely OPEN outcome space.** *(Confirmed
-   open 2026-06-22: no `K₆` intrinsic-`q`/Arf work exists in XIX/XXII or any script — all such
-   machinery is `K₅`-only.)* Build the
-   `K₆` intrinsic exotic (a Dickson/Arf-type quadratic refinement of `W₆` vanishing on the 15 rays) and
-   test its correlation with the `H⁴`-fiber (the analog of `N_anti`'s parity at `K₅`). **Do not
-   presuppose the arity-4 replay.** There are (at least) three structurally distinct outcomes; the plan
-   must branch on which actually occurs:
-   - **(a) Replay** — an intrinsic exotic exists in the `K₆` stratum but is *blind* to the fiber (the
-     `Arf=0`-but-parity-splits pattern recurs). → another evidence point *for* item 21; P2 lifts
-     cleanly. *Most expected, but not to be assumed.*
-   - **(b) No intrinsic exotic** — the generic `K₆` stratum admits *none* (the `ℓ₆|_{R₆}≢0` analog
-     holds generically). → **structurally different**: P2's "exists-but-blind" argument shape does *not*
-     apply (there is nothing to show blind). Needs a separate treatment — the `noq_odd`-style
-     realizability route, or a direct exactness argument. Flag and re-plan; do **not** force the P2
-     template onto (b).
-   - **(c) Intrinsic exotic exists AND tracks the fiber** — it *separates* the `H⁴`-fiber. → **this
-     FALSIFIES item 21**: an irreducible arity-5 classifier exists, `H³` is *not* the hard ceiling, there
-     *is* an `H⁴` escape. This is the single genuinely *interesting* outcome and is a **live branch to
-     be actively checked, not assumed away** — indeed if M1–M3 come back clean, (c) becomes the *most
-     likely* place the truth could still hide. On (c), pivot the whole item from "prove the ceiling" to
-     "characterize the escape" (a new positive result, XXIII+ material) — and revisit Paper XXII's
-     `c=δa`-exactness claim, which (c) would contradict at arity 5.
+4. **Intrinsic exotic at arity 5 (P2) — the crux. DONE for the Arf candidate (2026-06-23,
+   `m4_intrinsic.py`, `M4_intrinsic_README.md`): OUTCOME (a).** Built the `K₆` intrinsic exotic `Q₆`
+   (the unique quadratic refinement of `ω` on `W₆` vanishing on the 15 rays) and its Arf invariant, and
+   tested correlation with the `H⁴`-fiber (`c_m=N_anti(face m)`, `M=N_anti(all 6)`). The computation was
+   designed to distinguish all three outcomes; what actually occurred:
+   - **(b) at `n=4`:** `Q₆` does **not exist** on the generic stratum (existence 0%, matching M2) — no
+     intrinsic exotic to act on. *(Irrelevant to item 21, which is `n≥5`.)*
+   - **(a) at `n=5`, K₅-mechanism:** `Arf(Q₆)≡0` **constant** — blind, exactly the XIX `K₅` pattern.
+     Reducibility corroborated non-vacuously (rich arity-≤4 signature, 2 non-singleton buckets, 0
+     splits).
+   - **(a) at `n=6`, NEW mechanism:** `Arf(Q₆)` is **non-constant** (`{0:39,1:4}`; validated
+     basis-independent, 0/43 mismatches — the variation is *real*, not artifact). The K₅ "killed by
+     constancy" argument *fails*, but Arf is **still reducible** by a **structural proof**: every Gram
+     entry `ω(r_{ij},r_{kl})` is arity-≤4 (the ray `r_{ij}` depends on the pair `{i,j}`), and `Arf` is
+     the Dickson polynomial in those entries ⟹ `Arf(Q₆)∈F₂[arity-≤4 invariants]`. (The coarse `(c,M)`
+     gave a `(c)`-flag; the O1 stress-test collapsed it, but the rich signature is *injective* at `n=6`
+     so that statistic is vacuous — the **structural proof** carries it, not the bucket count.)
 
-   *(Milestone M4 — the crux; the outcome decides whether item 21 is supported (a), needs re-planning
-   (b), or is false (c). Design the computation to distinguish all three, not just to confirm (a).)*
+   **Net:** the intrinsic-Arf (natural P2) candidate is **absorbed at all `n≥5`** — *one more evidence
+   point for item 21, and the P2 lift is complete*. The genuine discovery is the **mechanism shift**:
+   absorption is by *constancy* at `n=5` (value-level) but by *reducibility* at `n=6` (polynomial in
+   arity-≤4). **Crucially this does NOT close item 21:** M4 absorbs *one* candidate, not *all* exotica
+   (O3 — the exotic space is unparametrized). The `(c)`-falsification branch did **not** occur for the
+   Arf candidate.
+
+   *(Milestone M4 — DONE for the Arf/P2 candidate: outcome (a), no `H⁴` escape from this object. Other
+   non-Arf candidates and the general theorem remain → M5.)*
 5. **Reducibility / FFT-style generation theorem (the real theorem) — RECAST via prior art
    (`LITERATURE.md`).** This subfield is *already developed over `ℝ,ℂ`*: **Conley–Ovsienko**
    (`1812.04271`) give a generation theorem for `Sp(2n,K)`-invariants of Lagrangian configurations
@@ -193,11 +198,13 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 ## 7. Difficulty assessment + milestones
 
-**Grounded ladder status (updated 2026-06-22):** **M1 DONE** (XXII `thm:trunc`), **M2 DONE**
+**Grounded ladder status (updated 2026-06-23):** **M1 DONE** (XXII `thm:trunc`), **M2 DONE**
 (`k6_skeleton.py` — generic stratum `(2n,2n,0)`, structural facts verified), **M3 DONE-IN-SPIRIT**
-(XIX `Prop frameq`, arity-agnostic), **M4 OPEN** (the crux — intrinsic exotic at `K₆`, with a real
-branch (b) at n=4 from M2), **M5 OPEN** (the theorem). So the genuinely-open content is now **M4 + M5**;
-the `ω`-generated front *and* the structural scaffold are settled.
+(XIX `Prop frameq`, arity-agnostic), **M4 DONE for the Arf/P2 candidate** (`m4_intrinsic.py` — outcome
+(a): intrinsic Arf absorbed at `n≥5`, nonexistent at `n=4`; mechanism shift constant→reducible),
+**M5 OPEN** (the general theorem). So the genuinely-open content is now **M5 alone**; the
+`ω`-generated front, the structural scaffold, *and* the natural P2 exotic candidate are settled. M4
+absorbed one candidate, not all (O3); M5 is the uniform no-exotic theorem.
 
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
   4-index cochain-indexing argument — *cochain-level, stratum-agnostic*; verified `k6_truncation.py`,
@@ -208,10 +215,13 @@ the `ω`-generated front *and* the structural scaffold are settled.
   0%/40%/31% at n=4/5/6 (hands M4 a real branch (b) at n=4).
 - **M3 (frame-`q` P1)**: **DONE-IN-SPIRIT** — XIX `Prop frameq` is arity-agnostic and lifts verbatim
   to 15 rays; cite, don't re-derive.
-- **M4 (intrinsic exotic P2)**: the crux of the *computational* evidence; build the `K₆` intrinsic
-  exotic and test fiber-correlation. Moderate effort, **but the outcome is genuinely open** — (a)
-  replay/blind (supports 21), (b) none-exists (re-plan, P2 inapplicable), or (c) tracks-the-fiber
-  (**falsifies 21** — the only "interesting" branch; check it, don't assume it away).
+- **M4 (intrinsic exotic P2)**: **DONE for the Arf candidate** (`m4_intrinsic.py`,
+  `M4_intrinsic_README.md`) — **outcome (a)**: the intrinsic Arf at `K₆` is absorbed at `n≥5`
+  (constant at `n=5`, nonconstant-but-reducible at `n=6` — reducibility by the structural proof that
+  `Arf` is the Dickson polynomial in the arity-≤4 ray-Gram), and does not exist at `n=4`. No `H⁴`
+  escape from this object; the `(c)`-falsification branch did not occur. Discovery: the absorption
+  *mechanism shifts* from constancy (`n=5`) to reducibility (`n=6`). Scope: absorbs *one* candidate,
+  not all exotica (O3) — does **not** close item 21.
 - **M5 (FFT/generation)**: the actual theorem. The `ℝ,ℂ` invariant theory is known (C-O), but **the
   reduction shortcut is now known NOT to work** (`co_reduce.py`, `LITERATURE.md`): C-O's cross-ratio
   reduces to a tautology and its Pfaffian to a coarse stratum indicator — only the discrete *sign*
@@ -239,6 +249,8 @@ data point). The honest bar for *closing* item 21 is M5.
 - `qk_saturation.py` — `q_k` saturation, `q₅≥q₄` (the arity-5 `ω`-Maslov evidence).
 - `calib_q4.py` — machinery validated against XIX's exhaustive `q4_bit` (64000/64000).
 - `k6_skeleton.py` + `M2_skeleton_README.md` — M2: the `K₆` skeleton; generic stratum `(2n,2n,0)`.
+- `m4_intrinsic.py` + `M4_intrinsic_README.md` — M4: the intrinsic exotic `Q₆` + its Arf; outcome (a)
+  (absorbed at `n≥5`, mechanism shift constant→reducible; structural reducibility proof).
 - `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
   stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
   reduction shortcut for M5).
