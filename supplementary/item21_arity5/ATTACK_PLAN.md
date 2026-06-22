@@ -202,6 +202,16 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    descent ray-invariants → Lagrangian-tuple invariants, and the cohomological truncation — none
    shortcut by reduction.
 
+   **Third route ruled out — abstract-complex `H⁴` does NOT model item 21 (2026-06-23,
+   `h4_cohomology.py`).** Completeness makes the abstract `Sp`-invariant cochain complex computable
+   (`C^k`=functions on `(k+1)`-Lagrangian orbits, `δ`=simplicial coboundary, `H⁴=|C⁴|−rank δ⁴−rank δ³`).
+   But the **`n=4` control fails it**: abstract `H⁴=1≠0` while the master theorem gives no `H⁴`
+   obstruction (`δ²=0` verified, no arithmetic bug). The spurious class is an orbit-indicator cocycle
+   that pairs to 0 on every nerve (zero contextuality content) yet isn't a coboundary — the abstract
+   complex **over-counts via orbit combinatorics**; the `rank δ⁴` reading over-counts the other way
+   (orbit-indicators at `n≥5`). **So item 21 is the exactness of the *specific* natural arity-5 datum
+   (M1/M4), not `H⁴` of all invariants.** Do not re-attempt the abstract-cohomology route.
+
 ## 6. The genuine obstacles (from item 21 §"Why it is genuinely hard", L449)
 
 - **(O1) "Built from `ω`" does not bound arity.** Products of pairwise terms span `≥5` indices
@@ -276,7 +286,10 @@ data point). The honest bar for *closing* item 21 is M5.
 - `m4_intrinsic.py` + `M4_intrinsic_README.md` — M4: the intrinsic exotic `Q₆` + its Arf; outcome (a)
   (absorbed at `n≥5`, mechanism shift constant→reducible; structural reducibility proof).
 - `m5_relations.py` + `M5_relations_README.md` — M5 partial: completeness lemma (ray-level FFT,
-  `(G,R)` complete) + the ruled-out "`R` arity-≤4-generated" shortcut (`n=4` control, defect 7/7).
+  `(G,R)` complete) + the ruled-out "`R` arity-≤4-generated" shortcut (`n=4` control, defect 7/7) +
+  the ruled-out abstract-`H⁴` route (`n=4` control: abstract `H⁴=1≠0`, over-counts).
+- `h4_cohomology.py` — the abstract `Sp`-invariant cochain-complex `H⁴` (`δ²=0` sound); ruled out as a
+  model of item 21 by the `n=4` control. Signpost: do not re-attempt the abstract-cohomology route.
 - `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
   stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
   reduction shortcut for M5).

@@ -66,7 +66,35 @@ This is **another shortcut ruled out**, with `n=4` as the clean control — dire
 - **Discipline:** the `n=4` control is the model for testing any future "item-21 reduces to X" claim —
   if `X` is also true at `n=4` (where item 21 holds), `X` cannot be the deciding content.
 
+## Third ruled-out route: abstract-complex `H⁴` does not model item 21 (`h4_cohomology.py`)
+
+The completeness lemma makes one more route *look* tractable: build the abstract `Sp`-invariant cochain
+complex `C^k = {`functions of `(k+1)`-Lagrangian orbits`}` (basis = `(G,R)`-fingerprints, canonicalized
+over vertex permutations; valid on all strata by Witt), with the simplicial coboundary `δ`, and compute
+`H⁴ = |C⁴| − rank δ⁴ − rank δ³`. Claim "item 21 ⟺ `H⁴=0`". **It is the wrong model — the `n=4`
+control rules it out.**
+
+- Machinery is **sound**: `δ²=0` verified (`δ⁴·δ³=0`, all rows) at every `n`.
+- **`n=4` control fails the model:** `|O4|,|O5|,|O6| = 1,2,3`, `rank δ⁴=0`, `rank δ³=1` ⟹
+  abstract `H⁴ = 2−0−1 = 1 ≠ 0`, while the master theorem gives **no** `H⁴` obstruction. No arithmetic
+  bug (hand-count agrees). The spurious class is the invariant *"is this `K₅` in orbit #1"*: it's a
+  **cocycle** (pairs to 0 on every `K₆` nerve, `δ⁴=0`) so it furnishes **zero** per-config obstruction
+  — no contextuality content — yet it's not a coboundary, so abstract `H⁴` counts it. **The abstract
+  complex over-counts via orbit combinatorics.**
+- The alternative reading `rank δ⁴` over-counts the *other* way: at `n=5` there are ~135 `K₅`-orbits, so
+  a `K₆`'s 6 faces are generically all-distinct, and an orbit-*indicator* function pairs to 1 — a pure
+  combinatorial "obstruction" that would absurdly "falsify" item 21 at every `n≥5`. (Also: at `n≥5` the
+  `K₆` orbits are unsaturated — every sample a fresh fingerprint — so those numbers are doubly useless.)
+
+**Conclusion.** Item 21 is *not* "`H⁴` of the invariant complex `=0`"; it is the **exactness of the
+specific natural anticommutation-type arity-5 datum** (the generalization of `N_anti=Sq¹ω`). That is
+exactly why the right tools are **M1** (`N_anti` exact, proven) and **M4** (Arf reducible) — named
+natural candidates — not the abstract complex. This is the **third route the `n=4` control has ruled
+out** (after C-O reduction `co_reduce.py` and arity-reduction above). The discipline holds again: run
+`n=4` as a control; if a proposed model gives the wrong answer there, it is the wrong model.
+
 ## Files
 - `m5_relations.py` — this probe (completeness-lemma validation + global-relation defect).
+- `h4_cohomology.py` — the abstract-`H⁴` route, ruled out by the `n=4` control (`δ²=0` machinery sound).
 - `m4_intrinsic.py` / `M4_intrinsic_README.md` — the M4 result this generalizes (and bounds).
 - `co_reduce.py` / `LITERATURE.md` — the other ruled-out shortcut (C-O reduction).
