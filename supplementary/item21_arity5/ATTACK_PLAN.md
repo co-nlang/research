@@ -56,10 +56,17 @@ classifies `N_anti`" at `K₅`/`H³`.
 - **Arity-4 absorbed** (Paper XIX). `q₄` (the `ω`-Maslov quadruple bit, Def. `def:q4`) is **saturated**
   (`≈99%` of deduplicated buckets; raw-config `65–87%`). The exotic **Arf invariant** of the ray-span
   is **ruled out** as an `H³`/`N_anti` classifier (§`sec:arf`).
-- **Arity-5 `ω`-Maslov half: matching evidence.** `q₅` saturates `≥ q₄` on identical configs
-  (`qk_saturation.py`; machinery validated `64000/64000` against XIX's exhaustive `q4_bit`,
-  `calib_q4.py`). So the *`ω`-generated* arity-5 invariant carries no fiber info.
-- **Remaining = the exotic non-`ω` arity-5 invariant.** This is (b).
+- **Natural arity-5 cochain truncates: PROVEN** (Paper XXII, Theorem `thm:trunc`). The degree-4
+  cochain `c_m=N_anti(face m)` equals `δa` (coboundary of the anticommutation 3-cochain), so
+  `⟨c,[K₆]⟩=0`, `[c]=0∈H⁴`. Proof = the **4-index partition argument** (each cross-context pair uses
+  exactly 4 indices ⟹ lies in a unique 4-subset). Verified `k6_truncation.py` (`Σc_m≡0`, n=4,5,6;
+  `c_m` realize all 32 even-weight patterns — sub-classes live, top class dead). *This is M1 — already
+  a theorem, not an open task.*
+- **Arity-5 `ω`-Maslov half: matching value-level evidence.** `q₅` saturates `≥ q₄` on identical
+  configs (`qk_saturation.py`; machinery validated `64000/64000` against XIX's exhaustive `q4_bit`,
+  `calib_q4.py`) — the value-level shadow of the same truncation.
+- **Remaining = the exotic non-`ω` (non-4-index-decomposable) arity-5 invariant.** This is (b)/M4 —
+  precisely what the partition argument does *not* reach.
 
 ## 3. The template to extend — XIX's arity-4 Arf-exclusion (§`sec:arf`)
 
@@ -95,15 +102,20 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 ## 5. The program — concrete sub-tasks (in dependency order)
 
-1. **`q₅` exactness, not just saturation (the Paper XXII `c=δa` route).** Saturation says `q₅` is
-   *constant* (value-level); the stronger statement item 21 wants is *cochain-level* — the arity-5
-   cochain is `δ` of an arity-4 cochain (exact ⟹ no `H⁴` class). Compute, on `K₆` configs, whether the
-   natural arity-5 4-cochain `c₅` satisfies `c₅ = δ(arity-4 cochain)` — i.e. `⟨c₅,[K₆]⟩ = 0` for all
-   `K₆` (the direct `H⁴`-analog of `⟨n_a,[K₅]⟩=N_anti`; finite per-config check).
-   **Scope of M1 (on the milestone, not just §2): even a perfectly clean M1 (`⟨c₅,[K₆]⟩≡0`) closes
-   ONLY the `ω`-generated / natural-cochain arity-5 route.** It says nothing about an exotic non-`ω`
-   arity-5 invariant — that is M4. M1 is **necessary, not sufficient**: it removes the easy escape and
-   *isolates* the exotic one; item 21 is not advanced past the `ω`-front by M1 alone. *(Milestone M1.)*
+1. **`c₅` exactness — ALREADY DONE (Paper XXII, Theorem `thm:trunc`).** *Correction (2026-06-22):
+   this milestone was mislabelled "open, do first" — it is a proven theorem in Paper XXII, not a task.*
+   The natural arity-5 4-cochain is `c_m = N_anti(face m)`; Paper XXII proves `c = δa` (coboundary of
+   the anticommutation 3-cochain `a`), so `⟨c,[K₆]⟩ = 0` and `[c]=0 ∈ H⁴(S⁴)`. **Proof mechanism (the
+   part that matters for M4):** each cross-context pair `{v_ij,v_kl}` uses *exactly 4 indices*, so it
+   lies in a unique 4-subset `T`; hence `N_anti(face m) = Σ_{T⊂face m} a_T = (δa)_m`. Verified
+   `k6_truncation.py`: `Σ_m c_m ≡ 0` (200/200 at n=4,5,6), `c_m` realizing all 32 even-weight patterns.
+   Our `q₅`-saturation probe is the *value-level* shadow of the same fact (the `ω`-built arity-5 bit is
+   degenerate). **What M1 covers and the sharp boundary it draws:** the partition proof works *because
+   and only because* the datum is built from **4-index `ω`-pairings** (intrinsically a 3-cochain). So
+   M1 closes **every `4`-index-decomposable (= `ω`-generated) arity-5 cochain** — and pinpoints the
+   *exact* opening for M4: a **genuinely-exotic arity-5 invariant that is NOT 4-index-decomposable**
+   would escape the partition argument and could be a true 4-cochain (non-exact). M4 = exactly that
+   non-decomposable remainder. *(Milestone M1: DONE by Paper XXII; it isolates, but does not touch, M4.)*
 2. **Build the `K₆` skeleton lemma** (extend `lem:skeleton`): the 15-ray Gram `G₆`, relation space
    `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. *(Milestone M2.)*
 3. **Frame-`q` exclusion at arity 5 (P1).** Verify (should be immediate) that frame-`q` non-invariance
@@ -151,8 +163,9 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 ## 7. Difficulty assessment + milestones
 
-- **M1 (`q₅`/`c₅` exactness at `K₆`)**: computational, finite per config — *do this first*; it directly
-  tests "no `H⁴` from the natural cochain." Strong evidence either way. **Tractable now.**
+- **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
+  4-index partition argument; verified `k6_truncation.py`, `Σc_m≡0` at n=4,5,6). Closes the
+  `ω`-generated / 4-index-decomposable arity-5 route; *not* re-derived here. It isolates M4.
 - **M2 (`K₆` skeleton)**: linear algebra, tractable; mostly bookkeeping + stratum identification.
 - **M3 (frame-`q` P1)**: cheap, likely immediate.
 - **M4 (intrinsic exotic P2)**: the crux of the *computational* evidence; build the `K₆` intrinsic
