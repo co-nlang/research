@@ -58,8 +58,11 @@ classifies `N_anti`" at `K₅`/`H³`.
   is **ruled out** as an `H³`/`N_anti` classifier (§`sec:arf`).
 - **Natural arity-5 cochain truncates: PROVEN** (Paper XXII, Theorem `thm:trunc`). The degree-4
   cochain `c_m=N_anti(face m)` equals `δa` (coboundary of the anticommutation 3-cochain), so
-  `⟨c,[K₆]⟩=0`, `[c]=0∈H⁴`. Proof = the **4-index partition argument** (each cross-context pair uses
-  exactly 4 indices ⟹ lies in a unique 4-subset). Verified `k6_truncation.py` (`Σc_m≡0`, n=4,5,6;
+  `⟨c,[K₆]⟩=0`, `[c]=0∈H⁴`. Proof = the **4-index *cochain-indexing* argument** (`ω(v_ij,v_kl)` is
+  indexed by the 4-subset `{i,j,k,l}` ⟹ `a` is a 3-cochain ⟹ `c=δa` on `∂Δ^N` by the simplicial
+  coboundary formula, exact since `[S^{N-2}]` is a cycle) — **purely cochain-level, stratum-agnostic**
+  (does *not* assume K₅ geometry; M2's `(2n,2n,0)≠(8,6,2)` is irrelevant to it). Verified
+  `k6_truncation.py` (`Σc_m≡0`, n=4,5,6;
   `c_m` realize all 32 even-weight patterns — sub-classes live, top class dead). *This is M1 — already
   a theorem, not an open task.*
 - **Arity-5 `ω`-Maslov half: matching value-level evidence.** `q₅` saturates `≥ q₄` on identical
@@ -105,17 +108,23 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 1. **`c₅` exactness — ALREADY DONE (Paper XXII, Theorem `thm:trunc`).** *Correction (2026-06-22):
    this milestone was mislabelled "open, do first" — it is a proven theorem in Paper XXII, not a task.*
    The natural arity-5 4-cochain is `c_m = N_anti(face m)`; Paper XXII proves `c = δa` (coboundary of
-   the anticommutation 3-cochain `a`), so `⟨c,[K₆]⟩ = 0` and `[c]=0 ∈ H⁴(S⁴)`. **Proof mechanism (the
-   part that matters for M4):** each cross-context pair `{v_ij,v_kl}` uses *exactly 4 indices*, so it
-   lies in a unique 4-subset `T`; hence `N_anti(face m) = Σ_{T⊂face m} a_T = (δa)_m`. Verified
-   `k6_truncation.py`: `Σ_m c_m ≡ 0` (200/200 at n=4,5,6), `c_m` realizing all 32 even-weight patterns.
-   Our `q₅`-saturation probe is the *value-level* shadow of the same fact (the `ω`-built arity-5 bit is
-   degenerate). **What M1 covers and the sharp boundary it draws:** the partition proof works *because
-   and only because* the datum is built from **4-index `ω`-pairings** (intrinsically a 3-cochain). So
-   M1 closes **every `4`-index-decomposable (= `ω`-generated) arity-5 cochain** — and pinpoints the
-   *exact* opening for M4: a **genuinely-exotic arity-5 invariant that is NOT 4-index-decomposable**
-   would escape the partition argument and could be a true 4-cochain (non-exact). M4 = exactly that
-   non-decomposable remainder. *(Milestone M1: DONE by Paper XXII; it isolates, but does not touch, M4.)*
+   the anticommutation 3-cochain `a`), so `⟨c,[K₆]⟩ = 0` and `[c]=0 ∈ H⁴(S⁴)`. **Proof mechanism —
+   purely simplicial/cochain-level, NOT a K₅ geometric fact (read carefully, this matters for M4):**
+   the anticommutation datum `ω(v_ij,v_kl)` is *indexed by* the 4-subset `{i,j,k,l}`, so `a` is a
+   **3-cochain on `∂Δ^N` for any `N`**; on `∂Δ⁵=S⁴` its degree-4 assembly is the coboundary `δa` by the
+   standard simplicial formula, and `⟨c,[S⁴]⟩=⟨a,∂[S⁴]⟩=0` because the fundamental class is a *cycle*.
+   This argument is **independent of the ray-span geometry** — in particular **M2's discovery that
+   `K₆`'s generic stratum `(2n,2n,0)` differs from `K₅`'s `(8,6,2)` does NOT bear on M1**: the "4-index
+   partition / `Σ_{T⊂face m} a_T`" is *cochain indexing* (which 4-subset `T` an `a`-value sits on), not a
+   statement about `dim W`/`rank G`. (So the K₅ geometric picture is *not* being assumed to carry over;
+   the coboundary identity is stratum-agnostic.) Verified `k6_truncation.py`: `Σ_m c_m ≡ 0` (200/200 at
+   n=4,5,6), `c_m` realizing all 32 even-weight patterns. Our `q₅`-saturation probe is the *value-level*
+   shadow. **What M1 covers and the sharp boundary it draws:** the argument works *because and only
+   because* the datum is **4-index-indexed** (a 3-cochain). So M1 closes **every 4-index-decomposable
+   (= `ω`-generated) arity-5 cochain** — and pinpoints M4's opening: a **genuinely-exotic arity-5
+   invariant that is NOT 4-index-decomposable** would not be a coboundary of a 3-cochain and could be a
+   true 4-cochain (non-exact). M4 = exactly that non-decomposable remainder. *(Milestone M1: DONE by
+   Paper XXII; cochain-level, stratum-agnostic; it isolates, but does not touch, M4.)*
 2. **Build the `K₆` skeleton lemma** (extend `lem:skeleton`): the 15-ray Gram `G₆`, relation space
    `R₆`, quadratic `o₆`, linear `ℓ₆=o₆|_{ker G₆}`. Identify the generic stratum. **DONE
    (2026-06-22, `k6_skeleton.py`, `M2_skeleton_README.md`).** Key findings: (i) the generic stratum is
@@ -191,7 +200,8 @@ branch (b) at n=4 from M2), **M5 OPEN** (the theorem). So the genuinely-open con
 the `ω`-generated front *and* the structural scaffold are settled.
 
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
-  4-index partition argument; verified `k6_truncation.py`, `Σc_m≡0` at n=4,5,6). Closes the
+  4-index cochain-indexing argument — *cochain-level, stratum-agnostic*; verified `k6_truncation.py`,
+  `Σc_m≡0` at n=4,5,6). Closes the
   `ω`-generated / 4-index-decomposable arity-5 route; *not* re-derived here. It isolates M4.
 - **M2 (`K₆` skeleton)**: **DONE** (`k6_skeleton.py`) — generic stratum `(2n,2n,0)` (full-span,
   nondegenerate, *unlike* `K₅`'s `(8,6,2)`); structural facts verified; intrinsic-`q` existence
@@ -202,10 +212,12 @@ the `ω`-generated front *and* the structural scaffold are settled.
   exotic and test fiber-correlation. Moderate effort, **but the outcome is genuinely open** — (a)
   replay/blind (supports 21), (b) none-exists (re-plan, P2 inapplicable), or (c) tracks-the-fiber
   (**falsifies 21** — the only "interesting" branch; check it, don't assume it away).
-- **M5 (FFT/generation)**: the actual theorem — but **recast as a char-2 reduction of Conley–Ovsienko**
-  (`LITERATURE.md`), not a from-scratch invariant theory. The `ℝ,ℂ` generation is *known* (C-O); M5 =
-  reduce mod 2 and find the surviving discrete/exotic residue. Still paper-scale (XXIII), plausibly
-  more tractable than feared. M1–M4 are scaffold; M5 is the proof.
+- **M5 (FFT/generation)**: the actual theorem. The `ℝ,ℂ` invariant theory is known (C-O), but **the
+  reduction shortcut is now known NOT to work** (`co_reduce.py`, `LITERATURE.md`): C-O's cross-ratio
+  reduces to a tautology and its Pfaffian to a coarse stratum indicator — only the discrete *sign*
+  reduces (to the Maslov bit `μ`). **So M5's difficulty is as originally estimated** (paper-scale,
+  XXIII); C-O serves only as a *dictionary for the bottom rung (`μ`)*, not a route to the `H³`/exotic
+  content. M1–M4 are scaffold; M5 is the genuinely char-2 proof.
 
 **What counts as progress short of M5:** any of M1–M4 cleanly done is a real contribution (it either
 finds an escape — falsifying item 21, very interesting — or adds a validated `H⁴`-level "absorbed"
