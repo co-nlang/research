@@ -6,6 +6,14 @@ P2 candidate is **value-level absorbed (Arf(Q₅)≈0, no `H⁴` escape) but NOT
 uniform no-exotic generation theorem. This doc localizes it, the template, the obstacles, and the
 milestones.*
 
+> **Proof skeleton (2026-06-23, `ITEM21_PROOF_SKELETON.md`).** Direction-(a) paper-math has assembled a
+> structural argument: item 21 splits by the `ω`/radical dichotomy (Step 0, verified) into the **`ω`-part**
+> (→ Lemma A `[GAP]` + item 23 `[PROVEN mod Kudo]`, in good shape) and the **radical part** (the hard
+> core). A sub-conjecture "Lemma B: Arf is the complete radical invariant" was **tested and REFUTED**
+> (`lemmaB_test.py`) — the radical carries XIX-modulus invariants beyond Arf. So the genuine remaining
+> target is the **radical/modulus FFT + a no-climb theorem for it**. Read `ITEM21_PROOF_SKELETON.md`
+> alongside this milestone ladder.
+
 ## 0. Orientation (one paragraph)
 
 Item 21 asks: is `H³` a **hard** ceiling for Pauli contextuality, i.e. is there *no* irreducible
