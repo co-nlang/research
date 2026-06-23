@@ -1,10 +1,36 @@
 # Item 21, M4 — the intrinsic exotic at K₆ vs the H⁴ fiber (the crux)
 
+> ## ⚠ CORRECTION (2026-06-23, `m4_cochain.py`) — two errors below are superseded
+> A collaborator caught that this note's `n=6` conclusion ("Arf is a Dickson polynomial in arity-≤4
+> Gram entries ⟹ no `H⁴` escape") is an invalid **value-level → cochain-level leap** — the same leap
+> the `n=4` control (`m5_relations.py`, §1 CORRECTION) showed is *not* valid. Investigating it exposed a
+> second error:
+> 1. **Wrong object/arity.** This note computed `Arf(Q₆)` = Arf of the *whole 6-Lagrangian config* = an
+>    **arity-6** invariant (a 5-cochain → `H⁵/K₇`). The item-21 object is the **arity-5** `Arf(Q₅)` of
+>    each 5-Lagrangian *face*, assembled over `K₆`'s 6 facets. The "non-constant `{0:39,1:4}` mechanism
+>    shift at `n=6`" was an **arity-6 red herring**.
+> 2. **The correct arity-5 `Arf(Q₅)` is value-level ~constant 0** (essentially always 0 where defined,
+>    `533/534` standalone `K₅` at `n=5` — *consistent with Paper XIX, which is the `n≥5` program*; at
+>    `n=4` the intrinsic `Q₅` never exists). The genuine mechanism is **constancy**, not "reducibility."
+> 3. **No cochain-level closure for this candidate.** `Arf(Q₅)` is a **partial** function (undefined
+>    where `Q₅` doesn't exist — never at `n=4`, ~12% of faces at `n≥5`), so it is **not a total arity-5
+>    cochain** and the `H⁴` pairing is ill-posed for it. The direct test `Σ_m Arf(face m)` is mostly 0
+>    with sporadic 1's that merely track the rare `Arf=1` faces (odd-count of rare events), **not** a
+>    structured `H⁴` class → **no evidence of an escape**, but **also not** a cochain-level exactness
+>    proof.
+>
+> **Corrected M4 status:** the intrinsic-Arf P2 candidate is **value-level absorbed** (`Arf(Q₅)≈0` where
+> defined, XIX-consistent) and shows **no `H⁴` escape**, but M4 does **not** establish cochain-level
+> exactness (the candidate is partial; the original "reducibility ⟹ exact" argument is retracted). Item
+> 21 (M5) is **unchanged — still open**. The body below is kept for the record; read it through this
+> correction. See `m4_cochain.py` + the M5 README.
+
 *Result (2026-06-23, `m4_intrinsic.py`): the P2 candidate — the intrinsic Arf invariant at `K₆` —
 is **absorbed (reducible to arity ≤4)** at `n≥5`, and **does not exist** at `n=4`. This is **outcome
 (a)** of the attack plan's three-way branch: one more evidence point **for** item 21, completing the
 P2 lift. It does **not** close item 21 (M5, the general FFT theorem, is untouched). Scope: bounded-
-sample on the generic stratum + a structural proof; **not** a nonexistence proof for all exotica.*
+sample on the generic stratum + a structural proof; **not** a nonexistence proof for all exotica.
+[SUPERSEDED in part — see the CORRECTION banner above.]*
 
 ## What M4 builds (the faithful lift of XIX §`sec:arf` / P2)
 

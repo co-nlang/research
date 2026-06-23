@@ -1,7 +1,8 @@
 # Item 21 (b) — The Arity-5 Exotic Escape: Attack Plan / Handover
 
-*Status: open, XXIII-level. Research-program handover. Scaffold M1–M4 now done (M4 = the intrinsic-Arf
-P2 candidate, absorbed — outcome (a), 2026-06-23); the one genuine remaining front is **M5**, the
+*Status: open, XXIII-level. Research-program handover. Scaffold M1–M3 done; M4 = the intrinsic-Arf
+P2 candidate is **value-level absorbed (Arf(Q₅)≈0, no `H⁴` escape) but NOT cochain-level closed**
+(corrected 2026-06-23 — see §4); the one genuine remaining front is **M5**, the
 uniform no-exotic generation theorem. This doc localizes it, the template, the obstacles, and the
 milestones.*
 
@@ -14,11 +15,13 @@ decomposable), and the arity-4 base case is **absorbed**: the natural `ω`-Maslo
 and Paper XIX rules out the exotic **Arf** invariant as an `H³` classifier. The probe `qk_saturation.py`
 shows the natural arity-5 `q₅` also saturates (`q₅≥q₄`, validated). So the **lone hard core** is: does
 a *genuinely-exotic* (non-`ω`, Arf/Dickson-type) **arity-5** invariant exist and escape to `H⁴`? The
-natural such candidate — the intrinsic Arf at `K₆` — has now been **tested and absorbed (M4, outcome
-(a), 2026-06-23):** it is reducible to arity-≤4 at `n≥5` and nonexistent at `n=4`, no `H⁴` escape (the
-program was built to distinguish support/re-plan/falsify, and what occurred was *support*). What
-remains (M5) is the *uniform* theorem: no exotic of **any** type escapes — M4 closes one candidate,
-not the unparametrized space (O3).
+natural such candidate — the intrinsic arity-5 Arf `Arf(Q₅)` — has been **tested (M4; corrected
+2026-06-23):** where defined it is **≈constant 0** (XIX-consistent — Paper XIX is the `n≥5` program;
+never defined at `n=4`), so **no `H⁴` escape**, but it is a *partial* invariant so M4 gives a
+*value-level* absorption, **not** a cochain-level exactness theorem (the earlier "reducible ⟹ exact"
+on the arity-6 `Arf(Q₆)` was a value→cochain leap, retracted). What remains (M5) is the *uniform*
+theorem: no exotic of **any** type escapes — M4 handles one candidate value-level, not the
+unparametrized space (O3).
 
 ## 0.5 Terminology (precise — do not leave these vague; this is a handover)
 
@@ -167,15 +170,25 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
      gave a `(c)`-flag; the O1 stress-test collapsed it, but the rich signature is *injective* at `n=6`
      so that statistic is vacuous — the **structural proof** carries it, not the bucket count.)
 
-   **Net:** the intrinsic-Arf (natural P2) candidate is **absorbed at all `n≥5`** — *one more evidence
-   point for item 21, and the P2 lift is complete*. The genuine discovery is the **mechanism shift**:
-   absorption is by *constancy* at `n=5` (value-level) but by *reducibility* at `n=6` (polynomial in
-   arity-≤4). **Crucially this does NOT close item 21:** M4 absorbs *one* candidate, not *all* exotica
-   (O3 — the exotic space is unparametrized). The `(c)`-falsification branch did **not** occur for the
-   Arf candidate.
+   **⚠ CORRECTED (2026-06-23, `m4_cochain.py`, collaborator-flagged).** Two errors above: (1) the
+   `n=6` "Arf is reducible ⟹ no `H⁴` escape" is an invalid **value→cochain leap** (the `n=4` control,
+   §1, shows value-reducibility ≠ cochain-exactness); (2) `Arf(Q₆)` is **arity-6** (a 5-cochain →
+   `H⁵/K₇`) — the **wrong object**. The item-21 object is the **arity-5** `Arf(Q₅)` of each face,
+   assembled over `K₆`'s 6 facets. Redone correctly: `Arf(Q₅)` is **value-level ≈ constant 0** (essentially
+   always 0 where defined — `533/534` standalone `K₅` at `n=5`, *consistent with Paper XIX = the `n≥5`
+   program*; **never exists at `n=4`**). The "`n=6` non-constant `{0:39,1:4}` mechanism shift" was an
+   **arity-6 red herring**. The direct cochain test `Σ_m Arf(face m)` is mostly 0 with sporadic 1's that
+   merely track the rare `Arf=1` faces (odd-count of rare events) — **not** a structured `H⁴` class —
+   and `Arf(Q₅)` is a **partial** function (undefined ~12% of faces at `n≥5`), so it is **not a total
+   arity-5 cochain** and the `H⁴` pairing is ill-posed for it.
 
-   *(Milestone M4 — DONE for the Arf/P2 candidate: outcome (a), no `H⁴` escape from this object. Other
-   non-Arf candidates and the general theorem remain → M5.)*
+   **Net (corrected):** the intrinsic-Arf P2 candidate is **value-level absorbed** (`Arf(Q₅)≈0`,
+   XIX-consistent) and shows **no `H⁴` escape**, but M4 does **NOT** establish cochain-level exactness
+   (the candidate is partial; "reducibility ⟹ exact" retracted). M4 absorbs *one* candidate value-level,
+   not *all* exotica (O3); `(c)`-falsification did not occur. **Item 21 (M5) unchanged — open.**
+
+   *(Milestone M4 — value-level absorbed (Arf(Q₅)≈0, no escape); cochain-level closure NOT established
+   for this candidate. The general theorem + a cochain-level argument remain → M5.)*
 5. **Reducibility / FFT-style generation theorem (the real theorem) — RECAST via prior art
    (`LITERATURE.md`).** This subfield is *already developed over `ℝ,ℂ`*: **Conley–Ovsienko**
    (`1812.04271`) give a generation theorem for `Sp(2n,K)`-invariants of Lagrangian configurations
@@ -235,13 +248,15 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
 
 **Grounded ladder status (updated 2026-06-23):** **M1 DONE** (XXII `thm:trunc`), **M2 DONE**
 (`k6_skeleton.py` — generic stratum `(2n,2n,0)`, structural facts verified), **M3 DONE-IN-SPIRIT**
-(XIX `Prop frameq`, arity-agnostic), **M4 DONE for the Arf/P2 candidate** (`m4_intrinsic.py` — outcome
-(a): intrinsic Arf absorbed at `n≥5`, nonexistent at `n=4`; mechanism shift constant→reducible),
-**M5 PARTIAL** (ray-level FFT = completeness lemma done; cohomological core + 2nd FFT open; two
-reduction shortcuts ruled out). So the genuinely-open content is the **cohomological core of M5**; the
-`ω`-generated front, the structural scaffold, the natural P2 exotic candidate, *and* the ray-level
-generation theorem are settled. M4 absorbed one candidate, not all (O3); M5's open core is the uniform
-cohomological-truncation theorem (no finite arity-reduction — `n=4` control).
+(XIX `Prop frameq`, arity-agnostic), **M4 value-level absorbed (corrected)** (`m4_intrinsic.py` +
+`m4_cochain.py` — `Arf(Q₅)≈0` where defined, XIX-consistent, **no `H⁴` escape**; but cochain-level
+closure NOT established — the candidate is partial, and the earlier "reducibility⟹exact" was a
+value→cochain leap), **M5 PARTIAL** (ray-level FFT = completeness lemma done; cohomological core +
+2nd FFT open; reduction/cohomology shortcuts ruled out). So the genuinely-open content is the
+**cohomological core of M5**; the `ω`-generated front, the structural scaffold, and the ray-level
+generation theorem are settled, and the P2 exotic candidate is value-level handled (no escape) though
+not cochain-closed. M5's open core is the uniform cohomological-truncation theorem about the *specific*
+arity-5 datum (no finite arity-reduction, no abstract-`H⁴` — all `n=4`-control-ruled-out).
 
 - **M1 (`c₅` exactness at `K₆`)**: **DONE — Paper XXII Theorem `thm:trunc`** (`c=δa`, proven via the
   4-index cochain-indexing argument — *cochain-level, stratum-agnostic*; verified `k6_truncation.py`,
@@ -252,13 +267,18 @@ cohomological-truncation theorem (no finite arity-reduction — `n=4` control).
   0%/40%/31% at n=4/5/6 (hands M4 a real branch (b) at n=4).
 - **M3 (frame-`q` P1)**: **DONE-IN-SPIRIT** — XIX `Prop frameq` is arity-agnostic and lifts verbatim
   to 15 rays; cite, don't re-derive.
-- **M4 (intrinsic exotic P2)**: **DONE for the Arf candidate** (`m4_intrinsic.py`,
+- **M4 (intrinsic exotic P2)**: **value-level absorbed, cochain-level NOT closed (corrected
+  2026-06-23, `m4_cochain.py`)** — the correct arity-5 `Arf(Q₅)` is ≈constant 0 where defined
+  (XIX-consistent, no `H⁴` escape), but is a *partial* function so it gives no total arity-5 cochain;
+  the earlier "reducibility ⟹ exact" and "constant→reducible mechanism shift" were a value→cochain leap
+  on the wrong (arity-6 `Arf(Q₆)`) object — retracted. Superseding the strikethrough below:
+  ~~**DONE for the Arf candidate** (`m4_intrinsic.py`,
   `M4_intrinsic_README.md`) — **outcome (a)**: the intrinsic Arf at `K₆` is absorbed at `n≥5`
   (constant at `n=5`, nonconstant-but-reducible at `n=6` — reducibility by the structural proof that
   `Arf` is the Dickson polynomial in the arity-≤4 ray-Gram), and does not exist at `n=4`. No `H⁴`
   escape from this object; the `(c)`-falsification branch did not occur. Discovery: the absorption
   *mechanism shifts* from constancy (`n=5`) to reducibility (`n=6`). Scope: absorbs *one* candidate,
-  not all exotica (O3) — does **not** close item 21.
+  not all exotica (O3) — does **not** close item 21.~~
 - **M5 (FFT/generation)**: the actual theorem. **Partial result obtained** — the **completeness
   lemma** (`m5_relations.py`): on the generic stratum `(G,R)` is a *complete* ray-invariant
   (ray-level first fundamental theorem; validated 140/140). **Two reduction shortcuts now ruled out:**
@@ -289,8 +309,9 @@ data point). The honest bar for *closing* item 21 is M5.
 - `qk_saturation.py` — `q_k` saturation, `q₅≥q₄` (the arity-5 `ω`-Maslov evidence).
 - `calib_q4.py` — machinery validated against XIX's exhaustive `q4_bit` (64000/64000).
 - `k6_skeleton.py` + `M2_skeleton_README.md` — M2: the `K₆` skeleton; generic stratum `(2n,2n,0)`.
-- `m4_intrinsic.py` + `M4_intrinsic_README.md` — M4: the intrinsic exotic `Q₆` + its Arf; outcome (a)
-  (absorbed at `n≥5`, mechanism shift constant→reducible; structural reducibility proof).
+- `m4_intrinsic.py` + `M4_intrinsic_README.md` — M4 first pass on `Arf(Q₆)` (arity-6 — wrong object;
+  see the README's CORRECTION banner). `m4_cochain.py` — the corrected arity-5 test: `Arf(Q₅)≈0`
+  (XIX-consistent, no escape), partial function ⟹ no cochain-level closure.
 - `m5_relations.py` + `M5_relations_README.md` — M5 partial: completeness lemma (ray-level FFT,
   `(G,R)` complete) + the ruled-out "`R` arity-≤4-generated" shortcut (`n=4` control, defect 7/7) +
   the ruled-out abstract-`H⁴` route (`n=4` control: abstract `H⁴=1≠0`, over-counts).
