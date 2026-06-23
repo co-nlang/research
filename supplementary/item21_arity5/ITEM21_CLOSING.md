@@ -115,6 +115,35 @@ the over-counters are *relational* (`R`), not pointwise-cohomological, so not na
 A genuine contextuality obstruction *is* the pointwise operator-phase `q`-defect, which is exactly
 pointwise-cohomological — so the condition is well-motivated, not ad hoc.
 
+### The condition, grounded operationally: contextuality = fixed-context gluing
+
+The condition can be reduced further — to the *operational definition of a contextuality scenario* — via
+the value-assignment (Kochen–Specker / All-vs-Nothing, Abramsky–Brandenburger) picture. A non-contextual
+assignment is a map `λ: rays → F₂` consistent across contexts. Three facts pin it down:
+
+1. **Contextuality is always cross-context.** *Within* a single context (a commuting Lagrangian) the
+   operators share eigenstates, so a consistent `λ` always exists locally. Hence every obstruction is a
+   *gluing* obstruction across contexts = **nerve cohomology** — built from the **fixed** context
+   structure of the scenario. This is exactly *naturality*: the contexts are fixed scenario data, not
+   config-dependent, so the obstruction is a natural nerve cochain.
+2. **The accidental relations `R` carry no contextuality.** The within-span constraint system
+   `{λ·a = q-defect(a) : a ∈ R}` is **always solvable** — by `λ = Q` (the `q`-charge vector
+   `Q_i = q(v_i)`) — because `q-defect(a) = Σ_{i∈a} q(v_i) = Q·a` is *linear* on `R` (polarization, since
+   `Σ_{i∈a}v_i = 0`). So the config-dependent `R` (the `n≥5` modulus) is **not** an obstruction source —
+   the operational confirmation of `phase_blind` (and of why the modulus is an *order parameter*, not a
+   witness).
+3. **The signs are `q`-defects.** The cross-context gluing carries the signs `q-defect` = pointwise `q`
+   evaluated on ray-sums (polarization) — so the obstruction is **pointwise-`q`** = representable. This is
+   `n_a` = item 23 link (A).
+
+So the naturality/representability `[CONDITION]` is not a free mathematical assumption: it is the statement
+that **the framework's obstruction is the standard contextuality obstruction** (cross-context gluing of
+value assignments, fixed contexts, `q`-defect signs). `[GAP, honest]` This is a *modeling identification*,
+well-supported but not proven in general here — proving "the framework's obstruction = the AvN nerve-
+cohomology obstruction" at all arities **is** the paper-scale piece (the nerve↔`H*(BH)` realization seen
+from the contextuality side, = (b-pos)). The reduction lowers the residual's status from "an assumed
+mathematical condition" to "the definition of the contextuality scenario the framework models."
+
 This residual is **not** the old "unparametrized exotic search" (O3) — it is one named, well-motivated
 condition. **Net: item 21 is reduced from an open modular-invariant-theory non-existence problem to
 "Witt + polarization + four verified computations, modulo the single naturality/representability
