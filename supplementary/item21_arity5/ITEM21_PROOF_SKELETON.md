@@ -74,8 +74,27 @@ space.
 
 **Conclusion of Step 2 (corrected):** the radical part is **richer than Arf** — it is the full XIX
 modulus invariant theory. M4 handles the Arf sliver (`≈0`); the genuine open gap is the **radical/
-modulus FFT** (classify the modulus invariants) **and** showing *none* of them climb to `H⁴`. This is
-larger than the original "Arf complete" claim — the firewall (testing Lemma B) caught the over-simplification.
+modulus FFT** (classify the modulus invariants) **and** showing *none* of them climb to `H⁴`.
+
+**Modulus FFT — two further findings (2026-06-23):**
+- **Primary generator identified `[VERIFIED]` (`modulus_fine.py`):** the **weight enumerator of `R`**
+  (the relation space as a binary code in `F₂^{10}`) is the *dominant* fine modulus generator —
+  adding it collapses the `(canon-G, Arf)` collisions `17→2` (`n=5`), `80→11` (`n=6`), and **Arf is
+  subsumed** (`(canon-G, weight-enum R)` alone gives the same residual; Arf `≈0` contributes nothing).
+  A small residual remains → at least one more generator. So the modulus generators are
+  `{N_anti (from G), weight-enum(R), …}`, *not* Arf.
+- **No-climb test over-counts `[VERIFIED]` (`modulus_climb.py`):** the weight-enumerator components
+  `A_w = (#`weight-`w` codewords in `R)` mod 2 give `Σ_m A_w(face m) ≠ 0` for `w=4..10` at `n≥5`. **This
+  is NOT an escape** — it is the `h4_cohomology` over-counting trap: `A_w` is a *non-coboundary*
+  invariant that varies across orbits, so it pairs `≠0` generically (the 6 faces are generically
+  distinct orbits), exactly like an orbit-indicator. `N_anti` pairs to 0 *only* because it is an exact
+  coboundary (M1); `A_w` is not. **Consequence:** the naive `Σ_m=0` test flags *all* non-coboundary
+  modulus invariants, natural or not — so the modulus no-climb theorem **cannot be computational**; it
+  requires the natural/indecomposable-data delimitation. The over-counting wall is reached *from inside
+  the modulus* — confirming (now a 3rd independent time) that the no-climb is insight-bound.
+
+This is larger than the original "Arf complete" claim — and the firewalls (testing Lemma B, then
+recognizing the over-counting in the climb test) caught two over-simplifications.
 
 ## Assembled statement
 
@@ -98,12 +117,15 @@ true remaining content is: *the char-2 generation theorem for the radical/modulu
 1. **Lemma B test — DONE (`lemmaB_test.py`): REFUTED.** `(G,Arf)` is *not* complete on the degenerate
    strata (15/56 collisions at `n=5/6`); the radical carries modulus invariants beyond Arf. So Step 2's
    target is the full modulus FFT, not "Arf complete."
-2. **Characterize the radical/modulus invariants** (the position of `R` in `ker G`): what is the
-   generating set of the `Sp`-invariants of the modulus stratum? (= XIX's modulus invariant ring, only
-   partially classified in XIX.) This is now the hard core of item 21.
-3. **No-climb for the modulus invariants:** show none of them furnish a non-exact `H⁴` 4-cochain (the
-   radical analogue of XXII's ceiling, for all modulus invariants — `n_a` done by XXII, Arf `≈0` by M4,
-   the rest open).
+2. **Characterize the radical/modulus invariants** — PARTLY DONE (`modulus_fine.py`): the **weight
+   enumerator of `R`** is the primary generator (Arf subsumed), with a small residual generator(s) still
+   to name. Full classification = XIX's modulus invariant ring (only partial in XIX) — the hard core.
+3. **No-climb for the modulus invariants — the naive test is INADEQUATE (`modulus_climb.py`):** the
+   modulus generators over-count (`Σ_m A_w ≠ 0` for non-coboundary `A_w`, the `h4_cohomology` trap), so
+   no-climb cannot be a `Σ_m=0` computation. It needs the **natural/indecomposable-data delimitation**
+   (which invariants are genuine contextuality data) — the insight-bound crux, now confirmed a 3rd time
+   (after `h4_cohomology` and the kerG self-correction). This is *the* obstacle to a computational
+   close of item 21.
 4. **Lemma A:** make the `ω`-Gram-invariants ↔ `ω`-cup-Steenrod-subring correspondence precise (the
    char-2 C-O generation theorem for the `ω`-part).
 
