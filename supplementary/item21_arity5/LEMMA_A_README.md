@@ -31,8 +31,9 @@ the firewall en route (recorded below). Firewall tags: `[VERIFIED]`, `[CLASSICAL
 | 2 (outlier) | 2 | 2 | **3** | 4 |
 | **3** | 1 (`q`) | 1 (`Sq¹q`) | **1 (`q²`)** | 2 |
 | **4** | 1 (`q`) | 1 (`Sq¹q`) | **1 (`q²`)** | 2 |
+| **5** | 1 (`q`) | 1 (`Sq¹q`) | **1 (`q²`)** | — |
 
-For `n=3,4` (stable; `n≥5` is in this regime — `n=2` is the small special case): the orthogonal
+For `n=3,4,5` (stable, including item 21's smallest case `n=5` — `n=2` is the small special case): the orthogonal
 generators sit at degrees **2 (`q`), 3 (`Sq¹q=n_a`), 5 (`ξ₂`), …** — i.e. `{2}∪{1+2^i}` (the orthogonal
 Dickson-type degrees) — and **there is NO generator at degree 4**: `dim H⁴^O = 1`, spanned entirely by
 `q²` (decomposable, family B). So:

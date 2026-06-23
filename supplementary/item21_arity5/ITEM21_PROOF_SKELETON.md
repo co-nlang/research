@@ -103,6 +103,30 @@ modulus FFT** (classify the modulus invariants) **and** showing *none* of them c
 This is larger than the original "Arf complete" claim — and the firewalls (testing Lemma B, then
 recognizing the over-counting in the climb test) caught two over-simplifications.
 
+## Step 1 ∪ Step 2 UNIFIED by the ambient-`O`-class criterion — Step 2 dissolves
+
+Lemma A supplied a concrete criterion for "natural data": **a genuine arity-5/`H⁴` obstruction is the
+evaluation on the nerve of an ambient `O`-invariant degree-4 cohomology class** (the over-counting
+config-invariants — indicators, weight enumerators — are excluded precisely because they are *not*
+ambient `O`-classes). This criterion **dissolves Step 2's hard core (the modulus FFT)**:
+
+- The genuine obstructions of **both** parts (`ω`-Gram *and* radical/modulus) are ambient `O`-classes.
+- `[VERIFIED n=3,4,5]` `dim H⁴(BV)^{O} = 1`, spanned by `q²` alone (`sp_invariants.py`).
+- `q²` is **decomposable** (a cup-square = family B) — *not* a new/primary obstruction (item 22:
+  family B is the floor, no independent resonance).
+- ⟹ **there is no indecomposable/primary degree-4 ambient `O`-class, so no exotic arity-5/`H⁴`
+  obstruction from any source.** The modulus config-invariants that "climb" (`modulus_climb.py`) are
+  over-counting artifacts — not ambient `O`-classes, hence not genuine obstructions — so they need not
+  (and cannot) be classified for item 21. The modulus FFT is moot for the `H⁴` question.
+
+So item 21 (`n≥5`) reduces to a **single** remaining gap: the **D-bridge** — *every* genuine
+contextuality obstruction is the nerve-evaluation of an ambient `O`-invariant class. This is **Direction
+D** (the spectral-sequence / characteristic-class bridge; memory `project_paper22`), with **item 23**
+(`n_a = Sq¹q`, mod Kudo) as its *verified degree-3 instance*. The D-bridge is general (all degrees), so
+once established it gives item 21 for free from the finite computed fact `dim H⁴^O = 1`. *(Caveat: the
+D-bridge is a substantial program, not a corollary; but it is a **named, general** target, replacing the
+unparametrized O3 exotic search.)*
+
 ## Assembled statement
 
 > **Item 21 holds for `n≥5`** *modulo*: **(i)** Lemma A — payoff **VERIFIED** (`n=3,4`: no
