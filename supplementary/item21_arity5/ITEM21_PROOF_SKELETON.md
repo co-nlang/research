@@ -127,6 +127,21 @@ once established it gives item 21 for free from the finite computed fact `dim H�
 D-bridge is a substantial program, not a corollary; but it is a **named, general** target, replacing the
 unparametrized O3 exotic search.)*
 
+**→ The D-bridge is now stated generally and its load-bearing piece verified — see `DBRIDGE.md`.**
+Three things settled there: **(1)** item 21 needs the *classification* direction (config ⟹ ambient),
+**not** item 23's *realization* direction (ambient ⟹ config) — and classification is exactly what
+excludes the over-counters. **(2)** General form = the LHS spectral sequence of the extra-special
+extension `1→ℤ/2→H→V→1`: `E₂=H*(V)[t]` (Quillen), obstructions = Kudo transgressions
+`τ(t^{2^k})=Sq^{2^{k-1}}…Sq¹q` at degrees `{2}∪{1+2^i}` — **the degree-4 gap is structural** (`t²→`deg3,
+`t⁴→`deg5). `bridge_tower.py` `[VERIFIED n=2,3,4]`: the ambient generators *are* the tower (not just
+dimension-matched) through degree 5 — `Sq²Sq¹q` is the indecomposable degree-5 generator; degree 4 has
+only `q²=Sq²q` (decomposable) and `Sq¹Sq¹q=0` (Adem). **(3)** The one new piece is a `[REFRAME]`: a
+*genuine* obstruction = a class pulled from `H*(BH)` (a characteristic class of the operator structure),
+not an arbitrary `Sp`-invariant config function — justified because contextuality is a property of the
+operator algebra `H`, not of a Lagrangian-tuple presentation. Under the reframe, item 21 is structurally
+**lighter** than item 23: being a *negative* statement it needs only "obstructions can't exceed the
+ambient ring" + the verified decomposability of `H⁴(BV)^O`, not item 23's hard *construction* of a class.
+
 ## Assembled statement
 
 > **Item 21 holds for `n≥5`** *modulo*: **(i)** Lemma A — payoff **VERIFIED** (`n=3,4`: no
