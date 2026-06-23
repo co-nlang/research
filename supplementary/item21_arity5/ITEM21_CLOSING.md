@@ -49,9 +49,16 @@ extra data that genuine natural obstructions do **not** use.
   **nerve-evaluations of ambient `H*(BV)^O` classes** (`V=(ℤ/2)^{2n}`, `O=O(q)`).
 
 **Step D — the degree-4 ambient `O`-ring is decomposable `[VERIFIED n=3,4,5 + OURS]`.**
-- `[OURS]` Resonance principle (Paper XXII; verified at the bottom: `μ`↔`ω` deg 2, `n_a`↔`Sq¹q` deg 3):
-  an arity-5 obstruction is a degree-4 cochain on `K₆ ≅ S⁴`, so (pairing with `[S⁴]`) the
-  nerve-evaluation of a **degree-4** ambient class.
+- `[OURS, now reduced to naturality]` Resonance / degree-matching: an arity-5 obstruction is a degree-4
+  cochain on `K₆ ≅ S⁴`, so the nerve-evaluation of a **degree-4** ambient class. *This degree-matching is
+  not an independent input — it follows from Step B's naturality by **representability** (Yoneda): a
+  natural, `O`-invariant, pointwise-cohomological degree-`k` assignment is represented by an element of
+  `H^k(BV)^O`, degree-matched automatically.* (Confirmed at the bottom: `μ`↔`ω` deg 2, `n_a`↔`Sq¹q` deg 3.)
+  Representability also **excludes the over-counters a second, independent way** (`gl_invariants.py`): the
+  climbing `A_w` is `GL`-invariant, so a natural ambient version would live in `H*(BV)^{GL}` = the Dickson
+  algebra, which is `0` below degree `2^{2n-1}` — `[VERIFIED n=2,3]` `H⁴(BV)^{GL}=0`. So `A_w` (nonzero as
+  a config function) is **not** a natural ambient class: it is *relational* (`R`), not
+  pointwise-cohomological. (Complements `phase_blind`'s `GL`-invariance exclusion.)
 - `[VERIFIED]` `dim H⁴(BV)^O = 1`, spanned by `q²` (`sp_invariants.py`, `bridge_tower.py`); the orthogonal
   generators sit at degrees `{2,3,5,9,…}={2}∪{1+2^i}` — **skipping degree 4**; and these generators *are*
   the Kudo transgression tower (`q, Sq¹q, Sq²Sq¹q`, verified indecomposable through deg 5).
@@ -85,33 +92,43 @@ needs the exact transgression *values*. This drops item 21's dependency from "ci
 | B | genuine natural cochain ⟹ pure-`ω`-Gram | **`[VERIFIED structural]`** (`n_a` = fixed Gram-combo, item 23 A; `R` independent, kerG) + **`[CONDITION]`** naturality |
 | C | pure-Gram genuine ⟹ ambient `O`-class eval | **`[VERIFIED n=2,3,4 + CLASSICAL]`** `witt_fft.py` (polarization + Witt) |
 | D | `H⁴(BV)^O = ⟨q²⟩`, decomposable (family B) | **`[VERIFIED n=3,4,5]`** `sp_invariants.py`,`bridge_tower.py` + item 22 |
+| D′ | degree-matching = representability (Yoneda), not an independent input | **`[VERIFIED n=2,3]`** `gl_invariants.py`: `H⁴(BV)^{GL}=0` ⟹ over-counters not natural ambient classes |
 | — | (b-pos) realization (which classes nonzero) | **`[CLASSICAL, Kudo]`** — needed for item 23, **not** item 21 |
 
-## The two honest residuals
+## The honest residual — now a SINGLE condition
 
-1. **`[CONDITION]` Naturality (Step B).** "Genuine obstruction = natural functorial nerve cochain" is the
-   condition that makes genuine ⟹ pure-Gram. It is standard (cohomology is functorial) and confirmed at the
-   bottom (`n_a` is manifestly natural/pure-Gram), but it is a *condition* delimiting "genuine," not a
-   theorem. Together with the `[REFRAME]` (genuine = operator-phase class, grounded by Step A) it pins down
-   the class of objects item 21 quantifies over.
-2. **`[OURS, relied-upon]` Resonance arity↔ambient-degree (Step D).** That an arity-5 obstruction
-   corresponds to a degree-4 *ambient* class is the resonance principle (Paper XXII), verified at arities
-   3–4 (item 23). The conclusion uses only its *containment* form (arity-5 ⟹ degree-4), the natural
-   continuation of the verified pattern; it is not independently re-proven at arity 5 here.
+The two residuals previously flagged (naturality; resonance arity↔ambient-degree) **collapse into one**.
+The resonance/degree-matching step (D) is **not independent**: by **representability of natural operations**
+(Yoneda), a natural `O`-invariant *pointwise-cohomological* degree-`k` assignment is an element of
+`H^k(BV)^O` — so the degree-matching *follows from* the naturality condition (Step B). What remains is the
+single:
 
-Neither residual is the old "unparametrized exotic search" (O3) — both are named, bounded, and close to
-established results. **Net: item 21 is reduced from an open modular-invariant-theory non-existence problem
-to "Witt + polarization + resonance + four verified computations, modulo a naturality condition,"** with
-Kudo confined to the (b-pos) existence side.
+> **`[CONDITION]` Genuine obstruction = natural, pointwise-cohomological nerve cochain.** This (with the
+> `[REFRAME]`, grounded by Step A) delimits the objects item 21 quantifies over. It is standard
+> (cohomology is functorial; representable) and confirmed at the bottom (`n_a` = the pointwise `q`-defect,
+> item 23 link A) — but it is a *condition*, not a theorem.
+
+The condition is grounded **two independent ways**, and both *also* exclude the over-counters: (i) **Step A
+phase_blind** — genuine obstructions are `Sp`/`O`-but-not-`GL` (phase-dependent), the over-counters are
+`GL`-invariant (phase-blind); (ii) **representability** (`gl_invariants.py`, `H⁴(BV)^{GL}=0` at `n=2,3`) —
+the over-counters are *relational* (`R`), not pointwise-cohomological, so not natural ambient classes.
+A genuine contextuality obstruction *is* the pointwise operator-phase `q`-defect, which is exactly
+pointwise-cohomological — so the condition is well-motivated, not ad hoc.
+
+This residual is **not** the old "unparametrized exotic search" (O3) — it is one named, well-motivated
+condition. **Net: item 21 is reduced from an open modular-invariant-theory non-existence problem to
+"Witt + polarization + four verified computations, modulo the single naturality/representability
+condition,"** with Kudo confined to the (b-pos) existence side.
 
 ## What is NOT claimed
-- Item 21 is **not** declared proven: the naturality `[CONDITION]` and the resonance `[OURS]` step are
-  inputs, not outputs, and the Witt FFT is verified only at `n=2` in-setting (classical for all `n`).
+- Item 21 is **not** declared proven: the single naturality/representability `[CONDITION]` is an input,
+  not an output, and the Witt FFT is verified only at `n=2` in-setting (classical for all `n`).
 - We do not re-derive Quillen/Kudo, nor construct the general nerve↔`H*(BH)` realization (= (b-pos),
   item 23-general). That remains the paper-scale program — but it is **off item 21's critical path**.
 
 ## Files
 - `kerG_reduction.py`/`M5_kerG_reduction_README.md` (Step 0) · `phase_blind.py` (Step A) ·
   `witt_fft.py` (Step C) · `sp_invariants.py`/`LEMMA_A_README.md`, `bridge_tower.py` (Step D) ·
+  `gl_invariants.py` (Step D′: representability — `H⁴(BV)^{GL}=0`, resonance follows from naturality) ·
   `DBRIDGE.md` (the bridge + the (b-pos)/(b-neg) split) · `ITEM21_PROOF_SKELETON.md` (the long form).
 - item 23: `../item23_search/closing_note.md` (the degree-3 realization = (b-pos) instance).
