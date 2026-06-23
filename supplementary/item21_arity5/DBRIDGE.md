@@ -118,6 +118,26 @@ two were the same obstacle. **The radical/modulus part (Step 2) needs no separat
 invariants are genuine only insofar as they are pullbacks of ambient classes, and the ambient degree-4
 ring is `⟨q²⟩` (decomposable) — so the modulus contributes no exotic `H⁴` obstruction either.
 
+**The exclusion is PRINCIPLED, not fiat `[VERIFIED n=4,5,6, phase_blind.py]`.** The firewall worry about a
+*definitional* reframe is "are you just discarding whatever doesn't fit?" No — the excluded over-counters
+have a concrete disqualifying property: they are **phase-blind**. The climbing invariant `A_w` (weight
+enumerator of the relation code `R`) is computed from `R = {subsets of the 15 rays summing to 0}` — the
+`F₂`-linear *dependency* structure of the ray vectors — and **never references `ω`**. Hence:
+
+- `A_w` is a function of `R`, and `R` is preserved by **every** `g ∈ GL(2n,F₂)` (`Σ g·v_i = g·Σv_i = 0
+  ⟺ Σv_i = 0`); so **`A_w` is `GL(2n,F₂)`-invariant** — it lives at the *incidence* level.
+- contextuality is a **phase** phenomenon: `n_a = Σ ω(·,·)` over disjoint pairs is built from `ω`, which
+  `Sp` preserves but the larger `GL` does **not**; so **`n_a` is `Sp`-invariant, not `GL`-invariant** — it
+  lives at the *phase* level.
+
+Verified: applying random `g ∈ GL\Sp` to a proper `K₆`'s 15 rays leaves `R` and `A_w` **exactly unchanged
+(0/720, 0/720, 0/480** at `n=4,5,6`) while flipping `N_anti` **~50% of the time** (the phase `ω` is
+destroyed). So `A_w` is constant *precisely where the genuine obstruction varies*. A phase-blind
+invariant cannot witness a phase obstruction — **that** is why the over-counters are not genuine, and it
+is a structural fact about where each invariant's data lives, not a choice. (This is the operational
+content of "pulled from `H*(BH)`": `H*(BH)` is the operator-phase cohomology = the `Sp`/`O`-level data;
+`GL`-invariant incidence combinatorics is a strictly coarser, contextuality-blind layer.)
+
 ## 4. Honest ledger
 
 | piece | content | status |
@@ -128,6 +148,7 @@ ring is `⟨q²⟩` (decomposable) — so the modulus contributes no exotic `H�
 | generators **=** tower (not just dims) | `Sq²Sq¹q` is the deg-5 indecomposable | **`[VERIFIED n=2,3,4]`** (T1–T3) |
 | `q² = Sq²q` decomposable = family B | the deg-4 class is not exotic | **`[VERIFIED]`** + item 22 |
 | **config ⟹ ambient classification** | genuine obstruction := pulled from `H*(BH)` | **`[REFRAME]`** — justified (contextuality = property of `H`); over-counters excluded *by* it |
+| over-counters are phase-blind (`GL`-invariant) | the reframe's exclusion is principled | **`[VERIFIED n=4,5,6]`** `phase_blind.py`: `A_w` `GL`-invariant (0 changes), `N_anti` flips ~50% under non-`Sp` `GL` |
 | full nerve↔`H*(BH)` realization, all degrees | item 23 general | **`[GAP / CLASSICAL-backed]`** item 23 is the degree-3 instance: links (A) proven, (C) all-`n`, (B) on **cited** Kudo, *no finite reduction in hand* |
 
 ## 5. Where this leaves item 21
@@ -150,6 +171,8 @@ finite verified fact that the ambient degree-4 ring is decomposable. **This is w
 "higher," is structurally *lighter* than item 23.**
 
 ## Files
+- `phase_blind.py` — §3: the over-counters are `GL`-invariant (phase-blind) while `n_a` is `Sp`-only —
+  grounds the reframe's exclusion as principled (`A_w` 0 changes under `GL`; `N_anti` flips ~50%).
 - `bridge_tower.py` — §2/§3: ambient `O`-generators **are** the Kudo transgression tower through deg 5
   (T1 `O`-invariance, T2 deg-4 gap + Adem, T3 `Sq²Sq¹q` indecomposable). `n=2,3,4` all pass.
 - `sp_invariants.py` / `LEMMA_A_README.md` — `dim H^d(BV)^O` by degree (`dim H⁴^O=1=⟨q²⟩`, `n=3,4,5`).
