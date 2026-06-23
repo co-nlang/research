@@ -25,44 +25,63 @@ space). Linear algebra pins how `R` relates to `G`:
 | 6 | **~17%** (51/300) | `(10,2)` 43%, `(9,1)` 19%, `(10,0)` 17% |
 
 **Consequence [VERIFIED, value-level].** On the nondegenerate stratum `R = ker(G)` is *recovered from
-`G`*, so `(G,R)=(G,ker G)` and **every arity-5 invariant is a function of the `ω`-Gram alone** — the
-nondegenerate-stratum invariant ring is `ω`-generated. So any exotic arity-5 invariant must live in
-**one of two places**:
-1. an `ω`-Gram-function on the **nondegenerate** stratum (all of `n=4`; ~20% at `n≥5`); or
-2. the **radical** data `rad(ω|_W)` on a **degenerate** stratum (the bulk at `n≥5`).
+`G`*, so `(G,R)=(G,ker G)` and **every arity-5 invariant is a function of the `ω`-Gram alone**. *(Caveat
+— see the self-correction below: "function of `G`" = **all** invariants here, including indicators, so
+this is not by itself a constraint.)* The genuinely-new datum at `n≥5` is what appears **beyond** `G`:
+1. on the **nondegenerate** stratum (all of `n=4`; ~20% at `n≥5`) there is **nothing beyond `G`**;
+2. on the **degenerate** strata (the bulk at `n≥5`) the extra datum is exactly the **radical**
+   `rad(ω|_W)`.
 
 ## Why this matters: case (2) IS Paper XIX's modulus
 
-`rad(ω|_W)` is **Paper XIX's order parameter** for the `n≥5` modulus. So the reduction says: item 21's
-`n≥5` exotic content lives in *exactly* the radical/modulus data XIX already isolated. The `n`-pattern
-matches: at `n=4` the stratum is 100% nondegenerate (`rad=0`) → purely `ω`-generated → no modulus, and
-item 21 holds via the `ω`-world (consistent with `n=4` settled); at `n≥5` the degenerate bulk carries
-`rad(ω|_W)>0` → XIX's modulus appears → that's where the exotic could hide.
+`rad(ω|_W)` is **Paper XIX's order parameter** for the `n≥5` modulus. So the reduction says: the
+*extra-`ω`* content available to an arity-5 invariant at `n≥5` is *exactly* the radical/modulus data XIX
+already isolated. The `n`-pattern matches: at `n=4` the stratum is 100% nondegenerate (`rad=0`) → no
+extra data beyond `G`, no modulus (consistent with `n=4` settled); at `n≥5` the degenerate bulk carries
+`rad(ω|_W)>0` → XIX's modulus appears → that is the only place extra-`ω` content can hide.
 
-## Item 21, localized — the open core, by case
+## ⚠ Self-correction (2026-06-23) — what the reduction does and does NOT give
 
-- **Case (1), `ω`-Gram-functions [CONJECTURAL, cochain-level].** Sketch toward "no `H⁴`": a single
-  `ω`-Gram atom `ω(r_{ij},r_{kl})` is `≤4`-index = a `≤3`-cochain; a *sum* of such atoms indexed by the
-  4-subsets of a 5-config is `δ(arity-4)` = **exact** (the M1 mechanism, proven for `N_anti`); a
-  *product* of `≥2` atoms is a cup product of degree `≥6` (wrong degree for `H⁴` on `S⁴`). So no
-  `ω`-Gram-function plausibly furnishes a non-exact 4-cochain — this is XXII's resonance/ceiling applied
-  to the full `ω`-ring rather than just the anticommutation datum. **Not yet a proof** (the FFT for the
-  `ω`-Gram ring is the gap).
-- **Case (2), radical/modulus [partly handled]**. The natural radical-based exotic is the intrinsic Arf
-  (XIX's candidate). The corrected M4 (`m4_cochain.py`) finds `Arf(Q₅) ≈ const 0` where defined
-  (value-level, no `H⁴` escape) — first evidence the radical datum does **not** climb. A full closure
-  needs the FFT for the radical data (which other radical invariants exist, and do they climb?). This is
-  the genuine `n≥5` core, and it is **XIX's modulus ↔ XXII's ceiling** restated for `H⁴`.
+An earlier draft of this note claimed the reduction *dispatches* a "case (1)" (nondegenerate stratum)
+via "every invariant is `ω`-generated ⟹ XXII handles it." **That over-reached** — caught by re-running
+the session's own `h4_cohomology` lesson on it:
+
+- On the nondegenerate stratum the orbit **is** `G` (since `R=ker G`), so `{functions of G} = {all
+  Sp-invariants}` — including the orbit-**indicators** that give `Σ_m=1` (the `h4_cohomology`
+  over-counting). So "ω-generated" is **vacuous as a constraint** there: it does **not** invoke XXII,
+  and it does **not** separate natural data from indicators.
+- The "product of atoms ⟹ degree `≥6` cochain" sub-sketch was also loose — it conflated *polynomial
+  degree in the Gram* with *cochain degree on the nerve*; `F(\text{face})` is just a number, not a cup
+  product.
+
+So **neither stratum is "dispatched"** by the reduction. The natural-data delimitation (which invariants
+count as obstruction-carriers, excluding indicators) is untouched and remains the insight-bound crux.
+
+## What the reduction DOES give [SOLID]
+
+The verified, surviving content is the **identification of the extra data**:
+
+> The only datum an arity-5 invariant can depend on *beyond the `ω`-Gram `G`* is the **radical
+> `rad(ω|_W)`**, which is present exactly on the degenerate strata (`n≥5`) and **is Paper XIX's modulus
+> order parameter**.
+
+So: at `n=4` the stratum is 100% nondegenerate (`rad=0`) — no extra data, no modulus (consistent with
+`n=4` settled); at `n≥5` the degenerate bulk carries `rad(ω|_W)` = XIX's modulus, and that is the *only*
+place extra-`ω` content can live. The natural radical-based exotic (XIX's intrinsic Arf) is found `≈0`
+by the corrected M4 (`m4_cochain.py`) — first evidence the radical datum does not climb to `H⁴`.
 
 ## Net
 
-Item 21 is reduced (value-level, verified) to: **does XIX's radical/modulus datum climb from `H³` to
-`H⁴`?** — i.e. XXII's ceiling theorem applied to the radical, the bottom case (anticommutation) of
-which XXII already proved and the natural radical-exotic (Arf) of which M4 finds `≈0`. The reduction
-**does not close** item 21 (the two FFT gaps above remain, both cochain-level/insight-bound), but it
-localizes the exotic precisely and connects item 21 to the XIX/XXII machinery rather than an
-unparametrized search. **Firewall note:** the reduction is value-level/verified; every "⟹ no `H⁴`" step
-is flagged cochain-level/conjectural and still requires a direct `Σ=0`/`δ`-witness or an FFT proof.
+The reduction **does not close** item 21 and does **not** dispatch either stratum (the over-counting and
+the natural-data problem are untouched — both cochain-level/insight-bound). Its real value is the
+**localization**: the extra-`ω` content of item 21 at `n≥5` is exactly `rad(ω|_W)` = **XIX's modulus**,
+so item 21's `n≥5` core is "**does XIX's radical modulus climb `H³→H⁴`?**" — XXII's ceiling restated for
+the radical (bottom/anticommutation case proven by XXII; natural Arf exotic `≈0` by M4). That connects
+item 21 to the XIX/XXII machinery rather than an unparametrized search — but the FFT (which natural
+invariants generate, and whether they climb) remains the insight-bound gap. **Firewall note:** the
+extra-data localization is value-level/verified; every "⟹ no `H⁴`" is cochain-level/conjectural and
+needs a direct `Σ=0`/`δ`-witness or an FFT proof. The over-counting trap (functions-of-`G` ⊋ natural
+data) applies on *all* strata and is the reason no computational scan settles this.
 
 ## Files
 - `kerG_reduction.py` — verifies `R⊆ker(G)`, `R=ker(G)⟺rad=0`, and the stratum/nondeg breakdown.

@@ -227,12 +227,18 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    stratum every arity-5 invariant is a function of the `ω`-Gram alone** (`ω`-generated). The nondeg
    fraction is **100% at `n=4`** (control), but **only ~21%/~17% at `n=5`/`n=6`** — the bulk at `n≥5`
    is degenerate, where the extra-`ω` datum is exactly `rad(ω|_W)` = **Paper XIX's modulus order
-   parameter**. So item 21 splits into: (1) `ω`-Gram-functions (nondeg; XXII's resonance domain — sketch:
-   single atoms are `≤3`-cochains, sums-over-4-subsets are exact (M1), products are degree `≥6`; **not
-   yet proven**) and (2) the **radical/modulus** data (degen, `n≥5` = XIX's modulus; natural exotic =
-   Arf, which `m4_cochain.py` finds `≈0`). **Net (value-level, verified):** item 21's `n≥5` core =
-   "does XIX's radical modulus climb `H³→H⁴`?" = XXII's ceiling applied to the radical. Does **not**
-   close item 21 (the two FFT gaps remain, cochain-level), but localizes the exotic to XIX/XXII machinery.
+   parameter**. **What this gives [SOLID]:** the *only datum beyond the `ω`-Gram* available to an arity-5
+   invariant at `n≥5` is the radical = XIX's modulus (nothing beyond `G` on the nondeg stratum; `n=4` is
+   100% nondeg → no modulus, consistent with settled). **Self-correction (do NOT repeat):** an earlier
+   draft claimed this *dispatches* a "nondeg case via ω-generation ⟹ XXII" — that over-reached. On the
+   nondeg stratum `{functions of G} = {all invariants}` (orbit = `G`), so it includes indicators with
+   `Σ=1` (the `h4_cohomology` over-counting); "ω-generated" is **vacuous as a constraint** and does NOT
+   invoke XXII; the "product ⟹ degree ≥6" sub-sketch conflated polynomial- with cochain-degree.
+   **Net (value-level, verified):** the reduction **localizes** item 21's `n≥5` extra content to
+   `rad(ω|_W)` = XIX's modulus (so the core is "does XIX's radical modulus climb `H³→H⁴`?" — XXII's
+   ceiling on the radical; bottom case proven by XXII, natural Arf exotic `≈0` by M4). It does **not**
+   dispatch either stratum (over-counting + natural-data delimitation untouched) and does **not** close
+   item 21 — it ties the open core to XIX/XXII rather than an unparametrized search.
 
    **Third route ruled out — abstract-complex `H⁴` does NOT model item 21 (2026-06-23,
    `h4_cohomology.py`).** Completeness makes the abstract `Sp`-invariant cochain complex computable
