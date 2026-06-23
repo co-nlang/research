@@ -221,6 +221,19 @@ So the (b)-level objects are: **6 Lagrangians in proper position, 15 rays, ray-s
    statement and the descent gap opens no escape (it sharpens M5's scope). *(Corrects an earlier
    over-optimistic "`n≤5` faithful" guess; the faithful regime is the universal dimension `n=4` only.)*
 
+   **Structural reduction — the exotic lives in `rad(ω|_W)` = XIX's modulus (2026-06-23,
+   `kerG_reduction.py`, `M5_kerG_reduction_README.md`). [VERIFIED value-level.]** Since `R⊆ker(G)`
+   always and `ker(G)/R≅rad(ω|_W)` (verified 1100/1100), `R=ker(G) ⟺ rad=0`. So on the **nondegenerate
+   stratum every arity-5 invariant is a function of the `ω`-Gram alone** (`ω`-generated). The nondeg
+   fraction is **100% at `n=4`** (control), but **only ~21%/~17% at `n=5`/`n=6`** — the bulk at `n≥5`
+   is degenerate, where the extra-`ω` datum is exactly `rad(ω|_W)` = **Paper XIX's modulus order
+   parameter**. So item 21 splits into: (1) `ω`-Gram-functions (nondeg; XXII's resonance domain — sketch:
+   single atoms are `≤3`-cochains, sums-over-4-subsets are exact (M1), products are degree `≥6`; **not
+   yet proven**) and (2) the **radical/modulus** data (degen, `n≥5` = XIX's modulus; natural exotic =
+   Arf, which `m4_cochain.py` finds `≈0`). **Net (value-level, verified):** item 21's `n≥5` core =
+   "does XIX's radical modulus climb `H³→H⁴`?" = XXII's ceiling applied to the radical. Does **not**
+   close item 21 (the two FFT gaps remain, cochain-level), but localizes the exotic to XIX/XXII machinery.
+
    **Third route ruled out — abstract-complex `H⁴` does NOT model item 21 (2026-06-23,
    `h4_cohomology.py`).** Completeness makes the abstract `Sp`-invariant cochain complex computable
    (`C^k`=functions on `(k+1)`-Lagrangian orbits, `δ`=simplicial coboundary, `H⁴=|C⁴|−rank δ⁴−rank δ³`).
@@ -319,6 +332,9 @@ data point). The honest bar for *closing* item 21 is M5.
   model of item 21 by the `n=4` control. Signpost: do not re-attempt the abstract-cohomology route.
 - `descent_gap.py` — ray↔Lagrangian descent: faithful **exactly at `n=4`**, partial `n=5`, never `n≥6`
   (so the ray-level FFT is strictly weaker than a Lagrangian-tuple FFT for `n≥5`; item 21 is ray-level).
+- `kerG_reduction.py` + `M5_kerG_reduction_README.md` — **structural reduction**: `R=ker(G)⟺rad=0`;
+  nondeg stratum is `ω`-Gram-generated (100% at `n=4`, ~20% at `n≥5`); the degen bulk's extra datum is
+  `rad(ω|_W)` = XIX's modulus. Localizes the exotic to XIX/XXII (value-level verified).
 - `co_reduce.py` — the C-O mod-2 reduction attempt: cross-ratio vacuous (`3≡1`), Pfaffian a coarse
   stratum indicator — the `H³`/exotic obstruction is orthogonal to C-O, not a reduction (rules out the
   reduction shortcut for M5).
