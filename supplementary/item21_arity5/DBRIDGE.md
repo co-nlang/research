@@ -149,13 +149,63 @@ content of "pulled from `H*(BH)`": `H*(BH)` is the operator-phase cohomology = t
 | `q² = Sq²q` decomposable = family B | the deg-4 class is not exotic | **`[VERIFIED]`** + item 22 |
 | **config ⟹ ambient classification** | genuine obstruction := pulled from `H*(BH)` | **`[REFRAME]`** — justified (contextuality = property of `H`); over-counters excluded *by* it |
 | over-counters are phase-blind (`GL`-invariant) | the reframe's exclusion is principled | **`[VERIFIED n=4,5,6]`** `phase_blind.py`: `A_w` `GL`-invariant (0 changes), `N_anti` flips ~50% under non-`Sp` `GL` |
-| full nerve↔`H*(BH)` realization, all degrees | item 23 general | **`[GAP / CLASSICAL-backed]`** item 23 is the degree-3 instance: links (A) proven, (C) all-`n`, (B) on **cited** Kudo, *no finite reduction in hand* |
+| **(b-neg)** phase-derived = function of the Gram | polarization + Witt FFT | **`[VERIFIED + CLASSICAL]`** `witt_fft.py`: polarization 0 mismatches (`n=2,3,4`); `n=2` orbit ⟺ (Gram,relations), `\|O(q)\|=72` |
+| **(b-neg)** genuine ⊆ ambient `O`-ring, deg-4 decomposable ⟹ no exotic | item 21 negative direction | **`[ADVANCE]`** needs Witt+polarization+resonance, **NOT Kudo** (Kudo only for (b-pos)/item 23) |
+| **(b-pos)** full nerve↔`H*(BH)` realization (which classes are realized nonzero) | item 23 general | **`[GAP / CLASSICAL-backed]`** item 23 is the degree-3 instance: links (A) proven, (C) all-`n`, (B) on **cited** Kudo, *no finite reduction* — needed for *existence*, NOT for item 21 |
+
+## 4½. Attacking (b): the classification direction needs only Witt, NOT Kudo `[ADVANCE]`
+
+The gap (b) — *every genuine obstruction comes from an ambient class* — looked like it needed the full
+nerve↔`H*(BH)` realization (item 23-general, Kudo-backed, "no finite reduction in hand"). It does **not**,
+for item 21. (b) **splits**, and item 21 needs only the easy half:
+
+- **(b-pos), realization:** *which* ambient classes are realized as nonzero obstructions. Item 23's
+  direction — secondary operation, transgression, **needs Kudo**. Required for *existence*.
+- **(b-neg), classification:** the *bound* — genuine obstructions cannot exceed the ambient `O`-ring.
+  Required for item 21's *non-existence*. **This is where Kudo drops out.**
+
+The (b-neg) chain, with its footing:
+
+1. **genuine ⟹ phase-derived** — `[VERIFIED n=4,5,6]` (`phase_blind.py`, §3): over-counters are
+   `GL`-invariant (phase-blind), genuine obstructions are `Sp`/`O`-but-not-`GL` (phase-dependent).
+2. **phase-derived ⟹ a function of the `q/ω`-Gram `{q(v_i), ω(v_i,v_j)}`** — `[VERIFIED + CLASSICAL]`:
+   - **polarization** (`witt_fft.py` (A), `0` mismatches, `n=2,3,4`, all-`n` mechanism): `q` is a
+     quadratic refinement of `ω`, so `q(Σ_{i∈S}v_i) = Σ_{i∈S}q(v_i) ⊕ Σ_{i<j∈S}ω(v_i,v_j)` — the `q`-value
+     of **every** ray-sum (= every phase datum on the span) is *determined by the Gram*. So phase-derived
+     data **is** the Gram, with no extra input. (Same polarization as item 23 link (A) — elementary.)
+   - **Witt FFT** (`witt_fft.py` (B), `n=2`: `|O(q)|=72`, **orbit ⟺ (Gram, relations)**, `0` signatures
+     splitting): the Gram (+ linear relations) is a **complete `O`-invariant** of a vector tuple (Witt's
+     extension theorem over `F₂`). With phase_blind (the relation part is `GL`-invariant = phase-blind =
+     *not* genuine), the **genuine `O`-invariants are exactly the functions of the `q/ω`-Gram** = the
+     nerve-evaluations of ambient `H*(BV)^O` classes. *(The `O⁺₄(F₂)` transvection-generation exception
+     was hit and corrected — `O(q)` is built directly, giving the full 72.)*
+3. **arity-5 obstruction ↔ ambient degree-4 `O`-class** — the **resonance principle** (Paper XXII; arity-`a`
+   ⟷ degree-`(a-1)`, verified at the bottom: `μ`⟷`ω` deg 2, `n_a`⟷`Sq¹q` deg 3). So a *genuine* arity-5
+   obstruction is the nerve-evaluation of an element of `H⁴(BV)^O`.
+4. **`H⁴(BV)^O = ⟨q²⟩`, decomposable** — `[VERIFIED n=3,4,5]` (`sp_invariants.py`); `q²` = family B
+   (item 22). So the only genuine arity-5 obstruction is `μ²` (the cup-square of the Maslov class) — **not
+   exotic**. ⟹ no exotic arity-5/`H⁴` obstruction, all `n≥5`. ∎ **(no Kudo used)**
+
+**Why Kudo drops out:** the negative direction needs only the *containment* "genuine ⊆ ambient `O`-ring"
+(Witt + polarization) and the *target* ring's degree-4 part being decomposable (verified). It never needs
+the *exact transgression values* (Kudo) — those say *which* ambient classes are realized nonzero, which is
+only relevant to proving an obstruction *exists* (b-pos / item 23), not to bounding what *can* exist.
+
+`[GAP, honest]` The one step that is *ours-but-relied-upon* (not re-derived from scratch here) is the
+**resonance arity↔ambient-degree matching** of step 3 — established at the cochain level in Paper XXII and
+confirmed at the bottom degrees (arities 3, 4) by item 23. The (b-neg) conclusion uses only the
+*containment* form of it (genuine arity-5 ⟹ ambient degree-4), the natural continuation of the verified
+`μ`⟷deg-2, `n_a`⟷deg-3 pattern. So item 21's residual dependency is: **Witt's theorem (classical) +
+polarization (elementary) + the resonance bookkeeping (Paper XXII) + the finite verified facts** — and
+**not** the Kudo realization that item 23 could not finitely reduce. This is a strictly firmer footing than
+§5's "modulo the Kudo/Quillen backbone."
 
 ## 5. Where this leaves item 21
 
 **Item 21 (`n≥5`) holds, modulo the `[REFRAME]` of §3 (genuine obstruction = characteristic class of the
-operator structure) and the cited Kudo/Quillen backbone.** Given the reframe, the proof is short and the
-load-bearing facts are verified:
+operator structure) and — via §4½ — Witt + polarization + the resonance bookkeeping (NOT Kudo).** The
+Kudo/Quillen backbone is needed only for the *positive* realization (item 23 / (b-pos)), not for item 21's
+negative direction. Given the reframe, the proof is short and the load-bearing facts are verified:
 
 1. genuine obstructions are transgressions in the extra-special extension's SS (§1, `[CLASSICAL]`);
 2. the transgression tower has **no rung in degree 4** (`[VERIFIED through deg 5]`, §2);
@@ -171,6 +221,9 @@ finite verified fact that the ambient degree-4 ring is decomposable. **This is w
 "higher," is structurally *lighter* than item 23.**
 
 ## Files
+- `witt_fft.py` — §4½ (b-neg) step 2: polarization (phase data = Gram, `0` mismatches `n=2,3,4`) + Witt
+  FFT (`n=2`: orbit ⟺ (Gram, relations), `|O(q)|=72`) — genuine `O`-invariants = functions of the Gram,
+  on classical footing (no Kudo).
 - `phase_blind.py` — §3: the over-counters are `GL`-invariant (phase-blind) while `n_a` is `Sp`-only —
   grounds the reframe's exclusion as principled (`A_w` 0 changes under `GL`; `N_anti` flips ~50%).
 - `bridge_tower.py` — §2/§3: ambient `O`-generators **are** the Kudo transgression tower through deg 5
