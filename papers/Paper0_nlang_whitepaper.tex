@@ -1,0 +1,297 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{mathtools}
+
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\rad}{\mathrm{rad}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Nanti}{N_{\mathrm{anti}}}
+\newcommand{\Sq}{\mathrm{Sq}}
+
+% --- drafting flag: visible TODOs for the spec-side anchoring the author must confirm ---
+\newcommand{\userflag}[1]{\textcolor{red}{\textsf{[\textbf{USER:} #1]}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{principle}[theorem]{Principle}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\title{\textbf{The n/ Program:\\
+  Semantic Self-Representation and Its Dimensional Obstruction}\\[4pt]
+\large (Paper 0 --- the n/ Whitepaper for CAID)}
+\author{Zhou-Li Chen\\[2pt]\small co-nlang Research}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+n/ is a semantic operating system built on a single stance: meaning is
+\emph{discovered, not invented}, and a system worth the name must be able to
+represent --- to \emph{observe} --- itself coherently. The second half of that
+stance is the engineering decision we call \textbf{CAID}: a structure should
+carry a coherent self-interpretation. This whitepaper records the mathematical
+fate of that decision. Across a twenty-two paper series the same object is
+computed at successively higher cohomological degree --- the obstruction to a
+structure observing itself --- and the verdict is sharp: \emph{semantic
+self-representation is dimensionally obstructed, and it is free of obstruction at
+exactly one dimension, $n=4$}. Concretely, the Mermin/anticommutation class
+$[\,n_a\,]=[\delta\mu]$ vanishes universally if and only if $n=4$ (Paper~XXI).
+The series and the language specification are not two projects: the spec
+\emph{poses} the question (can a semantic structure observe itself without
+obstruction?) and the papers \emph{answer} it (yes, freely, only at $n=4$). This
+document is the bridge between the two sides, and --- like every result it
+summarizes --- it is itself a bridge.
+\end{abstract}
+
+% =====================================================================
+\section{What n/ set out to be (the spec side)}
+% =====================================================================
+
+The n/ specification opens with a stance, not a feature list: \emph{writing
+programs is discovery, not invention}. The programmer is an \emph{observer} of a
+structure that is already there; the work is to find the essence of a thing, not
+to legislate it. Three design commitments follow, and they are the engineering
+decisions the paper series exists to back:
+
+\begin{itemize}
+  \item \textbf{Observation as the ground.} Meaning is accessed only through
+  \emph{contexts} --- locally consistent frames of observation. This is the
+  language-level form of Bohr's doctrine of classical concepts, and it is the
+  reason Bohrification (Paper~II) sits at the foundation rather than as an
+  afterthought. \userflag{confirm the spec's precise notion of ``context'' (the
+  unit of observation) and how the lattice / smell-search layer presents it.}
+  \item \textbf{Essence via relationships (CAID).} A thing is determined by how
+  it is observed from everywhere else --- the Yoneda stance. \textbf{CAID} is the
+  decision that a structure should carry a \emph{coherent self-interpretation}:
+  it should be able to represent itself faithfully inside itself.
+  \userflag{fill the exact expansion/definition of CAID from the spec; we use it
+  here as ``coherent self-representation = the Yoneda self-embedding.''}
+  \item \textbf{Discovery, hence realism --- but about what?} If structure is
+  discovered, it is objective. The series will sharpen \emph{what} is objective:
+  not observer-independent \emph{values} (those turn out not to exist), but the
+  observer-independent \emph{structure of observation} itself.
+\end{itemize}
+
+The whitepaper's question is the one the spec poses implicitly the moment it
+commits to CAID over a contextual semantics:
+
+\begin{quote}
+\emph{Can a semantic structure observe --- represent --- itself coherently, and
+if so, when?}
+\end{quote}
+
+The obstruction-ladder series is the part of n/'s mathematical backing that
+answers this hardest question. The remaining sections give the answer and show
+it is forced, not chosen.
+
+% =====================================================================
+\section{From semantics to symplectic geometry (the bridge)}
+% =====================================================================
+
+This is the load-bearing translation: the dictionary that turns the spec-side
+question into a computation. Everything downstream is the evaluation of one
+cohomological obstruction along this dictionary.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\raggedright}p{0.42\linewidth} p{0.50\linewidth}}
+\toprule
+\textbf{spec / observation side} & \textbf{formal / symplectic side} \\
+\midrule
+the field of observables &
+$V=\F_2^{2n}$, the phase space over $\F_2$ \\
+a \emph{context} (a maximal set of jointly observable quantities) &
+a \emph{Lagrangian} $L\subset V$ (maximal isotropic subspace) \\
+``can two observables be seen together'' &
+commutation $\omega(u,v)=0$ ($\omega$ the symplectic form) \\
+the phase / sign carried by an observable &
+the quadratic refinement $q$, $q(v)=$ the squaring class \\
+the diagram of how contexts overlap &
+the \emph{context-nerve} $K_N\simeq S^{N-2}$ \\
+CAID --- coherent self-representation &
+the Yoneda self-embedding, i.e.\ the realization map\newline
+$f:\ \text{nerve}\longrightarrow BH$ \\
+the operators with their phases &
+the extra-special $2$-group $H$,\newline
+$1\to \Z/2\to H\to V\to 1$ \\
+``the self-representation is incoherent at degree $k$'' &
+a nonzero class in $H^{k}$ (the transgression tower) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Two remarks fix the meaning of the dictionary.
+
+\textbf{Contexts are observation frames.} A Lagrangian is exactly a maximal
+collection of observables that can be \emph{seen at once} (pairwise commuting).
+The nerve records how these frames overlap; a global section of the nerve would
+be an observer-independent assignment of values consistent across all frames.
+The whole theory measures the \emph{failure} of such global sections.
+
+\textbf{CAID is the Yoneda self-embedding.} ``A structure represents itself''
+means: there is a map from the structure (presented by its nerve of contexts)
+into its own classifying object $BH$, recovering the structure from how it is
+observed. \userflag{confirm that this is the intended reading of CAID at the spec
+level; the math side ($f:\text{nerve}\to BH$) is what the papers actually
+compute.} The obstruction to this map being coherent is the content of the
+series. Crucially, the primary form of the map is \emph{zero}
+($f^*\omega=0$, since $H^2(S^{N-2})=0$ in the relevant range), so coherence is a
+\emph{secondary}, higher-coherence datum --- which is precisely why a single
+finite formula never closes it, and why the ``bridge'' is rebuilt at every
+degree (\S\ref{sec:ladder}, \S\ref{sec:onearena}).
+
+% =====================================================================
+\section{The ladder: one bridge at successive degrees}
+\label{sec:ladder}
+% =====================================================================
+
+Under the dictionary, ``coherent self-representation'' becomes a tower of
+cohomological obstructions, each a transgression in the spectral sequence of
+$1\to\Z/2\to H\to V\to1$. Kudo's theorem $\tau(\Sq^i x)=\Sq^i\tau(x)$ makes the
+bridge \emph{self-replicate} under Steenrod operations: the same construction
+reappears at each degree. The rungs, with the paper that establishes each:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.10\linewidth} p{0.40\linewidth} p{0.40\linewidth}}
+\toprule
+degree & obstruction & paper(s) \\
+\midrule
+(base) & Bohrification: meaning via contexts (the $1$-truncated bridge)
+       & Paper~II \\
+$H^2$  & the Maslov / Kashiwara class $\mu$ ($=[\omega]$)
+       & Paper~XIII; cf.\ III--V \\
+$H^3$  & the anticommutation class $n_a=\Sq^1\omega=\delta\mu$ \emph{(the rung
+         that opens)} & Papers~IX, XX \\
+$H^3$  & vanishing $\iff n=4$ (the master dichotomy)
+       & Papers~XVIII, XXI \\
+$H^4$  & the resonance ceiling: no genuine arity-$5$ rung (truncation)
+       & Paper~XXII \\
+\bottomrule
+\end{tabular}
+\end{center}
+\userflag{check the per-rung paper attributions against the actual series (the
+filenames suggest II=bohrification, IX=obstruction\_ladder, XIII=maslov\_index,
+XVIII=mermin\_sp8, XX/XXI=h3\_modulus/master, XXII=resonance\_ceiling); adjust as
+needed.}
+
+The reading is uniform: each rung is the self-representation bridge at one
+cohomological degree. The base case is Bohrification itself --- the original,
+$1$-truncated bridge that presents a (noncommutative) structure by the diagram
+of its (commutative) observation contexts. n/ computes the \emph{higher} gluing
+obstructions that Bohrification left implicit. In this sense the series is the
+\emph{cohomological completion of Bohrification}.
+
+% =====================================================================
+\section{The master theorem: $n=4$}
+% =====================================================================
+
+The ladder's central output is a single dichotomy.
+
+\begin{theorem}[Master dichotomy; Papers~XVIII, XXI]
+The obstruction vanishes universally,
+\[
+   [\,n_a\,]=[\delta\mu]=0 \ \text{for all configurations} \iff n=4 .
+\]
+For $n=3$ self-representation is possible only partially; for $n=4$ it is free of
+obstruction; for $n\ge5$ it is genuinely obstructed (the $H^3$ class is alive,
+carried by the modulus $\rad(\omega|_W)$).
+\end{theorem}
+
+Read back through the dictionary, this is the answer to the whitepaper's
+question:
+
+\begin{principle}[CAID is dimensionally bounded]
+A semantic structure can coherently represent itself --- carry CAID without
+obstruction --- at \emph{exactly one} dimension, $n=4$. The engineering decision
+to demand coherent self-representation is therefore not free: it selects $n=4$.
+\end{principle}
+
+\noindent The $n=4$ point is not an accident of low-dimensional coincidence; it
+is the unique place where the otherwise-bottomless tower of self-observation
+\emph{closes at finite degree} (Papers~XVIII--XXI; the even/odd structure of the
+$n\ge5$ modulus, Papers~XIX--XX). \userflag{one sentence here on \emph{why $n=4$}
+in spec terms --- e.g.\ which n/ construction lives at $2n=8$ --- if the spec
+fixes the dimension for an independent engineering reason, that closes the loop.}
+
+% =====================================================================
+\section{The two faces are one}
+\label{sec:onearena}
+% =====================================================================
+
+The spec side and the paper side were never two projects; they are two views of
+one claim. Three identifications make this precise.
+
+\textbf{``Discovery, not invention'' is realism about the
+observation-structure, not about values.} Contextuality says there is no
+observer-independent assignment of values (no global section of the nerve). So
+what is discovered-not-invented cannot be a table of pre-existing values --- it
+is the \emph{structure of observation} itself: the nerve, the cohomology, the
+bridge. The realism survives exactly because it is relocated from values to
+observation-structure. This is the firewall that keeps the philosophy from
+floating: every claim about ``essence'' is cashed out as a class in $H^*$.
+
+\textbf{CAID $=$ Yoneda $=$ self-observation $=$ the cohomology tower.} To be is
+to be observed (Yoneda); a coherent self-interpretation is the structure
+observing itself; the obstruction to that is the transgression tower. These are
+the same object named in three languages --- engineering (CAID), category theory
+(Yoneda), and cohomology ($H^*$).
+
+\textbf{Observation has no bottom; $n=4$ is where the bottom appears.} Because
+the self-representation map is secondary (its primary form is zero), fixing one
+global observation frame only spawns the next coherence degree:
+$\text{Bohr}\to\mu\,(H^2)\to n_a\,(H^3)\to\cdots$. This bottomless reflexivity is
+the honest face of the $\infty$ in $\infty$-Yoneda --- ``building bridges
+forever'' is not a failure to arrive but the signature of an $\infty$-categorical
+self-embedding, where the bridge \emph{is} the content. The master theorem says
+this bottomless tower nonetheless \emph{closes coherently at finite degree} at
+one and only one dimension: $n=4$.
+
+% =====================================================================
+\section{The honest frontier}
+% =====================================================================
+
+A whitepaper should end with what is \emph{not} yet settled, at the right
+altitude.
+
+\begin{itemize}
+  \item \textbf{The ceiling, and whether it is exotic-proof (item~21).} Paper~XXII
+  shows the natural obstruction stops at $H^3$. Whether an \emph{exotic}
+  arity-$5$ invariant could furnish a new $H^4$ obstruction for $n\ge5$ is
+  \emph{reduced}, not closed: to ``Witt + polarization + a representability
+  condition + finite verified computations,'' with the unique degree-$4$ ambient
+  invariant being the decomposable $q^2$ (family~B). The single residual is a
+  naturality/representability condition --- itself the statement that the
+  framework's obstruction is the standard contextuality (value-assignment)
+  obstruction.
+  \item \textbf{The explicit bridge never finitely closes (item~23).} The
+  identification $n_a=\langle\Sq^1\omega,[K_5]\rangle$ holds, but its join is a
+  \emph{secondary} operation (Kudo transgression): there is no finite cochain
+  formula. This is not incompleteness --- it is the $\infty$-coherence of
+  self-representation. The logical ground does bottom out, at the proven
+  classical theorems of Kudo and Quillen.
+\end{itemize}
+
+Both open ends are of the same kind: they are the perpetual, higher-coherence
+\emph{re-building of the one bridge}. That the bridge is never finitely finished
+is the mathematical shape of self-representation, not a gap in the program.
+
+% --- references: cite by paper number; replace with \bibitem entries as needed ---
+\userflag{add the formal bibliography / Zenodo DOIs (XX:\,10.5281/zenodo.20608302,
+XXI:\,10.5281/zenodo.20685669, XXII:\,10.5281/zenodo.20685777; fill the rest) and
+a pointer to the n/ specification.}
+
+\end{document}
