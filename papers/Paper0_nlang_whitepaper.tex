@@ -13,10 +13,12 @@
 \newcommand{\rank}{\mathrm{rank}}
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\hbarn}{\hbar_{n/}}
 \newcommand{\Nanti}{N_{\mathrm{anti}}}
 \newcommand{\Sq}{\mathrm{Sq}}
 
-% --- drafting flag: visible TODOs for the spec-side anchoring the author must confirm ---
+% --- drafting flag: visible TODOs the author must confirm (spec internals / judgment calls) ---
 \newcommand{\userflag}[1]{\textcolor{red}{\textsf{[\textbf{USER:} #1]}}}
 
 \theoremstyle{plain}
@@ -29,7 +31,7 @@
 \newtheorem*{remark}{Remark}
 
 \title{\textbf{The n/ Program:\\
-  Semantic Self-Representation and Its Dimensional Obstruction}\\[4pt]
+  Forced Quantization, Bohrification, and the Contextuality Ceiling}\\[4pt]
 \large (Paper 0 --- the n/ Whitepaper for CAID)}
 \author{Zhou-Li Chen\\[2pt]\small co-nlang Research}
 \date{June 2026}
@@ -38,260 +40,289 @@
 \maketitle
 
 \begin{abstract}
-n/ is a semantic operating system built on a single stance: meaning is
-\emph{discovered, not invented}, and a system worth the name must be able to
-represent --- to \emph{observe} --- itself coherently. The second half of that
-stance is the engineering decision we call \textbf{CAID}: a structure should
-carry a coherent self-interpretation. This whitepaper records the mathematical
-fate of that decision. Across a twenty-two paper series the same object is
-computed at successively higher cohomological degree --- the obstruction to a
-structure observing itself --- and the verdict is sharp: \emph{semantic
-self-representation is dimensionally obstructed, and it is free of obstruction at
-exactly one dimension, $n=4$}. Concretely, the Mermin/anticommutation class
-$[\,n_a\,]=[\delta\mu]$ vanishes universally if and only if $n=4$ (Paper~XXI).
-The series and the language specification are not two projects: the spec
-\emph{poses} the question (can a semantic structure observe itself without
-obstruction?) and the papers \emph{answer} it (yes, freely, only at $n=4$). This
-document is the bridge between the two sides, and --- like every result it
-summarizes --- it is itself a bridge.
+n/ is a semantic operating system built on a stance: meaning is
+\emph{discovered, not invented}; the programmer is an \emph{observer}. From that
+stance two engineering decisions follow that the n/ paper series exists to back.
+First, identity is content-addressable by \emph{relation}: a subspace is named by
+the spectral fingerprint of its projection operator $P_A$ (the
+\textbf{CAID}, Content Addressable Identifier; Yoneda's principle, an object is
+its relations). Second, navigation is by \emph{geometric gravity} (``smell
+search''), which demands that fingerprints carry \emph{phase}. The second
+requirement is not free: through the EML completeness result and Sol\`er's
+theorem it \emph{forces} the lattice's scalar field to be $\C$, hence forces n/
+into Hilbert space --- quantization as geometric necessity, not style. Quantum
+structure is non-commutative, so observation must proceed through commutative
+\emph{contexts} (Bohrification), and Kochen--Specker then guarantees there is no
+observer-independent global section. The obstruction-ladder series computes the
+\emph{exact} structure and \emph{bound} of that contextuality. Its central output
+is read by the specification itself (APP\_06 \S6.5) as the spectrum of
+$\hbarn$ --- the number of trust-contexts needed to describe a value: the
+\emph{resonance tower} is that spectrum, it is \emph{discrete}, and it has a
+\emph{ceiling at $H^3$} (Paper~XXII). Underneath sits the master dichotomy: the
+top class vanishes universally if and only if $n=4$. The specification poses the
+question (content-addressing in a forced-quantum, contextual universe); the
+papers answer it (the contextuality is a bounded, discrete ladder). This document
+is the bridge between the two --- and, like every result it summarizes, it is
+itself a bridge.
 \end{abstract}
 
 % =====================================================================
-\section{What n/ set out to be (the spec side)}
+\section{Two engineering decisions (the spec side)}
 % =====================================================================
 
-The n/ specification opens with a stance, not a feature list: \emph{writing
-programs is discovery, not invention}. The programmer is an \emph{observer} of a
-structure that is already there; the work is to find the essence of a thing, not
-to legislate it. Three design commitments follow, and they are the engineering
-decisions the paper series exists to back:
+The specification opens with a stance, not a feature list: \emph{writing programs
+is discovery, not invention}. The programmer is an \emph{observer} of structure
+that is already there. Two design decisions follow; the paper series is their
+mathematical backing.
 
+\paragraph{Decision 1 --- identity by relation (CAID).}
+In n/ a subspace's identity is not its name but its projection feature in Hilbert
+space (SPEC\_13 \S1). The \textbf{CAID} (Content Addressable Identifier) is the
+intrinsic identifier: the spectral-geometric fingerprint of the projection
+operator $P_A$, carrying both a collision-resistant particle digest and a
+wave-like spectral sketch. Its justification is \emph{Yoneda's principle}: an
+object is determined by its relations; the CAID encapsulates the interference of
+$P_A$ with every other operator in the universe. Names (``observation aliases'')
+are relative observer labels; the CAID is the absolute geometric coordinate.
+
+\paragraph{Decision 2 --- navigation by geometric gravity (smell search).}
+Discovery is \emph{gravity collapse}: declaring a dependency applies a geometric
+positioning constraint, and the engine navigates the global lattice along the
+gradient of ``semantic gravity'' (SPEC\_13 \S2, \S6; APP\_06 \S1). For two
+fingerprints to attract --- to have a usable \emph{distance} before download ---
+the fingerprint must carry \emph{phase}, not just a scalar hash.
+
+\paragraph{Why the second decision forces quantum geometry.}
+Phase is exactly what a real scalar cannot supply, and the consequences cascade
+(APP\_06 \S2--\S4):
 \begin{itemize}
-  \item \textbf{Observation as the ground.} Meaning is accessed only through
-  \emph{contexts} --- locally consistent frames of observation. This is the
-  language-level form of Bohr's doctrine of classical concepts, and it is the
-  reason Bohrification (Paper~II) sits at the foundation rather than as an
-  afterthought. \userflag{confirm the spec's precise notion of ``context'' (the
-  unit of observation) and how the lattice / smell-search layer presents it.}
-  \item \textbf{Essence via relationships (CAID).} A thing is determined by how
-  it is observed from everywhere else --- the Yoneda stance. \textbf{CAID} is the
-  decision that a structure should carry a \emph{coherent self-interpretation}:
-  it should be able to represent itself faithfully inside itself.
-  \userflag{fill the exact expansion/definition of CAID from the spec; we use it
-  here as ``coherent self-representation = the Yoneda self-embedding.''}
-  \item \textbf{Discovery, hence realism --- but about what?} If structure is
-  discovered, it is objective. The series will sharpen \emph{what} is objective:
-  not observer-independent \emph{values} (those turn out not to exist), but the
-  observer-independent \emph{structure of observation} itself.
+  \item \textbf{EML completeness} --- a single binary operator
+  $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ self-bootstraps the elementary functions,
+  but only over $\C$ (it is fully holomorphic only there).
+  \item \textbf{Sol\`er's theorem} --- an orthomodular lattice with an infinite
+  orthogonal sequence has scalar field $\in\{\mathbb R,\C,\mathbb H\}$. n/'s
+  negation $!$ makes the lattice orthomodular; EML forces the choice $\C$.
+  \item Hence n/ is \emph{forced} into Hilbert space. ``Quantization is not a
+  style but the geometric necessity of a lattice meeting EML completeness.''
 \end{itemize}
+Quantum structure is non-commutative. Bohrification (APP\_06 \S4) restores
+readability by observing the non-commutative ontology through a family of
+commutative subalgebras (contexts / perspectives); the projection operator $P_A$
+recovered from those local sections \emph{is} the CAID. The cost is named by
+Kochen--Specker: there is \emph{no} observer-independent global section, so an
+observer is necessarily bound to a perspective and a horizon.
 
-The whitepaper's question is the one the spec poses implicitly the moment it
-commits to CAID over a contextual semantics:
+The hard question both decisions inherit is therefore:
 
 \begin{quote}
-\emph{Can a semantic structure observe --- represent --- itself coherently, and
-if so, when?}
+\emph{In a forced-quantum, contextual universe, how badly does content-addressing
+by observation fail to glue --- and is that failure bounded?}
 \end{quote}
 
-The obstruction-ladder series is the part of n/'s mathematical backing that
-answers this hardest question. The remaining sections give the answer and show
-it is forced, not chosen.
+The obstruction-ladder series answers this. It is the part of n/'s mathematical
+backing that carries the hardest problem, CAID.
 
 % =====================================================================
 \section{From semantics to symplectic geometry (the bridge)}
 % =====================================================================
 
-This is the load-bearing translation: the dictionary that turns the spec-side
-question into a computation. Everything downstream is the evaluation of one
-cohomological obstruction along this dictionary.
+The papers work in the \emph{characteristic-2 shadow} of the spec's $\C$-Hilbert
+geometry: the stabilizer / Pauli picture, $V=\F_2^{2n}$, where the contextuality
+of stabilizer constructions (Mermin and beyond) is combinatorially exact. This
+is the standard arena for contextuality proofs, and the dictionary that carries
+the spec-side question into it is the following.
 
 \begin{center}
 \renewcommand{\arraystretch}{1.35}
-\begin{tabular}{>{\raggedright}p{0.42\linewidth} p{0.50\linewidth}}
+\begin{tabular}{>{\raggedright}p{0.46\linewidth} p{0.46\linewidth}}
 \toprule
 \textbf{spec / observation side} & \textbf{formal / symplectic side} \\
 \midrule
-the field of observables &
-$V=\F_2^{2n}$, the phase space over $\F_2$ \\
-a \emph{context} (a maximal set of jointly observable quantities) &
-a \emph{Lagrangian} $L\subset V$ (maximal isotropic subspace) \\
-``can two observables be seen together'' &
-commutation $\omega(u,v)=0$ ($\omega$ the symplectic form) \\
-the phase / sign carried by an observable &
-the quadratic refinement $q$, $q(v)=$ the squaring class \\
-the diagram of how contexts overlap &
-the \emph{context-nerve} $K_N\simeq S^{N-2}$ \\
-CAID --- coherent self-representation &
-the Yoneda self-embedding, i.e.\ the realization map\newline
-$f:\ \text{nerve}\longrightarrow BH$ \\
+the field of observables (Pauli shadow of the $\C$-Hilbert space) &
+$V=\F_2^{2n}$, phase space over $\F_2$ \\
+a \emph{context} / perspective (commutative subalgebra; SPEC\_13 \S7) &
+a \emph{Lagrangian} $L\subset V$ (maximal isotropic) \\
+``two observables seen together'' (commute) &
+$\omega(u,v)=0$ ($\omega$ the symplectic form) \\
+the phase carried by an observable &
+the quadratic refinement $q$, $q(v)=$ squaring class \\
+CAID --- identity by relation (Yoneda) &
+the relational invariants of the subspace ($\omega/q$-Gram fingerprint) \\
+the diagram of overlapping contexts &
+the context-nerve $K_N\simeq S^{N-2}$ \\
+no observer-independent global section (KS) &
+a nonzero obstruction class in $H^{k}$ \\
+$\hbarn$ --- \#\,trust-contexts to describe a value (APP\_06 \S6.4) &
+the \emph{arity} of the obstruction $=$ clique size $K_{a+1}$ \\
 the operators with their phases &
-the extra-special $2$-group $H$,\newline
-$1\to \Z/2\to H\to V\to 1$ \\
-``the self-representation is incoherent at degree $k$'' &
-a nonzero class in $H^{k}$ (the transgression tower) \\
+the extra-special $2$-group $H$, $1\!\to\!\Z/2\!\to\!H\!\to\!V\!\to\!1$ \\
+the self-discovery / Ouroboros (OODP) &
+the self-representation map $f:\text{nerve}\to BH$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent Two remarks fix the meaning of the dictionary.
+Two points fix the dictionary.
 
-\textbf{Contexts are observation frames.} A Lagrangian is exactly a maximal
-collection of observables that can be \emph{seen at once} (pairwise commuting).
-The nerve records how these frames overlap; a global section of the nerve would
-be an observer-independent assignment of values consistent across all frames.
-The whole theory measures the \emph{failure} of such global sections.
+\textbf{Contexts are observation frames, and gluing is the whole question.} A
+Lagrangian is a maximal set of observables seen at once (pairwise commuting); the
+nerve records how frames overlap. A global section of the nerve would be the
+observer-independent value table KS forbids. Everything downstream measures the
+\emph{failure} of such gluing.
 
-\textbf{CAID is the Yoneda self-embedding.} ``A structure represents itself''
-means: there is a map from the structure (presented by its nerve of contexts)
-into its own classifying object $BH$, recovering the structure from how it is
-observed. \userflag{confirm that this is the intended reading of CAID at the spec
-level; the math side ($f:\text{nerve}\to BH$) is what the papers actually
-compute.} The obstruction to this map being coherent is the content of the
-series. Crucially, the primary form of the map is \emph{zero}
-($f^*\omega=0$, since $H^2(S^{N-2})=0$ in the relevant range), so coherence is a
-\emph{secondary}, higher-coherence datum --- which is precisely why a single
-finite formula never closes it, and why the ``bridge'' is rebuilt at every
-degree (\S\ref{sec:ladder}, \S\ref{sec:onearena}).
+\textbf{$\hbarn$ is the depth of that failure, and it is what the ladder
+computes.} The spec defines $\hbarn$ as the number of commutative contexts needed
+to fully describe a value: $\hbarn^{\mathrm{eff}}\approx0$ when one context
+suffices (classical), finite when several must be superposed (APP\_06 \S6.4).
+Read through the dictionary, \emph{this is the arity of the obstruction}, and the
+series turns it into a precise, discrete spectrum.
+\userflag{confirm the CAID $\leftrightarrow$ ($\omega/q$-Gram fingerprint) row ---
+i.e.\ that the $\F_2$ shadow of ``$P_A$ spectral fingerprint / Yoneda relational
+id'' is the relational ($\omega,q$) data of the Lagrangian; this is the one
+dictionary entry that is our reading rather than the spec's words.}
 
 % =====================================================================
-\section{The ladder: one bridge at successive degrees}
+\section{The ladder is the spectrum of $\hbarn$}
 \label{sec:ladder}
 % =====================================================================
 
-Under the dictionary, ``coherent self-representation'' becomes a tower of
-cohomological obstructions, each a transgression in the spectral sequence of
-$1\to\Z/2\to H\to V\to1$. Kudo's theorem $\tau(\Sq^i x)=\Sq^i\tau(x)$ makes the
-bridge \emph{self-replicate} under Steenrod operations: the same construction
-reappears at each degree. The rungs, with the paper that establishes each:
+The specification already states the bridge (APP\_06 \S6.5): the \emph{resonance
+tower} of Paper~XXII \emph{is} the discrete spectrum of $\hbarn$. The
+arity-resonance principle --- an arity-$a$ datum is an $(a{-}1)$-cochain that
+resonates on the clique $K_{a+1}$ and yields an $H^{a-1}$ obstruction --- makes
+``how many contexts describe a value'' a cohomological degree:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{p{0.10\linewidth} p{0.40\linewidth} p{0.40\linewidth}}
+\begin{tabular}{p{0.10\linewidth} p{0.12\linewidth} p{0.46\linewidth} p{0.22\linewidth}}
 \toprule
-degree & obstruction & paper(s) \\
+$\hbarn$ level & degree & obstruction (clique) & paper(s) \\
 \midrule
-(base) & Bohrification: meaning via contexts (the $1$-truncated bridge)
-       & Paper~II \\
-$H^2$  & the Maslov / Kashiwara class $\mu$ ($=[\omega]$)
-       & Paper~XIII; cf.\ III--V \\
-$H^3$  & the anticommutation class $n_a=\Sq^1\omega=\delta\mu$ \emph{(the rung
-         that opens)} & Papers~IX, XX \\
-$H^3$  & vanishing $\iff n=4$ (the master dichotomy)
-       & Papers~XVIII, XXI \\
-$H^4$  & the resonance ceiling: no genuine arity-$5$ rung (truncation)
-       & Paper~XXII \\
+1 & $H^1$ & single holonomy (arity 2, $K_3$) & --- \\
+2 & $H^2$ & Maslov, family A (arity 3, $K_4$); Mermin square, family B ($K_{3,3}$)
+        & Paper~XIII \\
+3 & $H^3$ & Borromean / Byzantine (arity 4, $K_5$ pentagram); $n_a=\Sq^1\omega$
+        & Papers~IX, XX \\
+\midrule
+\multicolumn{2}{l}{\textbf{ceiling}} &
+  no genuine arity-5 rung; $c=\delta a$ exact; clique criterion $\min(\omega-2,3)$
+        & Paper~XXII \\
 \bottomrule
 \end{tabular}
 \end{center}
-\userflag{check the per-rung paper attributions against the actual series (the
-filenames suggest II=bohrification, IX=obstruction\_ladder, XIII=maslov\_index,
-XVIII=mermin\_sp8, XX/XXI=h3\_modulus/master, XXII=resonance\_ceiling); adjust as
-needed.}
+\userflag{verify the per-rung paper attributions (filenames suggest
+XIII=maslov\_index, IX=obstruction\_ladder, XX=h3\_modulus, XXII=resonance\_ceiling;
+the $H^1$ holonomy rung may want its own citation).}
 
-The reading is uniform: each rung is the self-representation bridge at one
-cohomological degree. The base case is Bohrification itself --- the original,
-$1$-truncated bridge that presents a (noncommutative) structure by the diagram
-of its (commutative) observation contexts. n/ computes the \emph{higher} gluing
-obstructions that Bohrification left implicit. In this sense the series is the
-\emph{cohomological completion of Bohrification}.
+The base case is Bohrification itself (Paper~II): the original, $1$-truncated
+bridge presenting a non-commutative structure by the diagram of its commutative
+contexts. n/ computes the \emph{higher} gluing obstructions Bohrification left
+implicit --- the series is, in one line, the \emph{cohomological completion of
+Bohrification}, and the completion \emph{terminates}:
+
+\begin{theorem}[Resonance ceiling; Paper~XXII]
+For symmetric (bilinear, Pauli) data the obstruction tower stops at $H^3$: the
+canonical degree-4 assembly is exact ($c=\delta a$), and there is no genuine
+arity-5 invariant. Hence $\hbarn^{\mathrm{eff}}$ has a \emph{finite, third-order
+ceiling}: no value ever requires its contextuality to be witnessed above $H^3$.
+\end{theorem}
+
+This is the spec's payoff made rigorous \emph{without} the Lohmiller--Slotine
+route (whose ``exact'' reconstruction is challenged --- Vattay's comment shows it
+is semiclassical/WKB; APP\_06 \S6 caveat). The rigorous anchor for $\hbarn$ is
+Bohrification plus this series, not L--S.
 
 % =====================================================================
-\section{The master theorem: $n=4$}
+\section{The master dichotomy: $n=4$}
 % =====================================================================
 
-The ladder's central output is a single dichotomy.
+Beneath the ceiling sits the sharpest result of the ladder.
 
 \begin{theorem}[Master dichotomy; Papers~XVIII, XXI]
-The obstruction vanishes universally,
+The top ($H^3$) obstruction vanishes universally,
 \[
    [\,n_a\,]=[\delta\mu]=0 \ \text{for all configurations} \iff n=4 .
 \]
-For $n=3$ self-representation is possible only partially; for $n=4$ it is free of
-obstruction; for $n\ge5$ it is genuinely obstructed (the $H^3$ class is alive,
-carried by the modulus $\rad(\omega|_W)$).
+For $n=3$ it vanishes only partially; for $n=4$ it is identically trivial; for
+$n\ge5$ it is alive, carried by the modulus $\rad(\omega|_W)$ (Papers~XIX, XX).
 \end{theorem}
 
-Read back through the dictionary, this is the answer to the whitepaper's
-question:
+In $\hbarn$ terms: at $n=4$ the third level of the spectrum is always empty ---
+no value ever forces Borromean ($H^3$) contextuality --- so self-observation is
+free of obstruction up to the ceiling. This is the precise sense in which $n=4$
+is distinguished: it is the unique dimension where the otherwise-bottomless tower
+of self-observation closes coherently at finite degree.
 
-\begin{principle}[CAID is dimensionally bounded]
-A semantic structure can coherently represent itself --- carry CAID without
-obstruction --- at \emph{exactly one} dimension, $n=4$. The engineering decision
-to demand coherent self-representation is therefore not free: it selects $n=4$.
-\end{principle}
-
-\noindent The $n=4$ point is not an accident of low-dimensional coincidence; it
-is the unique place where the otherwise-bottomless tower of self-observation
-\emph{closes at finite degree} (Papers~XVIII--XXI; the even/odd structure of the
-$n\ge5$ modulus, Papers~XIX--XX). \userflag{one sentence here on \emph{why $n=4$}
-in spec terms --- e.g.\ which n/ construction lives at $2n=8$ --- if the spec
-fixes the dimension for an independent engineering reason, that closes the loop.}
+\userflag{the spec link to ``$n$'' is the one open hinge. In the papers $n$ is the
+qubit count ($\Sp(2n,\F_2)$); does the spec fix a dimension for an independent
+engineering reason (e.g.\ a construction living at $2n=8$)? If so, state it here
+and the loop closes; if not, present $n=4$ as a mathematical discovery the spec
+does not yet invoke (honest either way).}
 
 % =====================================================================
 \section{The two faces are one}
 \label{sec:onearena}
 % =====================================================================
 
-The spec side and the paper side were never two projects; they are two views of
-one claim. Three identifications make this precise.
+The specification and the series are two views of one claim. Three
+identifications make it precise.
 
-\textbf{``Discovery, not invention'' is realism about the
-observation-structure, not about values.} Contextuality says there is no
-observer-independent assignment of values (no global section of the nerve). So
-what is discovered-not-invented cannot be a table of pre-existing values --- it
-is the \emph{structure of observation} itself: the nerve, the cohomology, the
-bridge. The realism survives exactly because it is relocated from values to
-observation-structure. This is the firewall that keeps the philosophy from
-floating: every claim about ``essence'' is cashed out as a class in $H^*$.
+\textbf{``Discovery, not invention'' is realism about the observation-structure,
+not about values.} Kochen--Specker forbids an observer-independent table of
+values. So what is discovered-not-invented is not values but the \emph{structure
+of observation} --- the contexts, the nerve, the obstruction tower. The realism
+survives precisely by being relocated from values to observation-structure; and
+the firewall that keeps this from floating is that every claim of ``essence'' is
+cashed out as a class in $H^*$.
 
-\textbf{CAID $=$ Yoneda $=$ self-observation $=$ the cohomology tower.} To be is
-to be observed (Yoneda); a coherent self-interpretation is the structure
-observing itself; the obstruction to that is the transgression tower. These are
-the same object named in three languages --- engineering (CAID), category theory
-(Yoneda), and cohomology ($H^*$).
+\textbf{Yoneda appears twice, and they are the same arrow.} CAID is Yoneda at the
+level of identity (an object is its relations / its $P_A$-fingerprint); the
+self-discovery protocol (Ouroboros / OODP) is Yoneda made reflexive (the universe
+addressing its own contents). The obstruction tower measures when that reflexive
+self-address is coherent.
 
-\textbf{Observation has no bottom; $n=4$ is where the bottom appears.} Because
-the self-representation map is secondary (its primary form is zero), fixing one
-global observation frame only spawns the next coherence degree:
-$\text{Bohr}\to\mu\,(H^2)\to n_a\,(H^3)\to\cdots$. This bottomless reflexivity is
-the honest face of the $\infty$ in $\infty$-Yoneda --- ``building bridges
-forever'' is not a failure to arrive but the signature of an $\infty$-categorical
-self-embedding, where the bridge \emph{is} the content. The master theorem says
-this bottomless tower nonetheless \emph{closes coherently at finite degree} at
-one and only one dimension: $n=4$.
+\textbf{Observation has no bottom; the ceiling and $n=4$ are where it closes.}
+Because the self-representation map is secondary (its primary form vanishes,
+$f^*\omega=0$), fixing one global frame only spawns the next degree:
+$\text{Bohr}\to\mu\to n_a\to\cdots$. This bottomless reflexivity is the honest
+face of the $\infty$ in $\infty$-Yoneda --- ``building bridges forever'' is not a
+failure to arrive but the signature of an $\infty$-categorical self-embedding,
+where the bridge \emph{is} the content. The series shows the tower nonetheless
+\emph{terminates} in two senses: a universal ceiling at $H^3$ (Paper~XXII), and a
+unique dimension $n=4$ where even the top rung is always trivial.
 
 % =====================================================================
 \section{The honest frontier}
 % =====================================================================
 
-A whitepaper should end with what is \emph{not} yet settled, at the right
-altitude.
+A whitepaper ends with what is not settled, at the right altitude.
 
 \begin{itemize}
-  \item \textbf{The ceiling, and whether it is exotic-proof (item~21).} Paper~XXII
-  shows the natural obstruction stops at $H^3$. Whether an \emph{exotic}
-  arity-$5$ invariant could furnish a new $H^4$ obstruction for $n\ge5$ is
-  \emph{reduced}, not closed: to ``Witt + polarization + a representability
-  condition + finite verified computations,'' with the unique degree-$4$ ambient
-  invariant being the decomposable $q^2$ (family~B). The single residual is a
-  naturality/representability condition --- itself the statement that the
-  framework's obstruction is the standard contextuality (value-assignment)
-  obstruction.
-  \item \textbf{The explicit bridge never finitely closes (item~23).} The
+  \item \textbf{Is the ceiling exotic-proof? (item 21).} Paper~XXII shows the
+  \emph{natural} obstruction stops at $H^3$. Whether an \emph{exotic} arity-5
+  invariant could furnish a new $H^4$ obstruction for $n\ge5$ is \emph{reduced},
+  not closed: to ``Witt + polarization + a representability condition + finite
+  verified computations,'' the unique degree-4 ambient invariant being the
+  decomposable $q^2$. The single residual is a naturality/representability
+  condition --- itself the statement that the framework's obstruction is the
+  standard contextuality (value-assignment) obstruction.
+  \item \textbf{The explicit bridge never finitely closes (item 23).} The
   identification $n_a=\langle\Sq^1\omega,[K_5]\rangle$ holds, but its join is a
-  \emph{secondary} operation (Kudo transgression): there is no finite cochain
-  formula. This is not incompleteness --- it is the $\infty$-coherence of
-  self-representation. The logical ground does bottom out, at the proven
-  classical theorems of Kudo and Quillen.
+  \emph{secondary} operation (Kudo transgression): no finite cochain formula. The
+  logical ground does bottom out --- at the proven theorems of Kudo and Quillen
+  --- but the explicit realization is rebuilt at every degree. This is the
+  $\infty$-coherence of self-representation, not a gap.
 \end{itemize}
 
-Both open ends are of the same kind: they are the perpetual, higher-coherence
-\emph{re-building of the one bridge}. That the bridge is never finitely finished
-is the mathematical shape of self-representation, not a gap in the program.
+Both open ends are the same kind: the perpetual, higher-coherence re-building of
+the one bridge. That it never finitely finishes is the mathematical shape of
+self-representation, not an incompleteness of the program.
 
-% --- references: cite by paper number; replace with \bibitem entries as needed ---
-\userflag{add the formal bibliography / Zenodo DOIs (XX:\,10.5281/zenodo.20608302,
-XXI:\,10.5281/zenodo.20685669, XXII:\,10.5281/zenodo.20685777; fill the rest) and
-a pointer to the n/ specification.}
+\userflag{add the bibliography: EML (Odrzywolek, arXiv:2603.21852), Sol\`er
+(1995), Isham--Butterfield topos/KS (1998), L--S (arXiv:2405.06328) + Vattay
+comment (arXiv:2605.02621); the n/ series with Zenodo DOIs (XX:\,10.5281/
+zenodo.20608302, XXI:\,10.5281/zenodo.20685669, XXII:\,10.5281/zenodo.20685777,
+rest TBD); and pointers to SPEC\_13 (OODP/CAID) and APP\_06 (\S6.5 the $\hbarn$
+spectrum).}
 
 \end{document}
