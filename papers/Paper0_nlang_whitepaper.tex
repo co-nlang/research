@@ -61,9 +61,12 @@ specification itself reads its central output (APP\_06 \S6.5) as the spectrum of
 $\hbarn$, the number of trust-contexts needed to describe a value: the
 \emph{resonance tower} is that spectrum, it is \emph{discrete}, and it has a
 \emph{ceiling at $H^3$} (Paper~XXII). Beneath the ceiling, the top class vanishes
-universally if and only if $n=4$ (Paper~XXI). The specification poses the
-question; the papers answer it. This document is the bridge between them ---
-and, like every result it summarizes, it is itself a bridge.
+universally if and only if $n=4$ (Paper~XXI) --- exactly the dimension where n/'s
+own self-description (the Ouroboros self-evolution loop) closes coherently. The
+discovery engine spans the whole ladder; only the reflexive self-representation
+selects $n=4$. The specification poses the question; the papers answer it. This
+document is the bridge between them --- and, like every result it summarizes, it
+is itself a bridge.
 \end{abstract}
 
 % =====================================================================
@@ -256,23 +259,42 @@ For $n=3$ it vanishes only partially; for $n=4$ it is identically trivial; for
 $n\ge5$ it is alive, carried by the modulus $\rad(\omega|_W)$ (Papers~XIX, XX).
 \end{theorem}
 
-\paragraph{Holographic reading (Paper~XIX).} The $n\ge5$ modulus is a precise
-\emph{holographic} statement: the bulk ($H^3$) class \emph{cannot} be
+\paragraph{Holographic reading (Paper~XIX; APP\_07 \S6).} The $n\ge5$ modulus is a
+precise \emph{holographic} statement: the bulk ($H^3$) class \emph{cannot} be
 reconstructed from the boundary (arity-$\le4$) data. The obstruction ladder
 measures exactly this boundary-to-bulk reconstruction failure, and $H^3$ is the
-first level where boundary data is in principle insufficient.
+first level where boundary data is in principle insufficient --- the spec reads
+this (APP\_07 \S6) as why n/ must be observation-centric rather than global-truth:
+no ``god's-eye view'' can see the bulk, as a theorem, not an engineering excuse.
 
-\paragraph{$\hbarn$ reading.} At $n=4$ the third level of the spectrum is always
-empty --- no value forces Borromean ($H^3$) contextuality --- so self-observation
-is free of obstruction up to the ceiling. This is the precise sense in which
-$n=4$ is distinguished: the otherwise-bottomless tower of self-observation closes
-coherently at finite degree at exactly one dimension.
+\paragraph{Two roles, two dimensional behaviors.} What does $n=4$ mean for n/?
+The answer turns on a distinction between the engine and the spec's self-evolution.
 
-\userflag{the spec link to ``$n$'' is the one open hinge. In the papers $n$ is the
-qubit count ($\Sp(2n,\F_2)$); if the spec fixes a working dimension for an
-independent engineering reason (e.g.\ a $2n=8$ construction), state it here and
-the loop closes; otherwise present $n=4$ as a mathematical discovery the spec
-does not yet invoke.}
+\emph{The OODP engine does \textbf{not} fix $n$.} The discovery/runtime engine
+(CAID $+$ LADD) must \emph{recognize} obstruction classes at every level: APP\_07
+maps the ladder onto distributed consensus --- $H^1$ to CAP / network partition,
+$H^2$ to FLP impossibility, $H^3$ to Byzantine non-associativity, $H^4$ to Sybil
+identity-forgery (the reason ORDER\_00 exists). An engine that handles only one
+dimension could not classify these. So the engine is \emph{dimension-agnostic};
+it spans the whole ladder at whatever $n$ a configuration presents.
+
+\emph{The Ouroboros self-evolution \textbf{does} fix $n=4$.} The reflexive loop
+--- n/ using its own lattice to describe and evolve itself, the ``truth integral''
+on its own \texttt{\%rules} (SPEC\_17 \S4) --- is \emph{coherent self-representation}.
+For that loop to close without obstruction is exactly $[n_a]=0$, i.e.\ $n=4$. At
+$n=4$ the third level of the $\hbarn$ spectrum is always empty: no
+self-description ever forces a Borromean ($H^3$) obstruction, so the
+otherwise-bottomless tower of self-observation closes coherently at finite degree
+--- at, and only at, one dimension. This is the same statement as the program's
+founding intuition (\emph{why\_the\_ladder}: the $\infty$-Yoneda self-embedding is
+free at $n=4$).
+
+So the hinge resolves cleanly: $n=4$ is \emph{not} a working dimension the engine
+is pinned to; it is the dimension at which the spec's \emph{self-description}
+closes coherently. \userflag{APP\_07 \S4 already cites the $n=4$ master theorem;
+SPEC\_17 describes the self-observational loop but does not yet state that its
+coherence \emph{is} $n=4$. Pinning that down (self-evolution coherence $=$ master
+theorem) is the natural spec update --- parallel to the CAID I--VI/VII--XXII gap.}
 
 % =====================================================================
 \section{The two faces are one}
@@ -288,11 +310,13 @@ of observation} --- contexts, nerve, obstruction tower. The realism survives by
 being relocated from values to observation-structure, and the firewall that keeps
 this honest is that every claim of ``essence'' is a class in $H^*$.
 
-\textbf{Yoneda appears twice, and they are the same arrow.} CAID is Yoneda at the
-level of identity (an object is its relations / its $P_A$-fingerprint); the
-self-discovery protocol (Ouroboros / OODP) is Yoneda made reflexive (the universe
-addressing its own contents). The obstruction tower measures when that reflexive
-self-address is coherent.
+\textbf{Yoneda appears twice, and $n=4$ belongs to the second.} CAID is Yoneda at
+the level of identity (an object is its relations / its $P_A$-fingerprint), and it
+is dimension-agnostic --- the engine addresses objects at any $n$. The
+self-evolution protocol (Ouroboros / SPEC\_17) is Yoneda made \emph{reflexive}
+(the structure describing and evolving itself). The master theorem speaks to this
+second, reflexive Yoneda: self-description closes coherently at exactly $n=4$.
+Identity-by-relation spans the ladder; self-representation selects the dimension.
 
 \textbf{One degree, every engineering layer.} The same cohomological degree
 surfaces as different phenomena up the engineering stack (the $L_r\times E_r$
@@ -356,8 +380,9 @@ XXI \texttt{...20685669}; XXII \texttt{...20685777}.
 
 \bibitem{spec} co-nlang, \emph{The n/ Language Specification}.
 \texttt{github.com/co-nlang/nlang-spec} (branch \texttt{top}); esp.\
-\texttt{spec/zh\_TW/SPEC\_13\_Ouroboros\_Discovery\_Protocol.md} (OODP/CAID) and
-\texttt{.../APP\_06\_Unified\_Field\_Theory.md} (\S6.5, the $\hbarn$ spectrum).
+\texttt{spec/zh\_TW/SPEC\_13} (OODP/CAID), \texttt{APP\_06} (\S6.5, the $\hbarn$
+spectrum), \texttt{APP\_07} (the obstruction-ladder guide; \S4 distributed-consensus
+mapping, \S6 holography), and \texttt{SPEC\_17} (self-evolution / Ouroboros loop).
 
 \bibitem{eml} A.\ Odrzywolek, \emph{All elementary functions from a single
 operator}, arXiv:2603.21852.
