@@ -7,6 +7,7 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{mathtools}
+\usepackage{tikz}
 
 \newcommand{\Sp}{\mathrm{Sp}}
 \newcommand{\rad}{\mathrm{rad}}
@@ -185,8 +186,8 @@ $\langle Z_1,Z_2,Z_3\rangle$ --- exactly a stabilizer context. On the n/ side th
 is a MASA / observation context (SPEC\_13 \S7): a maximal set of Combos observable
 together, i.e.\ whose meet does not collapse. Schematically,
 \begin{verbatim}
-  a & b     ;; co-observable (commute, omega=0): the meet refines -> one context
-  a & c     ;; incompatible (anticommute): collapses to _|_  -> #split (H^2)
+  a & b    ;; co-observable (commute): meet refines -> one context
+  a & c    ;; incompatible (anticommute): collapses to _|_ -> #split
 \end{verbatim}
 ``same context'' (n/) $=$ ``commute'' ($\omega=0$) $=$ ``share a Lagrangian'' ---
 the single identification that makes the rest of the dictionary run.
@@ -243,6 +244,36 @@ $\hbarn$ & degree & obstruction (clique) & paper(s) \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[font=\small,
+  rung/.style={draw, rounded corners, text width=11cm, align=left, inner sep=5pt},
+  faded/.style={draw, dashed, draw=gray, text=gray, rounded corners,
+                text width=11cm, align=left, inner sep=5pt}]
+  \node[rung] (h1) at (0,0)    {$H^1$\, ($\hbarn{=}1$, arity 2, $K_3$) --- geometric phase / holonomy \hfill \textit{CAP / partition}};
+  \node[rung] (h2) at (0,1.15) {$H^2$\, ($\hbarn{=}2$, arity 3, $K_4$) --- KS: Maslov (A), Mermin $K_{3,3}$ (B) \hfill \textit{FLP}};
+  \node[rung] (h3) at (0,2.30) {$H^3$\, ($\hbarn{=}3$, arity 4, $K_5$) --- Borromean $n_a=\Sq^1\omega$ \hfill \textit{Byzantine}};
+  \draw[very thick] ([yshift=11pt]h3.north west) -- ([yshift=11pt]h3.north east)
+    node[midway, above, font=\footnotesize]{\textbf{ceiling} (Paper~XXII): $c=\delta a$ exact --- no genuine arity-5};
+  \node[faded] (hi) at (0,4.05) {$H^4=\langle q^2\rangle$ decomposable only (item 21); $H^5$ (arity 6), $H^9,\dots$ --- the Steenrod / LHS machine climbs on, but needs \emph{non-bilinear} data n/ does not carry};
+  % degree axis
+  \draw[->, thick] (-6.4,-0.55) -- (-6.4,4.6);
+  \node[rotate=90, font=\footnotesize] at (-6.75,2.0) {degree $=\hbarn$\ $\uparrow$};
+  % n=4 marker on H3
+  \node[anchor=west, text=blue!55!black, font=\footnotesize, align=left] at (5.85,2.30) {$[n_a]{=}0$\\ $\iff n{=}4$};
+\end{tikzpicture}
+\caption{The $\hbarn$ spectrum (the obstruction tower) as the discrete ladder of
+Paper~XXII. Realized rungs $H^1$--$H^3$ (solid) carry the contextuality of bilinear
+Pauli data, surfacing engineering-side as CAP / FLP / Byzantine (APP\_07~\S4). The
+\textbf{ceiling} at $H^3$ is the truncation theorem; above it (dashed) the abstract
+Steenrod/LHS machine continues forever, but those degrees need non-bilinear data
+the framework does not carry --- the precise sense in which the machine is infinite
+yet the Pauli height is finite (\S\ref{sec:onearena}). The top rung
+$[n_a]\in H^3$ vanishes universally iff $n=4$ --- the unique dimension where the
+self-description loop is coherent.}
+\label{fig:ladder}
+\end{figure}
 
 The base case is Bohrification itself (Paper~II): the original, $1$-truncated
 bridge presenting a non-commutative structure by the diagram of its commutative
