@@ -173,7 +173,25 @@ the self-representation map $f:\text{nerve}\to BH$ \\
 Specific entries are anchored by individual papers: the complex-spectrum
 sign/phase of CAID~v2 is the $\beta$/quadratic-refinement structure (Paper~XI);
 the Bohrification projection operators are realized by the Weil representation of
-$\Sp(6,\F_2)$ on $\C^8$ (Paper~XV). Two points fix the rest.
+$\Sp(6,\F_2)$ on $\C^8$ (Paper~XV).
+
+\paragraph{A worked row: ``context'' $=$ Lagrangian.} On the symplectic side, a
+\emph{Lagrangian} is a maximal isotropic subspace $L\subset V=\F_2^{2n}$:
+$\dim L=n$ and $\omega|_{L}\equiv0$. For $3$ qubits ($V=\F_2^6$, identifying
+$v=(x,z)$ with the Pauli operator $X^xZ^z$ up to phase), two operators commute iff
+$\omega(u,v)=0$, so a Lagrangian is a maximal set of $n=3$ independent
+mutually-commuting Paulis --- e.g.\ $\langle X_1,X_2,X_3\rangle$ or
+$\langle Z_1,Z_2,Z_3\rangle$ --- exactly a stabilizer context. On the n/ side this
+is a MASA / observation context (SPEC\_13 \S7): a maximal set of Combos observable
+together, i.e.\ whose meet does not collapse. Schematically,
+\begin{verbatim}
+  a & b     ;; co-observable (commute, omega=0): the meet refines -> one context
+  a & c     ;; incompatible (anticommute): collapses to _|_  -> #split (H^2)
+\end{verbatim}
+``same context'' (n/) $=$ ``commute'' ($\omega=0$) $=$ ``share a Lagrangian'' ---
+the single identification that makes the rest of the dictionary run.
+
+Two further points fix the reading.
 
 \textbf{Contexts are observation frames, and gluing is the whole question.} A
 Lagrangian is a maximal set of observables seen at once; the nerve records how
@@ -239,6 +257,15 @@ arity-5 invariant. Hence $\hbarn^{\mathrm{eff}}$ has a finite, third-order
 ceiling: no value ever requires its contextuality to be witnessed above $H^3$.
 \end{theorem}
 
+\paragraph{Why no arity-5 rung (the intuition).} The anticommutation datum
+$\omega(v_{ij},v_{kl})$ is indexed by four Lagrangian labels $\{i,j,k,l\}$ (a
+disjoint pair of pairs): a 4-index datum, hence a degree-3 cochain no matter how
+many contexts are present. On $K_6$ (degree 4) it is therefore \emph{sub-top}, so
+the assembled degree-4 cochain is forced to be the coboundary of that 4-index data
+($c=\delta a$, exact) --- never a primary $H^4$ class. A genuine arity-5
+obstruction would need a true 5-index invariant, which the \emph{bilinear} form
+$\omega$ cannot supply; that is the whole content of the ceiling.
+
 This is the spec's payoff made rigorous \emph{without} the Lohmiller--Slotine
 route, whose ``exact'' reconstruction is challenged (Vattay's comment shows it is
 semiclassical/WKB; APP\_06 \S6 caveat). The rigorous anchor for $\hbarn$ is
@@ -267,6 +294,16 @@ first level where boundary data is in principle insufficient --- the spec reads
 this (APP\_07 \S6) as why n/ must be observation-centric rather than global-truth:
 no ``god's-eye view'' can see the bulk, as a theorem, not an engineering excuse.
 
+\paragraph{From holographic failure to the choice of $n=4$.} The holographic
+deficit has a self-referential bite. At $n\ge5$ the bulk ($H^3$) is hidden inside
+a volume that no boundary ($\le4$-context) observation can reach; so an $n\ge5$
+system cannot reconstruct --- cannot \emph{fully understand} --- itself from its
+own observable data. Coherent self-description therefore \emph{fails} above $n=4$.
+This is why, when n/ attempts a fully coherent self-description and self-evolution
+(the Ouroboros loop), it is forced --- physically and mathematically --- to land
+at $n=4$: the one dimension in the whole universe with no hidden-volume
+obstruction, $[n_a]=0$.
+
 \paragraph{Two roles, two dimensional behaviors.} What does $n=4$ mean for n/?
 The answer turns on a distinction between the engine and the spec's self-evolution.
 
@@ -288,6 +325,17 @@ otherwise-bottomless tower of self-observation closes coherently at finite degre
 --- at, and only at, one dimension. This is the same statement as the program's
 founding intuition (\emph{why\_the\_ladder}: the $\infty$-Yoneda self-embedding is
 free at $n=4$).
+
+\paragraph{Why self-coherence \emph{is} a cohomology class.} ``The loop closes''
+sounds informal; it is not. A coherent self-description is a \emph{global section}
+of the self-observation nerve --- a single assignment, consistent across every
+context, of how the structure sees itself. The obstruction to such a global
+section is, by definition, a cohomology class (the \v{C}ech/sheaf obstruction);
+the top one, for this data, is $[n_a]\in H^3$. So ``self-description closes
+coherently'' is \emph{literally} ``$[n_a]=0$,'' which the master theorem makes
+$n=4$. (This is the same move as everywhere in the program: a would-be global
+truth, obstructed by a class in $H^*$ --- here applied to the structure's view of
+\emph{itself}.)
 
 So the hinge resolves cleanly: $n=4$ is \emph{not} a working dimension the engine
 is pinned to; it is the dimension at which the spec's \emph{self-description}
@@ -325,39 +373,56 @@ a compute-horizon failure at runtime, FLP impossibility at the network layer, a
 governance contradiction at the trust layer. The mathematics is layer-independent;
 the manifestation is not.
 
-\textbf{Observation has no bottom; the ceiling and $n=4$ are where it closes.}
-Because the self-representation map is secondary (its primary form vanishes,
-$f^*\omega=0$), fixing one global frame only spawns the next degree:
-$\text{Bohr}\to\mu\to n_a\to\cdots$. This bottomless reflexivity is the honest
-face of the $\infty$ in $\infty$-Yoneda --- ``building bridges forever'' is the
-signature of an $\infty$-categorical self-embedding, where the bridge \emph{is}
-the content. The series shows the tower nonetheless terminates twice: a universal
-ceiling at $H^3$ (Paper~XXII), and a unique dimension $n=4$ where even the top
-rung is always trivial.
+\textbf{No bottom, yet a ceiling --- and they do not contradict.} A reader may ask:
+\S\ref{sec:ladder} proves a \emph{ceiling} at $H^3$, yet \S\ref{sec:frontier}
+(item~23) says the bridge \emph{never finitely closes} --- does the tower have a
+lid or not? Both, of different things:
+\begin{itemize}
+  \item \emph{The abstract machine has no lid.} The LHS spectral sequence with
+  Kudo's cross-step ($\tau(\Sq^i x)=\Sq^i\tau(x)$) is a bottomless spiral:
+  generators at degrees $\{2,3,5,9,\dots\}$, climbable forever. The universe
+  \emph{permits} infinite self-reference --- this is the $\infty$ in $\infty$-Yoneda
+  ($f^*\omega=0$ makes the map secondary, so fixing one frame only spawns the next
+  degree: $\text{Bohr}\to\mu\to n_a\to\cdots$).
+  \item \emph{The Pauli content has a lid.} But the data n/ actually lives on is
+  \emph{bilinear} (Pauli), and its arity is exhausted at $4$: it resonates only
+  through $H^3$. The next abstract generator (degree $5$ $=$ arity $6$) would need
+  non-bilinear data the framework does not carry. So the \emph{realized}
+  obstruction truncates at $H^3$ (Paper~XXII), even though the machine continues.
+  \item \emph{And even the realized rungs are built infinitely.} Item~23: the
+  explicit cochain for each rung is a secondary operation with no finite formula.
+\end{itemize}
+So: the machine is infinite, the Pauli-realized height is finite ($H^3$), and the
+rung-construction is $\infty$-coherent. ``Observation has no bottom; the Pauli
+ceiling and $n=4$ are where it closes.''
 
 % =====================================================================
 \section{The honest frontier}
+\label{sec:frontier}
 % =====================================================================
 
 A whitepaper ends with what is not settled, at the right altitude.
 
 \begin{itemize}
-  \item \textbf{Is the ceiling exotic-proof? (item 21).} Paper~XXII shows the
-  \emph{natural} obstruction stops at $H^3$. Whether an \emph{exotic} arity-5
-  invariant could furnish a new $H^4$ obstruction for $n\ge5$ is \emph{reduced},
-  not closed: to ``Witt + polarization + a representability condition + finite
-  verified computations,'' the unique degree-4 ambient invariant being the
-  decomposable $q^2$. The single residual is a naturality/representability
-  condition --- itself the statement that the framework's obstruction is the
-  standard contextuality (value-assignment) obstruction.
-  \item \textbf{The explicit bridge never finitely closes (item 23).} The
-  identification $n_a=\langle\Sq^1\omega,[K_5]\rangle$ holds, but its join is a
-  \emph{secondary} operation (Kudo transgression): no finite cochain formula. The
-  logical ground does bottom out --- at the proven theorems of Kudo and Quillen
-  --- but the explicit realization is rebuilt at every degree. This is the
-  $\infty$-coherence of self-representation, not a gap. (This is also the
-  \emph{Direction-D} comparison map that the spec's $H^3$ entries await before
-  the $16$-cell / compute-horizon identifications can be made drop-in.)
+  \item \textbf{Is the ceiling exotic-proof? (item 21) --- reduced, no longer an
+  open search.} Paper~XXII shows the \emph{natural} obstruction stops at $H^3$.
+  Whether an \emph{exotic} arity-5 invariant could furnish a new $H^4$ obstruction
+  for $n\ge5$ is \emph{reduced} from an unparametrized search to: Witt's theorem
+  $+$ polarization $+$ a \emph{single} naturality/representability condition $+$
+  verified finite computations --- the unique degree-4 ambient invariant being the
+  decomposable $q^2$ (so no exotic). That one condition --- genuine obstruction $=$
+  a natural, pointwise-cohomological class --- is itself grounded two independent
+  ways (phase-blindness of the over-counters; $H^4(BV)^{GL}=0$) and is, operationally,
+  just the statement that contextuality is the standard value-assignment obstruction.
+  \item \textbf{The explicit bridge never finitely closes (item 23) --- closed
+  modulo Kudo.} The identification $n_a=\langle\Sq^1\omega,[K_5]\rangle$ holds; its
+  join is a \emph{secondary} operation (Kudo transgression), so there is no finite
+  cochain formula. The logical ground \emph{does} bottom out --- at the proven
+  theorems of Kudo and Quillen --- so the bridge is closed \emph{modulo} those
+  cited theorems; only the explicit realization is rebuilt at every degree, which
+  is the $\infty$-coherence of self-representation, not a gap. (This is also the
+  \emph{Direction-D} comparison map the spec's $H^3$ entries await before the
+  $16$-cell / compute-horizon identifications can be made drop-in.)
 \end{itemize}
 
 Both open ends are the same kind: the perpetual, higher-coherence re-building of
