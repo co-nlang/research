@@ -17,6 +17,7 @@ The endpoint: the framework's deepest invariant ($H^3$) is conjecturally $\mathr
 → **[READING_GUIDE.md](READING_GUIDE.md)** — per-paper summaries and recommended reading orders.
 → **[RESEARCH_FRONTIER.md](RESEARCH_FRONTIER.md)** — mathematical toolbox and open problems.
 → **[insight/](insight/)** — post-series exploration notes (QEC substrate identity, BHQC, AdS/CFT holographic codes, Klein quartic, and others).
+→ **[Paper N](papers/Paper0_nlang_whitepaper.tex)** — *the n/ whitepaper*: the bridge from this series to the n/ language specification (CAID, forced quantization → Bohrification, the $H^3$ ceiling, $n=4$). A readable entry point spanning both sides. (“N” is n/'s own letter, from *element zero* — Paper N is the series' Paper 0.)
 
 ---
 
@@ -24,6 +25,7 @@ The endpoint: the framework's deepest invariant ($H^3$) is conjecturally $\mathr
 
 | # | Title | Key Result |
 |---|-------|------------|
+| N | *The n/ Program: Forced Quantization, Bohrification, and the Contextuality Ceiling* (whitepaper) | spec ↔ series bridge: CAID, forced $\mathbb{C}$, ceiling at $H^3$, $n=4$ (Paper N = Paper 0, entry point) |
 | I | *From Contextuality to Phase Cohomology* | $\check{H}^1(M, U(1))$ classifies geometric phases |
 | II | *Semiclassical Reconstruction of Riemann Surfaces from Bohrification* | Bohr-Sommerfeld orbits as divisors on spectral curves |
 | III | *Kochen–Specker Contextuality as Central Extension* | KS obstruction = $[f] \in H^2(\bar{\mathcal{P}}_2, \mathbb{Z}/2)$ |
@@ -74,6 +76,7 @@ research/
 ├── LICENSE                             # CC BY 4.0
 ├── insight/                            # Post-series exploration notes
 ├── papers/
+│   ├── Paper0_nlang_whitepaper.tex     # Paper N — the n/ whitepaper (spec↔series bridge)
 │   ├── Paper1_contextuality_phase.tex
 │   ├── ...
 │   ├── Paper22_resonance_ceiling.tex
@@ -132,6 +135,7 @@ All components are archived on Zenodo:
 
 | Component | DOI |
 |-----------|-----|
+| Paper N (whitepaper) | [10.5281/zenodo.20955322](https://doi.org/10.5281/zenodo.20955322) |
 | Paper I | [10.5281/zenodo.20072818](https://doi.org/10.5281/zenodo.20072818) |
 | Paper II | [10.5281/zenodo.20073010](https://doi.org/10.5281/zenodo.20073010) |
 | Paper III | [10.5281/zenodo.20073127](https://doi.org/10.5281/zenodo.20073127) |
