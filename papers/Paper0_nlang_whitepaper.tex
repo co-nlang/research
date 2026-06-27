@@ -100,22 +100,28 @@ Hasse diagram, with Weyl-law stability and Cauchy interlacing (the original
 declaring a dependency applies a positioning constraint and the engine navigates
 along the gradient of semantic gravity (SPEC\_13 \S2, \S6). For two fingerprints
 to attract --- to have a usable \emph{distance} before download --- the
-fingerprint must carry \emph{phase}, not just a real scalar.
+fingerprint must carry \emph{phase}, not just a real scalar: a cryptographic hash
+is collision-resistant but mutually \emph{orthogonal}, so two hashes reveal no
+nearness without fetching both --- yet smell search needs nearness \emph{before}
+fetching. Only \emph{interference} between spectral signatures supplies it
+(overlapping spectra attract), and interference needs complex amplitudes; real
+magnitudes do not interfere.
 
 \paragraph{Why the second decision forces quantum geometry.}
 Phase is exactly what a real scalar cannot supply, and the consequences cascade
 (APP\_06 \S2--\S4; Paper~VI; Epilogue). Logically:
 \begin{itemize}
   \item n/'s negation $!$ makes the logic an \textbf{orthomodular lattice};
-  \textbf{Sol\`er's theorem} then restricts its scalar field to
-  $\{\RR,\C,\HH\}$.
+  \textbf{Sol\`er's theorem} (its infinite orthogonal sequence supplied by the
+  CAID spectral geometry) then restricts its scalar field to $\{\RR,\C,\HH\}$.
   \item \textbf{EML completeness.} Why bring in EML at all? Because n/ asks its
   mathematical layer to be \emph{semantically closed} --- generated from a single
   primitive (the ``math LUCA'' of SPEC\_09) rather than postulating each elementary
   function, so the language bootstraps its own arithmetic from one seed. One
   operator $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ achieves this closure --- but is
-  complete only over $\C$, which selects $\C$ (and supplies the phase smell search
-  needs).
+  complete only over $\C$ (over $\RR$, $\ln$ is partial; holomorphic completeness
+  needs $\C$, and $\HH$'s non-commutativity breaks it), so it selects $\C$ from
+  Sol\`er's three --- and supplies the phase smell search needs.
   \item Hence n/ is \emph{forced} into Hilbert space: ``quantization is not a
   style but the geometric necessity of a lattice meeting EML completeness.''
 \end{itemize}
@@ -141,9 +147,14 @@ by observation fail to glue --- and is that failure bounded?}
 \section{From semantics to symplectic geometry (the bridge)}
 % =====================================================================
 
-The papers work in the \emph{characteristic-2 shadow} of the spec's
-$\C$-Hilbert geometry: the stabilizer / Pauli picture $V=\F_2^{2n}$, where the
-contextuality of stabilizer constructions is combinatorially exact. The
+The papers work in the \emph{characteristic-2 shadow} of the spec's $\C$-Hilbert
+geometry: the stabilizer / Pauli picture $V=\F_2^{2n}$. This is not a loss of rigor
+but a \emph{lossless} move for the question at hand. The contextuality obstructions
+(KS, Mermin) are \emph{stabilizer} phenomena, and the Pauli group modulo phase is
+\emph{exactly} $V=\F_2^{2n}$ --- with the symplectic form $\omega$ recording
+commutation and the quadratic refinement $q$ recording the $\pm1,\pm i$ phases. The
+continuous $\C$-amplitudes play no part in the obstruction, so the shadow discards
+the geometry it does not need and keeps \emph{all} of the contextuality. The
 dictionary that carries the spec-side question into it:
 
 \begin{center}
@@ -159,7 +170,7 @@ a \emph{Lagrangian} $L\subset V$ (maximal isotropic) \\
 ``two observables seen together'' (commute) &
 $\omega(u,v)=0$ ($\omega$ symplectic form) \\
 the phase carried by an observable &
-the quadratic refinement $q$, $q(v)=$ squaring class \\
+the quadratic refinement $q$, $q(v)=$ squaring class ($+I$ vs $-I$) \\
 CAID --- identity by relation (Yoneda) &
 the relational invariants ($\omega/q$-Gram fingerprint) of the subspace \\
 diagram of overlapping contexts &
@@ -244,11 +255,14 @@ $\hbarn$ & degree & obstruction (clique) & paper(s) \\
         & IV, XX \\
 \midrule
 \multicolumn{2}{l}{\textbf{ceiling}} &
-  no genuine arity-5 rung; $c=\delta a$ exact; clique criterion $\min(\omega-2,3)$
+  no genuine arity-5 rung; $c=\delta a$ exact; clique criterion $\min(\omega(G){-}2,3)$ ($\omega(G)$ = clique number)
         & XXII \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+(\emph{Family~A} is the Maslov-pentagram type, \emph{family~B} the Mermin-square
+type --- the two configuration flavors of the $H^2$ rung.)
 
 \begin{figure}[ht]
 \centering
@@ -319,7 +333,8 @@ The top ($H^3$) obstruction vanishes universally,
    [\,n_a\,]=[\delta\mu]=0 \ \text{for all configurations} \iff n=4 .
 \]
 For $n=3$ it vanishes only partially; for $n=4$ it is identically trivial; for
-$n\ge5$ it is alive, carried by the modulus $\rad(\omega|_W)$ (Papers~XIX, XX).
+$n\ge5$ it is alive, carried by the \emph{modulus} $\rad(\omega|_W)$ --- the order
+parameter that distinguishes the $n\ge5$ strata (Papers~XIX, XX).
 \end{theorem}
 
 \paragraph{Holographic reading (Paper~XIX; APP\_07 \S6).} The $n\ge5$ modulus is a
@@ -457,8 +472,10 @@ A whitepaper ends with what is not settled, at the right altitude.
   theorems of Kudo and Quillen --- so the bridge is closed \emph{modulo} those
   cited theorems; only the explicit realization is rebuilt at every degree, which
   is the $\infty$-coherence of self-representation, not a gap. (This is also the
-  \emph{Direction-D} comparison map the spec's $H^3$ entries await before the
-  $16$-cell / compute-horizon identifications can be made drop-in.)
+  comparison map --- between Paper~IV's $16$-cell / \v{C}ech $H^3$ and Paper~XX's
+  Maslov--Wall $H^3$, the same class in two languages --- that the spec's $H^3$
+  entries await before the $16$-cell / compute-horizon identifications can be made
+  drop-in.)
 \end{itemize}
 
 Both open ends are the same kind: the perpetual, higher-coherence re-building of
