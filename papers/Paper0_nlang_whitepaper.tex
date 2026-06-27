@@ -35,7 +35,9 @@
 
 \title{\textbf{The n/ Program:\\
   Forced Quantization, Bohrification, and the Contextuality Ceiling}\\[4pt]
-\large (Paper 0 --- the n/ Whitepaper for CAID)}
+\large (Paper N --- the n/ Whitepaper for CAID)\thanks{``N'' is n/'s own letter,
+taken from \emph{element zero}; so Paper~N is at once the n/ paper and the series'
+Paper~0 --- its zeroth, entry paper.}}
 \author{Zhou-Li Chen\\[2pt]\small co-nlang Research}
 \date{June 2026}
 
@@ -107,10 +109,13 @@ Phase is exactly what a real scalar cannot supply, and the consequences cascade
   \item n/'s negation $!$ makes the logic an \textbf{orthomodular lattice};
   \textbf{Sol\`er's theorem} then restricts its scalar field to
   $\{\RR,\C,\HH\}$.
-  \item \textbf{EML completeness} --- a single operator
-  $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ self-bootstraps the elementary functions,
-  but is complete only over $\C$ --- selects $\C$ (and supplies the phase smell
-  search needs).
+  \item \textbf{EML completeness.} Why bring in EML at all? Because n/ asks its
+  mathematical layer to be \emph{semantically closed} --- generated from a single
+  primitive (the ``math LUCA'' of SPEC\_09) rather than postulating each elementary
+  function, so the language bootstraps its own arithmetic from one seed. One
+  operator $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ achieves this closure --- but is
+  complete only over $\C$, which selects $\C$ (and supplies the phase smell search
+  needs).
   \item Hence n/ is \emph{forced} into Hilbert space: ``quantization is not a
   style but the geometric necessity of a lattice meeting EML completeness.''
 \end{itemize}
@@ -165,7 +170,7 @@ $\hbarn$ --- \#\,trust-contexts to describe a value (APP\_06 \S6.4) &
 the \emph{arity} of the obstruction $=$ clique size $K_{a+1}$ \\
 operators with phases &
 extra-special $2$-group $H$, $1\!\to\!\Z/2\!\to\!H\!\to\!V\!\to\!1$ \\
-self-discovery / Ouroboros (OODP) &
+self-discovery / Ouroboros Discovery Protocol &
 the self-representation map $f:\text{nerve}\to BH$ \\
 \bottomrule
 \end{tabular}
@@ -248,20 +253,20 @@ $\hbarn$ & degree & obstruction (clique) & paper(s) \\
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[font=\small,
-  rung/.style={draw, rounded corners, text width=11cm, align=left, inner sep=5pt},
+  rung/.style={draw, rounded corners, text width=12cm, align=left, inner sep=5pt},
   faded/.style={draw, dashed, draw=gray, text=gray, rounded corners,
-                text width=11cm, align=left, inner sep=5pt}]
-  \node[rung] (h1) at (0,0)    {$H^1$\, ($\hbarn{=}1$, arity 2, $K_3$) --- geometric phase / holonomy \hfill \textit{CAP / partition}};
-  \node[rung] (h2) at (0,1.15) {$H^2$\, ($\hbarn{=}2$, arity 3, $K_4$) --- KS: Maslov (A), Mermin $K_{3,3}$ (B) \hfill \textit{FLP}};
-  \node[rung] (h3) at (0,2.30) {$H^3$\, ($\hbarn{=}3$, arity 4, $K_5$) --- Borromean $n_a=\Sq^1\omega$ \hfill \textit{Byzantine}};
+                text width=12cm, align=left, inner sep=5pt}]
+  \node[rung] (h1) at (-2.2,0)    {$H^1$\, ($\hbarn{=}1$, arity 2, $K_3$) --- geometric phase / holonomy \hfill \textit{CAP / partition}};
+  \node[rung] (h2) at (-1.8,1.15) {$H^2$\, ($\hbarn{=}2$, arity 3, $K_4$) --- KS: Maslov (A), Mermin $K_{3,3}$ (B) \hfill \textit{FLP}};
+  \node[rung] (h3) at (-1.4,2.30) {$H^3$\, ($\hbarn{=}3$, arity 4, $K_5$) --- Borromean $n_a=\Sq^1\omega$ \hfill \textit{Byzantine}};
   \draw[very thick] ([yshift=11pt]h3.north west) -- ([yshift=11pt]h3.north east)
-    node[midway, above, font=\footnotesize]{\textbf{ceiling} (Paper~XXII): $c=\delta a$ exact --- no genuine arity-5};
-  \node[faded] (hi) at (0,4.05) {$H^4=\langle q^2\rangle$ decomposable only (item 21); $H^5$ (arity 6), $H^9,\dots$ --- the Steenrod / LHS machine climbs on, but needs \emph{non-bilinear} data n/ does not carry};
+    node[midway, above, font=\footnotesize](ceiling){\textbf{ceiling} (Paper~XXII): $c=\delta a$ exact --- no genuine arity-5};
+  \node[faded] (hi) at ([yshift=20pt, xshift=20pt]ceiling.north) {$H^4=\langle q^2\rangle$ decomposable only (item 21); $H^5$ (arity 6), $H^9,\dots$ --- the Steenrod / LHS machine climbs on, but needs \emph{non-bilinear} data n/ does not carry};
   % degree axis
-  \draw[->, thick] (-6.4,-0.55) -- (-6.4,4.6);
-  \node[rotate=90, font=\footnotesize] at (-6.75,2.0) {degree $=\hbarn$\ $\uparrow$};
+  \draw[->, thick] (-9,-0.55) -- (-7.5,5);
+  \node[rotate=75, font=\footnotesize] at (-8.6,2.0) {degree $=\hbarn$\ $\uparrow$};
   % n=4 marker on H3
-  \node[anchor=west, text=blue!55!black, font=\footnotesize, align=left] at (5.85,2.30) {$[n_a]{=}0$\\ $\iff n{=}4$};
+  \node[anchor=west, text=blue!55!black, font=\footnotesize, align=left] at (5,2.30) {$[n_a]{=}0$\\ $\iff n{=}4$};
 \end{tikzpicture}
 \caption{The $\hbarn$ spectrum (the obstruction tower) as the discrete ladder of
 Paper~XXII. Realized rungs $H^1$--$H^3$ (solid) carry the contextuality of bilinear
@@ -338,7 +343,7 @@ obstruction, $[n_a]=0$.
 \paragraph{Two roles, two dimensional behaviors.} What does $n=4$ mean for n/?
 The answer turns on a distinction between the engine and the spec's self-evolution.
 
-\emph{The OODP engine does \textbf{not} fix $n$.} The discovery/runtime engine
+\emph{The Ouroboros engine does \textbf{not} fix $n$.} The discovery/runtime engine
 (CAID $+$ LADD) must \emph{recognize} obstruction classes at every level: APP\_07
 maps the ladder onto distributed consensus --- $H^1$ to CAP / network partition,
 $H^2$ to FLP impossibility, $H^3$ to Byzantine non-associativity, $H^4$ to Sybil
