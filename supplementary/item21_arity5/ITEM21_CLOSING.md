@@ -59,9 +59,26 @@ extra data that genuine natural obstructions do **not** use.
   algebra, which is `0` below degree `2^{2n-1}` — `[VERIFIED n=2,3]` `H⁴(BV)^{GL}=0`. So `A_w` (nonzero as
   a config function) is **not** a natural ambient class: it is *relational* (`R`), not
   pointwise-cohomological. (Complements `phase_blind`'s `GL`-invariance exclusion.)
-- `[VERIFIED]` `dim H⁴(BV)^O = 1`, spanned by `q²` (`sp_invariants.py`, `bridge_tower.py`); the orthogonal
-  generators sit at degrees `{2,3,5,9,…}={2}∪{1+2^i}` — **skipping degree 4**; and these generators *are*
-  the Kudo transgression tower (`q, Sq¹q, Sq²Sq¹q`, verified indecomposable through deg 5).
+- `[VERIFIED]` `dim H⁴(BV)^O = 1`, spanned by `q²` (`sp_invariants.py`, `bridge_tower.py`).
+- **The generator degrees `[CLASSICAL backbone + VERIFIED through deg 5]`.** The orthogonal generators sit
+  at degrees `{2,3,5,9,…}={2}∪{1+2^i}` — **skipping degree 4** — and *are* the Kudo transgression tower
+  (`q, Sq¹q, Sq²Sq¹q`). Two different-strength claims live here, so tag them apart: the degree *pattern*
+  `{2}∪{1+2^i}` is **`[CLASSICAL]`** (Kudo transgression of the iterated squares `Sq^{2^{k-1}}…Sq¹q` on the
+  Quillen extra-special-2-group `E₂`); but the identification that the ambient `O`-generators *are exactly*
+  this tower — i.e. the **completeness** (no extra low-degree generator) and **freeness** (no early
+  relation) of the generator list, which is what `dim H⁴^O=1` actually rests on — is
+  **`[VERIFIED n=2,3,4 through deg 5]`** (`bridge_tower.py`), with completeness/freeness for general `n`
+  **extrapolated from the classical backbone, not separately proven**. (This is a *generative* claim about
+  the whole ring, weaker than the directly-computed number `dim H⁴^O=1` beside it — do not read them as
+  equally solid.)
+- **Hidden self-check — the degree-3 "control."** The same Steps A–D machine, run one degree *down*
+  (arity-4/`H³` at `K₅` rather than arity-5/`H⁴` at `K₆`), does **not** wrongly declare `n_a` decomposable:
+  `3 ∈ {2}∪{1+2^i}`, so degree 3 is a genuine *indecomposable* generator (`Sq¹q`), not a cup-product of
+  lower degrees (no degree-1 generator; `2+1` cannot furnish an independent deg-3 class). So the reduction
+  **reproduces item 23's *positive* result (`n_a` genuine) exactly where the answer is already known**, and
+  yields item 21's *negative* result precisely where the tower skips (degree 4). This is the degree-3
+  analogue of the program's `n=4` control: the machine gives the right answer where we can check it, which
+  is the strongest available evidence that the degree-4 skip is real and not an artifact.
 - `q² = Sq²q` is **decomposable** (a cup-square = family B; item 22: family B has no independent
   resonance) — it is `μ²`, not a new rung.
 
@@ -114,6 +131,14 @@ phase_blind** — genuine obstructions are `Sp`/`O`-but-not-`GL` (phase-dependen
 the over-counters are *relational* (`R`), not pointwise-cohomological, so not natural ambient classes.
 A genuine contextuality obstruction *is* the pointwise operator-phase `q`-defect, which is exactly
 pointwise-cohomological — so the condition is well-motivated, not ad hoc.
+
+**Evidence discipline (cf. `ATTACK_PLAN.md` §8).** This grounding is the *same kind* of move §8 governs,
+one altitude up: `n_a`'s `R`-independence / pure-Gram form is **one verified instance elevated to a
+structural condition on all genuine cochains** — not a proof that no `R`-dependent genuine cochain could
+exist for some reason not yet considered. As with the bounded-family searches, this is *strong evidence,
+not a nonexistence theorem* — which is exactly why item 21 stays `[CONDITION]`-flagged rather than declared
+closed. The "bounded family" here is just more abstract (the naturality condition itself) than the cochain
+families §8 was originally written for.
 
 ### The condition, grounded operationally: contextuality = fixed-context gluing
 

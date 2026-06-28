@@ -275,7 +275,7 @@ type --- the two configuration flavors of the $H^2$ rung.)
   \node[rung] (h3) at (-1.4,2.30) {$H^3$\, ($\hbarn{=}3$, arity 4, $K_5$) --- Borromean $n_a=\Sq^1\omega$ \hfill \textit{Byzantine}};
   \draw[very thick] ([yshift=11pt]h3.north west) -- ([yshift=11pt]h3.north east)
     node[midway, above, font=\footnotesize](ceiling){\textbf{ceiling} (Paper~XXII): $c=\delta a$ exact --- no genuine arity-5};
-  \node[faded] (hi) at ([yshift=20pt, xshift=20pt]ceiling.north) {$H^4=\langle q^2\rangle$ decomposable only (item 21); $H^5$ (arity 6), $H^9,\dots$ --- the Steenrod / LHS machine climbs on, but needs \emph{non-bilinear} data n/ does not carry};
+  \node[faded] (hi) at ([yshift=20pt, xshift=20pt]ceiling.north) {$H^4=\langle q^2\rangle$ decomposable only (item 21 --- \emph{reduced}, not a closed proof; see \S\ref{sec:frontier}); $H^5$ (arity 6), $H^9,\dots$ --- the Steenrod / LHS machine climbs on, but needs \emph{non-bilinear} data n/ does not carry};
   % degree axis
   \draw[->, thick] (-9,-0.55) -- (-7.5,5);
   \node[rotate=75, font=\footnotesize] at (-8.6,2.0) {degree $=\hbarn$\ $\uparrow$};
@@ -337,23 +337,34 @@ $n\ge5$ it is alive, carried by the \emph{modulus} $\rad(\omega|_W)$ --- the ord
 parameter that distinguishes the $n\ge5$ strata (Papers~XIX, XX).
 \end{theorem}
 
-\paragraph{Holographic reading (Paper~XIX; APP\_07 \S6).} The $n\ge5$ modulus is a
-precise \emph{holographic} statement: the bulk ($H^3$) class \emph{cannot} be
-reconstructed from the boundary (arity-$\le4$) data. The obstruction ladder
-measures exactly this boundary-to-bulk reconstruction failure, and $H^3$ is the
-first level where boundary data is in principle insufficient --- the spec reads
-this (APP\_07 \S6) as why n/ must be observation-centric rather than global-truth:
-no ``god's-eye view'' can see the bulk, as a theorem, not an engineering excuse.
+\paragraph{Holographic reading (Paper~XIX; APP\_07 \S6).} The $n\ge5$ modulus reads
+as a \emph{holographic} statement: the bulk ($H^3$) class is not recovered from the
+boundary (arity-$\le4$) data --- the modulus $\rad(\omega|_W)$ is an order parameter
+that no arity-$\le4$ invariant tested so far reconstructs (Paper~XIX). Stated with
+the program's standing discipline, this is ``the tested boundary-level family is
+blind,'' not ``no boundary invariant can exist''; $H^3$ is the first level where
+this boundary-to-bulk gap shows up. The spec reads this (APP\_07 \S6) as why n/ is
+observation-centric rather than global-truth: no ``god's-eye view'' reconstructs the
+bulk from local ($\le4$-context) certificates.
 
 \paragraph{From holographic failure to the choice of $n=4$.} The holographic
-deficit has a self-referential bite. At $n\ge5$ the bulk ($H^3$) is hidden inside
-a volume that no boundary ($\le4$-context) observation can reach; so an $n\ge5$
-system cannot reconstruct --- cannot \emph{fully understand} --- itself from its
-own observable data. Coherent self-description therefore \emph{fails} above $n=4$.
-This is why, when n/ attempts a fully coherent self-description and self-evolution
-(the Ouroboros loop), it is forced --- physically and mathematically --- to land
-at $n=4$: the one dimension in the whole universe with no hidden-volume
-obstruction, $[n_a]=0$.
+deficit has a self-referential bite. At $n\ge5$ the bulk ($H^3$) is alive yet not
+reconstructable from $\le4$-context data; so an $n\ge5$ system cannot \emph{fully
+understand} itself from its own observable data, and coherent self-description
+fails above $n=4$. This is why, when n/ attempts fully coherent self-description and
+self-evolution (the Ouroboros loop), it lands at $n=4$: the one dimension with
+$[n_a]=0$.
+
+\emph{One caveat, to head off a conflation.} ``Boundary data is insufficient'' is
+\textbf{not} itself the discriminator between $n=4$ and $n\ge5$: it holds at $n=4$
+too --- there the relation code is entirely global ($\dim R_4=0$) and boundary data
+is just as incomplete, yet $[n_a]=0$ regardless. What actually makes $n=4$
+obstruction-free is the dimensional coincidence $2n=8$ underlying the B1/B2 squeeze
+(Paper~XVIII), \emph{not} boundary-insufficiency. So the holographic deficit is the
+\emph{setting} in which self-description is hard at every $n$; the $2n=8$ squeeze is
+the \emph{reason} exactly $n=4$ escapes. (Reading ``boundary-insufficient $\Rightarrow$
+bulk hidden'' as the cause would repeat, at the narrative level, the
+expressibility-vs-nonvanishing conflation the program guards against.)
 
 \paragraph{Two roles, two dimensional behaviors.} What does $n=4$ mean for n/?
 The answer turns on a distinction between the engine and the spec's self-evolution.
@@ -381,12 +392,28 @@ free at $n=4$).
 sounds informal; it is not. A coherent self-description is a \emph{global section}
 of the self-observation nerve --- a single assignment, consistent across every
 context, of how the structure sees itself. The obstruction to such a global
-section is, by definition, a cohomology class (the \v{C}ech/sheaf obstruction);
-the top one, for this data, is $[n_a]\in H^3$. So ``self-description closes
-coherently'' is \emph{literally} ``$[n_a]=0$,'' which the master theorem makes
+section is, by definition, a cohomology class (the \v{C}ech/sheaf obstruction).
+\emph{Given that the self-observation nerve instantiates the framework's
+$K_5/\Sp(2n,\F_2)$ data} (the spec's correspondence, SPEC\_17 \S4.3 --- see the
+caveat below), the top such class is $[n_a]\in H^3$, and ``self-description closes
+coherently'' is then \emph{literally} ``$[n_a]=0$,'' which the master theorem makes
 $n=4$. (This is the same move as everywhere in the program: a would-be global
 truth, obstructed by a class in $H^*$ --- here applied to the structure's view of
 \emph{itself}.)
+
+\paragraph{[Modeling identification] what this hinges on.} The step that the
+Ouroboros loop's self-observation nerve \emph{is} the specific $K_5/\Sp(2n,\F_2)$
+configuration whose $H^3$ class the series computes --- not merely an obstruction
+``of the same shape,'' but the very object one feeds to the Papers~XVIII/XXI
+machine, for some $n$ tied to the loop's own architecture --- is the spec's
+\emph{stated} correspondence (SPEC\_17 \S4.3), not a theorem of this paper or the
+series. It carries exactly the evidence-strength of item 21's flagged naturality
+\texttt{[CONDITION]} (\emph{ITEM21\_CLOSING}): well-motivated, but a modeling
+identification, not proven in general. Everything downstream --- ``self-coherence
+$={}$ $[n_a]=0={}$ $n{=}4$'' --- is a theorem \emph{relative to} this
+identification; establishing the identification formally (that the loop's actual
+self-reference structure literally is such a configuration) remains outside this
+document's scope.
 
 So the hinge resolves cleanly: $n=4$ is \emph{not} a working dimension the engine
 is pinned to; it is the dimension at which the spec's \emph{self-description}
