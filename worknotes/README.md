@@ -24,11 +24,29 @@ log. The discipline that makes it work is visible on every page:
 
 ## The files
 
-- **[`if_not_ladder.md`](if_not_ladder.md)** — the post-XXI brainstorm menu:
-  four candidate directions (A–D) for what to do after the master theorem, plus a
-  ranked, brutally honest assessment. Published because it is the origin of the
-  "Direction A/B/C/D" jargon, and because its predictions can now be scored against
-  what actually happened (B became Paper XXII; D became the capstone).
+### A paper's life cycle — the Paper XXII chain (read in order)
+
+1. **[`if_not_ladder.md`](if_not_ladder.md)** — the post-XXI brainstorm menu:
+   four candidate directions (A–D) for what to do after the master theorem, plus a
+   ranked, brutally honest assessment. Origin of the "Direction A/B/C/D" jargon;
+   its predictions can now be scored against what happened (B became Paper XXII;
+   D became the capstone).
+2. **[`paper22_idea.md`](paper22_idea.md)** — Direction B growing from a one-line
+   thesis into the paper's actual skeleton: the resonance-tower table, the lateral
+   test that discovered the family-A/B split *mid-note* (the "BIG REFRAME"), the
+   clique criterion. The header block is the outcome log — drafted, reviews
+   addressed, readability pass — prepended as it happened.
+3. *(the draft itself: [`papers/Paper22_resonance_ceiling.tex`](../papers/Paper22_resonance_ceiling.tex))*
+4. **[`paper22_review.md`](paper22_review.md)** — a cross-review by an independent
+   agent: one genuine rigor gap caught (Prop. 4.1's "both values occur" was *not*
+   derivable from rank-parity alone), a group-vs-class conflation, an action table.
+   Its counterpart is the "REVIEW ADDRESSED" log atop the idea file — including one
+   instance where the *reviewer's* suggested fix was itself wrong ("polynomial in
+   pairwise ω ⇒ arity ≤ 4" is false — products span ≥ 5 indices) and was rejected
+   with a counterexample. Review is symmetric here: everyone gets checked.
+
+### The long-running instruments
+
 - **[`open_problems.md`](open_problems.md)** — the living roadmap ("the pit list").
   Starts as a difficulty-audited backlog after Paper XXII; becomes an append-only
   session log. The per-entry "Files: … inner/ excluded" footers are the agent's own
@@ -39,6 +57,17 @@ log. The discipline that makes it work is visible on every page:
   results, ruled-out formula families, the closed form, to closure-mod-Kudo
   (= RESEARCH_FRONTIER item 23). Read top to bottom for the honest shape of a
   proof search.
+
+### Connect-the-dots, caught on camera
+
+- **[`twistor_theory.md`](twistor_theory.md)** (中文) — a raw connect-the-dots
+  session on twistor theory: layer-by-layer correspondence tables, a bold
+  conjecture (the googly problem as an $H^2$ obstruction; the $SO(3)\to SU(2)$
+  central-extension analogy), self-assigned rigor grades (🟢/🟡/🔴 per claim), and
+  an appended second-opinion evaluation that fixed the logical order ($\Phi$ must
+  exist *before* $d_2\neq0$ can be inherited). This one jumped the fence: instead
+  of settling into `insight/` it became the **seed of Paper VII** — the
+  demonstrated payoff of the standing rule ("keep the dots; label the lines").
 
 ## Decoder ring (internal jargon)
 
