@@ -60,7 +60,14 @@ sharpen*, not to delete.
   (RoPE = $H^1$ holonomy is the tight correspondence). On the actual endgame:
   `n/` + LLM neuro-symbolic = exact observer (engine) + learned observer (LLM).
 - `distributed_consensus_cohomology.md` — FLP = $H^2$, Byzantine = $H^3$,
-  Sybil = $H^4$. Already absorbed into the spec (APP_07).
+  Sybil = "$H^4$". Absorbed into the spec (APP_07 §4) — **as a correspondence-level
+  mapping, not upgraded to the series' later (X–XXII) rigour**; the mathematical
+  neighbor is Herlihy–Kozlov–Rajsbaum. Revised 2026-07-03: the CAP $H^0/H^1$ bug
+  fixed (a disconnected cover has $\check H^1=0$; the genuine $H^1$ is *heal-loop*
+  monodromy — CAP sits in the **survivor column**, FLP/Byzantine in the differential
+  column), and the quantum column updated post-XXII: the towers **mismatch at $H^4$**
+  (quantum side truncates) — which is the analogy's sharpest output: Sybil repair
+  must be externally anchored (ORDER_00).
 
 **Upgraded to rigorous math** *(the proof that the nursery sometimes hides treasure)*
 - `moser_spindle_d2.md` — the original (intuition-era) $d_2$/NP machinery was wrong,

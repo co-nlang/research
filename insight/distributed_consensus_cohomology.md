@@ -2,6 +2,18 @@
 
 **FLP impossibility, Paxos, and Byzantine fault tolerance through the lens of the obstruction ladder.**
 
+> **Status (revised 2026-07-03; original is Paper-VI-era).** ⚠️ **Correspondence-level** —
+> the mapping (CAP/FLP/Byzantine/Sybil ↔ $H^1$–$H^4$) is a structural analogy, not a
+> theorem of the series; the rigorous mathematical neighbor is Herlihy–Kozlov–Rajsbaum's
+> topology of distributed computing. This revision: ✅ fixed the $H^0/H^1$ bug in §2
+> (a disconnected cover has $\check H^1 = 0$; the genuine $H^1$ is the *heal-loop*
+> monodromy); ✅ placed $H^1$/CAP in the ladder's **survivor column**
+> (holonomy/classification — repairable) as against the **differential column**
+> ($H^2$/$H^3$ — genuine gluing obstructions), matching the series' $E_\infty$-vs-$d_r$
+> split; ✅ updated the quantum column to post-XX–XXII status: the quantum tower
+> **truncates at $H^3$**, so the two ladders *mismatch at $H^4$* — which is the point
+> (§6). Absorbed into the spec as APP_07 §4, which carries the same labels.
+
 ---
 
 ## 1. The Central Analogy
@@ -12,46 +24,71 @@ dimensional obstruction:
 
 | Fault model | Nerve dimension | Cohomology | Classical theorem |
 |---|---|---|---|---|
-| Network partition (Crash) | 1-cycle (loop) | $\check{H}^1 \neq 0$ | CAP: choose availability or consistency |
+| Network partition + heal (Crash) | 1-cycle (the split→rejoin loop) | $H^1$ holonomy (the in-progress partition is $H^0$; §2) | CAP: choose availability or consistency |
 | Asynchrony + single crash | 2-simplex (face) | $\check{H}^2 \neq 0$ (via $d_2$) | FLP: deterministic consensus impossible |
 | Byzantine fault | 3-simplex (tetrahedron) | $\check{H}^3 \neq 0$ | Byzantine fault tolerance ($> 2/3$) |
-| Sybil attack | 4-simplex (4-cell) | $\check{H}^4 \neq 0$ | Proof of Work / Stake / Space |
+| Sybil attack | vertex set itself | not a class — $E_1$-input corruption ("$H^4$" positional; §6) | Proof of Work / Stake / Space |
 
 Each level corresponds to a progressively deeper uncertainty about the
 state of other nodes — and each requires a progressively more complex
 geometric repair.
 
+**Two columns, one ladder.** The degrees are shared with the quantum
+ladder, but the *semantic column* differs by rung. $H^1$/CAP sits in the
+**survivor column** ($E_\infty$-stable classification: a global section
+*exists* but returns twisted around a loop — repairable by compensation);
+$H^2$/FLP and $H^3$/Byzantine sit in the **differential column** ($d_r$
+kills the section: no global section exists); and Sybil is not in the
+spectral sequence at all — it forges the $E_1$ *input*. Reading all four
+as "obstructions" flattens this distinction; the sections below keep it.
+
 ---
 
-## 2. The CAP Theorem as $H^1$ Obstruction ($E_2$ page)
+## 2. The CAP Theorem as $H^1$ Holonomy ($E_2$ page)
 
-**Setup.** A distributed system with nodes partitioned into two subsets
-$P_1$, $P_2$ that cannot communicate. The communication graph $\mathcal{G}$
-has two connected components.
+> ⚠️ **Corrected (2026-07-03).** An earlier version derived
+> $\check{H}^1 \neq 0$ from a *disconnected* cover ($U_1 \cap U_2 =
+> \varnothing$, "the nerve is disconnected"). That is wrong: a disconnected
+> cover has **no 1-simplices** in its nerve, so $\check{H}^1 = 0$ — the
+> in-progress partition is an $H^0$ phenomenon. The genuine $H^1$ lives on
+> the *heal loop*. Both phases are kept below, correctly labelled.
 
-**MASA cover.** Each partition defines a maximal context:
-$U_1 = P_1$, $U_2 = P_2$. Overlap $U_1 \cap U_2 = \varnothing$.
+**Phase 1 — partition in progress: $H^0$, not $H^1$.** Nodes split into
+$P_1$, $P_2$ with no communication; the cover $\{U_1, U_2\}$ has empty
+overlap and the nerve is two disconnected vertices. There is no cocycle to
+obstruct — instead there are *too many* global sections: each component
+carries its own locally consistent state, and nothing relates them. This is
+failure of **uniqueness** ($\operatorname{rank} H^0 = 2$), not of existence.
 
-**Sheaf of states.** $\mathcal{F}(U_i)$ = the set of locally consistent
-system states within partition $i$. A global section of $\mathcal{F}$
-over $\mathcal{U} = \{U_1, U_2\}$ is a consistent global state — i.e.,
-consistency (C).
+**Phase 2 — partition then heal: the genuine $H^1$.** The CAP tension is
+felt when the partition *ends*. The causal diagram of the run — split,
+evolve separately, rejoin — is a loop: transport the state around
+split → $P_1$-history → rejoin and compare with
+split → $P_2$-history → rejoin. The two transports disagree by the
+accumulated divergence of the replicas: a **monodromy**. This is holonomy
+in the strict sense — a global section *exists* (the system does reunify),
+but carrying it around the loop returns it twisted.
 
-**Cohomological obstruction.** $\check{H}^1(\mathcal{U}, \mathcal{F}) \neq 0$
-because the nerve is disconnected. The non-trivial $1$-cocycle records
-the disagreement between the two partitions.
+**CAP in this language.** During the partition, an available (A) system
+lets both components write, creating the monodromy; a consistent (C)
+system refuses writes in at least one component, gauge-fixing the loop so
+the holonomy is trivial. "Choose C or A" = choose *how to pay the
+monodromy*: trivialize it by waiting, or accept the twist and reconcile
+later.
 
-**CAP theorem** in this language:
-$$C \cap A = \varnothing \iff \check{H}^1 \neq 0.$$
+**Why this is the survivor column, not an obstruction.** Unlike FLP
+($H^2$, next section), nothing here says a global section cannot exist.
+The $H^1$ class *classifies the twist* that reconciliation must pay:
+eventual-consistency repair (CRDT merge, read-repair, compensating
+transactions) is literally **phase compensation**. This matches the
+quantum side, where $H^1$ classes (geometric phases) are $E_\infty$
+*survivors* — stable, recorded, transportable — not differentials that
+kill sections. CAP is "tolerable/repairable" (APP_07's wording) precisely
+because it sits in the survivor column.
 
-Any algorithm that maintains availability (A) in the presence of a
-partition (P) is locally consistent within each partition but cannot
-extend to a global section. This is **geometric phase $H^1$** —
-walk around the two context MASAs and return with a phase mismatch.
-
-**$E_2$ page convergence:** $H^1$ obstruction is detectable at $E_2$
-(one round of message exchange suffices). CAP is $P$ in complexity
-terms — linear in the number of nodes.
+**$E_2$ page convergence:** the holonomy is detectable at $E_2$ (one round
+of message exchange after heal). CAP is $P$ in complexity terms — linear
+in the number of nodes.
 
 ---
 
@@ -286,15 +323,14 @@ at the level of its *vertex set*:
 
 $$|\mathcal{N}(\mathcal{U})|_{\text{apparent}} \neq |\mathcal{N}(\mathcal{U})|_{\text{actual}}.$$
 
-The $4$-simplex structure enters because the falsehood lives in the
-relationship between four apparent identities that collapse to one
-real entity. Consider four fake nodes $Z_1, Z_2, Z_3, Z_4$ that the
-cover $\mathcal{U}$ treats as distinct vertices. The actual nerve has
-these four vertices identified (they are the same attacker), but the
-apparent nerve treats them as independent. The obstruction lives at
-$\check{H}^4$ because the $4$-cocycle condition on the $4$-simplex
-$[Z_1, Z_2, Z_3, Z_4]$ detects the inconsistency between the apparent
-and true identifications.
+The $4$-simplex picture: the falsehood lives in the relationship between
+four apparent identities that collapse to one real entity — four fake
+nodes $Z_1, Z_2, Z_3, Z_4$ that the cover $\mathcal{U}$ treats as distinct
+vertices, while the actual nerve has them identified. But "$H^4$" here is
+**positional shorthand** (the layer one step deeper than intent:
+existence), *not* a class the spectral sequence computes — no cocycle
+condition on fabricated vertices is well-posed, because the complex itself
+is the forgery. The next paragraph is the accurate statement.
 
 **In LHS spectral sequence terms:** the Sybil attack corrupts the
 *input* to the spectral sequence itself — it is not an obstruction at
@@ -321,21 +357,31 @@ Every mechanism forces the nerve's identity dimension to have a
 real-world anchor — making the cost of forging an identity equivalent
 to the cost of forging a physical $4$-simplex.
 
-### The Completeness of the Ladder
+### The Mismatch at $H^4$ Is the Content (updated post-XXII)
 
-With Sybil at $H^4$, the distributed consensus ladder now mirrors
-the quantum obstruction ladder exactly:
+An earlier version of this note claimed the two ladders "match in full,
+$H^1$ through $H^4$" — with the quantum $H^4$ filled in as "2-gerbe /
+$d_4$ transgression" and $H^3$ still marked conjectural. The series has
+since **proven the $H^3$ rung and refuted the quantum $H^4$**, and the
+refutation *sharpens* the correspondence:
 
-| Level | Quantum | Distributed systems |
+| Level | Quantum (post XX–XXII) | Distributed systems |
 |---|---|---|
-| $H^1$ | Geometric phase (A-B, Berry) | CAP: partition disagreement |
-| $H^2$ | Central extension (Peres-Mermin, KS) | FLP: asynchronous disagreement |
-| $H^3$ | Bundle gerbe (Borromean, $H^3$ conj.) | Byzantine fault: equivocation |
-| $H^4$ | 2-gerbe / $d_4$ transgression | **Sybil: identity fabrication** |
+| $H^1$ | Geometric phase (A-B, Berry) — $E_\infty$ survivor | CAP: heal-loop monodromy (survivor column) |
+| $H^2$ | KS / central extension — theorem (Paper III) | FLP: asynchronous disagreement |
+| $H^3$ | Borromean class $[n_a]$ — **theorem**; $=0$ universally iff $n=4$ (Papers XX–XXI) | Byzantine fault: equivocation |
+| $H^4$ | **does not exist** — the tower truncates at $H^3$ (Paper XXII; item 21: no exotic arity-5 class) | Sybil: identity fabrication — **needs a repair layer** |
 
 Each level involves a deeper layer of the system's definition:
 $H^1$ questions values, $H^2$ questions timing, $H^3$ questions
-intent, $H^4$ questions **existence**.
+intent, $H^4$ questions **existence** — and at exactly that layer the two
+columns *diverge*. The distributed stack needs an $H^4$-level repair; the
+internal (symplectic/Pauli) mathematics proves there is **no internal
+$H^4$ class** with which to detect or perform it. So Sybil resistance
+cannot be consensus-internal: it must be anchored *outside* the framework
+(PoW / PoS / KYC — and in `n/`, the physical genesis anchor `ORDER_00`).
+The mismatch is not a defect of the analogy; it is its sharpest
+prediction, and it is exactly APP_07 §4's argument for `ORDER_00`.
 
 ---
 
@@ -343,27 +389,29 @@ intent, $H^4$ questions **existence**.
 
 | Level | Fault model | Nerve | Cohomology | Classical theorem |
 |---|---|---|---|---|
-| $H^1$ | Partition | 1-cycle | $\check{H}^1 \neq 0$ | CAP (choose C or A) |
+| $H^1$ (survivor) | Partition + heal | 1-cycle (heal loop) | $H^1$ holonomy (in-progress: $H^0$) | CAP (choose C or A) |
 | $H^2$ | Async crash | 2-simplex | $d_2 \neq 0$ | FLP impossible |
 | Paxos fix | Async crash | 4-cycle overlap | $d_2 \to 0$ via quorum | Paxos safety |
 | $H^3$ | Byzantine | 3-simplex | $H^3 \neq 0$ | $n > 3f$ required |
-| $H^4$ | Sybil | 4-simplex | $H^4 \neq 0$ | PoW / PoS / PoSpace |
+| "$H^4$" | Sybil | vertex set ($E_1$ input) | no internal class (Paper XXII) — external anchor | PoW / PoS / PoSpace |
 
-The progression is the same as the quantum contextuality ladder:
-- $H^1$: geometric phase → partition disagreement
+The progression follows the quantum contextuality ladder — up to its lid:
+- $H^1$: geometric phase (survivor) → heal-loop monodromy
 - $H^2$: central extension → asynchronous disagreement
 - $H^3$: non-associativity → Byzantine equivocation
-- $H^4$: identity fabrication → Sybil attack
+- "$H^4$": internally empty (truncation) → Sybil repair must be external
 
 ---
 
-*This note is a speculative exploration at the intersection of
+*This note is a correspondence-level exploration at the intersection of
 distributed computing and algebraic topology. It reformulates
 classical impossibility results and algorithms as cohomological
 obstruction phenomena, providing a unified geometric language
-for fault tolerance. With the addition of Sybil at $H^4$, the
-distributed systems ladder now matches the quantum obstruction
-ladder in full: $H^1$ through $H^4$.*
+for fault tolerance. The ladders align on $H^1$–$H^3$ (with $H^1$ in the
+survivor column), and deliberately **mismatch at $H^4$**: the quantum
+tower truncates (Paper XXII), so the Sybil layer has no internal class
+and its repair must be externally anchored — the analogy's sharpest, and
+most load-bearing, conclusion.*
 
 ---
 
@@ -373,3 +421,4 @@ ladder in full: $H^1$ through $H^4$.*
 - Lamport, L. (1998). The part-time parliament. *ACM Trans. Comput. Syst.*, 16(2), 133–169.
 - Gilbert, S. & Lynch, N. (2002). Brewer's conjecture and the feasibility of consistent, available, partition-tolerant web services. *ACM SIGACT News*, 33(2), 51–59.
 - Lamport, L., Shostak, R., & Pease, M. (1982). The Byzantine generals problem. *ACM Trans. Program. Lang. Syst.*, 4(3), 382–401.
+- Herlihy, M., Kozlov, D., & Rajsbaum, S. (2013). *Distributed Computing Through Combinatorial Topology*. Morgan Kaufmann. (The rigorous coloring→topology→solvability body; this note's mathematical neighbor.)

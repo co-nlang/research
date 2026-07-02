@@ -53,10 +53,14 @@ a subspace is named by the spectral fingerprint of its projection operator $P_A$
 (the \textbf{CAID}, Content Addressable Identifier; Yoneda's principle, an object
 is its relations). Second, navigation is by \emph{geometric gravity} (``smell
 search''), which demands fingerprints carry \emph{phase}. The second requirement
-is not free: an orthomodular observation logic (Sol\`er) restricts the scalar
-field to $\{\RR,\C,\HH\}$, and the EML completeness result selects $\C$ --- so n/
-is \emph{forced} into Hilbert space; quantization is geometric necessity, not
-style. Quantum structure is non-commutative, so observation proceeds through
+is not free: an orthomodular observation logic restricts the scalar field to
+$\{\RR,\C,\HH\}$ (Sol\`er; hypotheses flagged in \S1), and within that
+classification non-trivial \emph{continuous} observation selects $\C$ ---
+Paper~VI's pincer: $\RR$'s phase group is discrete, $\HH$'s is perfect,
+annihilating the $d_2$ transgression that realizes contextuality --- with EML
+completeness over $\C$ as an independent computational echo. So n/ is
+\emph{forced} into Hilbert space, modulo two flagged hypotheses (\S1);
+quantization is geometric necessity, not style. Quantum structure is non-commutative, so observation proceeds through
 commutative \emph{contexts} (Bohrification), and Kochen--Specker then guarantees
 there is no observer-independent global section. The obstruction-ladder series
 computes the \emph{exact} structure and \emph{bound} of that contextuality; the
@@ -109,26 +113,55 @@ magnitudes do not interfere.
 
 \paragraph{Why the second decision forces quantum geometry.}
 Phase is exactly what a real scalar cannot supply, and the consequences cascade
-(APP\_06 \S2--\S4; Paper~VI; Epilogue). Logically:
+(APP\_06 \S2--\S4; Paper~VI; Epilogue). \emph{Two} chains lead from the
+decisions to Hilbert space, and they must not be conflated. The
+\emph{discovery} chain --- how it actually happened --- ran spectral geometry
+$\to$ EML $\to$ Bohrification ($+$KS) $\to$ Sol\`er: each arrow a motivation,
+none a proof; APP\_06 records it, correctly, as design history. The
+\emph{logical} chain carries the weight, and each link bears an explicit
+strength tag:
 \begin{itemize}
-  \item n/'s negation $!$ makes the logic an \textbf{orthomodular lattice};
-  \textbf{Sol\`er's theorem} (its infinite orthogonal sequence supplied by the
-  CAID spectral geometry) then restricts its scalar field to $\{\RR,\C,\HH\}$.
-  \item \textbf{EML completeness.} Why bring in EML at all? Because n/ asks its
-  mathematical layer to be \emph{semantically closed} --- generated from a single
-  primitive (the ``math LUCA'' of SPEC\_09) rather than postulating each elementary
-  function, so the language bootstraps its own arithmetic from one seed. One
-  operator $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ achieves this closure --- but is
-  complete only over $\C$ (over $\RR$, $\ln$ is partial; holomorphic completeness
-  needs $\C$, and $\HH$'s non-commutativity breaks it), so it selects $\C$ from
-  Sol\`er's three --- and supplies the phase smell search needs.
-  \item Hence n/ is \emph{forced} into Hilbert space: ``quantization is not a
-  style but the geometric necessity of a lattice meeting EML completeness.''
+  \item \textbf{[DESIGN]} n/ commits to: negation $!$ as an orthocomplement
+  (an \textbf{orthomodular} observation logic); fingerprints that carry phase
+  (interference / nearness-before-fetch --- the smell-search requirement); and
+  observation that is contextual (non-trivial) with \emph{continuous}
+  dynamics. These are design axioms --- stated, not derived. (Deriving
+  orthomodularity itself, e.g.\ from the $\mathcal Q\dashv\mathcal B$
+  adjunction, is open: RESEARCH\_FRONTIER item~5.)
+  \item \textbf{[CONDITION]} the semantic lattice is an infinite-dimensional
+  orthomodular space admitting an infinite orthonormal sequence --- supplied,
+  plausibly but not provenly, by the CAID Laplacian spectrum (APP\_06 \S3.1
+  note). Same evidence-grade as the SPEC\_17 modeling identification of \S4.
+  \item \textbf{[THEOREM --- Sol\`er 1995]} under that condition, the scalar
+  field lies in $\{\RR,\C,\HH\}$.
+  \item \textbf{[THEOREM --- Paper VI]} within that classification, the design
+  axioms select $\C$ by a pincer. $\RR$: its phase group $O(1)\cong\Z/2$ is
+  discrete --- it cannot carry continuous evolution (the continuity
+  constraint). $\HH$: its phase group $Sp(1)\cong SU(2)$ is perfect, so
+  $\mathrm{Hom}(SU(2),U(1))=0$ and the $d_2$ transgression that realizes
+  Kochen--Specker contextuality is annihilated (the abelian constraint). Only
+  $U(1)$ survives; hence $\C$.
+  \item \textbf{[ECHO --- conjectural; item 4]} \textbf{EML.} n/ asks its
+  mathematical layer to be \emph{semantically closed} --- generated from a
+  single primitive (the ``math LUCA'' of SPEC\_09) rather than postulating
+  each elementary function --- and one operator
+  $\mathrm{eml}(x,y)=\exp(x)-\ln(y)$ achieves this closure. Over $\C$,
+  $\ln(-1)=i\pi$ is a well-defined $U(1)$ ambiguity; over $\HH$ the logarithm
+  admits a continuous $S^2$ of branches, breaking single-valued computation;
+  over $\RR$ the closure fails. Paper~VI itself files this as a ``suggestive
+  computational echo'' whose equivalence to the $d_2$ mechanism is left as
+  future work: independent supporting evidence, and the design story of the
+  seed --- \emph{not} a load-bearing eliminator.
 \end{itemize}
 \begin{remark}
-The order above is the logical reconstruction the spec now uses; the historical
-discovery order ran spectral geometry $\to$ EML $\to$ Bohrification ($+$KS) $\to$
-Sol\`er. The dependency, not the chronology, is what matters here.
+The two chains assign EML opposite roles, and that is the point: in the
+discovery chain EML was the hinge (it is what suggested $\C$); in the logical
+chain it is an echo, and the eliminations are Paper~VI's theorems. Earlier
+drafts of this section blended the chains --- the discovery chain's order of
+importance wearing the logical chain's rhetoric. The dependency, not the
+chronology, is what ``forced'' refers to: forced \emph{modulo} the two flagged
+inputs ([DESIGN], [CONDITION]) --- the same conditional shape as the $n=4$
+claim of \S4.
 \end{remark}
 Quantum structure is non-commutative. \textbf{Bohrification} (Paper~II; Epilogue)
 restores readability by observing the non-commutative ontology through a family
@@ -178,7 +211,8 @@ the context-nerve $K_N\simeq S^{N-2}$ \\
 no observer-independent global section (KS) &
 a nonzero obstruction class in $H^{k}$ \\
 $\hbarn$ --- \#\,trust-contexts to describe a value (APP\_06 \S6.4) &
-the \emph{arity} of the obstruction $=$ clique size $K_{a+1}$ \\
+the obstruction's cohomological \emph{degree} $a-1$ (arity-$a$ datum;
+resonant clique $K_{a+1}$) \\
 operators with phases &
 extra-special $2$-group $H$, $1\!\to\!\Z/2\!\to\!H\!\to\!V\!\to\!1$ \\
 self-discovery / Ouroboros Discovery Protocol &
@@ -218,8 +252,13 @@ forbids; everything downstream measures its \emph{failure}.
 \textbf{$\hbarn$ is the depth of that failure, and the ladder computes it.} The
 spec defines $\hbarn$ as the number of commutative contexts needed to describe a
 value (APP\_06 \S6.4): $\approx0$ when one context suffices (classical), finite
-when several must be superposed. Through the dictionary this is the obstruction's
-\emph{arity}, which the series turns into a discrete spectrum.
+when several must be superposed. The normalization ($\hbarn\approx0$ at one
+context) fixes the bookkeeping: $\hbarn$ counts the contexts \emph{beyond} the
+first, so an arity-$a$ datum --- spanning $a$ contexts, resonant on the clique
+$K_{a+1}$ --- has $\hbarn=a-1$, its cohomological \emph{degree}. This
+($\hbarn=$ degree $=$ arity$\,-1$ $=$ clique$\,-2$) is the one convention used
+throughout, in particular in the spectrum table of \S\ref{sec:ladder}; the
+series turns it into a discrete spectrum.
 
 \begin{remark}
 The spec's published CAID (per \texttt{integration\_map.md}) is anchored only to
@@ -232,7 +271,7 @@ the complex spectrum; the symplectic fingerprint is its mathematical content).
 \end{remark}
 
 % =====================================================================
-\section{The ladder is the spectrum of $\hbarn$}
+\section{\texorpdfstring{The ladder is the spectrum of $\hbarn$}{The ladder is the spectrum of h-bar}}
 \label{sec:ladder}
 % =====================================================================
 
@@ -263,6 +302,16 @@ $\hbarn$ & degree & obstruction (clique) & paper(s) \\
 
 (\emph{Family~A} is the Maslov-pentagram type, \emph{family~B} the Mermin-square
 type --- the two configuration flavors of the $H^2$ rung.)
+
+\begin{remark}[Notation: $\Sq^1\omega$ abbreviates $\Sq^1 q$]
+Strictly, $H^2(BV;\F_2)$ contains \emph{no} $\Sp$-invariant class
+($\dim H^2(BV)^{\Sp}=0$); the degree-2 class the series writes as $\omega$ is
+the polynomial $\sum_i x_ix_{n+i}$, i.e.\ the standard quadratic refinement
+$q$, whose \emph{polarization} recovers the symplectic form, and whose
+invariance group is the orthogonal group $O(q)$, not $\Sp$. The honest ambient
+statement is therefore $n_a=\Sq^1 q\in H^3(BV)^{O}$ (ITEM21\_CLOSING, Lemma~A);
+we keep the series' traditional shorthand $\Sq^1\omega$ for this class.
+\end{remark}
 
 \begin{figure}[ht]
 \centering
@@ -322,7 +371,7 @@ semiclassical/WKB; APP\_06 \S6 caveat). The rigorous anchor for $\hbarn$ is
 Bohrification plus this series.
 
 % =====================================================================
-\section{The master dichotomy: $n=4$, and holography}
+\section{\texorpdfstring{The master dichotomy: $n=4$, and holography}{The master dichotomy: n=4, and holography}}
 % =====================================================================
 
 Beneath the ceiling sits the sharpest result of the ladder.
@@ -503,11 +552,22 @@ A whitepaper ends with what is not settled, at the right altitude.
   Maslov--Wall $H^3$, the same class in two languages --- that the spec's $H^3$
   entries await before the $16$-cell / compute-horizon identifications can be made
   drop-in.)
+  \item \textbf{The forcing chain's hinges (items 4, 5) --- conditional, and
+  flagged.} ``Forced into Hilbert space'' (\S1) is a theorem modulo two flagged
+  inputs: the \textbf{[CONDITION]} that the semantic lattice satisfies
+  Sol\`er's hypotheses (the infinite orthonormal sequence from the CAID
+  spectral geometry), and the \textbf{[DESIGN]} axioms (orthomodular negation;
+  continuous, contextual observation) --- deriving orthomodularity itself
+  being the categorical residue (item~5). The EML selection is an echo, not a
+  pillar (item~4): its equivalence to the $d_2$ mechanism is open, and nothing
+  load-bearing rests on it.
 \end{itemize}
 
-Both open ends are the same kind: the perpetual, higher-coherence re-building of
-the one bridge. That it never finitely finishes is the mathematical shape of
-self-representation, not an incompleteness of the program.
+The first two open ends are the same kind: the perpetual, higher-coherence
+re-building of the one bridge --- that it never finitely finishes is the
+mathematical shape of self-representation, not an incompleteness of the
+program. The third is ordinary in kind: foundations stated as hypotheses,
+awaiting discharge --- and flagged until then.
 
 % =====================================================================
 \begin{thebibliography}{99}
