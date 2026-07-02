@@ -132,6 +132,21 @@ sharpen*, not to delete.
   twistor $\mathbb{CP}^3$. Killed as a research line by the positivity / $\mathbb F_2$
   wall; **chase QEC instead**. Kept so the recurring question has a recorded answer.
 
+**Delegated empirical line** *(archived from `papers/` 2026-07-03 — it sat there only for being a .tex)*
+- `timescape_cross_validation.tex` — the only time the framework touched real data: SN Hubble
+  residuals × line-of-sight void fraction (Timescape, Wiltshire) — the source of
+  `why_the_ladder.md` §4's lone ⚠️ row. **Status: inconclusive, leaning unconvincing** — the
+  direct $f_v$ regressions failed for engineering reasons (column mapping; hemisphere mismatch;
+  binary-vs-continuous), and the $\chi^2$ mass-step reversal that "worked" never uses $f_v$
+  (non-diagnostic, likely baseline-dominated). **Disposition: delegated, not a debt**
+  (`inner/open_problems.md` §A′): the framework's only job was the coordinate — "*if* the Hubble
+  tension is a void/wall geometric effect, *then* it sits at $H^1$" — and that coordinate is
+  invariant to the outcome; the empirical question belongs to the Timescape group, which is
+  already doing exactly this. Kept as the honest counterweight: a real attempt that reported,
+  honestly, no clean signal (cartographer, not competitor). Clean-test methodology is on record
+  for whoever re-runs it (per-SN BBC bias, same-hemisphere footprint, continuous $f_v$,
+  permutation significance).
+
 **Live thought experiments** *(❌ as physics — kept as framework stress-tests)*
 - `alpha_fixed_point.md` — α ≈ 1/137 as the universe's Yoneda self-pairing ⟹ underivable
   *because there is no outside*; Feynman's mystery as category-correct, not unsolved. Extends

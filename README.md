@@ -74,15 +74,14 @@ research/
 ├── READING_GUIDE.md                    # Per-paper summaries & reading orders
 ├── RESEARCH_FRONTIER.md                # Toolbox & open problems
 ├── LICENSE                             # CC BY 4.0
-├── insight/                            # Post-series exploration notes
+├── insight/                            # Post-series exploration notes (+ the archived timescape .tex)
 ├── papers/
 │   ├── Paper0_nlang_whitepaper.tex     # Paper N — the n/ whitepaper (spec↔series bridge)
 │   ├── Paper1_contextuality_phase.tex
 │   ├── ...
 │   ├── Paper22_resonance_ceiling.tex
 │   ├── Epilogue_algebraic_logic.tex
-│   ├── LsNote_*.tex                    # L-S contraction appendices (3)
-│   └── timescape_cross_validation.tex  # SN × void-fraction empirical test
+│   └── LsNote_*.tex                    # L-S contraction appendices (3)
 └── supplementary/
     ├── construct_16cell/               # Z3 SAT, 16-cell nerve (Paper IV)
     ├── paper7_conj42/                  # Φ* pullback verification (Paper VII)
@@ -125,7 +124,7 @@ research/
 | [`twistor_cp/`](supplementary/twistor_cp/) | VIII | item 13: the $\mathbb{CP}^{2^n-1}$ realization is family-B only ($\mathrm{Sq}^1$-blind to family A) |
 | [`familyB_resonance/`](supplementary/familyB_resonance/) | XXII | item 22: no family-B resonance — it is the $\omega=2$ floor of family A's clique tower |
 | [`k4_h2_opening/`](supplementary/k4_h2_opening/) | XXII | the $K_4/H^2$ Maslov rung: exact opening witnesses (n=5,7) + the flip reduction |
-| [`timescape/`](supplementary/timescape/) | — | SN Hubble-residual $\times$ void-fraction cross-validation |
+| [`timescape/`](supplementary/timescape/) | insight | SN Hubble-residual $\times$ void-fraction cross-validation (write-up archived: [`insight/timescape_cross_validation.tex`](insight/timescape_cross_validation.tex)) |
 
 ---
 
