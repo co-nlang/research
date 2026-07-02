@@ -17,6 +17,7 @@ The endpoint: the framework's deepest invariant ($H^3$) is $\mathrm{Sq}^1\omega$
 → **[READING_GUIDE.md](READING_GUIDE.md)** — per-paper summaries and recommended reading orders.
 → **[RESEARCH_FRONTIER.md](RESEARCH_FRONTIER.md)** — mathematical toolbox and open problems.
 → **[insight/](insight/)** — post-series exploration notes (QEC substrate identity, BHQC, AdS/CFT holographic codes, Klein quartic, and others).
+→ **[worknotes/](worknotes/)** — selected internal working documents, published verbatim: how the human + LLM collaboration actually ran (planning menus, session logs, dead ends, self-caught errors — with a decoder for the internal jargon).
 → **[Paper N](papers/Paper0_nlang_whitepaper.tex)** — *the n/ whitepaper*: the bridge from this series to the n/ language specification (CAID, forced quantization → Bohrification, the $H^3$ ceiling, $n=4$). A readable entry point spanning both sides. (“N” is n/'s own letter, from *element zero* — Paper N is the series' Paper 0.)
 
 ---
@@ -75,6 +76,7 @@ research/
 ├── RESEARCH_FRONTIER.md                # Toolbox & open problems
 ├── LICENSE                             # CC BY 4.0
 ├── insight/                            # Post-series exploration notes (+ the archived timescape .tex)
+├── worknotes/                          # Internal working documents, published verbatim (with decoder README)
 ├── papers/
 │   ├── Paper0_nlang_whitepaper.tex     # Paper N — the n/ whitepaper (spec↔series bridge)
 │   ├── Paper1_contextuality_phase.tex

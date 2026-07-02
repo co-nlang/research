@@ -139,7 +139,7 @@ sharpen*, not to delete.
   direct $f_v$ regressions failed for engineering reasons (column mapping; hemisphere mismatch;
   binary-vs-continuous), and the $\chi^2$ mass-step reversal that "worked" never uses $f_v$
   (non-diagnostic, likely baseline-dominated). **Disposition: delegated, not a debt**
-  (`inner/open_problems.md` §A′): the framework's only job was the coordinate — "*if* the Hubble
+  (`worknotes/open_problems.md` §A′): the framework's only job was the coordinate — "*if* the Hubble
   tension is a void/wall geometric effect, *then* it sits at $H^1$" — and that coordinate is
   invariant to the outcome; the empirical question belongs to the Timescape group, which is
   already doing exactly this. Kept as the honest counterweight: a real attempt that reported,
