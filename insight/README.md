@@ -46,6 +46,12 @@ sharpen*, not to delete.
   (with $\mathcal B$ = the one-wall functor) and an **adjoint equivalence iff $n=4$**, the counit
   defect being $n_a$. The wall ($\mathcal B$), its free adjoint ($\mathcal Q$), and the
   obstruction to inverse ($n_a$, item 23) are one picture, three ways.
+- `hbar_spectrum_sparsity.md` — the degrees where primary obstruction data can resonate
+  are $\{2\}\cup\{1+2^i\}$ = 2, 3, 5, 9, …; **degree 4 is a hole sealed twice** (XXII arity
+  truncation = theorem; Kudo-tower skip = verified-mod-reframe). Public-face prediction:
+  the next rung is $H^5$/arity-6/$K_7$, never $H^4$. Ends with ⚠️ a self-similarity
+  conjecture (allowed linearity degrees are themselves $1+2^j$; quadrilinear structurally
+  empty) — label-counting heuristic, promotion path stated.
 - `langlands_shape.md` — ❓ *analogy, not a result.* Why item 23 keeps reminding readers of the
   Langlands program: a Yoneda-shaped correspondence between two incompatible descriptions (family
   A $\leftrightarrow$ B), with **local** ($V$-side, Kudo, theorem) vs **global** (configuration,
