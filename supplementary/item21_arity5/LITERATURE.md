@@ -101,6 +101,57 @@ arity-3 datum). So the reduction recovers `μ`, **not** the `H³` class or the e
 path, and the char-2 obstruction is confirmed (concretely, not by assertion) to be the irreducibly
 char-2 residue C-O do not see.
 
+## Stratum sharpening — the pentagram is not IN C-O's configuration category (checked 2026-07-07)
+
+*Second literature pass (idea C of the 2026-07 review queue), against the ar5iv full text of
+arXiv:1812.04271. Three claims verified, one of our own framings corrected.*
+
+**Verified.**
+- **Genericity is constitutive, not a convenience.** C-O define "generic" as: ⟨X_i,X_j⟩
+  non-isotropic whenever the cyclic distance satisfies |i−j|_N ≥ n; Lemma 2.2 requires
+  `ω(x_i, x_{i+n}) ≠ 0` for all i. **Even the discrete sign invariants need nonzero ω's**
+  (Lemma 2.4: "if ω_{j_{s-1},j_s} ≠ 0 for all s"). Degenerate configurations get one closure
+  remark (§6.3) and no theory. Their entire apparatus lives on the open generic stratum.
+- **The dimension formula and its range.** Proposition 2.7: `dim L_{n,N}(K) = n(N−2n−1)`,
+  **valid for N > 2n** (where Sp(2n,K) acts freely on generic configurations). N = 2n is a
+  single orbit; N = 2n+1 gives two classes over ℝ; first continuous modulus at N = 2n+2. ✓
+- **Fields**: "𝕂 will denote either ℝ or ℂ" — explicit; no finite fields anywhere. ✓
+
+**Correction of our earlier framing ("pairwise-transverse generic position").** C-O's cyclic
+configurations are NOT pairwise transverse: **consecutive Lagrangians share an (n−1)-plane by
+construction** (L_i = ⟨x_i,…,x_{i+n−1}⟩). Genericity constrains the FAR pairs. The correct
+statement of the orthogonality is sharper and structural:
+
+1. **Incidence type**: the Mermin pentagram is K₅-incidence — each ray lies in exactly **2** of
+   the 5 Lagrangians, every pair shares exactly one ray (10 rays = 10 edges). C-O configurations
+   are cyclic-incidence — each line lies in exactly **n consecutive** Lagrangians. Different
+   incidence categories; no relabeling maps one to the other.
+2. **Parameter range**: under the Lagrangian-count map the pentagram is (N, n) = (5, 4), i.e.
+   **N = 5 < 2n = 8 — outside the range of every C-O moduli statement** (all need N > 2n).
+   The formula value n(N−2n−1) = −16 < 0 is not "a negative-dimensional stratum"; it is the
+   formula evaluated outside its hypothesis.
+3. **Field**: F₂ excluded from the outset (and the cross-ratio degenerates there — the
+   2026-06-22 crux above).
+
+So the right citation sentence for XXIII is not "our modulus is the degenerate/char-2 shadow of
+the C-O modulus" but: **"the framework's configurations live in an incidence category and a
+parameter range (and over a field) that the cross-ratio theory constitutively excludes; its
+rad(ω|_W) modulus is a discrete invariant on a stratum the generic theory never enters."**
+
+**Why co_reduce.py had to come out "orthogonal, not a reduction" (the retrospective why).**
+The reduction applied C-O's *formulas* (cross-ratio, Pfaffian) to pentagram ray-Grams; but the
+*theory* behind those formulas (generation/completeness, Prop 2.7) is proven only on the cyclic
+generic stratum, which the pentagram never inhabits. The mod-2 failure was overdetermined:
+wrong field AND wrong stratum AND wrong incidence category. The one thing that does transfer —
+the sign invariant reducing to the Maslov bit μ — is exactly the piece whose definition
+(Lemma 2.4) survives on the pentagram's nonzero-ω pairs.
+
+**The n=4 face (internal cross-check, M5_kerG_reduction).** On the framework's own stratum the
+nondegenerate locus is 100% at n=4 (400/400, `rad(ω|_W)=0` throughout; strata spread appears
+only at n≥5). The dimension where the self-description loop closes is exactly the dimension
+where the framework's stratum is uniformly nondegenerate — one more face of n=4 rigidity,
+**value-level verified**, independent of C-O.
+
 ## Adjacent / checked, low relevance (bank the negatives)
 
 - **Vinroot, "Real representations of finite symplectic groups over fields of characteristic two"**
