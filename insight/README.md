@@ -62,9 +62,36 @@ sharpen*, not to delete.
   (scale; no L-functions; one correspondence not a web).
 
 **Promoted to the main line**
-- `transformers_bohrification.md` — transformer = learned Bohrification functor
-  (RoPE = $H^1$ holonomy is the tight correspondence). On the actual endgame:
-  `n/` + LLM neuro-symbolic = exact observer (engine) + learned observer (LLM).
+- `transformers_bohrification.md` — transformer = learned Bohrification functor; the
+  endgame line behind ROADMAP's `n/` × LLM row (research_review §8). **§1–§7 are a
+  Paper I–VI era artifact** — written wholly in the continuous register, before the
+  two-track retreat (APP_02 §0) moved proof-bearing content to $\mathbb F_2$. **§8
+  (2026-07-28) is appended, not merged, so the evolution stays visible**, and it is
+  mostly a demotion list. Trigger: *Language Models are Injective and Hence
+  Invertible* (arXiv:2510.15511, ICLR 2026) — distinct prompts almost surely give
+  distinct last-token states, and SipIt inverts. What it moves: (i) the note's three
+  fused ideas separate — **identity preservation $\neq$ structural fullness $\neq$
+  predictive determinacy**; the framework's predicted loss was always the middle one
+  (counit defect $n_a$), so an injectivity result neither threatens nor supports it,
+  and the earlier "injective $\Rightarrow$ faithful functor $\Rightarrow$ evidence for
+  $\mathcal B$" was a **level error, withdrawn**; (ii) the theorem is generic —
+  analyticity plus *point-separation*, the latter discharged **using an attention
+  head** — so it settles nothing about SSMs and §5 must not cite it; (iii) **RoPE =
+  $H^1$ holonomy is demoted**: a blockwise $U(1)$ rep of $\mathbb Z$, i.e. flat
+  parallel transport, and token positions have no nontrivial loops — it was too strong
+  even before two-track; (iv) perplexity is **entropy, not contextuality** (a fair coin
+  has perplexity 2 and no obstruction); the real test is whether conditionals on
+  *overlapping* contexts glue, with $L_\infty-H_{\mathrm{Bayes}}$ as the only
+  comparable floor; (v) the one new instrument is the **normalized separation margin**
+  $\widetilde\Delta$ (raw $\Delta$ is not coordinate-invariant), best taken per
+  quantization step = effective code distance in the arithmetic that actually runs.
+  For the ROADMAP row: "LLM = lossy" is false of its **record**, true of its
+  **prediction**; the two round trips separate, and $n=4$ governs only the semantic
+  one. Caution for `n/`: a hidden state is **not an address** but the thing in other
+  coordinates — full per-position states in LADD would be plaintext.
+  Reviewed by a second agent, 2026-07-28; five corrections applied, including one
+  vacuous question the author had shipped (existence of a hidden-state $\leftrightarrow$
+  CAID bijection is free on a finite domain; the content is **naturality**).
 - `distributed_consensus_cohomology.md` — FLP = $H^2$, Byzantine = $H^3$,
   Sybil = "$H^4$". Absorbed into the spec (APP_07 §4) — **as a correspondence-level
   mapping, not upgraded to the series' later (X–XXII) rigour**; the mathematical
